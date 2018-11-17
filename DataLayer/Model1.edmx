@@ -1,0 +1,1624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SosyalYardimVTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BagisDetayResimTablo">
+          <Key>
+            <PropertyRef Name="BagisResimId" />
+          </Key>
+          <Property Name="BagisResimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BagisDetayTablo.BagisDetayId" Type="int" />
+          <Property Name="BagisResimUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BagisDetayTablo">
+          <Key>
+            <PropertyRef Name="BagisDetayId" />
+          </Key>
+          <Property Name="BagisDetayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BagisTablo.BagisId" Type="int" />
+          <Property Name="Adet" Type="int" />
+          <Property Name="EsyaTablo.EsyaId" Type="int" />
+          <Property Name="AlinacakMi" Type="bit" />
+          <Property Name="AlindiMi" Type="bit" />
+          <Property Name="AlinmaTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="BagisTablo">
+          <Key>
+            <PropertyRef Name="BagisId" />
+          </Key>
+          <Property Name="BagisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="EklenmeTarihi" Type="date" />
+          <Property Name="OnaylandiMi" Type="bit" />
+          <Property Name="TahminiTeslimAlmaTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="DepoTablo">
+          <Key>
+            <PropertyRef Name="DepoEsyaId" />
+          </Key>
+          <Property Name="DepoEsyaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsyaTablo.EsyaId" Type="int" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="Adet" Type="int" />
+        </EntityType>
+        <EntityType Name="DisardanIslemYapanTablo">
+          <Key>
+            <PropertyRef Name="IslemYapanId" />
+          </Key>
+          <Property Name="IslemYapanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IslemYapanAdi" Type="nvarchar(max)" />
+          <Property Name="IslemYapanSoyadi" Type="nvarchar(max)" />
+          <Property Name="IslemYapanTel" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EsyaTablo">
+          <Key>
+            <PropertyRef Name="EsyaId" />
+          </Key>
+          <Property Name="EsyaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsyaAdi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GeriBildirimTablo">
+          <Key>
+            <PropertyRef Name="GeriBildirimId" />
+          </Key>
+          <Property Name="GeriBildirimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GeriBildirimKonu" Type="nvarchar" MaxLength="50" />
+          <Property Name="GeriBildirimMesaj" Type="nvarchar(max)" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="GeriBildirimDurumu" Type="int" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="DisardanIslemYapan.IslemYapanId" Type="int" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiKontrolTablo">
+          <Key>
+            <PropertyRef Name="IhtiyacSahibiKontrolId" />
+          </Key>
+          <Property Name="IhtiyacSahibiKontrolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IhtiyacSahibiTablo.IhtiyacSahibiGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="MuhtacMi" Type="bit" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="IhtiyacSahibiKontrolYapilmaTarihi" Type="date" />
+          <Property Name="İhtiyacSahibiTahminiTeslimTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiTablo">
+          <Key>
+            <PropertyRef Name="IhtıyacSahibiGuId" />
+          </Key>
+          <Property Name="IhtıyacSahibiGuId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IhtıyacSahibiAdi" Type="nvarchar(max)" />
+          <Property Name="İhtiyacSahibiSoyadi" Type="nvarchar(max)" />
+          <Property Name="İhtiyacSahibiTelNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IhtiyacSahibiAdres" Type="nvarchar(max)" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="DisardanIslemYapanTablo.IslemYapanId" Type="int" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiVerileceklerTablo">
+          <Key>
+            <PropertyRef Name="İhtiyacSahibiVerilecekId" />
+          </Key>
+          <Property Name="İhtiyacSahibiVerilecekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsyaTablo.EsyaId" Type="int" />
+          <Property Name="Adet" Type="int" />
+          <Property Name="IhtiyacSahibiKontrolTablo.IhtiyacSahibiKontrolId" Type="int" />
+          <Property Name="GercekTeslimTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="KasaTablo">
+          <Key>
+            <PropertyRef Name="KasaId" />
+          </Key>
+          <Property Name="KasaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Miktar" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Aciklama" Type="nvarchar(max)" />
+          <Property Name="KullaniciBilgleriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="DisardanIslemYapanTablo.IslemYapanId" Type="int" />
+        </EntityType>
+        <EntityType Name="KullaniciBilgileriTablo">
+          <Key>
+            <PropertyRef Name="KullaniciGuId" />
+          </Key>
+          <Property Name="KullaniciGuId" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar(max)" />
+          <Property Name="KullaniciSoyadi" Type="nvarchar(max)" />
+          <Property Name="SehirTablo.Sehirid" Type="int" />
+          <Property Name="KullaniciOnayliMi" Type="bit" />
+          <Property Name="KullaniciTelegramKullaniciAdi" Type="nvarchar(max)" />
+          <Property Name="KullaniciTCKimlikNumarasi" Type="nvarchar" MaxLength="11" />
+          <Property Name="KullaniciTelefonNumarasi" Type="nvarchar" MaxLength="50" />
+          <Property Name="KullaniciMerkezdeMi" Type="bit" />
+          <Property Name="BagisciMi" Type="bit" />
+          <Property Name="KullaniciEPosta" Type="nvarchar" MaxLength="50" />
+          <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LogTablo">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="YapılanIslem" Type="nvarchar(max)" />
+          <Property Name="DisardanIslemYapanTablo.IslemYapanId" Type="int" />
+        </EntityType>
+        <EntityType Name="MesajDetayTablo">
+          <Key>
+            <PropertyRef Name="MesajDetayId" />
+          </Key>
+          <Property Name="MesajDetayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MesajTablo.MesajId" Type="int" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="MesajMetni" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MesajTablo">
+          <Key>
+            <PropertyRef Name="MesajId" />
+          </Key>
+          <Property Name="MesajId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="KimeAtildi" Type="int" />
+        </EntityType>
+        <EntityType Name="RotaTablo">
+          <Key>
+            <PropertyRef Name="RotaId" />
+          </Key>
+          <Property Name="RotaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControllerAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="LinkAdi" Type="nvarchar" MaxLength="500" />
+          <Property Name="RotaTablo.RotaId" Type="int" />
+        </EntityType>
+        <EntityType Name="SehirTablo">
+          <Key>
+            <PropertyRef Name="SehirId" />
+          </Key>
+          <Property Name="SehirId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SehirAdi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SubeTablo">
+          <Key>
+            <PropertyRef Name="SubeId" />
+          </Key>
+          <Property Name="SubeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="YetkiTablo">
+          <Key>
+            <PropertyRef Name="YetkiId" />
+          </Key>
+          <Property Name="YetkiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciBilgileriTablo.KullaniciGuId" Type="nvarchar" MaxLength="256" />
+          <Property Name="RotaTablo.RotaId" Type="int" />
+          <Property Name="GirebilirMi" Type="bit" />
+        </EntityType>
+        <Association Name="FK_BagisDetayResimTablo_BagisDetayTablo">
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayResimTablo" Type="Self.BagisDetayResimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BagisDetayTablo">
+              <PropertyRef Name="BagisDetayId" />
+            </Principal>
+            <Dependent Role="BagisDetayResimTablo">
+              <PropertyRef Name="BagisDetayTablo.BagisDetayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisDetayTablo_BagisTablo">
+          <End Role="BagisTablo" Type="Self.BagisTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BagisTablo">
+              <PropertyRef Name="BagisId" />
+            </Principal>
+            <Dependent Role="BagisDetayTablo">
+              <PropertyRef Name="BagisTablo.BagisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisDetayTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="BagisDetayTablo">
+              <PropertyRef Name="EsyaTablo.EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="BagisTablo" Type="Self.BagisTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="BagisTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepoTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="DepoTablo" Type="Self.DepoTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="DepoTablo">
+              <PropertyRef Name="EsyaTablo.EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepoTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="DepoTablo" Type="Self.DepoTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="DepoTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="DisardanIslemYapan.IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo">
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiKontrolTablo" Type="Self.IhtiyacSahibiKontrolTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="IhtıyacSahibiGuId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiKontrolTablo">
+              <PropertyRef Name="IhtiyacSahibiTablo.IhtiyacSahibiGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="DisardanIslemYapanTablo.IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiVerileceklerTablo" Type="Self.IhtiyacSahibiVerileceklerTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiVerileceklerTablo">
+              <PropertyRef Name="EsyaTablo.EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo">
+          <End Role="IhtiyacSahibiKontrolTablo" Type="Self.IhtiyacSahibiKontrolTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiVerileceklerTablo" Type="Self.IhtiyacSahibiVerileceklerTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IhtiyacSahibiKontrolTablo">
+              <PropertyRef Name="IhtiyacSahibiKontrolId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiVerileceklerTablo">
+              <PropertyRef Name="IhtiyacSahibiKontrolTablo.IhtiyacSahibiKontrolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="KullaniciBilgleriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciBilgileriTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="SehirTablo.Sehirid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="LogTablo" Type="Self.LogTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="LogTablo">
+              <PropertyRef Name="DisardanIslemYapanTablo.IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="LogTablo" Type="Self.LogTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="LogTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajDetayTablo_MesajTablo">
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="0..1" />
+          <End Role="MesajDetayTablo" Type="Self.MesajDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MesajTablo">
+              <PropertyRef Name="MesajId" />
+            </Principal>
+            <Dependent Role="MesajDetayTablo">
+              <PropertyRef Name="MesajTablo.MesajId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="MesajTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="MesajTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RotaTablo_RotaTablo">
+          <End Role="RotaTablo" Type="Self.RotaTablo" Multiplicity="0..1" />
+          <End Role="RotaTablo1" Type="Self.RotaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RotaTablo">
+              <PropertyRef Name="RotaId" />
+            </Principal>
+            <Dependent Role="RotaTablo1">
+              <PropertyRef Name="RotaTablo.RotaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubeTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="SubeTablo" Type="Self.SubeTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="SubeTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubeTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="SubeTablo" Type="Self.SubeTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="SubeTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YetkiTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="YetkiTablo" Type="Self.YetkiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="YetkiTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo.KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YetkiTablo_RotaTablo">
+          <End Role="RotaTablo" Type="Self.RotaTablo" Multiplicity="0..1" />
+          <End Role="YetkiTablo" Type="Self.YetkiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RotaTablo">
+              <PropertyRef Name="RotaId" />
+            </Principal>
+            <Dependent Role="YetkiTablo">
+              <PropertyRef Name="RotaTablo.RotaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SosyalYardimVTModelStoreContainer">
+          <EntitySet Name="BagisDetayResimTablo" EntityType="Self.BagisDetayResimTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BagisDetayTablo" EntityType="Self.BagisDetayTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BagisTablo" EntityType="Self.BagisTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepoTablo" EntityType="Self.DepoTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DisardanIslemYapanTablo" EntityType="Self.DisardanIslemYapanTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsyaTablo" EntityType="Self.EsyaTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeriBildirimTablo" EntityType="Self.GeriBildirimTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IhtiyacSahibiKontrolTablo" EntityType="Self.IhtiyacSahibiKontrolTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IhtiyacSahibiTablo" EntityType="Self.IhtiyacSahibiTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IhtiyacSahibiVerileceklerTablo" EntityType="Self.IhtiyacSahibiVerileceklerTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KasaTablo" EntityType="Self.KasaTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciBilgileriTablo" EntityType="Self.KullaniciBilgileriTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogTablo" EntityType="Self.LogTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesajDetayTablo" EntityType="Self.MesajDetayTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MesajTablo" EntityType="Self.MesajTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RotaTablo" EntityType="Self.RotaTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SehirTablo" EntityType="Self.SehirTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubeTablo" EntityType="Self.SubeTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YetkiTablo" EntityType="Self.YetkiTablo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BagisDetayResimTablo_BagisDetayTablo" Association="Self.FK_BagisDetayResimTablo_BagisDetayTablo">
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+            <End Role="BagisDetayResimTablo" EntitySet="BagisDetayResimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisDetayTablo_BagisTablo" Association="Self.FK_BagisDetayTablo_BagisTablo">
+            <End Role="BagisTablo" EntitySet="BagisTablo" />
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisDetayTablo_EsyaTablo" Association="Self.FK_BagisDetayTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisTablo_KullaniciBilgileriTablo" Association="Self.FK_BagisTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="BagisTablo" EntitySet="BagisTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepoTablo_EsyaTablo" Association="Self.FK_DepoTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="DepoTablo" EntitySet="DepoTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepoTablo_SehirTablo" Association="Self.FK_DepoTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="DepoTablo" EntitySet="DepoTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_DisardanIslemYapanTablo" Association="Self.FK_GeriBildirimTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_KullaniciBilgileriTablo" Association="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_SehirTablo" Association="Self.FK_GeriBildirimTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" Association="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo">
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+            <End Role="IhtiyacSahibiKontrolTablo" EntitySet="IhtiyacSahibiKontrolTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo" Association="Self.FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiTablo_SehirTablo" Association="Self.FK_IhtiyacSahibiTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo" Association="Self.FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="IhtiyacSahibiVerileceklerTablo" EntitySet="IhtiyacSahibiVerileceklerTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo" Association="Self.FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo">
+            <End Role="IhtiyacSahibiKontrolTablo" EntitySet="IhtiyacSahibiKontrolTablo" />
+            <End Role="IhtiyacSahibiVerileceklerTablo" EntitySet="IhtiyacSahibiVerileceklerTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_KullaniciBilgileriTablo" Association="Self.FK_KasaTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_SehirTablo" Association="Self.FK_KasaTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciBilgileriTablo_SehirTablo" Association="Self.FK_KullaniciBilgileriTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogTablo_DisardanIslemYapanTablo" Association="Self.FK_LogTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="LogTablo" EntitySet="LogTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogTablo_KullaniciBilgileriTablo" Association="Self.FK_LogTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="LogTablo" EntitySet="LogTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajDetayTablo_MesajTablo" Association="Self.FK_MesajDetayTablo_MesajTablo">
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+            <End Role="MesajDetayTablo" EntitySet="MesajDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajTablo_KullaniciBilgileriTablo" Association="Self.FK_MesajTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajTablo_SehirTablo" Association="Self.FK_MesajTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RotaTablo_RotaTablo" Association="Self.FK_RotaTablo_RotaTablo">
+            <End Role="RotaTablo" EntitySet="RotaTablo" />
+            <End Role="RotaTablo1" EntitySet="RotaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubeTablo_KullaniciBilgileriTablo" Association="Self.FK_SubeTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="SubeTablo" EntitySet="SubeTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubeTablo_SehirTablo" Association="Self.FK_SubeTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="SubeTablo" EntitySet="SubeTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YetkiTablo_KullaniciBilgileriTablo" Association="Self.FK_YetkiTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="YetkiTablo" EntitySet="YetkiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YetkiTablo_RotaTablo" Association="Self.FK_YetkiTablo_RotaTablo">
+            <End Role="RotaTablo" EntitySet="RotaTablo" />
+            <End Role="YetkiTablo" EntitySet="YetkiTablo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SosyalYardimVTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BagisDetayResimTablo">
+          <Key>
+            <PropertyRef Name="BagisResimId" />
+          </Key>
+          <Property Name="BagisResimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BagisDetayTablo_BagisDetayId" Type="Int32" />
+          <Property Name="BagisResimUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BagisDetayTablo" Relationship="Self.FK_BagisDetayResimTablo_BagisDetayTablo" FromRole="BagisDetayResimTablo" ToRole="BagisDetayTablo" />
+        </EntityType>
+        <EntityType Name="BagisDetayTablo">
+          <Key>
+            <PropertyRef Name="BagisDetayId" />
+          </Key>
+          <Property Name="BagisDetayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BagisTablo_BagisId" Type="Int32" />
+          <Property Name="Adet" Type="Int32" />
+          <Property Name="EsyaTablo_EsyaId" Type="Int32" />
+          <Property Name="AlinacakMi" Type="Boolean" />
+          <Property Name="AlindiMi" Type="Boolean" />
+          <Property Name="AlinmaTarihi" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BagisDetayResimTablo" Relationship="Self.FK_BagisDetayResimTablo_BagisDetayTablo" FromRole="BagisDetayTablo" ToRole="BagisDetayResimTablo" />
+          <NavigationProperty Name="BagisTablo" Relationship="Self.FK_BagisDetayTablo_BagisTablo" FromRole="BagisDetayTablo" ToRole="BagisTablo" />
+          <NavigationProperty Name="EsyaTablo" Relationship="Self.FK_BagisDetayTablo_EsyaTablo" FromRole="BagisDetayTablo" ToRole="EsyaTablo" />
+        </EntityType>
+        <EntityType Name="BagisTablo">
+          <Key>
+            <PropertyRef Name="BagisId" />
+          </Key>
+          <Property Name="BagisId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EklenmeTarihi" Type="DateTime" Precision="0" />
+          <Property Name="OnaylandiMi" Type="Boolean" />
+          <Property Name="TahminiTeslimAlmaTarihi" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BagisDetayTablo" Relationship="Self.FK_BagisDetayTablo_BagisTablo" FromRole="BagisTablo" ToRole="BagisDetayTablo" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_BagisTablo_KullaniciBilgileriTablo" FromRole="BagisTablo" ToRole="KullaniciBilgileriTablo" />
+        </EntityType>
+        <EntityType Name="DepoTablo">
+          <Key>
+            <PropertyRef Name="DepoEsyaId" />
+          </Key>
+          <Property Name="DepoEsyaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsyaTablo_EsyaId" Type="Int32" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="Adet" Type="Int32" />
+          <NavigationProperty Name="EsyaTablo" Relationship="Self.FK_DepoTablo_EsyaTablo" FromRole="DepoTablo" ToRole="EsyaTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_DepoTablo_SehirTablo" FromRole="DepoTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="DisardanIslemYapanTablo">
+          <Key>
+            <PropertyRef Name="IslemYapanId" />
+          </Key>
+          <Property Name="IslemYapanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IslemYapanAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IslemYapanSoyadi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IslemYapanTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GeriBildirimTablo" Relationship="Self.FK_GeriBildirimTablo_DisardanIslemYapanTablo" FromRole="DisardanIslemYapanTablo" ToRole="GeriBildirimTablo" />
+          <NavigationProperty Name="IhtiyacSahibiTablo" Relationship="Self.FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo" FromRole="DisardanIslemYapanTablo" ToRole="IhtiyacSahibiTablo" />
+          <NavigationProperty Name="LogTablo" Relationship="Self.FK_LogTablo_DisardanIslemYapanTablo" FromRole="DisardanIslemYapanTablo" ToRole="LogTablo" />
+        </EntityType>
+        <EntityType Name="EsyaTablo">
+          <Key>
+            <PropertyRef Name="EsyaId" />
+          </Key>
+          <Property Name="EsyaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsyaAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BagisDetayTablo" Relationship="Self.FK_BagisDetayTablo_EsyaTablo" FromRole="EsyaTablo" ToRole="BagisDetayTablo" />
+          <NavigationProperty Name="DepoTablo" Relationship="Self.FK_DepoTablo_EsyaTablo" FromRole="EsyaTablo" ToRole="DepoTablo" />
+          <NavigationProperty Name="IhtiyacSahibiVerileceklerTablo" Relationship="Self.FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo" FromRole="EsyaTablo" ToRole="IhtiyacSahibiVerileceklerTablo" />
+        </EntityType>
+        <EntityType Name="GeriBildirimTablo">
+          <Key>
+            <PropertyRef Name="GeriBildirimId" />
+          </Key>
+          <Property Name="GeriBildirimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GeriBildirimKonu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GeriBildirimMesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="GeriBildirimDurumu" Type="Int32" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="DisardanIslemYapan_IslemYapanId" Type="Int32" />
+          <NavigationProperty Name="DisardanIslemYapanTablo" Relationship="Self.FK_GeriBildirimTablo_DisardanIslemYapanTablo" FromRole="GeriBildirimTablo" ToRole="DisardanIslemYapanTablo" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo" FromRole="GeriBildirimTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_GeriBildirimTablo_SehirTablo" FromRole="GeriBildirimTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiKontrolTablo">
+          <Key>
+            <PropertyRef Name="IhtiyacSahibiKontrolId" />
+          </Key>
+          <Property Name="IhtiyacSahibiKontrolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IhtiyacSahibiTablo_IhtiyacSahibiGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MuhtacMi" Type="Boolean" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="IhtiyacSahibiKontrolYapilmaTarihi" Type="DateTime" Precision="0" />
+          <Property Name="İhtiyacSahibiTahminiTeslimTarihi" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="IhtiyacSahibiTablo" Relationship="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiKontrolTablo" ToRole="IhtiyacSahibiTablo" />
+          <NavigationProperty Name="IhtiyacSahibiVerileceklerTablo" Relationship="Self.FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo" FromRole="IhtiyacSahibiKontrolTablo" ToRole="IhtiyacSahibiVerileceklerTablo" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiTablo">
+          <Key>
+            <PropertyRef Name="IhtıyacSahibiGuId" />
+          </Key>
+          <Property Name="IhtıyacSahibiGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IhtıyacSahibiAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="İhtiyacSahibiSoyadi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="İhtiyacSahibiTelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IhtiyacSahibiAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="DisardanIslemYapanTablo_IslemYapanId" Type="Int32" />
+          <NavigationProperty Name="DisardanIslemYapanTablo" Relationship="Self.FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo" FromRole="IhtiyacSahibiTablo" ToRole="DisardanIslemYapanTablo" />
+          <NavigationProperty Name="IhtiyacSahibiKontrolTablo" Relationship="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiTablo" ToRole="IhtiyacSahibiKontrolTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="IhtiyacSahibiTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="IhtiyacSahibiVerileceklerTablo">
+          <Key>
+            <PropertyRef Name="İhtiyacSahibiVerilecekId" />
+          </Key>
+          <Property Name="İhtiyacSahibiVerilecekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsyaTablo_EsyaId" Type="Int32" />
+          <Property Name="Adet" Type="Int32" />
+          <Property Name="IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId" Type="Int32" />
+          <Property Name="GercekTeslimTarihi" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EsyaTablo" Relationship="Self.FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo" FromRole="IhtiyacSahibiVerileceklerTablo" ToRole="EsyaTablo" />
+          <NavigationProperty Name="IhtiyacSahibiKontrolTablo" Relationship="Self.FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo" FromRole="IhtiyacSahibiVerileceklerTablo" ToRole="IhtiyacSahibiKontrolTablo" />
+        </EntityType>
+        <EntityType Name="KasaTablo">
+          <Key>
+            <PropertyRef Name="KasaId" />
+          </Key>
+          <Property Name="KasaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Miktar" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciBilgleriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="DisardanIslemYapanTablo_IslemYapanId" Type="Int32" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_KasaTablo_KullaniciBilgileriTablo" FromRole="KasaTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_KasaTablo_SehirTablo" FromRole="KasaTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="KullaniciBilgileriTablo">
+          <Key>
+            <PropertyRef Name="KullaniciGuId" />
+          </Key>
+          <Property Name="KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSoyadi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SehirTablo_Sehirid" Type="Int32" />
+          <Property Name="KullaniciOnayliMi" Type="Boolean" />
+          <Property Name="KullaniciTelegramKullaniciAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciTCKimlikNumarasi" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciTelefonNumarasi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciMerkezdeMi" Type="Boolean" />
+          <Property Name="BagisciMi" Type="Boolean" />
+          <Property Name="KullaniciEPosta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BagisTablo" Relationship="Self.FK_BagisTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="BagisTablo" />
+          <NavigationProperty Name="GeriBildirimTablo" Relationship="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="GeriBildirimTablo" />
+          <NavigationProperty Name="KasaTablo" Relationship="Self.FK_KasaTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="KasaTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="KullaniciBilgileriTablo" ToRole="SehirTablo" />
+          <NavigationProperty Name="LogTablo" Relationship="Self.FK_LogTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="LogTablo" />
+          <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="MesajTablo" />
+          <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="SubeTablo" />
+          <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="YetkiTablo" />
+        </EntityType>
+        <EntityType Name="LogTablo">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="YapılanIslem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisardanIslemYapanTablo_IslemYapanId" Type="Int32" />
+          <NavigationProperty Name="DisardanIslemYapanTablo" Relationship="Self.FK_LogTablo_DisardanIslemYapanTablo" FromRole="LogTablo" ToRole="DisardanIslemYapanTablo" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_LogTablo_KullaniciBilgileriTablo" FromRole="LogTablo" ToRole="KullaniciBilgileriTablo" />
+        </EntityType>
+        <EntityType Name="MesajDetayTablo">
+          <Key>
+            <PropertyRef Name="MesajDetayId" />
+          </Key>
+          <Property Name="MesajDetayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MesajTablo_MesajId" Type="Int32" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MesajMetni" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajDetayTablo_MesajTablo" FromRole="MesajDetayTablo" ToRole="MesajTablo" />
+        </EntityType>
+        <EntityType Name="MesajTablo">
+          <Key>
+            <PropertyRef Name="MesajId" />
+          </Key>
+          <Property Name="MesajId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="KimeAtildi" Type="Int32" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="MesajTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="MesajDetayTablo" Relationship="Self.FK_MesajDetayTablo_MesajTablo" FromRole="MesajTablo" ToRole="MesajDetayTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_MesajTablo_SehirTablo" FromRole="MesajTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="RotaTablo">
+          <Key>
+            <PropertyRef Name="RotaId" />
+          </Key>
+          <Property Name="RotaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControllerAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActionAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LinkAdi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RotaTablo_RotaId" Type="Int32" />
+          <NavigationProperty Name="RotaTablo1" Relationship="Self.FK_RotaTablo_RotaTablo" FromRole="RotaTablo" ToRole="RotaTablo1" />
+          <NavigationProperty Name="RotaTablo2" Relationship="Self.FK_RotaTablo_RotaTablo" FromRole="RotaTablo1" ToRole="RotaTablo" />
+          <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_RotaTablo" FromRole="RotaTablo" ToRole="YetkiTablo" />
+        </EntityType>
+        <EntityType Name="SehirTablo">
+          <Key>
+            <PropertyRef Name="SehirId" />
+          </Key>
+          <Property Name="SehirId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SehirAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DepoTablo" Relationship="Self.FK_DepoTablo_SehirTablo" FromRole="SehirTablo" ToRole="DepoTablo" />
+          <NavigationProperty Name="GeriBildirimTablo" Relationship="Self.FK_GeriBildirimTablo_SehirTablo" FromRole="SehirTablo" ToRole="GeriBildirimTablo" />
+          <NavigationProperty Name="IhtiyacSahibiTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="SehirTablo" ToRole="IhtiyacSahibiTablo" />
+          <NavigationProperty Name="KasaTablo" Relationship="Self.FK_KasaTablo_SehirTablo" FromRole="SehirTablo" ToRole="KasaTablo" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="SehirTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajTablo_SehirTablo" FromRole="SehirTablo" ToRole="MesajTablo" />
+          <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_SehirTablo" FromRole="SehirTablo" ToRole="SubeTablo" />
+        </EntityType>
+        <EntityType Name="SubeTablo">
+          <Key>
+            <PropertyRef Name="SubeId" />
+          </Key>
+          <Property Name="SubeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_SubeTablo_KullaniciBilgileriTablo" FromRole="SubeTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_SubeTablo_SehirTablo" FromRole="SubeTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="YetkiTablo">
+          <Key>
+            <PropertyRef Name="YetkiId" />
+          </Key>
+          <Property Name="YetkiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciBilgileriTablo_KullaniciGuId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RotaTablo_RotaId" Type="Int32" />
+          <Property Name="GirebilirMi" Type="Boolean" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_YetkiTablo_KullaniciBilgileriTablo" FromRole="YetkiTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="RotaTablo" Relationship="Self.FK_YetkiTablo_RotaTablo" FromRole="YetkiTablo" ToRole="RotaTablo" />
+        </EntityType>
+        <Association Name="FK_BagisDetayResimTablo_BagisDetayTablo">
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayResimTablo" Type="Self.BagisDetayResimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BagisDetayTablo">
+              <PropertyRef Name="BagisDetayId" />
+            </Principal>
+            <Dependent Role="BagisDetayResimTablo">
+              <PropertyRef Name="BagisDetayTablo_BagisDetayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisDetayTablo_BagisTablo">
+          <End Role="BagisTablo" Type="Self.BagisTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BagisTablo">
+              <PropertyRef Name="BagisId" />
+            </Principal>
+            <Dependent Role="BagisDetayTablo">
+              <PropertyRef Name="BagisTablo_BagisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisDetayTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="BagisDetayTablo" Type="Self.BagisDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="BagisDetayTablo">
+              <PropertyRef Name="EsyaTablo_EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BagisTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="BagisTablo" Type="Self.BagisTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="BagisTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepoTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="DepoTablo" Type="Self.DepoTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="DepoTablo">
+              <PropertyRef Name="EsyaTablo_EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepoTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="DepoTablo" Type="Self.DepoTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="DepoTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="DisardanIslemYapan_IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="DisardanIslemYapanTablo_IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogTablo_DisardanIslemYapanTablo">
+          <End Role="DisardanIslemYapanTablo" Type="Self.DisardanIslemYapanTablo" Multiplicity="0..1" />
+          <End Role="LogTablo" Type="Self.LogTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DisardanIslemYapanTablo">
+              <PropertyRef Name="IslemYapanId" />
+            </Principal>
+            <Dependent Role="LogTablo">
+              <PropertyRef Name="DisardanIslemYapanTablo_IslemYapanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo">
+          <End Role="EsyaTablo" Type="Self.EsyaTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiVerileceklerTablo" Type="Self.IhtiyacSahibiVerileceklerTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsyaTablo">
+              <PropertyRef Name="EsyaId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiVerileceklerTablo">
+              <PropertyRef Name="EsyaTablo_EsyaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeriBildirimTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="GeriBildirimTablo" Type="Self.GeriBildirimTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="GeriBildirimTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo">
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiKontrolTablo" Type="Self.IhtiyacSahibiKontrolTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="IhtıyacSahibiGuId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiKontrolTablo">
+              <PropertyRef Name="IhtiyacSahibiTablo_IhtiyacSahibiGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo">
+          <End Role="IhtiyacSahibiKontrolTablo" Type="Self.IhtiyacSahibiKontrolTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiVerileceklerTablo" Type="Self.IhtiyacSahibiVerileceklerTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IhtiyacSahibiKontrolTablo">
+              <PropertyRef Name="IhtiyacSahibiKontrolId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiVerileceklerTablo">
+              <PropertyRef Name="IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IhtiyacSahibiTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="IhtiyacSahibiTablo" Type="Self.IhtiyacSahibiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="IhtiyacSahibiTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="KullaniciBilgleriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciBilgileriTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="SehirTablo_Sehirid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="LogTablo" Type="Self.LogTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="LogTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="MesajTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubeTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="SubeTablo" Type="Self.SubeTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="SubeTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YetkiTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="YetkiTablo" Type="Self.YetkiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciGuId" />
+            </Principal>
+            <Dependent Role="YetkiTablo">
+              <PropertyRef Name="KullaniciBilgileriTablo_KullaniciGuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajDetayTablo_MesajTablo">
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="0..1" />
+          <End Role="MesajDetayTablo" Type="Self.MesajDetayTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MesajTablo">
+              <PropertyRef Name="MesajId" />
+            </Principal>
+            <Dependent Role="MesajDetayTablo">
+              <PropertyRef Name="MesajTablo_MesajId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MesajTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="MesajTablo" Type="Self.MesajTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="MesajTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RotaTablo_RotaTablo">
+          <End Role="RotaTablo" Type="Self.RotaTablo" Multiplicity="0..1" />
+          <End Role="RotaTablo1" Type="Self.RotaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RotaTablo">
+              <PropertyRef Name="RotaId" />
+            </Principal>
+            <Dependent Role="RotaTablo1">
+              <PropertyRef Name="RotaTablo_RotaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YetkiTablo_RotaTablo">
+          <End Role="RotaTablo" Type="Self.RotaTablo" Multiplicity="0..1" />
+          <End Role="YetkiTablo" Type="Self.YetkiTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RotaTablo">
+              <PropertyRef Name="RotaId" />
+            </Principal>
+            <Dependent Role="YetkiTablo">
+              <PropertyRef Name="RotaTablo_RotaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubeTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="SubeTablo" Type="Self.SubeTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="SubeTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SosyalYardimDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BagisDetayResimTablo" EntityType="Self.BagisDetayResimTablo" />
+          <EntitySet Name="BagisDetayTablo" EntityType="Self.BagisDetayTablo" />
+          <EntitySet Name="BagisTablo" EntityType="Self.BagisTablo" />
+          <EntitySet Name="DepoTablo" EntityType="Self.DepoTablo" />
+          <EntitySet Name="DisardanIslemYapanTablo" EntityType="Self.DisardanIslemYapanTablo" />
+          <EntitySet Name="EsyaTablo" EntityType="Self.EsyaTablo" />
+          <EntitySet Name="GeriBildirimTablo" EntityType="Self.GeriBildirimTablo" />
+          <EntitySet Name="IhtiyacSahibiKontrolTablo" EntityType="Self.IhtiyacSahibiKontrolTablo" />
+          <EntitySet Name="IhtiyacSahibiTablo" EntityType="Self.IhtiyacSahibiTablo" />
+          <EntitySet Name="IhtiyacSahibiVerileceklerTablo" EntityType="Self.IhtiyacSahibiVerileceklerTablo" />
+          <EntitySet Name="KasaTablo" EntityType="Self.KasaTablo" />
+          <EntitySet Name="KullaniciBilgileriTablo" EntityType="Self.KullaniciBilgileriTablo" />
+          <EntitySet Name="LogTablo" EntityType="Self.LogTablo" />
+          <EntitySet Name="MesajDetayTablo" EntityType="Self.MesajDetayTablo" />
+          <EntitySet Name="MesajTablo" EntityType="Self.MesajTablo" />
+          <EntitySet Name="RotaTablo" EntityType="Self.RotaTablo" />
+          <EntitySet Name="SehirTablo" EntityType="Self.SehirTablo" />
+          <EntitySet Name="SubeTablo" EntityType="Self.SubeTablo" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="YetkiTablo" EntityType="Self.YetkiTablo" />
+          <AssociationSet Name="FK_BagisDetayResimTablo_BagisDetayTablo" Association="Self.FK_BagisDetayResimTablo_BagisDetayTablo">
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+            <End Role="BagisDetayResimTablo" EntitySet="BagisDetayResimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisDetayTablo_BagisTablo" Association="Self.FK_BagisDetayTablo_BagisTablo">
+            <End Role="BagisTablo" EntitySet="BagisTablo" />
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisDetayTablo_EsyaTablo" Association="Self.FK_BagisDetayTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="BagisDetayTablo" EntitySet="BagisDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BagisTablo_KullaniciBilgileriTablo" Association="Self.FK_BagisTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="BagisTablo" EntitySet="BagisTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepoTablo_EsyaTablo" Association="Self.FK_DepoTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="DepoTablo" EntitySet="DepoTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepoTablo_SehirTablo" Association="Self.FK_DepoTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="DepoTablo" EntitySet="DepoTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_DisardanIslemYapanTablo" Association="Self.FK_GeriBildirimTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo" Association="Self.FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogTablo_DisardanIslemYapanTablo" Association="Self.FK_LogTablo_DisardanIslemYapanTablo">
+            <End Role="DisardanIslemYapanTablo" EntitySet="DisardanIslemYapanTablo" />
+            <End Role="LogTablo" EntitySet="LogTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo" Association="Self.FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo">
+            <End Role="EsyaTablo" EntitySet="EsyaTablo" />
+            <End Role="IhtiyacSahibiVerileceklerTablo" EntitySet="IhtiyacSahibiVerileceklerTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_KullaniciBilgileriTablo" Association="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeriBildirimTablo_SehirTablo" Association="Self.FK_GeriBildirimTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="GeriBildirimTablo" EntitySet="GeriBildirimTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" Association="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo">
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+            <End Role="IhtiyacSahibiKontrolTablo" EntitySet="IhtiyacSahibiKontrolTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo" Association="Self.FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo">
+            <End Role="IhtiyacSahibiKontrolTablo" EntitySet="IhtiyacSahibiKontrolTablo" />
+            <End Role="IhtiyacSahibiVerileceklerTablo" EntitySet="IhtiyacSahibiVerileceklerTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IhtiyacSahibiTablo_SehirTablo" Association="Self.FK_IhtiyacSahibiTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="IhtiyacSahibiTablo" EntitySet="IhtiyacSahibiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_KullaniciBilgileriTablo" Association="Self.FK_KasaTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_SehirTablo" Association="Self.FK_KasaTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciBilgileriTablo_SehirTablo" Association="Self.FK_KullaniciBilgileriTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogTablo_KullaniciBilgileriTablo" Association="Self.FK_LogTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="LogTablo" EntitySet="LogTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajTablo_KullaniciBilgileriTablo" Association="Self.FK_MesajTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubeTablo_KullaniciBilgileriTablo" Association="Self.FK_SubeTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="SubeTablo" EntitySet="SubeTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YetkiTablo_KullaniciBilgileriTablo" Association="Self.FK_YetkiTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="YetkiTablo" EntitySet="YetkiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajDetayTablo_MesajTablo" Association="Self.FK_MesajDetayTablo_MesajTablo">
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+            <End Role="MesajDetayTablo" EntitySet="MesajDetayTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MesajTablo_SehirTablo" Association="Self.FK_MesajTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="MesajTablo" EntitySet="MesajTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RotaTablo_RotaTablo" Association="Self.FK_RotaTablo_RotaTablo">
+            <End Role="RotaTablo" EntitySet="RotaTablo" />
+            <End Role="RotaTablo1" EntitySet="RotaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YetkiTablo_RotaTablo" Association="Self.FK_YetkiTablo_RotaTablo">
+            <End Role="RotaTablo" EntitySet="RotaTablo" />
+            <End Role="YetkiTablo" EntitySet="YetkiTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubeTablo_SehirTablo" Association="Self.FK_SubeTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="SubeTablo" EntitySet="SubeTablo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SosyalYardimVTModelStoreContainer" CdmEntityContainer="SosyalYardimDB">
+          <EntitySetMapping Name="BagisDetayResimTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.BagisDetayResimTablo">
+              <MappingFragment StoreEntitySet="BagisDetayResimTablo">
+                <ScalarProperty Name="BagisResimId" ColumnName="BagisResimId" />
+                <ScalarProperty Name="BagisDetayTablo_BagisDetayId" ColumnName="BagisDetayTablo.BagisDetayId" />
+                <ScalarProperty Name="BagisResimUrl" ColumnName="BagisResimUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BagisDetayTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.BagisDetayTablo">
+              <MappingFragment StoreEntitySet="BagisDetayTablo">
+                <ScalarProperty Name="BagisDetayId" ColumnName="BagisDetayId" />
+                <ScalarProperty Name="BagisTablo_BagisId" ColumnName="BagisTablo.BagisId" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+                <ScalarProperty Name="EsyaTablo_EsyaId" ColumnName="EsyaTablo.EsyaId" />
+                <ScalarProperty Name="AlinacakMi" ColumnName="AlinacakMi" />
+                <ScalarProperty Name="AlindiMi" ColumnName="AlindiMi" />
+                <ScalarProperty Name="AlinmaTarihi" ColumnName="AlinmaTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BagisTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.BagisTablo">
+              <MappingFragment StoreEntitySet="BagisTablo">
+                <ScalarProperty Name="BagisId" ColumnName="BagisId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="EklenmeTarihi" ColumnName="EklenmeTarihi" />
+                <ScalarProperty Name="OnaylandiMi" ColumnName="OnaylandiMi" />
+                <ScalarProperty Name="TahminiTeslimAlmaTarihi" ColumnName="TahminiTeslimAlmaTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepoTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.DepoTablo">
+              <MappingFragment StoreEntitySet="DepoTablo">
+                <ScalarProperty Name="DepoEsyaId" ColumnName="DepoEsyaId" />
+                <ScalarProperty Name="EsyaTablo_EsyaId" ColumnName="EsyaTablo.EsyaId" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DisardanIslemYapanTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.DisardanIslemYapanTablo">
+              <MappingFragment StoreEntitySet="DisardanIslemYapanTablo">
+                <ScalarProperty Name="IslemYapanId" ColumnName="IslemYapanId" />
+                <ScalarProperty Name="IslemYapanAdi" ColumnName="IslemYapanAdi" />
+                <ScalarProperty Name="IslemYapanSoyadi" ColumnName="IslemYapanSoyadi" />
+                <ScalarProperty Name="IslemYapanTel" ColumnName="IslemYapanTel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsyaTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.EsyaTablo">
+              <MappingFragment StoreEntitySet="EsyaTablo">
+                <ScalarProperty Name="EsyaId" ColumnName="EsyaId" />
+                <ScalarProperty Name="EsyaAdi" ColumnName="EsyaAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeriBildirimTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.GeriBildirimTablo">
+              <MappingFragment StoreEntitySet="GeriBildirimTablo">
+                <ScalarProperty Name="GeriBildirimId" ColumnName="GeriBildirimId" />
+                <ScalarProperty Name="GeriBildirimKonu" ColumnName="GeriBildirimKonu" />
+                <ScalarProperty Name="GeriBildirimMesaj" ColumnName="GeriBildirimMesaj" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="GeriBildirimDurumu" ColumnName="GeriBildirimDurumu" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="DisardanIslemYapan_IslemYapanId" ColumnName="DisardanIslemYapan.IslemYapanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IhtiyacSahibiKontrolTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.IhtiyacSahibiKontrolTablo">
+              <MappingFragment StoreEntitySet="IhtiyacSahibiKontrolTablo">
+                <ScalarProperty Name="IhtiyacSahibiKontrolId" ColumnName="IhtiyacSahibiKontrolId" />
+                <ScalarProperty Name="IhtiyacSahibiTablo_IhtiyacSahibiGuId" ColumnName="IhtiyacSahibiTablo.IhtiyacSahibiGuId" />
+                <ScalarProperty Name="MuhtacMi" ColumnName="MuhtacMi" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="IhtiyacSahibiKontrolYapilmaTarihi" ColumnName="IhtiyacSahibiKontrolYapilmaTarihi" />
+                <ScalarProperty Name="İhtiyacSahibiTahminiTeslimTarihi" ColumnName="İhtiyacSahibiTahminiTeslimTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IhtiyacSahibiTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.IhtiyacSahibiTablo">
+              <MappingFragment StoreEntitySet="IhtiyacSahibiTablo">
+                <ScalarProperty Name="IhtıyacSahibiGuId" ColumnName="IhtıyacSahibiGuId" />
+                <ScalarProperty Name="IhtıyacSahibiAdi" ColumnName="IhtıyacSahibiAdi" />
+                <ScalarProperty Name="İhtiyacSahibiSoyadi" ColumnName="İhtiyacSahibiSoyadi" />
+                <ScalarProperty Name="İhtiyacSahibiTelNo" ColumnName="İhtiyacSahibiTelNo" />
+                <ScalarProperty Name="IhtiyacSahibiAdres" ColumnName="IhtiyacSahibiAdres" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="DisardanIslemYapanTablo_IslemYapanId" ColumnName="DisardanIslemYapanTablo.IslemYapanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IhtiyacSahibiVerileceklerTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.IhtiyacSahibiVerileceklerTablo">
+              <MappingFragment StoreEntitySet="IhtiyacSahibiVerileceklerTablo">
+                <ScalarProperty Name="İhtiyacSahibiVerilecekId" ColumnName="İhtiyacSahibiVerilecekId" />
+                <ScalarProperty Name="EsyaTablo_EsyaId" ColumnName="EsyaTablo.EsyaId" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+                <ScalarProperty Name="IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId" ColumnName="IhtiyacSahibiKontrolTablo.IhtiyacSahibiKontrolId" />
+                <ScalarProperty Name="GercekTeslimTarihi" ColumnName="GercekTeslimTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KasaTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.KasaTablo">
+              <MappingFragment StoreEntitySet="KasaTablo">
+                <ScalarProperty Name="KasaId" ColumnName="KasaId" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="KullaniciBilgleriTablo_KullaniciGuId" ColumnName="KullaniciBilgleriTablo.KullaniciGuId" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="DisardanIslemYapanTablo_IslemYapanId" ColumnName="DisardanIslemYapanTablo.IslemYapanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciBilgileriTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.KullaniciBilgileriTablo">
+              <MappingFragment StoreEntitySet="KullaniciBilgileriTablo">
+                <ScalarProperty Name="KullaniciGuId" ColumnName="KullaniciGuId" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciSoyadi" ColumnName="KullaniciSoyadi" />
+                <ScalarProperty Name="SehirTablo_Sehirid" ColumnName="SehirTablo.Sehirid" />
+                <ScalarProperty Name="KullaniciOnayliMi" ColumnName="KullaniciOnayliMi" />
+                <ScalarProperty Name="KullaniciTelegramKullaniciAdi" ColumnName="KullaniciTelegramKullaniciAdi" />
+                <ScalarProperty Name="KullaniciTCKimlikNumarasi" ColumnName="KullaniciTCKimlikNumarasi" />
+                <ScalarProperty Name="KullaniciTelefonNumarasi" ColumnName="KullaniciTelefonNumarasi" />
+                <ScalarProperty Name="KullaniciMerkezdeMi" ColumnName="KullaniciMerkezdeMi" />
+                <ScalarProperty Name="BagisciMi" ColumnName="BagisciMi" />
+                <ScalarProperty Name="KullaniciEPosta" ColumnName="KullaniciEPosta" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.LogTablo">
+              <MappingFragment StoreEntitySet="LogTablo">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="YapılanIslem" ColumnName="YapılanIslem" />
+                <ScalarProperty Name="DisardanIslemYapanTablo_IslemYapanId" ColumnName="DisardanIslemYapanTablo.IslemYapanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesajDetayTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.MesajDetayTablo">
+              <MappingFragment StoreEntitySet="MesajDetayTablo">
+                <ScalarProperty Name="MesajDetayId" ColumnName="MesajDetayId" />
+                <ScalarProperty Name="MesajTablo_MesajId" ColumnName="MesajTablo.MesajId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="MesajMetni" ColumnName="MesajMetni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MesajTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.MesajTablo">
+              <MappingFragment StoreEntitySet="MesajTablo">
+                <ScalarProperty Name="MesajId" ColumnName="MesajId" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="KimeAtildi" ColumnName="KimeAtildi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RotaTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.RotaTablo">
+              <MappingFragment StoreEntitySet="RotaTablo">
+                <ScalarProperty Name="RotaId" ColumnName="RotaId" />
+                <ScalarProperty Name="ControllerAdi" ColumnName="ControllerAdi" />
+                <ScalarProperty Name="ActionAdi" ColumnName="ActionAdi" />
+                <ScalarProperty Name="LinkAdi" ColumnName="LinkAdi" />
+                <ScalarProperty Name="RotaTablo_RotaId" ColumnName="RotaTablo.RotaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SehirTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.SehirTablo">
+              <MappingFragment StoreEntitySet="SehirTablo">
+                <ScalarProperty Name="SehirId" ColumnName="SehirId" />
+                <ScalarProperty Name="SehirAdi" ColumnName="SehirAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubeTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.SubeTablo">
+              <MappingFragment StoreEntitySet="SubeTablo">
+                <ScalarProperty Name="SubeId" ColumnName="SubeId" />
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YetkiTablo">
+            <EntityTypeMapping TypeName="SosyalYardimVTModel.YetkiTablo">
+              <MappingFragment StoreEntitySet="YetkiTablo">
+                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
+                <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciGuId" ColumnName="KullaniciBilgileriTablo.KullaniciGuId" />
+                <ScalarProperty Name="RotaTablo_RotaId" ColumnName="RotaTablo.RotaId" />
+                <ScalarProperty Name="GirebilirMi" ColumnName="GirebilirMi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
