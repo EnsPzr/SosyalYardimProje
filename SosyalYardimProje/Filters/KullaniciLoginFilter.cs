@@ -20,6 +20,16 @@ namespace SosyalYardimProje.Filters
                     filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
                     filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
                 }
+                else
+                {
+                    if (!(kullaniciYonetimi.YetkiVarMi(filterContext.HttpContext.Session["KullaniciGuId"].ToString(),
+                        filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
+                        filterContext.ActionDescriptor.ActionName)))
+                    {
+                        filterContext.Controller.TempData["hata"] = "Yetkiniz Bulunmamaktadır.";
+                        filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
+                    }
+                }
             }
         }
 
@@ -32,6 +42,16 @@ namespace SosyalYardimProje.Filters
                 {
                     filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
                     filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                }
+                else
+                {
+                    if (!(kullaniciYonetimi.YetkiVarMi(filterContext.HttpContext.Session["KullaniciGuId"].ToString(),
+                        filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
+                        filterContext.ActionDescriptor.ActionName)))
+                    {
+                        filterContext.Controller.TempData["hata"] = "Yetkiniz Bulunmamaktadır.";
+                        filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
+                    }
                 }
             }
         }

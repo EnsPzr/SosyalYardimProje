@@ -13,5 +13,33 @@ namespace BusinessLayer
         {
             return kullaniciYonetimi.KullaniciBul(KullaniciGuId);
         }
+        public bool YetkiVarMi(String KullaniciGuId, String Controller, String Action)
+        {
+            var Kullanici = kullaniciYonetimi.KullaniciBul(KullaniciGuId);
+            if (Kullanici != null)
+            {
+                var Rota = kullaniciYonetimi.RotaBul(Controller,Action);
+                if (Rota != null)
+                {
+                    var kullanicininYetkisiVarMi = kullaniciYonetimi.YetkiVarMi(Rota, Kullanici);
+                    if (kullanicininYetkisiVarMi != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
