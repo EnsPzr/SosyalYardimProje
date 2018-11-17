@@ -86,6 +86,7 @@
     <Compile Include="KullaniciBilgileriTablo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="KullaniciYonetimi.cs" />
     <Compile Include="LogTablo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
