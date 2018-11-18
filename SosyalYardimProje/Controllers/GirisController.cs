@@ -12,7 +12,8 @@ namespace SosyalYardimProje.Controllers
         private BusinessLayer.KullaniciYonetimi kullaniciYonetimi = new BusinessLayer.KullaniciYonetimi();
         public PartialViewResult Navbar()
         {
-            List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(KullaniciBilgileriDondur.KullaniciGuId());
+            String guId = KullaniciBilgileriDondur.KullaniciGuId();
+            List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur("FFC81558-FFD2-4BB5-AA2F-BC9AA6BE0808");
             return PartialView("navbarPartial", navbarListModel);
         }
 

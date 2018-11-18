@@ -63,11 +63,14 @@ namespace BusinessLayer
                             .Where(p => p.RotaTablo.RotaTablo_RotaId == Yetkiler[i].RotaTablo.RotaId).ToList();
                         for (int j = 0; j < altKategoriler.Count; j++)
                         {
-                            NavbarModel altKategoriNavbar = new NavbarModel();
-                            altKategoriNavbar.AltKategoriMi = true;
-                            altKategoriNavbar.UrlText = altKategoriler[j].RotaTablo.LinkAdi;
-                            altKategoriNavbar.UrlYol = altKategoriler[j].RotaTablo.ControllerAdi + "/" + altKategoriler[j].RotaTablo.ActionAdi;
-                            navbarListModel.Add(altKategoriNavbar);
+                            if (altKategoriler[j].GirebilirMi==true && altKategoriler[j].RotaTablo.GosterilecekMi==true)
+                            {
+                                NavbarModel altKategoriNavbar = new NavbarModel();
+                                altKategoriNavbar.AltKategoriMi = true;
+                                altKategoriNavbar.UrlText = altKategoriler[j].RotaTablo.LinkAdi;
+                                altKategoriNavbar.UrlYol = altKategoriler[j].RotaTablo.ControllerAdi + "/" + altKategoriler[j].RotaTablo.ActionAdi;
+                                navbarListModel.Add(altKategoriNavbar);
+                            }
                         }
                     }
                 }

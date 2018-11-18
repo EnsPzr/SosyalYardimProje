@@ -1,12 +1,18 @@
 ﻿@model List<BusinessLayer.Models.NavbarModel>
 <ul>
-@foreach (var navbarModel in Model)
-{
-    if (!(navbarModel.AltKategoriMi))
+    @foreach (var navbarModel in Model)
     {
-        <li>
-            <a href="@navbarModel.UrlYol">@navbarModel.UrlText</a>
-        </li>
+        if (!(navbarModel.AltKategoriMi))
+        {
+            <li>
+                <a href="@navbarModel.UrlYol">@navbarModel.UrlText</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@navbarModel.UrlYol">@navbarModel.UrlText</a>
+            </li>
+        }
     }
-}
 </ul>
