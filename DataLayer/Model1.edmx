@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SosyalYardimVTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SosyalYardimVTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BagisDetayResimTablo">
           <Key>
             <PropertyRef Name="BagisResimId" />
@@ -133,6 +133,7 @@
           <Property Name="BagisciMi" Type="bit" />
           <Property Name="KullaniciEPosta" Type="nvarchar" MaxLength="50" />
           <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="100" />
+          <Property Name="AndroidToken" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="LogTablo">
           <Key>
@@ -170,6 +171,7 @@
           <Property Name="ActionAdi" Type="nvarchar" MaxLength="50" />
           <Property Name="LinkAdi" Type="nvarchar" MaxLength="500" />
           <Property Name="RotaTablo.RotaId" Type="int" />
+          <Property Name="GosterilecekMi" Type="bit" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -659,8 +661,7 @@
             <End Role="YetkiTablo" EntitySet="YetkiTablo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SosyalYardimVTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -826,6 +827,7 @@
           <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="MesajTablo" />
           <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="SubeTablo" />
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="YetkiTablo" />
+          <Property Name="AndroidToken" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LogTablo">
           <Key>
@@ -872,6 +874,7 @@
           <NavigationProperty Name="RotaTablo1" Relationship="Self.FK_RotaTablo_RotaTablo" FromRole="RotaTablo" ToRole="RotaTablo1" />
           <NavigationProperty Name="RotaTablo2" Relationship="Self.FK_RotaTablo_RotaTablo" FromRole="RotaTablo1" ToRole="RotaTablo" />
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_RotaTablo" FromRole="RotaTablo" ToRole="YetkiTablo" />
+          <Property Name="GosterilecekMi" Type="Boolean" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -1504,6 +1507,7 @@
           <EntitySetMapping Name="KullaniciBilgileriTablo">
             <EntityTypeMapping TypeName="SosyalYardimVTModel.KullaniciBilgileriTablo">
               <MappingFragment StoreEntitySet="KullaniciBilgileriTablo">
+                <ScalarProperty Name="AndroidToken" ColumnName="AndroidToken" />
                 <ScalarProperty Name="KullaniciGuId" ColumnName="KullaniciGuId" />
                 <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
                 <ScalarProperty Name="KullaniciSoyadi" ColumnName="KullaniciSoyadi" />
@@ -1552,6 +1556,7 @@
           <EntitySetMapping Name="RotaTablo">
             <EntityTypeMapping TypeName="SosyalYardimVTModel.RotaTablo">
               <MappingFragment StoreEntitySet="RotaTablo">
+                <ScalarProperty Name="GosterilecekMi" ColumnName="GosterilecekMi" />
                 <ScalarProperty Name="RotaId" ColumnName="RotaId" />
                 <ScalarProperty Name="ControllerAdi" ColumnName="ControllerAdi" />
                 <ScalarProperty Name="ActionAdi" ColumnName="ActionAdi" />

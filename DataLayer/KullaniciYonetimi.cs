@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace DataLayer
 {
     public class KullaniciYonetimi
@@ -28,6 +26,12 @@ namespace DataLayer
                 && p.RotaTablo_RotaId == rota.RotaId
                 && p.GirebilirMi == true);
             return YetkiVarMi;
+        }
+
+        public List<YetkiTablo> TumYetkileriGetir()
+        {
+            var Yetkiler = db.YetkiTablo.Include(b => b.KullaniciBilgileriTablo).Include(b => b.RotaTablo).ToList();
+            return Yetkiler;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace DataLayer
         public Nullable<bool> BagisciMi { get; set; }
         public string KullaniciEPosta { get; set; }
         public string KullaniciSifre { get; set; }
+        public string AndroidToken { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BagisTablo> BagisTablo { get; set; }

@@ -16,7 +16,7 @@ namespace SosyalYardimProje
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Giris", action = "Giris", id = UrlParameter.Optional }
             );
         }
     }
