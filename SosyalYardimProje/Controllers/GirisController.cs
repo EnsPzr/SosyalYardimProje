@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models;
 using BusinessLayer.Models.KullaniciModelleri;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -14,16 +15,14 @@ namespace SosyalYardimProje.Controllers
         public PartialViewResult Navbar()
         {
             String guId = "FFC81558-FFD2-4BB5-AA2F-BC9AA6BE0808";
-            List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(guId);
+            List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(KullaniciBilgileriDondur.KullaniciGuId());
             return PartialView("navbarPartial", navbarListModel);
         }
-        [Route("Giris")]
         public ActionResult Giris()
         {
             return View();
         }
 
-        [Route("Giris")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Giris(KullaniciGirisModel girisModel)
@@ -33,7 +32,10 @@ namespace SosyalYardimProje.Controllers
                 var KullaniciGuId = kullaniciYonetimi.KullaniciBul(girisModel.EPosta, girisModel.Sifre);
                 if (KullaniciGuId != null)
                 {
-
+                    Session["KullaniciGuId"] = KullaniciGuId;
+                    var Kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciBilgileriDondur.KullaniciGuId());
+                    Session["Bilgi"] = Kullanici.KullaniciAdi + " " + Kullanici.KullaniciSoyadi;
+                    return RedirectToAction("AnaSayfa", "Giris");
                 }
                 else
                 {
@@ -45,6 +47,12 @@ namespace SosyalYardimProje.Controllers
             {
                 return View(girisModel);
             }
+        }
+
+        [KullaniciLoginFilter]
+        public ActionResult AnaSayfa()
+        {
+            return View();
         }
     }
 }

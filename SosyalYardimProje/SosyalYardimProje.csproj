@@ -6955,6 +6955,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Giris\navbarPartial.cshtml" />
     <Content Include="Views\Giris\Giris.cshtml" />
+    <Content Include="Views\Giris\AnaSayfa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

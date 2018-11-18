@@ -16,7 +16,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <header class="main-header">
-            <a href="index2.html" class="logo">
+            <a href="~/AnaSayfa" class="logo">
                 <span class="logo-mini"><b>SY</b></span>
                 <span class="logo-lg"><b>Sosyal Yardım</b></span>
             </a>
@@ -24,7 +24,12 @@
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-                
+                @if (Session["Bilgi"] != null)
+                {
+                    <div class="navbar-custom-menu">
+                        @Session["Bilgi"].ToString()
+                    </div>
+                }
             </nav>
         </header>
         <aside class="main-sidebar">
