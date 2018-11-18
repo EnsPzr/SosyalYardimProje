@@ -30,7 +30,7 @@ namespace SosyalYardimProje.Controllers
             if (ModelState.IsValid)
             {
                 var KullaniciGuId = kullaniciYonetimi.KullaniciBul(girisModel.EPosta, girisModel.Sifre);
-                if (KullaniciGuId != null)
+                if (!(KullaniciGuId.Count()==0))
                 {
                     Session["KullaniciGuId"] = KullaniciGuId;
                     var Kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciBilgileriDondur.KullaniciGuId());
@@ -49,6 +49,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [Route("~/Anasayfa")]
         [KullaniciLoginFilter]
         public ActionResult AnaSayfa()
         {

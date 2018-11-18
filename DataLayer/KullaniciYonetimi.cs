@@ -17,9 +17,9 @@ namespace DataLayer
 
         public String KullaniciBul(String Eposta, String Sifre)
         {
-            var KullaniciGuId = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == Eposta
-                                                                               && p.KullaniciSifre == Sifre).KullaniciGuId;
-            if (KullaniciGuId != null) return KullaniciGuId;
+            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == Eposta
+                                                                               && p.KullaniciSifre == Sifre);
+            if (Kullanici != null) return Kullanici.KullaniciGuId;
             else return String.Empty;
         }
         public RotaTablo RotaBul(String ControllerAdi, String ActionAdi)

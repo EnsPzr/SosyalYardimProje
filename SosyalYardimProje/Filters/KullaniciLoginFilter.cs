@@ -31,6 +31,11 @@ namespace SosyalYardimProje.Filters
                     }
                 }
             }
+            else
+            {
+                filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+            }
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
@@ -53,6 +58,11 @@ namespace SosyalYardimProje.Filters
                         filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
                     }
                 }
+            }
+            else
+            {
+                filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
             }
         }
     }

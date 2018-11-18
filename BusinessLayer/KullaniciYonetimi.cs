@@ -22,14 +22,21 @@ namespace BusinessLayer
                 var Rota = kullaniciYonetimi.RotaBul(Controller,Action);
                 if (Rota != null)
                 {
-                    var kullanicininYetkisiVarMi = kullaniciYonetimi.YetkiVarMi(Rota, Kullanici);
-                    if (kullanicininYetkisiVarMi != null)
+                    if (Rota.HerkesGirebilirMi == true)
                     {
                         return true;
                     }
                     else
                     {
-                        return false;
+                        var kullanicininYetkisiVarMi = kullaniciYonetimi.YetkiVarMi(Rota, Kullanici);
+                        if (kullanicininYetkisiVarMi != null)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
                 else

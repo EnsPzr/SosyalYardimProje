@@ -27,14 +27,22 @@
                 @if (Session["Bilgi"] != null)
                 {
                     <div class="navbar-custom-menu">
-                        @Session["Bilgi"].ToString()
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs">
+                                        @Session["Bilgi"].ToString()
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 }
             </nav>
         </header>
         <aside class="main-sidebar">
             <section class="sidebar">
-                @Html.Action("Navbar","Giris")
+                @Html.Action("Navbar", "Giris")
             </section>
         </aside>
         <div class="content-wrapper">

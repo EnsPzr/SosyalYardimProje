@@ -173,6 +173,7 @@
           <Property Name="RotaTablo.RotaId" Type="int" />
           <Property Name="GosterilecekMi" Type="bit" />
           <Property Name="DropdownBaslikAdi" Type="nvarchar(max)" />
+          <Property Name="HerkesGirebilirMi" Type="bit" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -877,6 +878,7 @@
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_RotaTablo" FromRole="RotaTablo" ToRole="YetkiTablo" />
           <Property Name="GosterilecekMi" Type="Boolean" />
           <Property Name="DropdownBaslikAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HerkesGirebilirMi" Type="Boolean" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -1558,6 +1560,7 @@
           <EntitySetMapping Name="RotaTablo">
             <EntityTypeMapping TypeName="SosyalYardimVTModel.RotaTablo">
               <MappingFragment StoreEntitySet="RotaTablo">
+                <ScalarProperty Name="HerkesGirebilirMi" ColumnName="HerkesGirebilirMi" />
                 <ScalarProperty Name="DropdownBaslikAdi" ColumnName="DropdownBaslikAdi" />
                 <ScalarProperty Name="GosterilecekMi" ColumnName="GosterilecekMi" />
                 <ScalarProperty Name="RotaId" ColumnName="RotaId" />
