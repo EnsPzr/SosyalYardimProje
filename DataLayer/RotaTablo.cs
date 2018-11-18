@@ -27,6 +27,7 @@ namespace DataLayer
         public string LinkAdi { get; set; }
         public Nullable<int> RotaTablo_RotaId { get; set; }
         public Nullable<bool> GosterilecekMi { get; set; }
+        public string DropdownBaslikAdi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RotaTablo> RotaTablo1 { get; set; }

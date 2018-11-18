@@ -13,5 +13,9 @@ namespace BusinessLayer.Models
         public String UrlYol { get; set; }
 
         public bool AltKategoriMi { get; set; }
+
+        public int? AltKategoriSayisi { get; set; }
+        
+        public List<NavbarModel> altKategoriler { get; set; }
     }
 }

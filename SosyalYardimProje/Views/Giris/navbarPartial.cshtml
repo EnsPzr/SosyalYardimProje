@@ -1,18 +1,32 @@
 ﻿@model List<BusinessLayer.Models.NavbarModel>
-<ul>
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">Menü</li>
     @foreach (var navbarModel in Model)
     {
         if (!(navbarModel.AltKategoriMi))
         {
-            <li>
-                <a href="@navbarModel.UrlYol">@navbarModel.UrlText</a>
-            </li>
-        }
-        else
-        {
-            <li>
-                <a href="@navbarModel.UrlYol">@navbarModel.UrlText</a>
-            </li>
+            if (navbarModel.AltKategoriSayisi == null)
+            {
+                <li><a href="@navbarModel.UrlYol"><i class="fa fa-link"></i> <span>@navbarModel.UrlText</span></a></li>
+            }
+            else
+            {
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>@navbarModel.UrlText</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@navbarModel.UrlYol">@navbarModel.UrlText</a></li>
+                        @foreach (var navbarAltKategoriItem in navbarModel.altKategoriler)
+                        {
+                            <li><a href="@navbarAltKategoriItem.UrlYol">@navbarAltKategoriItem.UrlText</a></li>
+                        }
+                    </ul>
+                </li>
+            }
         }
     }
 </ul>
