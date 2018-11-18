@@ -113,5 +113,10 @@ namespace BusinessLayer
             }
             return navbarListModel;
         }
+
+        public String KullaniciBul(String EMail, String Sifre)
+        {
+            return kullaniciYonetimi.KullaniciBul(EMail, Sifre);
+        }
     }
 }

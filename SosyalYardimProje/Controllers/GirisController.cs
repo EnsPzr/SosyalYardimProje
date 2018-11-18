@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models;
+using BusinessLayer.Models.KullaniciModelleri;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -16,10 +17,34 @@ namespace SosyalYardimProje.Controllers
             List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(guId);
             return PartialView("navbarPartial", navbarListModel);
         }
-
+        [Route("Giris")]
         public ActionResult Giris()
         {
             return View();
+        }
+
+        [Route("Giris")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Giris(KullaniciGirisModel girisModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var KullaniciGuId = kullaniciYonetimi.KullaniciBul(girisModel.EPosta, girisModel.Sifre);
+                if (KullaniciGuId != null)
+                {
+
+                }
+                else
+                {
+                    ModelState.AddModelError("","E Posta veya Şifre Hatalı.");
+                    return View(girisModel);
+                }
+            }
+            else
+            {
+                return View(girisModel);
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Runtime.Remoting.Messaging;
+
 namespace DataLayer
 {
     public class KullaniciYonetimi
@@ -13,6 +15,13 @@ namespace DataLayer
             return Kullanici;
         }
 
+        public String KullaniciBul(String Eposta, String Sifre)
+        {
+            var KullaniciGuId = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == Eposta
+                                                                               && p.KullaniciSifre == Sifre).KullaniciGuId;
+            if (KullaniciGuId != null) return KullaniciGuId;
+            else return String.Empty;
+        }
         public RotaTablo RotaBul(String ControllerAdi, String ActionAdi)
         {
             var Rota = db.RotaTablo.FirstOrDefault(p => p.ActionAdi == ActionAdi && p.ControllerAdi == ControllerAdi);
