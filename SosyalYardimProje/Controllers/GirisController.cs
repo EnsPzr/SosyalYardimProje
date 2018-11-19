@@ -53,7 +53,9 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult AnaSayfa()
         {
-            return View();
+            var Kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciBilgileriDondur.KullaniciGuId());
+            var anaSayfaModel=kullaniciYonetimi.AnaSayfaModeli(Kullanici.SehirTablo_Sehirid);
+            return View(anaSayfaModel);
         }
     }
 }
