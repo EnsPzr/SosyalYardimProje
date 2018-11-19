@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models;
+using BusinessLayer.Models.AnaSayfaModelleri;
 using DataLayer;
 namespace BusinessLayer
 {
@@ -19,7 +20,7 @@ namespace BusinessLayer
             var Kullanici = kullaniciYonetimi.KullaniciBul(KullaniciGuId);
             if (Kullanici != null)
             {
-                var Rota = kullaniciYonetimi.RotaBul(Controller,Action);
+                var Rota = kullaniciYonetimi.RotaBul(Controller, Action);
                 if (Rota != null)
                 {
                     if (Rota.HerkesGirebilirMi == true)
@@ -54,7 +55,7 @@ namespace BusinessLayer
         {
             List<DataLayer.YetkiTablo> Yetkiler = kullaniciYonetimi.TumYetkileriGetir();
             Yetkiler = Yetkiler.Where(p => p.KullaniciBilgileriTablo_KullaniciGuId == KullaniciGuId
-                                           && p.GirebilirMi==true).ToList();
+                                           && p.GirebilirMi == true).ToList();
             List<NavbarModel> navbarListModel = new List<NavbarModel>();
             for (int i = 0; i < Yetkiler.Count; i++)
             {
@@ -78,7 +79,7 @@ namespace BusinessLayer
                             navbar.AltKategoriSayisi = altKategoriler.Count;
                             navbar.UrlText = Yetkiler[i].RotaTablo.DropdownBaslikAdi;
                             navbar.UrlYol = Yetkiler[i].RotaTablo.ControllerAdi + "/" + Yetkiler[i].RotaTablo.ActionAdi;
-                            navbar.altKategoriler= new List<NavbarModel>();
+                            navbar.altKategoriler = new List<NavbarModel>();
                             for (int j = 0; j < altKategoriler.Count; j++)
                             {
                                 if (altKategoriler[j].GirebilirMi == true && altKategoriler[j].RotaTablo.GosterilecekMi == true)
@@ -100,10 +101,10 @@ namespace BusinessLayer
                         //navbar.AltKategoriMi = false;
                         //navbar.UrlText = Yetkiler[i].RotaTablo.LinkAdi;
                         //navbar.UrlYol = Yetkiler[i].RotaTablo.ControllerAdi + "/" + Yetkiler[i].RotaTablo.ActionAdi;
-                        
+
                         //navbar.AltKategoriSayisi = altKategoriler.Count;
                         //navbarListModel.Add(navbar);
-                        
+
                         //for (int j = 0; j < altKategoriler.Count; j++)
                         //{
                         //    if (altKategoriler[j].GirebilirMi==true && altKategoriler[j].RotaTablo.GosterilecekMi==true)
@@ -125,5 +126,52 @@ namespace BusinessLayer
         {
             return kullaniciYonetimi.KullaniciBul(EMail, Sifre);
         }
+
+        public List<TeslimAlinmaBekleyenBagislarListe> TeslimAlinmaBekleyenBagislar(int? id)
+        {
+            var teslimAlinmaBekleyenBagislar = kullaniciYonetimi.TeslimAlinmaBekleyenBagislar(id).Select(p =>
+                new TeslimAlinmaBekleyenBagislarListe()
+                {
+                    BagisciAdiSoyadi=p.KullaniciBilgileriTablo.KullaniciAdi+" "+p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                    Tarih=p.EklenmeTarihi
+                }).ToList();
+            return teslimAlinmaBekleyenBagislar;
+        }
+
+        public List<TeslimEdilecekEsyaListeModeli> TeslimBekleyenBagislar(int? id)
+        {
+            var teslimBekleyenlerListe = kullaniciYonetimi.TeslimBekleyenEsyalar(id).Select(p =>
+                new TeslimEdilecekEsyaListeModeli()
+                {
+                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtıyacSahibiAdi + " " +
+                                      p.IhtiyacSahibiTablo.İhtiyacSahibiSoyadi,
+                    TahminiTeslimTarihi = p.İhtiyacSahibiTahminiTeslimTarihi
+                }).ToList();
+            return teslimBekleyenlerListe;
+        }
+
+        public List<OnayBekleyenIhtiyacSahipleriModeli> OnayBekleyenIhtiyacSahipleri(int? id)
+        {
+            var onayBekleyenIhtiyacSahipleri = kullaniciYonetimi.OnayBekleyenIhtiyacSahipleri(id).Select(p =>
+                new OnayBekleyenIhtiyacSahipleriModeli()
+                {
+                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtıyacSahibiAdi + " " +
+                                      p.IhtiyacSahibiTablo.İhtiyacSahibiSoyadi,
+                    Tarih = p.Tarih
+                }).ToList();
+            return onayBekleyenIhtiyacSahipleri;
+        }
+
+        public AnaSayfaOrtakModeli AnaSayfaModeli(int? id)
+        {
+            AnaSayfaOrtakModeli anaSayfaModel = new AnaSayfaOrtakModeli()
+            {
+                OnayBekleyenMuhtacListesi= OnayBekleyenIhtiyacSahipleri(id),
+                TeslimAlinmaBekleyenEsyaListe=TeslimAlinmaBekleyenBagislar(id),
+                TeslimEdilecekEsyaListesi=TeslimBekleyenBagislar(id)
+            };
+            return anaSayfaModel;
+        }
+        
     }
 }

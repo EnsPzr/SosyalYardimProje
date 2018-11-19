@@ -11,7 +11,7 @@ namespace DataLayer
         private SosyalYardimDB db = new SosyalYardimDB();
         public KullaniciBilgileriTablo KullaniciBul(String KullaniciGuId)
         {
-            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p=>p.KullaniciGuId==KullaniciGuId);
+            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciGuId == KullaniciGuId);
             return Kullanici;
         }
 
@@ -41,6 +41,46 @@ namespace DataLayer
         {
             var Yetkiler = db.YetkiTablo.Include(b => b.KullaniciBilgileriTablo).Include(b => b.RotaTablo).ToList();
             return Yetkiler;
+        }
+
+        public List<BagisTablo> TeslimAlinmaBekleyenBagislar(int? id)
+        {
+            if (id == null)
+            {
+                return db.BagisTablo.Include(p => p.KullaniciBilgileriTablo).Where(p=>p.TeslimAlindiMi==false).ToList();
+            }
+            else
+            {
+                return db.BagisTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.TeslimAlindiMi == false&&p.KullaniciBilgileriTablo.SehirTablo_Sehirid==id).ToList();
+            }
+        }
+
+        public List<IhtiyacSahibiKontrolTablo> TeslimBekleyenEsyalar(int? id)
+        {
+            if (id == null)
+            {
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo)
+                    .Include(p => p.IhtiyacSahibiVerileceklerTablo).Where(p => p.MuhtacMi == true && p.TeslimYapildiMi == false).ToList();
+            }
+            else
+            {
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo)
+                    .Include(p => p.IhtiyacSahibiVerileceklerTablo).Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == id && p.MuhtacMi == true && p.TeslimYapildiMi == false).ToList();
+            }
+        }
+
+        public List<IhtiyacSahibiKontrolTablo> OnayBekleyenIhtiyacSahipleri(int? id)
+        {
+            if (id == null)
+            {
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null)
+                    .ToList();
+            }
+            else
+            {
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null && p.IhtiyacSahibiTablo.SehirTablo_SehirId == id)
+                    .ToList();
+            }
         }
     }
 }

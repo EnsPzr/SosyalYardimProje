@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45e9f502a99f4826b659fc62a87744e8" Name="Diagram1">
+      <Diagram DiagramId="d35122bad655491e810a65bf948bfa12" Name="Diagram1">
         <EntityTypeShape EntityType="SosyalYardimVTModel.BagisDetayResimTablo" Width="1.5" PointX="9.75" PointY="29.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.BagisDetayTablo" Width="1.5" PointX="7.5" PointY="28.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.BagisTablo" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.BagisTablo" Width="1.5" PointX="5.25" PointY="29" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.DepoTablo" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.DisardanIslemYapanTablo" Width="1.5" PointX="3.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.EsyaTablo" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.GeriBildirimTablo" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.GeriBildirimTablo" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiKontrolTablo" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiTablo" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiVerileceklerTablo" Width="1.5" PointX="10.5" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.KasaTablo" Width="1.5" PointX="8.25" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.KullaniciBilgileriTablo" Width="1.5" PointX="3" PointY="27.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.LogTablo" Width="1.5" PointX="5.25" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.MesajDetayTablo" Width="1.5" PointX="7.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.KasaTablo" Width="1.5" PointX="8.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.KullaniciBilgileriTablo" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.LogTablo" Width="1.5" PointX="5.25" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.MesajDetayTablo" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.MesajTablo" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.RotaTablo" Width="1.5" PointX="3" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.RotaTablo" Width="1.5" PointX="6" PointY="36.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.SehirTablo" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.SubeTablo" Width="1.5" PointX="8.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.SubeTablo" Width="1.5" PointX="8.25" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="SosyalYardimVTModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.YetkiTablo" Width="1.5" PointX="5.25" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimVTModel.YetkiTablo" Width="1.5" PointX="8.25" PointY="33.125" IsExpanded="true" />
         <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayResimTablo_BagisDetayTablo" ManuallyRouted="false" />
         <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayTablo_BagisTablo" ManuallyRouted="false" />
         <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayTablo_EsyaTablo" ManuallyRouted="false" />
