@@ -1,0 +1,120 @@
+﻿@model BusinessLayer.Models.AnaSayfaModelleri.AnaSayfaOrtakModeli
+
+@{
+    int teslimBekleyenBagis = 0;
+    int teslimBekleyenEsya = 0;
+    int onayBekleyenMuhtac = 0;
+}
+<h4>Teslim Alınmak İçin Bekleyen Bağışlar</h4>
+<table id="tablo" class="points_table col-xs-12 col-md-12">
+    <thead>
+        <tr>
+            <th class="col-md-8 col-xs-8">Bağışçı Adı Soyadı</th>
+            <th class="col-md-4 col-xs-4">Eklenme Tarihi</th>
+        </tr>
+    </thead>
+    <tbody class="points_table_scrollbar" id="tablo_tbody">
+        @foreach (var item in Model.TeslimAlinmaBekleyenEsyaListe)
+        {
+            if (teslimBekleyenBagis % 2 == 0)
+            {
+                <tr class="even">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.BagisciAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Tarih)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="odd">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.BagisciAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Tarih)
+                    </td>
+                </tr>
+            }
+            teslimBekleyenBagis++;
+        }
+    </tbody>
+</table>
+<br class="hidden-xs" /><br />
+<h4>Teslim Edilmek Üzere Bekleyen Bağışlar</h4>
+<table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top: 15px">
+    <thead style="background-color: green">
+        <tr>
+            <th class="col-md-8 col-xs-8">İhtiyaç Sahibi Adı Soyadı</th>
+            <th class="col-md-4 col-xs-4">Tahmini Teslim Tarihi</th>
+        </tr>
+    </thead>
+    <tbody class="points_table_scrollbar" id="tablo_tbody">
+        @foreach (var item in Model.TeslimEdilecekEsyaListesi)
+        {
+            if (teslimBekleyenEsya % 2 == 0)
+            {
+                <tr class="even">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.MuhtacAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.TahminiTeslimTarihi)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="odd">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.MuhtacAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.TahminiTeslimTarihi)
+                    </td>
+                </tr>
+            }
+            teslimBekleyenEsya++;
+        }
+    </tbody>
+</table>
+<br class="hidden-xs" /><br />
+<h4>Onay Verilmek Üzere Bekleyen İhtiyaç Sahipleri</h4>
+<table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top: 15px">
+    <thead style="background-color: blue">
+        <tr>
+            <th class="col-md-8 col-xs-8">İhtiyaç Sahibi Adı Soyadı</th>
+            <th class="col-md-4 col-xs-4">Eklenme Tarihi</th>
+        </tr>
+    </thead>
+    <tbody class="points_table_scrollbar" id="tablo_tbody">
+        @foreach (var item in Model.OnayBekleyenMuhtacListesi)
+        {
+            if (onayBekleyenMuhtac % 2 == 0)
+            {
+                <tr class="even">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.MuhtacAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Tarih)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="odd">
+                    <td class="col-md-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => item.MuhtacAdiSoyadi)
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Tarih)
+                    </td>
+                </tr>
+            }
+            onayBekleyenMuhtac++;
+        }
+    </tbody>
+</table>

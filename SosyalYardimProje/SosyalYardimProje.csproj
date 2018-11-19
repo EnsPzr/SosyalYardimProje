@@ -6387,6 +6387,7 @@
     <Content Include="bower_components\select2\tests\vendor\qunit-1.23.1.js" />
     <Content Include="bower_components\select2\vendor\jquery-2.1.0.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\tablo.css" />
     <Content Include="dist\css\AdminLTE.css" />
     <Content Include="dist\css\AdminLTE.min.css" />
     <Content Include="dist\css\alt\AdminLTE-bootstrap-social.css" />
@@ -6956,6 +6957,7 @@
     <Content Include="Views\Giris\navbarPartial.cshtml" />
     <Content Include="Views\Giris\Giris.cshtml" />
     <Content Include="Views\Giris\AnaSayfa.cshtml" />
+    <Content Include="Views\Giris\anasayfaPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
