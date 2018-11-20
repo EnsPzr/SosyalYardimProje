@@ -6388,6 +6388,7 @@
     <Content Include="bower_components\select2\vendor\jquery-2.1.0.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\tablo.css" />
+    <Content Include="Content\tablo2.css" />
     <Content Include="dist\css\AdminLTE.css" />
     <Content Include="dist\css\AdminLTE.min.css" />
     <Content Include="dist\css\alt\AdminLTE-bootstrap-social.css" />
@@ -6927,14 +6928,19 @@
     <Content Include="bower_components\select2\src\scss\_single.scss" />
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
-    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.0.js" />
-    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\KullaniciListeleScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\README.md" />
@@ -6945,6 +6951,7 @@
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
     <Compile Include="Filters\KullaniciLoginFilter.cs" />
+    <Compile Include="Filters\SadeceLoginFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -6959,6 +6966,7 @@
     <Content Include="Views\Giris\Giris.cshtml" />
     <Content Include="Views\Giris\AnaSayfa.cshtml" />
     <Content Include="Views\Giris\anasayfaPartial.cshtml" />
+    <Content Include="Views\Kullanici\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6971,7 +6979,6 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\Kullanici\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

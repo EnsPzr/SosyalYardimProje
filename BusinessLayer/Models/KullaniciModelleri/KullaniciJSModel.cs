@@ -10,6 +10,8 @@ namespace BusinessLayer.Models.KullaniciModelleri
     {
         public bool BasariliMi { get; set; }
 
+        public int? KullaniciSayisi { get; set; }
+
         public List<KullaniciModel> KullaniciModelList { get; set; }
     }
 }

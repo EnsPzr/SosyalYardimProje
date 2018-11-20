@@ -25,8 +25,8 @@ namespace BusinessLayer.Models.KullaniciModelleri
 
         public SehirModel Sehir { get; set; }
 
-        [Display(Name = "Kullanıcı Onaylı Mı?")]
-        public bool KullaniciOnayliMi { get; set; }
+        [Display(Name = "Onaylı")]
+        public bool? KullaniciOnayliMi { get; set; }
 
         [Display(Name = "Telegram Kullanıcı Adı")]
         [MaxLength(20, ErrorMessage = "Soyad en fazla {1} karakter olabilir."), MinLength(3, ErrorMessage = "Soyad en az {1} karakter olabilir.")]
@@ -37,15 +37,17 @@ namespace BusinessLayer.Models.KullaniciModelleri
         [Required(ErrorMessage = "TC Kimlik No boş geçilemez.")]
         public String KullaniciTCKimlik { get; set; }
 
+        [DataType(DataType.PhoneNumber,ErrorMessage = "Lütfen geçerli bir telefon numarası giriniz.")]
         [Display(Name = "Tel No")]
         [MaxLength(50, ErrorMessage = "Tel No en fazla {1} karakter olabilir.")]
         [Required(ErrorMessage = "Tel No boş geçilemez.")]
         public String KullaniciTelNo { get; set; }
 
-        [Display(Name = "Kullanıcı Merkezde Mi?")]
-        public bool KullaniciMerkezdeMi { get; set; }
+        [Display(Name = "Merkezde")]
+        public bool? KullaniciMerkezdeMi { get; set; }
 
         [Display(Name = "E Posta")]
+        [EmailAddress(ErrorMessage = "Lütfen geçerli bir E Posta adresi giriniz.")]
         [MaxLength(35, ErrorMessage = "E Posta en fazla {1} karakter olabilir."), MinLength(6, ErrorMessage = "E Posta en az {1} karakter olabilir.")]
         [Required(ErrorMessage = "E Posta boş geçilemez.")]
         public String KullaniciEPosta { get; set; }
@@ -62,7 +64,15 @@ namespace BusinessLayer.Models.KullaniciModelleri
         public String KullaniciSifreTekrar { get; set; }
 
         [Display(Name = "Aktif Mi?")]
-        public bool AktifMi { get; set; }
+        public bool? AktifMi { get; set; }
 
+        public int? Sira { get; set; }
+        public String AktifMiStr { get; set; }
+        public String KullaniciOnayliMiStr { get; set; }
+        public String KullaniciMerkezdeMiStr { get; set; }
+        public KullaniciModel()
+        {
+            Sehir= new SehirModel();
+        }
     }
 }

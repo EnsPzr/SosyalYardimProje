@@ -42,6 +42,7 @@ namespace DataLayer
         public virtual DbSet<MesajTablo> MesajTablo { get; set; }
         public virtual DbSet<RotaTablo> RotaTablo { get; set; }
         public virtual DbSet<SehirTablo> SehirTablo { get; set; }
+        public virtual DbSet<SubeTablo> SubeTablo { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<YetkiTablo> YetkiTablo { get; set; }
     }

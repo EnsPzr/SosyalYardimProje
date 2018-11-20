@@ -47,6 +47,7 @@
     <Compile Include="Models\AnaSayfaModelleri\OnayBekleyenIhtiyacSahipleriModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimAlinmaBekleyenBagislarListe.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
+    <Compile Include="Models\KullaniciModelleri\KullaniciFiltrelemeModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciGirisModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciJSModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciModel.cs" />

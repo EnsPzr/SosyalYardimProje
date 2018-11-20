@@ -23,7 +23,7 @@ namespace DataLayer
             this.LogTablo = new HashSet<LogTablo>();
             this.MesajDetayTablo = new HashSet<MesajDetayTablo>();
             this.MesajTablo = new HashSet<MesajTablo>();
-            this.SehirTablo1 = new HashSet<SehirTablo>();
+            this.SubeTablo = new HashSet<SubeTablo>();
             this.YetkiTablo = new HashSet<YetkiTablo>();
         }
     
@@ -48,7 +48,6 @@ namespace DataLayer
         public virtual ICollection<GeriBildirimTablo> GeriBildirimTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IhtiyacSahibiVeKullaniciTablo> IhtiyacSahibiVeKullaniciTablo { get; set; }
-        public virtual SehirTablo SehirTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LogTablo> LogTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,8 +55,9 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MesajTablo> MesajTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SehirTablo> SehirTablo1 { get; set; }
+        public virtual ICollection<SubeTablo> SubeTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YetkiTablo> YetkiTablo { get; set; }
+        public virtual SehirTablo SehirTablo { get; set; }
     }
 }
