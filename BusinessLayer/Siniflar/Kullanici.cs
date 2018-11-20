@@ -8,5 +8,6 @@ namespace BusinessLayer.Siniflar
 {
     public class Kullanici
     {
+        
     }
 }
