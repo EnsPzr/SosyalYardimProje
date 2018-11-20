@@ -12,13 +12,13 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class SubeTablo
+    public partial class IhtiyacSahibiVerilecekMaddiTablo
     {
-        public int SubeId { get; set; }
-        public Nullable<int> SehirTablo_SehirId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
+        public int IhtiyacSahibiVerilecekMaddiId { get; set; }
+        public Nullable<decimal> VerilecekMaddiYardim { get; set; }
+        public Nullable<int> IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId { get; set; }
+        public Nullable<System.DateTime> VerilmeGerceklesmeTarihi { get; set; }
     
-        public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
-        public virtual SehirTablo SehirTablo { get; set; }
+        public virtual IhtiyacSahibiKontrolTablo IhtiyacSahibiKontrolTablo { get; set; }
     }
 }

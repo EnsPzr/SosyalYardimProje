@@ -11,13 +11,13 @@ namespace BusinessLayer
     public class KullaniciYonetimi
     {
         DataLayer.KullaniciYonetimi kullaniciYonetimi = new DataLayer.KullaniciYonetimi();
-        public DataLayer.KullaniciBilgileriTablo LoginKullaniciBul(String KullaniciGuId)
+        public KullaniciBilgileriTablo LoginKullaniciBul(int? KullaniciId)
         {
-            return kullaniciYonetimi.KullaniciBul(KullaniciGuId);
+            return kullaniciYonetimi.KullaniciBul(KullaniciId);
         }
-        public bool YetkiVarMi(String KullaniciGuId, String Controller, String Action)
+        public bool YetkiVarMi(int? KullaniciId, String Controller, String Action)
         {
-            var Kullanici = kullaniciYonetimi.KullaniciBul(KullaniciGuId);
+            var Kullanici = kullaniciYonetimi.KullaniciBul(KullaniciId);
             if (Kullanici != null)
             {
                 var Rota = kullaniciYonetimi.RotaBul(Controller, Action);
@@ -51,11 +51,11 @@ namespace BusinessLayer
             }
         }
 
-        public List<NavbarModel> NavbarOlustur(String KullaniciGuId)
+        public List<NavbarModel> NavbarOlustur(int? KullaniciId)
         {
             List<DataLayer.YetkiTablo> Yetkiler = kullaniciYonetimi.TumYetkileriGetir();
-            Yetkiler = Yetkiler.Where(p => p.KullaniciBilgileriTablo_KullaniciGuId == KullaniciGuId
-                                           && p.GirebilirMi == true).ToList();
+            Yetkiler = Yetkiler.Where(p => p.KullaniciBilgileriTablo_KullaniciId == KullaniciId
+                                           && p.GirebilirMi == true).OrderBy(p=>p.RotaTablo.Sira).ToList();
             List<NavbarModel> navbarListModel = new List<NavbarModel>();
             for (int i = 0; i < Yetkiler.Count; i++)
             {
@@ -143,9 +143,9 @@ namespace BusinessLayer
             var teslimBekleyenlerListe = kullaniciYonetimi.TeslimBekleyenEsyalar(id).Select(p =>
                 new TeslimEdilecekEsyaListeModeli()
                 {
-                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtıyacSahibiAdi + " " +
-                                      p.IhtiyacSahibiTablo.İhtiyacSahibiSoyadi,
-                    TahminiTeslimTarihi = p.İhtiyacSahibiTahminiTeslimTarihi
+                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtiyacSahibiAdi + " " +
+                                      p.IhtiyacSahibiTablo.IhtiyacSahibiSoyadi,
+                    TahminiTeslimTarihi = p.TahminiTeslimTarihi
                 }).ToList();
             return teslimBekleyenlerListe;
         }
@@ -155,8 +155,8 @@ namespace BusinessLayer
             var onayBekleyenIhtiyacSahipleri = kullaniciYonetimi.OnayBekleyenIhtiyacSahipleri(id).Select(p =>
                 new OnayBekleyenIhtiyacSahipleriModeli()
                 {
-                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtıyacSahibiAdi + " " +
-                                      p.IhtiyacSahibiTablo.İhtiyacSahibiSoyadi,
+                    MuhtacAdiSoyadi = p.IhtiyacSahibiTablo.IhtiyacSahibiAdi + " " +
+                                      p.IhtiyacSahibiTablo.IhtiyacSahibiSoyadi,
                     Tarih = p.Tarih
                 }).ToList();
             return onayBekleyenIhtiyacSahipleri;
@@ -172,6 +172,10 @@ namespace BusinessLayer
             };
             return anaSayfaModel;
         }
-        
+
+        public bool KullaniciAktifMi(int? id)
+        {
+            return kullaniciYonetimi.KullaniciAktifMi(id);
+        }
     }
 }

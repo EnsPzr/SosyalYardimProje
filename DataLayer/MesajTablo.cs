@@ -21,13 +21,11 @@ namespace DataLayer
         }
     
         public int MesajId { get; set; }
-        public Nullable<int> SehirTablo_SehirId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
+        public Nullable<int> KullaniciBilgleriTablo_KullaniciId { get; set; }
         public Nullable<int> KimeAtildi { get; set; }
     
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MesajDetayTablo> MesajDetayTablo { get; set; }
-        public virtual SehirTablo SehirTablo { get; set; }
     }
 }

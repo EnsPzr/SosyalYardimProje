@@ -16,9 +16,10 @@ namespace DataLayer
     {
         public int MesajDetayId { get; set; }
         public Nullable<int> MesajTablo_MesajId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
         public string MesajMetni { get; set; }
     
+        public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
         public virtual MesajTablo MesajTablo { get; set; }
     }
 }

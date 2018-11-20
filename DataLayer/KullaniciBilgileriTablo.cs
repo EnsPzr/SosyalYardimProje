@@ -19,17 +19,18 @@ namespace DataLayer
         {
             this.BagisTablo = new HashSet<BagisTablo>();
             this.GeriBildirimTablo = new HashSet<GeriBildirimTablo>();
-            this.KasaTablo = new HashSet<KasaTablo>();
+            this.IhtiyacSahibiVeKullaniciTablo = new HashSet<IhtiyacSahibiVeKullaniciTablo>();
             this.LogTablo = new HashSet<LogTablo>();
+            this.MesajDetayTablo = new HashSet<MesajDetayTablo>();
             this.MesajTablo = new HashSet<MesajTablo>();
-            this.SubeTablo = new HashSet<SubeTablo>();
+            this.SehirTablo1 = new HashSet<SehirTablo>();
             this.YetkiTablo = new HashSet<YetkiTablo>();
         }
     
-        public string KullaniciGuId { get; set; }
+        public int KullaniciId { get; set; }
         public string KullaniciAdi { get; set; }
         public string KullaniciSoyadi { get; set; }
-        public Nullable<int> SehirTablo_Sehirid { get; set; }
+        public Nullable<int> SehirTablo_SehirId { get; set; }
         public Nullable<bool> KullaniciOnayliMi { get; set; }
         public string KullaniciTelegramKullaniciAdi { get; set; }
         public string KullaniciTCKimlikNumarasi { get; set; }
@@ -39,20 +40,23 @@ namespace DataLayer
         public string KullaniciEPosta { get; set; }
         public string KullaniciSifre { get; set; }
         public string AndroidToken { get; set; }
+        public Nullable<bool> AktifMi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BagisTablo> BagisTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GeriBildirimTablo> GeriBildirimTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KasaTablo> KasaTablo { get; set; }
+        public virtual ICollection<IhtiyacSahibiVeKullaniciTablo> IhtiyacSahibiVeKullaniciTablo { get; set; }
         public virtual SehirTablo SehirTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LogTablo> LogTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MesajDetayTablo> MesajDetayTablo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MesajTablo> MesajTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubeTablo> SubeTablo { get; set; }
+        public virtual ICollection<SehirTablo> SehirTablo1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YetkiTablo> YetkiTablo { get; set; }
     }

@@ -17,19 +17,22 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public IhtiyacSahibiKontrolTablo()
         {
-            this.IhtiyacSahibiVerileceklerTablo = new HashSet<IhtiyacSahibiVerileceklerTablo>();
+            this.IhtiyacSahibiVerilecekEsyaTablo = new HashSet<IhtiyacSahibiVerilecekEsyaTablo>();
+            this.IhtiyacSahibiVerilecekMaddiTablo = new HashSet<IhtiyacSahibiVerilecekMaddiTablo>();
         }
     
         public int IhtiyacSahibiKontrolId { get; set; }
-        public string IhtiyacSahibiTablo_IhtiyacSahibiGuId { get; set; }
+        public Nullable<int> IhtiyacSahibiTablo_IhtiyacSahibiId { get; set; }
         public Nullable<bool> MuhtacMi { get; set; }
         public Nullable<System.DateTime> Tarih { get; set; }
-        public Nullable<System.DateTime> IhtiyacSahibiKontrolYapilmaTarihi { get; set; }
-        public Nullable<System.DateTime> İhtiyacSahibiTahminiTeslimTarihi { get; set; }
-        public Nullable<bool> TeslimYapildiMi { get; set; }
+        public Nullable<System.DateTime> KontrolYapilmaTarihi { get; set; }
+        public Nullable<System.DateTime> TahminiTeslimTarihi { get; set; }
+        public Nullable<bool> TeslimTamamlandiMi { get; set; }
     
         public virtual IhtiyacSahibiTablo IhtiyacSahibiTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IhtiyacSahibiVerileceklerTablo> IhtiyacSahibiVerileceklerTablo { get; set; }
+        public virtual ICollection<IhtiyacSahibiVerilecekEsyaTablo> IhtiyacSahibiVerilecekEsyaTablo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IhtiyacSahibiVerilecekMaddiTablo> IhtiyacSahibiVerilecekMaddiTablo { get; set; }
     }
 }

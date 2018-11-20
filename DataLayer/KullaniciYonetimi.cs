@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Runtime.Remoting.Messaging;
 
 namespace DataLayer
 {
     public class KullaniciYonetimi
     {
         private SosyalYardimDB db = new SosyalYardimDB();
-        public KullaniciBilgileriTablo KullaniciBul(String KullaniciGuId)
+        public KullaniciBilgileriTablo KullaniciBul(int? KullaniciId)
         {
-            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciGuId == KullaniciGuId);
+            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == KullaniciId);
             return Kullanici;
         }
 
@@ -19,7 +18,7 @@ namespace DataLayer
         {
             var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == Eposta
                                                                                && p.KullaniciSifre == Sifre);
-            if (Kullanici != null) return Kullanici.KullaniciGuId;
+            if (Kullanici != null) return Kullanici.KullaniciId.ToString();
             else return String.Empty;
         }
         public RotaTablo RotaBul(String ControllerAdi, String ActionAdi)
@@ -31,7 +30,7 @@ namespace DataLayer
         public YetkiTablo YetkiVarMi(RotaTablo rota, KullaniciBilgileriTablo kullanici)
         {
             var YetkiVarMi = db.YetkiTablo.FirstOrDefault(p =>
-                p.KullaniciBilgileriTablo_KullaniciGuId == kullanici.KullaniciGuId
+                p.KullaniciBilgileriTablo_KullaniciId == kullanici.KullaniciId
                 && p.RotaTablo_RotaId == rota.RotaId
                 && p.GirebilirMi == true);
             return YetkiVarMi;
@@ -51,7 +50,7 @@ namespace DataLayer
             }
             else
             {
-                return db.BagisTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.TeslimAlindiMi == false&&p.KullaniciBilgileriTablo.SehirTablo_Sehirid==id).ToList();
+                return db.BagisTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.TeslimAlindiMi == false&&p.KullaniciBilgileriTablo.SehirTablo_SehirId==id).ToList();
             }
         }
 
@@ -60,12 +59,12 @@ namespace DataLayer
             if (id == null)
             {
                 return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo)
-                    .Include(p => p.IhtiyacSahibiVerileceklerTablo).Where(p => p.MuhtacMi == true && p.TeslimYapildiMi == false).ToList();
+                    .Include(p => p.IhtiyacSahibiVerilecekEsyaTablo).Where(p => p.MuhtacMi == true && p.TeslimTamamlandiMi == false).ToList();
             }
             else
             {
                 return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo)
-                    .Include(p => p.IhtiyacSahibiVerileceklerTablo).Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == id && p.MuhtacMi == true && p.TeslimYapildiMi == false).ToList();
+                    .Include(p => p.IhtiyacSahibiVerilecekEsyaTablo).Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == id && p.MuhtacMi == true && p.TeslimTamamlandiMi == false).ToList();
             }
         }
 
@@ -81,6 +80,28 @@ namespace DataLayer
                 return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null && p.IhtiyacSahibiTablo.SehirTablo_SehirId == id)
                     .ToList();
             }
+        }
+
+        public bool KullaniciAktifMi(int? id)
+        {
+            Dispose();
+            var kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == id);
+            if (kullanici != null)
+            {
+                if (Convert.ToBoolean(kullanici.AktifMi)) return true;
+                else return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+            db = null;
+            db = new SosyalYardimDB();
         }
     }
 }

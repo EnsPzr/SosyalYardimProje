@@ -17,13 +17,9 @@ namespace DataLayer
         public int GeriBildirimId { get; set; }
         public string GeriBildirimKonu { get; set; }
         public string GeriBildirimMesaj { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
         public Nullable<int> GeriBildirimDurumu { get; set; }
-        public Nullable<int> SehirTablo_SehirId { get; set; }
-        public Nullable<int> DisardanIslemYapan_IslemYapanId { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
     
-        public virtual DisardanIslemYapanTablo DisardanIslemYapanTablo { get; set; }
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
-        public virtual SehirTablo SehirTablo { get; set; }
     }
 }

@@ -7,10 +7,13 @@ namespace SosyalYardimProje.Controllers
 {
     public static class KullaniciBilgileriDondur
     {
-        public static String KullaniciGuId()
+        public static int? KullaniciId()
         {
-            if (HttpContext.Current.Session["KullaniciGuId"] != null)
-                return HttpContext.Current.Session["KullaniciGuId"].ToString();
+            if (HttpContext.Current.Session["KullaniciId"] != null)
+            {
+                String kullaniciId= HttpContext.Current.Session["KullaniciId"].ToString();
+                return Convert.ToInt32(kullaniciId);
+            }
             else return null;
         }
     }

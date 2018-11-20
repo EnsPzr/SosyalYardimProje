@@ -26,7 +26,7 @@ namespace DataLayer
         public Nullable<int> EsyaTablo_EsyaId { get; set; }
         public Nullable<bool> AlinacakMi { get; set; }
         public Nullable<bool> AlindiMi { get; set; }
-        public Nullable<System.DateTime> AlinmaTarihi { get; set; }
+        public Nullable<bool> AlinmaTarihi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BagisDetayResimTablo> BagisDetayResimTablo { get; set; }

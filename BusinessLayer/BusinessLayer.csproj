@@ -50,6 +50,7 @@
     <Compile Include="Models\KullaniciModelleri\KullaniciGirisModel.cs" />
     <Compile Include="Models\NavbarModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Siniflar\Kullanici.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">

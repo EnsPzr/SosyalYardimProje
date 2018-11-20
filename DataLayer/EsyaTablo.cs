@@ -19,7 +19,7 @@ namespace DataLayer
         {
             this.BagisDetayTablo = new HashSet<BagisDetayTablo>();
             this.DepoTablo = new HashSet<DepoTablo>();
-            this.IhtiyacSahibiVerileceklerTablo = new HashSet<IhtiyacSahibiVerileceklerTablo>();
+            this.IhtiyacSahibiVerilecekEsyaTablo = new HashSet<IhtiyacSahibiVerilecekEsyaTablo>();
         }
     
         public int EsyaId { get; set; }
@@ -30,6 +30,6 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepoTablo> DepoTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IhtiyacSahibiVerileceklerTablo> IhtiyacSahibiVerileceklerTablo { get; set; }
+        public virtual ICollection<IhtiyacSahibiVerilecekEsyaTablo> IhtiyacSahibiVerilecekEsyaTablo { get; set; }
     }
 }

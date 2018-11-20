@@ -4,54 +4,48 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d35122bad655491e810a65bf948bfa12" Name="Diagram1">
-        <EntityTypeShape EntityType="SosyalYardimVTModel.BagisDetayResimTablo" Width="1.5" PointX="9.75" PointY="29.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.BagisDetayTablo" Width="1.5" PointX="7.5" PointY="28.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.BagisTablo" Width="1.5" PointX="5.25" PointY="29" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.DepoTablo" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.DisardanIslemYapanTablo" Width="1.5" PointX="3.75" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.EsyaTablo" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.GeriBildirimTablo" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiKontrolTablo" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiTablo" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.IhtiyacSahibiVerileceklerTablo" Width="1.5" PointX="10.5" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.KasaTablo" Width="1.5" PointX="8.25" PointY="22.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.KullaniciBilgileriTablo" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.LogTablo" Width="1.5" PointX="5.25" PointY="33.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.MesajDetayTablo" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.MesajTablo" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.RotaTablo" Width="1.5" PointX="6" PointY="36.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.SehirTablo" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.SubeTablo" Width="1.5" PointX="8.25" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SosyalYardimVTModel.YetkiTablo" Width="1.5" PointX="8.25" PointY="33.125" IsExpanded="true" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayResimTablo_BagisDetayTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayTablo_BagisTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_BagisDetayTablo_EsyaTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_BagisTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_DepoTablo_EsyaTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_DepoTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_GeriBildirimTablo_DisardanIslemYapanTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_IhtiyacSahibiTablo_DisardanIslemYapanTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_LogTablo_DisardanIslemYapanTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_IhtiyacSahibiVerileceklerTablo_EsyaTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_GeriBildirimTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_GeriBildirimTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_IhtiyacSahibiVerileceklerTablo_IhtiyacSahibiKontrolTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_IhtiyacSahibiTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_KasaTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_KasaTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_KullaniciBilgileriTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_LogTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_MesajTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_SubeTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_YetkiTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_MesajDetayTablo_MesajTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_MesajTablo_SehirTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_RotaTablo_RotaTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_YetkiTablo_RotaTablo" ManuallyRouted="false" />
-        <AssociationConnector Association="SosyalYardimVTModel.FK_SubeTablo_SehirTablo" ManuallyRouted="false" />
+      <Diagram DiagramId="a2706334632c48868c5d6a2a29974875" Name="Diagram1">
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.BagisDetayResimTablo" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.BagisDetayTablo" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.BagisTablo" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.DepoTablo" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.EsyaTablo" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.GeriBildirimTablo" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.IhtiyacSahibiKontrolTablo" Width="1.5" PointX="7.5" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.IhtiyacSahibiTablo" Width="1.5" PointX="5.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.IhtiyacSahibiVeKullaniciTablo" Width="1.5" PointX="7.5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.IhtiyacSahibiVerilecekEsyaTablo" Width="1.5" PointX="9.75" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.IhtiyacSahibiVerilecekMaddiTablo" Width="1.5" PointX="9.75" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.KullaniciBilgileriTablo" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.LogTablo" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.MesajDetayTablo" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.MesajTablo" Width="1.5" PointX="3" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.RotaTablo" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.SehirTablo" Width="1.5" PointX="3" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.YetkiTablo" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_BagisDetayResimTablo_BagisDetayTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_BagisDetayTablo_BagisTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_BagisDetayTablo_EsyaTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_BagisTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_DepoTablo_EsyaTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_DepoTablo_SehirTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiVerilecekEsyaTablo_EsyaTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_GeriBildirimTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiVerilecekEsyaTablo_IhtiyacSahibiKontrolTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiVerilecekMaddiTablo_IhtiyacSahibiKontrolTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiTablo_SehirTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiVeKullaniciTablo_IhtiyacSahibiTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_IhtiyacSahibiVeKullaniciTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_KullaniciBilgileriTablo_SehirTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_LogTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_MesajDetayTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_MesajTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_SehirTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_YetkiTablo_KullaniciBilgileriTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_MesajDetayTablo_MesajTablo" ManuallyRouted="false" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_YetkiTablo_RotaTablo" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

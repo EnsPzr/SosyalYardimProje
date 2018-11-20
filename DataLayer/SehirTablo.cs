@@ -18,30 +18,20 @@ namespace DataLayer
         public SehirTablo()
         {
             this.DepoTablo = new HashSet<DepoTablo>();
-            this.GeriBildirimTablo = new HashSet<GeriBildirimTablo>();
             this.IhtiyacSahibiTablo = new HashSet<IhtiyacSahibiTablo>();
-            this.KasaTablo = new HashSet<KasaTablo>();
             this.KullaniciBilgileriTablo = new HashSet<KullaniciBilgileriTablo>();
-            this.MesajTablo = new HashSet<MesajTablo>();
-            this.SubeTablo = new HashSet<SubeTablo>();
         }
     
         public int SehirId { get; set; }
         public string SehirAdi { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepoTablo> DepoTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GeriBildirimTablo> GeriBildirimTablo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IhtiyacSahibiTablo> IhtiyacSahibiTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KasaTablo> KasaTablo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KullaniciBilgileriTablo> KullaniciBilgileriTablo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MesajTablo> MesajTablo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubeTablo> SubeTablo { get; set; }
+        public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo1 { get; set; }
     }
 }

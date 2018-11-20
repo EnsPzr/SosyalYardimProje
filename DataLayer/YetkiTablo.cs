@@ -15,7 +15,7 @@ namespace DataLayer
     public partial class YetkiTablo
     {
         public int YetkiId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
         public Nullable<int> RotaTablo_RotaId { get; set; }
         public Nullable<bool> GirebilirMi { get; set; }
     

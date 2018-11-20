@@ -18,19 +18,20 @@ namespace DataLayer
         public IhtiyacSahibiTablo()
         {
             this.IhtiyacSahibiKontrolTablo = new HashSet<IhtiyacSahibiKontrolTablo>();
+            this.IhtiyacSahibiVeKullaniciTablo = new HashSet<IhtiyacSahibiVeKullaniciTablo>();
         }
     
-        public string IhtıyacSahibiGuId { get; set; }
-        public string IhtıyacSahibiAdi { get; set; }
-        public string İhtiyacSahibiSoyadi { get; set; }
-        public string İhtiyacSahibiTelNo { get; set; }
+        public int IhtiyacSahibiId { get; set; }
+        public string IhtiyacSahibiAdi { get; set; }
+        public string IhtiyacSahibiSoyadi { get; set; }
+        public string IhtiyacSahibiTelNo { get; set; }
         public string IhtiyacSahibiAdres { get; set; }
         public Nullable<int> SehirTablo_SehirId { get; set; }
-        public Nullable<int> DisardanIslemYapanTablo_IslemYapanId { get; set; }
     
-        public virtual DisardanIslemYapanTablo DisardanIslemYapanTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IhtiyacSahibiKontrolTablo> IhtiyacSahibiKontrolTablo { get; set; }
         public virtual SehirTablo SehirTablo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IhtiyacSahibiVeKullaniciTablo> IhtiyacSahibiVeKullaniciTablo { get; set; }
     }
 }

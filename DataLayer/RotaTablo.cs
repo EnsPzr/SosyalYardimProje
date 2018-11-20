@@ -17,7 +17,6 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RotaTablo()
         {
-            this.RotaTablo1 = new HashSet<RotaTablo>();
             this.YetkiTablo = new HashSet<YetkiTablo>();
         }
     
@@ -28,11 +27,9 @@ namespace DataLayer
         public Nullable<int> RotaTablo_RotaId { get; set; }
         public Nullable<bool> GosterilecekMi { get; set; }
         public string DropdownBaslikAdi { get; set; }
+        public Nullable<byte> Sira { get; set; }
         public Nullable<bool> HerkesGirebilirMi { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RotaTablo> RotaTablo1 { get; set; }
-        public virtual RotaTablo RotaTablo2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YetkiTablo> YetkiTablo { get; set; }
     }

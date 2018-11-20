@@ -15,11 +15,10 @@ namespace DataLayer
     public partial class LogTablo
     {
         public int LogId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
-        public string YapılanIslem { get; set; }
-        public Nullable<int> DisardanIslemYapanTablo_IslemYapanId { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
+        public Nullable<byte> IslemTipi { get; set; }
+        public string IslemIcerik { get; set; }
     
-        public virtual DisardanIslemYapanTablo DisardanIslemYapanTablo { get; set; }
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
     }
 }

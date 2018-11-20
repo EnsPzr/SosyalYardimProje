@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Giriş</title>
     <link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container-fluid">
@@ -19,6 +20,13 @@
                 &emsp;
             </div>
             <div class="col-md-4 col-xs-12">
+                @if (TempData["hata"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-circle"></i>
+                        @TempData["hata"].ToString()
+                    </div>
+                }
                 @using (Html.BeginForm("Giris", "Giris", FormMethod.Post))
                 {
                     <div class="panel panel-default">
@@ -30,36 +38,36 @@
                                 @Html.AntiForgeryToken()
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
-                                        @Html.LabelFor(model => model.EPosta, htmlAttributes: new { @class = "control-label" })
+                                        @Html.LabelFor(model => model.EPosta, htmlAttributes: new {@class = "control-label"})
                                     </div>
                                     <div class="col-md-12">
-                                        @Html.TextBoxFor(model => model.EPosta, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.EPosta, new {@class = "form-control"})
                                         <div class="text-center">
-                                            @Html.ValidationMessageFor(model => model.EPosta, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.EPosta, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
                                 </div>
-                                <br class="hidden-xs" />
+                                <br class="hidden-xs"/>
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
-                                        @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label" })
+                                        @Html.LabelFor(model => model.Sifre, htmlAttributes: new {@class = "control-label"})
                                     </div>
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model=>model.Sifre, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.Sifre, new {htmlAttributes = new {@class = "form-control"}})
                                         <div class="text-center">
-                                            @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Sifre, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
                                 </div>
-                                <br class="hidden-xs" />
+                                <br class="hidden-xs"/>
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
                                         <button type="submit" class="btn btn-success">Giriş</button>
                                     </div>
                                 </div>
                             </div>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <hr/>
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                         </div>
                     </div>
                 }

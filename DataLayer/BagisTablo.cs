@@ -21,7 +21,7 @@ namespace DataLayer
         }
     
         public int BagisId { get; set; }
-        public string KullaniciBilgileriTablo_KullaniciGuId { get; set; }
+        public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
         public Nullable<System.DateTime> EklenmeTarihi { get; set; }
         public Nullable<bool> OnaylandiMi { get; set; }
         public Nullable<System.DateTime> TahminiTeslimAlmaTarihi { get; set; }
