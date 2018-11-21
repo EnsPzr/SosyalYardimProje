@@ -76,6 +76,7 @@ namespace BusinessLayer.Models.KullaniciModelleri
             Sehir= new SehirModel();
             this.KullaniciSifre = "123456";
             this.KullaniciSifreTekrar = "123456";
+            this.KullaniciId = -1;
         }
     }
 }

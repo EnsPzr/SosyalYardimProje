@@ -1,0 +1,47 @@
+﻿@model BusinessLayer.Models.SubeModelleri.SubeModel
+
+@{
+    ViewBag.Title = "Yeni Şube";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yeni Şube</h2>
+
+@using (Html.BeginForm("Ekle","Sube",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    if (TempData["hata"] != null)
+     {
+         <div class="alert alert-danger">
+             @TempData["hata"].ToString()
+         </div>
+     }
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.KullaniciId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.KullaniciId, (List<SelectListItem>)ViewBag.kullanicilar, "Kullanıcı Seçiniz", htmlAttributes: new { @class = "form-control", @id = "sehirId" })
+                @Html.ValidationMessageFor(model => model.KullaniciId, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Sehir, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.Sehir.SehirId, (List<SelectListItem>)ViewBag.sehirler, "Şehir Seçiniz", htmlAttributes: new { @class = "form-control", @id = "sehirId" })
+                @Html.ValidationMessageFor(model => model.Sehir.SehirId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <center>
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </center>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Listeye Geri Dön", "Liste")
+</div>

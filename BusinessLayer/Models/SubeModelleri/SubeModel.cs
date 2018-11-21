@@ -17,5 +17,9 @@ namespace BusinessLayer.Models.SubeModelleri
 
         [Display(Name="Kullanıcı")]
         public KullaniciModel Kullanici { get; set; }
+
+        [Display(Name ="Kullanıcı")]
+        [Required(ErrorMessage ="Şube görevlisi seçilmelidir.")]
+        public int? KullaniciId { get; set; }
     }
 }

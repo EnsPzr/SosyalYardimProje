@@ -68,12 +68,14 @@ namespace SosyalYardimProje.Controllers
                     else
                     {
                         TempData["hata"] = "Bilinmeyen bir hata oluştu.";
+                        Tanimla();
                         return View(yeniSube);
                     }
                 }
                 else
                 {
                     TempData["hata"] = "Şehir için zaten bir görevli seçimi yapılmış.";
+                    Tanimla();
                     return View(yeniSube);
                 }
             }

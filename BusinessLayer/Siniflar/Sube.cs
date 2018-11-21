@@ -28,6 +28,7 @@ namespace BusinessLayer.Siniflar
                     SehirId=subeler[i].SehirTablo_SehirId
                 };
                 eklenecekSubeModel.Sira = i;
+                eklenecekSubeModel.SubeId = subeler[i].SubeId;
                 goruntulenecekSubeler.Add(eklenecekSubeModel);
             }
 
@@ -47,6 +48,7 @@ namespace BusinessLayer.Siniflar
                     SehirAdi = subeler[i].SehirTablo.SehirAdi,
                     SehirId = subeler[i].SehirTablo_SehirId
                 };
+                eklenecekSubeModel.Sira = i;
                 eklenecekSubeModel.SubeId = subeler[i].SubeId;
                 goruntulenecekSubeler.Add(eklenecekSubeModel);
             }
@@ -62,7 +64,7 @@ namespace BusinessLayer.Siniflar
             SubeTablo eklenecekSube = new SubeTablo()
             {
                 SehirTablo_SehirId = yeniSube.Sehir.SehirId,
-                KullaniciBilgileriTablo_KullaniciId = yeniSube.Kullanici.KullaniciId
+                KullaniciBilgileriTablo_KullaniciId = yeniSube.KullaniciId
             };
             return subeDataLayer.SubeEkle(eklenecekSube);
         }

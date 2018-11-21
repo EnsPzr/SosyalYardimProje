@@ -17,14 +17,14 @@
                             Liste = Liste + "<tr class='even'>"+
                                 "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Kullanici.KullaniciAdi + " " + result.SubeModelList[i].Kullanici.KullaniciSoyadi +"</td>"+
                                 "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Sehir.SehirAdi + "</td>" +
-                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].KullaniciId+"'></a> | " +
+                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].SubeId+"'></a> | " +
                                 "<a class='glyphicon glyphicon-eye-open' href='/Sube/Detay/" + result.SubeModelList[i].SubeId  +"'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Sube/Sil/" + result.SubeModelList[i].SubeId +"'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Kullanici.KullaniciAdi + " " + result.SubeModelList[i].Kullanici.KullaniciSoyadi + "</td>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Sehir.SehirAdi + "</td>" +
-                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].KullaniciId + "'></a> | " +
+                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-eye-open' href='/Sube/Detay/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Sube/Sil/" + result.SubeModelList[i].SubeId + "'></a></td></tr >";
                         }
@@ -81,14 +81,14 @@
                                 Liste = Liste + "<tr class='even'>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Kullanici.KullaniciAdi + " " + result.SubeModelList[i].Kullanici.KullaniciSoyadi + "</td>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Sehir.SehirAdi + "</td>" +
-                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].KullaniciId + "'></a> | " +
+                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-eye-open' href='/Sube/Detay/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Sube/Sil/" + result.SubeModelList[i].SubeId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Kullanici.KullaniciAdi + " " + result.SubeModelList[i].Kullanici.KullaniciSoyadi + "</td>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.SubeModelList[i].Sehir.SehirAdi + "</td>" +
-                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].KullaniciId + "'></a> | " +
+                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Sube/Duzenle/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-eye-open' href='/Sube/Detay/" + result.SubeModelList[i].SubeId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Sube/Sil/" + result.SubeModelList[i].SubeId + "'></a></td></tr >";
                             }
