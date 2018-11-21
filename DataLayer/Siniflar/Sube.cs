@@ -24,5 +24,20 @@ namespace DataLayer.Siniflar
                             p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
                             || p.SehirTablo.SehirAdi.Contains(aranan)).ToList();
         }
+
+        public bool sehirGorevlisiVarMi(int? SehirId)
+        {
+            return db.SubeTablo.FirstOrDefault(p => p.SehirTablo_SehirId == SehirId) != null ? true : false;
+        }
+
+        public bool SubeEkle(SubeTablo eklenecekSube)
+        {
+            db.SubeTablo.Add(eklenecekSube);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

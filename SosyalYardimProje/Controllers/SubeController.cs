@@ -57,7 +57,7 @@ namespace SosyalYardimProje.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool sehirGorevlisiVarMi = subeBusinessLayer.sehirGorevlisiVarMi();
+                bool sehirGorevlisiVarMi = subeBusinessLayer.sehirGorevlisiVarMi(yeniSube.Sehir.SehirId);
                 if (!sehirGorevlisiVarMi)
                 {
                     if (subeBusinessLayer.SubeEkle(yeniSube))

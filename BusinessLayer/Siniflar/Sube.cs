@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.OrtakModeller;
 using BusinessLayer.Models.SubeModelleri;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
@@ -51,6 +52,19 @@ namespace BusinessLayer.Siniflar
             }
 
             return goruntulenecekSubeler;
+        }
+        public bool sehirGorevlisiVarMi(int? SehirId)
+        {
+            return subeDataLayer.sehirGorevlisiVarMi(SehirId);
+        }
+        public bool SubeEkle(SubeModel yeniSube)
+        {
+            SubeTablo eklenecekSube = new SubeTablo()
+            {
+                SehirTablo_SehirId = yeniSube.Sehir.SehirId,
+                KullaniciBilgileriTablo_KullaniciId = yeniSube.Kullanici.KullaniciId
+            };
+            return subeDataLayer.SubeEkle(eklenecekSube);
         }
     }
 }
