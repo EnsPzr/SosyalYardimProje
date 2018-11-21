@@ -204,6 +204,10 @@ namespace BusinessLayer.Siniflar
             return KullaniciDataLayer.KullaniciVarMi(eposta);
         }
 
+        public bool KullaniciVarMi(String eposta, int? id)
+        {
+            return KullaniciDataLayer.KullaniciVarMi(eposta, id);
+        }
         public bool KullaniciEkle(KullaniciModel yeniKullanici)
         {
             KullaniciBilgileriTablo eklenecekKullanici = new KullaniciBilgileriTablo();
@@ -220,6 +224,30 @@ namespace BusinessLayer.Siniflar
             eklenecekKullanici.KullaniciTelegramKullaniciAdi = yeniKullanici.KullaniciTelegramKullaniciAdi;
             eklenecekKullanici.KullaniciTelefonNumarasi = yeniKullanici.KullaniciTelNo;
             return KullaniciDataLayer.KullaniciEkle(eklenecekKullanici);
+        }
+
+        public bool KullaniciGuncelle(KullaniciModel duzenlenmisKullanici)
+        {
+            var guncellenecekKullanici = KullaniciDataLayer.KullaniciGetir(duzenlenmisKullanici.KullaniciId);
+            if (guncellenecekKullanici != null)
+            {
+                guncellenecekKullanici.AktifMi = duzenlenmisKullanici.AktifMi;
+                guncellenecekKullanici.BagisciMi = false;
+                guncellenecekKullanici.KullaniciAdi = duzenlenmisKullanici.KullaniciAdi;
+                guncellenecekKullanici.KullaniciEPosta = duzenlenmisKullanici.KullaniciEPosta;
+                guncellenecekKullanici.KullaniciMerkezdeMi = duzenlenmisKullanici.KullaniciMerkezdeMi;
+                guncellenecekKullanici.KullaniciTCKimlikNumarasi = duzenlenmisKullanici.KullaniciTCKimlik;
+                guncellenecekKullanici.KullaniciSoyadi = duzenlenmisKullanici.KullaniciSoyadi;
+                guncellenecekKullanici.SehirTablo_SehirId = duzenlenmisKullanici.Sehir.SehirId;
+                guncellenecekKullanici.KullaniciOnayliMi = duzenlenmisKullanici.KullaniciOnayliMi;
+                guncellenecekKullanici.KullaniciTelegramKullaniciAdi = duzenlenmisKullanici.KullaniciTelegramKullaniciAdi;
+                guncellenecekKullanici.KullaniciTelefonNumarasi = duzenlenmisKullanici.KullaniciTelNo;
+                return KullaniciDataLayer.KullaniciGuncelle(guncellenecekKullanici);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

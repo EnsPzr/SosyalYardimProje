@@ -6969,6 +6969,7 @@
     <Content Include="Views\Kullanici\Liste.cshtml" />
     <Content Include="Views\Kullanici\Ekle.cshtml" />
     <Content Include="Views\Kullanici\Sil.cshtml" />
+    <Content Include="Views\Kullanici\Duzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

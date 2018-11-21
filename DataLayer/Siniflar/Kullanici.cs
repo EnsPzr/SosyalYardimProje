@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace DataLayer.Siniflar
 {
@@ -39,10 +40,27 @@ namespace DataLayer.Siniflar
         {
             return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? true : false;
         }
+        public bool KullaniciVarMi(String eposta, int? id)
+        {
+            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta&&p.KullaniciId!=id) != null ? true : false;
+        }
 
         public bool KullaniciEkle(KullaniciBilgileriTablo eklenecekKullanici)
         {
             db.KullaniciBilgileriTablo.Add(eklenecekKullanici);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool KullaniciGuncelle(KullaniciBilgileriTablo guncellenmisKullanici)
+        {
+            db.KullaniciBilgileriTablo.AddOrUpdate(guncellenmisKullanici);
             if (db.SaveChanges() > 0)
             {
                 return true;
