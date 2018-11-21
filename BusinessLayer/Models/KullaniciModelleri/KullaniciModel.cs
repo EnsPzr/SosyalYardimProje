@@ -11,6 +11,7 @@ namespace BusinessLayer.Models.KullaniciModelleri
     public class KullaniciModel
     {
         [Key]
+        [Required]
         public int? KullaniciId { get; set; }
 
         [Display(Name = "Ad")]

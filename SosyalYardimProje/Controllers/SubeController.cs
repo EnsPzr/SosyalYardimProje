@@ -13,6 +13,7 @@ namespace SosyalYardimProje.Controllers
     public class SubeController : Controller
     {
         Sube subeBusinessLayer = new Sube();
+        private Kullanici kullaniciBL = new Kullanici();
         [KullaniciLoginFilter]
         [HttpGet]
         public ActionResult Liste()
@@ -39,6 +40,64 @@ namespace SosyalYardimProje.Controllers
             jsModel.SubeSayisi = subeler.Count;
             Thread.Sleep(2000);
             return Json(jsModel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [KullaniciLoginFilter]
+        public ActionResult Ekle()
+        {
+            Tanimla();
+            return View();
+        }
+
+        [HttpPost]
+        [KullaniciLoginFilter]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ekle(SubeModel yeniSube)
+        {
+            if (ModelState.IsValid)
+            {
+                bool sehirGorevlisiVarMi = subeBusinessLayer.sehirGorevlisiVarMi();
+                if (!sehirGorevlisiVarMi)
+                {
+                    if (subeBusinessLayer.SubeEkle(yeniSube))
+                    {
+                        TempData["uyari"] = "Şube ekleme işlemi başarı ile tamamlandı.";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Bilinmeyen bir hata oluştu.";
+                        return View(yeniSube);
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Şehir için zaten bir görevli seçimi yapılmış.";
+                    return View(yeniSube);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(yeniSube);
+            }
+        }
+
+        public void Tanimla()
+        {
+            var sehirler = kullaniciBL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
+            {
+                Text=p.SehirAdi,
+                Value=p.SehirId.ToString()
+            }).ToList();
+            ViewBag.sehirler = sehirler;
+            var kullanicilar = kullaniciBL.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
+            {
+                Value=p.KullaniciId.ToString(),
+                Text=p.KullaniciAdi+" "+p.KullaniciSoyadi
+            }).ToList();
+            ViewBag.kullanicilar = kullanicilar;
         }
     }
 }
