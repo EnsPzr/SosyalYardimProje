@@ -363,6 +363,37 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
+        [HttpGet]
+        public ActionResult Detay(int? id)
+        {
+            if (id != null)
+            {
+                var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
+                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                {
+                    return View(kullanici);
+                }
+                else
+                {
+                    if (kullanici.Sehir.SehirId ==
+                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    {
+                        return View(kullanici);
+                    }
+                    else
+                    {
+                        TempData["hata"] = sadeceGorevli;
+                        return RedirectToAction("Liste", "Kullanici");
+                    }
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen görüntülemek istediğiniz kullanıcıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
         public void MerkezdeGosterilecekMi()
         {
             var kullaniciMerkezdeMi = KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi;

@@ -1,0 +1,89 @@
+﻿@model BusinessLayer.Models.KullaniciModelleri.KullaniciModel
+
+@{
+    ViewBag.Title = "Kullanıcı Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kullanıcı Detay</h2>
+
+<div class="col-md-12 col-xs-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciSoyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTelegramKullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTelegramKullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTCKimlik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTCKimlik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTelNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTelNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciEPosta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciEPosta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AktifMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AktifMiStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciOnayliMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciOnayliMiStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciMerkezdeMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciMerkezdeMiStr)
+        </dd>
+
+    </dl>
+    <a class="glyphicon glyphicon-pencil" href="/Kullanici/Duzenle/@Model.KullaniciId"></a> |
+    <a class="glyphicon glyphicon-trash" href="/Kullanici/Sil/@Model.KullaniciId"></a>
+   
+</div>
