@@ -6950,6 +6950,7 @@
     <Compile Include="Controllers\GirisController.cs" />
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
+    <Compile Include="Controllers\SubeController.cs" />
     <Compile Include="Filters\KullaniciLoginFilter.cs" />
     <Compile Include="Filters\SadeceLoginFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -6983,6 +6984,7 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\Sube\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

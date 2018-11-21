@@ -119,6 +119,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Siniflar\Kullanici.cs" />
+    <Compile Include="Siniflar\Sube.cs" />
     <Compile Include="SubeTablo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
