@@ -86,23 +86,50 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
+        [HttpGet]
+        [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
-
+            if (id != null)
+            {
+                var sube = subeBusinessLayer.SubeBul(id);
+                if (sube != null)
+                {
+                    if (subeBusinessLayer.SubeSil(id))
+                    {
+                        TempData["uyari"] = "Şube silme işlemi başarı ile tamamlandı";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Bilinmeyen bir hata oluştu";
+                        return RedirectToAction("Sil", "Sube", new { id });
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Silinecek şube bulunamadı";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
+                return RedirectToAction("Liste");
+            }
         }
         public void Tanimla()
         {
             var sehirler = kullaniciBL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
             {
-                Text=p.SehirAdi,
-                Value=p.SehirId.ToString()
+                Text = p.SehirAdi,
+                Value = p.SehirId.ToString()
             }).ToList();
             ViewBag.sehirler = sehirler;
             var kullanicilar = kullaniciBL.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
             {
-                Value=p.KullaniciId.ToString(),
-                Text=p.KullaniciAdi+" "+p.KullaniciSoyadi
+                Value = p.KullaniciId.ToString(),
+                Text = p.KullaniciAdi + " " + p.KullaniciSoyadi
             }).ToList();
             ViewBag.kullanicilar = kullanicilar;
         }
