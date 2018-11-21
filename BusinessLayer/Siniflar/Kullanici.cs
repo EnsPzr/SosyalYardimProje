@@ -154,6 +154,51 @@ namespace BusinessLayer.Siniflar
             }
         }
 
+        public KullaniciModel KullaniciGetir(int? id)
+        {
+            var kullanici= KullaniciDataLayer.KullaniciGetir(id);
+            if (kullanici != null)
+            {
+                KullaniciModel goruntulenecekKullanici = new KullaniciModel();
+                goruntulenecekKullanici.AktifMi = kullanici.AktifMi != null
+                    ? kullanici.AktifMi == true ? true : false
+                    : false;
+                goruntulenecekKullanici.KullaniciSoyadi = kullanici.KullaniciSoyadi;
+                goruntulenecekKullanici.KullaniciAdi = kullanici.KullaniciAdi;
+                goruntulenecekKullanici.KullaniciId = kullanici.KullaniciId;
+                goruntulenecekKullanici.Sehir.SehirAdi = kullanici.SehirTablo != null ? kullanici.SehirTablo.SehirAdi : string.Empty;
+                goruntulenecekKullanici.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                goruntulenecekKullanici.KullaniciOnayliMi = kullanici.KullaniciOnayliMi != null
+                    ? kullanici.KullaniciOnayliMi == true ? true : false
+                    : false;
+                goruntulenecekKullanici.KullaniciTelegramKullaniciAdi = kullanici.KullaniciTelegramKullaniciAdi;
+                goruntulenecekKullanici.KullaniciTCKimlik = kullanici.KullaniciTCKimlikNumarasi;
+                goruntulenecekKullanici.KullaniciTelNo = kullanici.KullaniciTelefonNumarasi;
+                goruntulenecekKullanici.KullaniciMerkezdeMi = kullanici.KullaniciMerkezdeMi != null
+                    ? kullanici.KullaniciMerkezdeMi == true ? true : false
+                    : false;
+                goruntulenecekKullanici.KullaniciEPosta = kullanici.KullaniciEPosta;
+                goruntulenecekKullanici.AktifMiStr = kullanici.AktifMi != null
+                    ? kullanici.AktifMi == true ? "Evet" : "Hayır"
+                    : "Hayır";
+                goruntulenecekKullanici.KullaniciOnayliMiStr = kullanici.KullaniciOnayliMi != null
+                    ? kullanici.KullaniciOnayliMi == true ? "Evet" : "Hayır"
+                    : "Hayır";
+                goruntulenecekKullanici.KullaniciMerkezdeMiStr = kullanici.KullaniciMerkezdeMi != null
+                    ? kullanici.KullaniciMerkezdeMi == true ? "Evet" : "Hayır"
+                    : "Hayır";
+                return goruntulenecekKullanici;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool KullaniciSil(int? id)
+        {
+            return KullaniciDataLayer.KullaniciSil(id);
+        }
         public bool KullaniciVarMi(String eposta)
         {
             return KullaniciDataLayer.KullaniciVarMi(eposta);

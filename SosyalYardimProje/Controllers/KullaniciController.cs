@@ -14,6 +14,8 @@ namespace SosyalYardimProje.Controllers
 
     public class KullaniciController : Controller
     {
+        private string sadeceGorevli =
+            "Sadece görevli olduğunuz bölgedeki kullanıcılar ile ilgili işlem yapabilirsiniz.";
         Kullanici kullaniciBusinessLayer = new Kullanici();
         [KullaniciLoginFilter]
         public ActionResult Liste()
@@ -153,6 +155,89 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [HttpGet]
+        [KullaniciLoginFilter]
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
+                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                {
+                    return View(kullanici);
+                }
+                else
+                {
+                    if (kullanici.Sehir.SehirId ==
+                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    {
+                        return View(kullanici);
+                    }
+                    else
+                    {
+                        TempData["hata"] = sadeceGorevli;
+                        return RedirectToAction("Liste", "Kullanici");
+                    }
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz kullanıcıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [KullaniciLoginFilter]
+        [Route("Sil")]
+        public ActionResult KullaniciSil(int? id)
+        {
+            if (id != null)
+            {
+                var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
+                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                {
+                    if (kullaniciBusinessLayer.KullaniciSil(id))
+                    {
+                        TempData["uyari"] = "Kullanıcı silme işlemi başarı ile tamamlandı";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Bilinmeyen bir hata oluştu";
+                        return RedirectToAction("Sil", "Kullanici",new {id});
+                    }
+                }
+                else
+                {
+                    if (kullanici.Sehir.SehirId ==
+                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    {
+                        if (kullaniciBusinessLayer.KullaniciSil(id))
+                        {
+                            TempData["uyari"] = "Kullanıcı silme işlemi başarı ile tamamlandı";
+                            return RedirectToAction("Liste");
+                        }
+                        else
+                        {
+                            TempData["hata"] = "Bilinmeyen bir hata oluştu";
+                            return RedirectToAction("Sil", "Kullanici", new { id });
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = sadeceGorevli;
+                        return RedirectToAction("Liste", "Kullanici");
+                    }
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz kullanıcıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
         public void MerkezdeGosterilecekMi()
         {
             var kullaniciMerkezdeMi = KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi;

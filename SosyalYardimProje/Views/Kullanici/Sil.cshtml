@@ -1,0 +1,97 @@
+﻿@model BusinessLayer.Models.KullaniciModelleri.KullaniciModel
+
+@{
+    ViewBag.Title = "Kullanıcı Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kullanıcı Sil</h2>
+
+<h3>Silmek İstediğinize Emin Misiniz?</h3>
+<div class="col-md-12 col-xs-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciSoyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTelegramKullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTelegramKullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTCKimlik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTCKimlik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTelNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTelNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciEPosta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciEPosta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AktifMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AktifMiStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciOnayliMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciOnayliMiStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciMerkezdeMiStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciMerkezdeMiStr)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("KullaniciSil","Kullanici",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.Hidden("id",Model.KullaniciId)
+            <input type="submit" value="Sil" class="btn btn-danger"/> |
+            @Html.ActionLink("Listeye Geri Dön", "Liste")
+        </div>
+    }
+</div>

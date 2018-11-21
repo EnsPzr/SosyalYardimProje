@@ -23,6 +23,18 @@ namespace DataLayer.Siniflar
             return db.SehirTablo.ToList();
         }
 
+        public KullaniciBilgileriTablo KullaniciGetir(int? id)
+        {
+            return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).FirstOrDefault(p => p.KullaniciId == id);
+        }
+
+        public bool KullaniciSil(int? id)
+        {
+            KullaniciGetir(id).AktifMi = false;
+            if (db.SaveChanges()>0) return true;
+            else return false;
+        }
+
         public bool KullaniciVarMi(String eposta)
         {
             return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? true : false;
