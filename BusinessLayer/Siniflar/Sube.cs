@@ -72,5 +72,20 @@ namespace BusinessLayer.Siniflar
         {
             return subeDataLayer.SubeSil(id);
         }
+
+        public SubeModel SubeBul(int? id)
+        {
+            var Sube = subeDataLayer.SubeBul(id);
+            var dondurulecekSube = new SubeModel();
+            dondurulecekSube.SubeId = Sube.SubeId;
+            dondurulecekSube.Kullanici =
+                kullaniciBusinessLayer.KullaniciGetir(Sube.KullaniciBilgileriTablo_KullaniciId);
+            dondurulecekSube.Sehir = new SehirModel()
+            {
+                SehirAdi=Sube.SehirTablo.SehirAdi,
+                SehirId=Sube.SehirTablo_SehirId
+            };
+            return dondurulecekSube;
+        }
     }
 }

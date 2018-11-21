@@ -58,5 +58,18 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public SubeTablo SubeBul(int? id)
+        {
+            var subeBilgileri = db.SubeTablo.FirstOrDefault(p => p.SubeId == id);
+            if (subeBilgileri != null)
+            {
+                return subeBilgileri;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

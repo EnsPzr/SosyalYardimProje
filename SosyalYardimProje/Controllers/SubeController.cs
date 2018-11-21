@@ -86,6 +86,11 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+
+        public ActionResult Sil(int? id)
+        {
+
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
