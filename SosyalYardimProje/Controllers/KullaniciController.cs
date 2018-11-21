@@ -51,54 +51,29 @@ namespace SosyalYardimProje.Controllers
             return Json(jsKullaniciModel, JsonRequestBehavior.AllowGet);
         }
 
+        [KullaniciLoginFilter]
         [HttpGet]
         public ActionResult Ekle()
         {
             MerkezdeGosterilecekMi();
-            return View();
+            return View(new KullaniciModel());
         }
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Ekle(KullaniciModel yeniKullanici)
         {
             yeniKullanici.KullaniciSifre = "123456";
             yeniKullanici.KullaniciSifreTekrar = "123456";
+            yeniKullanici.AktifMi = true;
+            yeniKullanici.KullaniciOnayliMi = true;
             if (ModelState.IsValid)
             {
                 if (KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi == true)
                 {
                     if (!kullaniciBusinessLayer.KullaniciVarMi(yeniKullanici.KullaniciEPosta))
                     {
-                        if (kullaniciBusinessLayer.KullaniciEkle(yeniKullanici))
-                        {
-                            yeniKullanici.KullaniciSifre = "123456";
-                            yeniKullanici.KullaniciSifreTekrar = "123456";
-                            TempData["uyari"] = yeniKullanici.KullaniciAdi + " " + yeniKullanici.KullaniciSoyadi +
-                                                " kullanıcısı başarı ile kayıt edildi";
-                            return RedirectToAction("Liste", "Kullanici");
-                        }
-                        else
-                        {
-                            TempData["hata"] = "Ekleme işlemi sırasında hata oluştu.";
-                            MerkezdeGosterilecekMi();
-                            return View(yeniKullanici);
-                        }
-
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
-                        MerkezdeGosterilecekMi();
-                        return View(yeniKullanici);
-                    }
-                }
-                else
-                {
-                    if (!kullaniciBusinessLayer.KullaniciVarMi(yeniKullanici.KullaniciEPosta))
-                    {
-                        if (yeniKullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                        if (ValidateIdentityNumber(yeniKullanici.KullaniciTCKimlik))
                         {
                             if (kullaniciBusinessLayer.KullaniciEkle(yeniKullanici))
                             {
@@ -115,11 +90,53 @@ namespace SosyalYardimProje.Controllers
                         }
                         else
                         {
+                            ModelState.AddModelError("KullaniciTCKimlik","Lütfen geçerli bir TC Kimlik numarası giriniz.");
+                            MerkezdeGosterilecekMi();
+                            return View(yeniKullanici);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
+                        MerkezdeGosterilecekMi();
+                        return View(yeniKullanici);
+                    }
+                }
+                else
+                {
+                    if (!kullaniciBusinessLayer.KullaniciVarMi(yeniKullanici.KullaniciEPosta))
+                    {
+                        if (yeniKullanici.Sehir.SehirId ==
+                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                        {
+                            if (ValidateIdentityNumber(yeniKullanici.KullaniciTCKimlik))
+                            {
+                                if (kullaniciBusinessLayer.KullaniciEkle(yeniKullanici))
+                                {
+                                    TempData["uyari"] = yeniKullanici.KullaniciAdi + " " + yeniKullanici.KullaniciSoyadi +
+                                                        " kullanıcısı başarı ile kayıt edildi";
+                                    return RedirectToAction("Liste", "Kullanici");
+                                }
+                                else
+                                {
+                                    TempData["hata"] = "Ekleme işlemi sırasında hata oluştu.";
+                                    MerkezdeGosterilecekMi();
+                                    return View(yeniKullanici);
+                                }
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("KullaniciTCKimlik", "Lütfen geçerli bir TC Kimlik numarası giriniz.");
+                                MerkezdeGosterilecekMi();
+                                return View(yeniKullanici);
+                            }
+                        }
+                        else
+                        {
                             TempData["hata"] = "Kullanıcıyı sadece görevli olduğunuz şehire ekleyebilirsiniz";
                             MerkezdeGosterilecekMi();
                             return View(yeniKullanici);
                         }
-
                     }
                     else
                     {
@@ -153,6 +170,38 @@ namespace SosyalYardimProje.Controllers
                     Value = p.SehirId.ToString()
                 }).ToList();
             ViewBag.sehirler = sehirler;
+        }
+        public bool ValidateIdentityNumber(string identityNo)
+        {
+            bool result = false;
+            try
+            {
+                if (!string.IsNullOrEmpty(identityNo) && identityNo.Length == 11 && identityNo[0] != '0')
+                {
+                    Int64 ATCNO = 0, BTCNO = 0, identityNoInt = 0;
+                    long C1 = 0, C2 = 0, C3 = 0, C4 = 0, C5 = 0, C6 = 0, C7 = 0, C8 = 0, C9 = 0, Q1 = 0, Q2 = 0;
+                    identityNoInt = Int64.Parse(identityNo);
+                    ATCNO = identityNoInt / 100;
+                    BTCNO = identityNoInt / 100;
+                    C1 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C2 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C3 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C4 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C5 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C6 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C7 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C8 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    C9 = ATCNO % 10; ATCNO = ATCNO / 10;
+                    Q1 = ((10 - ((((C1 + C3 + C5 + C7 + C9) * 3) + (C2 + C4 + C6 + C8)) % 10)) % 10);
+                    Q2 = ((10 - (((((C2 + C4 + C6 + C8) + Q1) * 3) + (C1 + C3 + C5 + C7 + C9)) % 10)) % 10);
+
+                    result = ((BTCNO * 100) + (Q1 * 10) + Q2 == identityNoInt);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return result;
         }
     }
 }

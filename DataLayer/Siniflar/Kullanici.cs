@@ -27,5 +27,18 @@ namespace DataLayer.Siniflar
         {
             return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? true : false;
         }
+
+        public bool KullaniciEkle(KullaniciBilgileriTablo eklenecekKullanici)
+        {
+            db.KullaniciBilgileriTablo.Add(eklenecekKullanici);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

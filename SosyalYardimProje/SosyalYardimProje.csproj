@@ -6967,6 +6967,7 @@
     <Content Include="Views\Giris\AnaSayfa.cshtml" />
     <Content Include="Views\Giris\anasayfaPartial.cshtml" />
     <Content Include="Views\Kullanici\Liste.cshtml" />
+    <Content Include="Views\Kullanici\Ekle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

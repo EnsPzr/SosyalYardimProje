@@ -33,13 +33,13 @@ namespace BusinessLayer.Models.KullaniciModelleri
         public String KullaniciTelegramKullaniciAdi { get; set; }
 
         [Display(Name = "TC Kimlik No")]
-        [MaxLength(11, ErrorMessage = "TC {1} karakter olabilir.")]
+        [MaxLength(11, ErrorMessage = "TC {1} karakter olabilir."),MinLength(11, ErrorMessage = "TC {1} karakter olabilir.")]
         [Required(ErrorMessage = "TC Kimlik No boş geçilemez.")]
         public String KullaniciTCKimlik { get; set; }
 
         [DataType(DataType.PhoneNumber,ErrorMessage = "Lütfen geçerli bir telefon numarası giriniz.")]
         [Display(Name = "Tel No")]
-        [MaxLength(50, ErrorMessage = "Tel No en fazla {1} karakter olabilir.")]
+        [MaxLength(50, ErrorMessage = "Tel No en fazla {1} karakter olabilir."),MinLength(6, ErrorMessage = "Tel No en az {1} karakter olabilir.")]
         [Required(ErrorMessage = "Tel No boş geçilemez.")]
         public String KullaniciTelNo { get; set; }
 
@@ -73,6 +73,8 @@ namespace BusinessLayer.Models.KullaniciModelleri
         public KullaniciModel()
         {
             Sehir= new SehirModel();
+            this.KullaniciSifre = "123456";
+            this.KullaniciSifreTekrar = "123456";
         }
     }
 }

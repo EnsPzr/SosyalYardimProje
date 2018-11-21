@@ -161,7 +161,20 @@ namespace BusinessLayer.Siniflar
 
         public bool KullaniciEkle(KullaniciModel yeniKullanici)
         {
-            return true;
+            KullaniciBilgileriTablo eklenecekKullanici = new KullaniciBilgileriTablo();
+            eklenecekKullanici.AktifMi = yeniKullanici.AktifMi;
+            eklenecekKullanici.BagisciMi = false;
+            eklenecekKullanici.KullaniciAdi = yeniKullanici.KullaniciAdi;
+            eklenecekKullanici.KullaniciEPosta = yeniKullanici.KullaniciEPosta;
+            eklenecekKullanici.KullaniciMerkezdeMi = yeniKullanici.KullaniciMerkezdeMi;
+            eklenecekKullanici.KullaniciSifre = yeniKullanici.KullaniciSifre;
+            eklenecekKullanici.KullaniciTCKimlikNumarasi = yeniKullanici.KullaniciTCKimlik;
+            eklenecekKullanici.KullaniciSoyadi = yeniKullanici.KullaniciSoyadi;
+            eklenecekKullanici.SehirTablo_SehirId = yeniKullanici.Sehir.SehirId;
+            eklenecekKullanici.KullaniciOnayliMi = yeniKullanici.KullaniciOnayliMi;
+            eklenecekKullanici.KullaniciTelegramKullaniciAdi = yeniKullanici.KullaniciTelegramKullaniciAdi;
+            eklenecekKullanici.KullaniciTelefonNumarasi = yeniKullanici.KullaniciTelNo;
+            return KullaniciDataLayer.KullaniciEkle(eklenecekKullanici);
         }
     }
 }

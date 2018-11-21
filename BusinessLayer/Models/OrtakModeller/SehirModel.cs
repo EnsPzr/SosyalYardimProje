@@ -11,6 +11,7 @@ namespace BusinessLayer.Models.OrtakModeller
     {
         [Key]
         [Required(ErrorMessage = "Şehir seçilmek zorundadır")]
+        [Display(Name = "Şehir")]
         public int? SehirId { get; set; }
 
         [Display(Name = "Şehir")]
