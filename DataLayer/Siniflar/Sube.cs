@@ -39,5 +39,24 @@ namespace DataLayer.Siniflar
             }
             return false;
         }
+
+        public bool SubeSil(int? id)
+        {
+            var silinecekSube = db.SubeTablo.FirstOrDefault(p => p.SubeId == id);
+            if (silinecekSube != null)
+            {
+                db.SubeTablo.Remove(silinecekSube);
+                if (db.SaveChanges()>0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

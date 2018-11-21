@@ -68,5 +68,9 @@ namespace BusinessLayer.Siniflar
             };
             return subeDataLayer.SubeEkle(eklenecekSube);
         }
+        public bool SubeSil(int? id)
+        {
+            return subeDataLayer.SubeSil(id);
+        }
     }
 }
