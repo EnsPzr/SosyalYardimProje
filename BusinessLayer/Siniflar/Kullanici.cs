@@ -153,5 +153,15 @@ namespace BusinessLayer.Siniflar
                 }).ToList();
             }
         }
+
+        public bool KullaniciVarMi(String eposta)
+        {
+            return KullaniciDataLayer.KullaniciVarMi(eposta);
+        }
+
+        public bool KullaniciEkle(KullaniciModel yeniKullanici)
+        {
+            return true;
+        }
     }
 }

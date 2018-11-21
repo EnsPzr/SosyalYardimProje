@@ -22,5 +22,10 @@ namespace DataLayer.Siniflar
         {
             return db.SehirTablo.ToList();
         }
+
+        public bool KullaniciVarMi(String eposta)
+        {
+            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? true : false;
+        }
     }
 }
