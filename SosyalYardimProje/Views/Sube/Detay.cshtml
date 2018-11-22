@@ -1,0 +1,32 @@
+﻿@model BusinessLayer.Models.SubeModelleri.SubeModel
+
+@{
+    ViewBag.Title = "Şube Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Şube Detay</h2>
+
+<div class="col-md-12 col-xs-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kullanici)
+        </dt>
+
+        <dd>
+            @Model.Kullanici.KullaniciAdi @Model.Kullanici.KullaniciSoyadi
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir.SehirAdi)
+        </dd>
+    </dl>
+    <a class="glyphicon glyphicon-pencil" href="/Sube/Duzenle/@Model.SubeId"></a> |
+    <a class="glyphicon glyphicon-trash" href="/Sube/Sil/@Model.SubeId"></a>
+
+</div>
