@@ -56,6 +56,7 @@
     <Compile Include="Models\OrtakModeller\SehirModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeJSModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeModel.cs" />
+    <Compile Include="Models\YetkiModelleri\Yetki.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Siniflar\Kullanici.cs" />
     <Compile Include="Siniflar\Sube.cs" />
