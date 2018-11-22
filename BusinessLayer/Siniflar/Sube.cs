@@ -85,7 +85,15 @@ namespace BusinessLayer.Siniflar
                 {
                     duzenlenecekSube.KullaniciBilgileriTablo_KullaniciId = duzenlenmisSube.KullaniciId;
                     duzenlenecekSube.SehirTablo_SehirId = duzenlenmisSube.Sehir.SehirId;
-                    onay.TamamlandiMi = true;
+                    if (subeDataLayer.SubeGuncelle(duzenlenecekSube))
+                    {
+                        onay.TamamlandiMi = true;
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                    }
                     return onay;
                 }
                 else

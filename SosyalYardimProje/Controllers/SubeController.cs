@@ -111,7 +111,7 @@ namespace SosyalYardimProje.Controllers
         [HttpPost]
         [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
-        public ActionResult SubeyiSil(int? id)
+        public ActionResult SubeSil(int? id)
         {
             if (id != null)
             {
