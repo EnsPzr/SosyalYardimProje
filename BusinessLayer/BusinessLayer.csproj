@@ -52,6 +52,7 @@
     <Compile Include="Models\KullaniciModelleri\KullaniciJSModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciModel.cs" />
     <Compile Include="Models\NavbarModel.cs" />
+    <Compile Include="Models\OrtakModeller\IslemOnayModel.cs" />
     <Compile Include="Models\OrtakModeller\SehirModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeJSModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeModel.cs" />

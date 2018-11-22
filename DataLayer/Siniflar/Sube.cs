@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+
 namespace DataLayer.Siniflar
 {
     public class Sube
@@ -28,6 +30,13 @@ namespace DataLayer.Siniflar
         public bool sehirGorevlisiVarMi(int? SehirId)
         {
             return db.SubeTablo.FirstOrDefault(p => p.SehirTablo_SehirId == SehirId) != null ? true : false;
+        }
+
+        public bool sehirGorevlisiVarMi(int? SehirId, int? SubeId)
+        {
+            return db.SubeTablo.FirstOrDefault(p => p.SehirTablo_SehirId == SehirId && p.SubeId != SubeId) != null
+                ? true
+                : false;
         }
 
         public bool SubeEkle(SubeTablo eklenecekSube)
@@ -70,6 +79,17 @@ namespace DataLayer.Siniflar
             {
                 return null;
             }
+        }
+
+        public bool SubeGuncelle(SubeTablo guncellenmisSube)
+        {
+            db.SubeTablo.AddOrUpdate(guncellenmisSube);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

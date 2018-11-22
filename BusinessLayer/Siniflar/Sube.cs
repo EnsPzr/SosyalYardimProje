@@ -73,6 +73,36 @@ namespace BusinessLayer.Siniflar
             return subeDataLayer.SubeSil(id);
         }
 
+        public IslemOnayModel SubeGuncelle(SubeModel duzenlenmisSube)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var duzenlenecekSube = subeDataLayer.SubeBul(duzenlenmisSube.SubeId);
+            if (duzenlenecekSube != null)
+            {
+                var ayniSubedenVarMi =
+                    subeDataLayer.sehirGorevlisiVarMi(duzenlenmisSube.Sehir.SehirId, duzenlenmisSube.SubeId);
+                if (!ayniSubedenVarMi)
+                {
+                    duzenlenecekSube.KullaniciBilgileriTablo_KullaniciId = duzenlenmisSube.KullaniciId;
+                    duzenlenecekSube.SehirTablo_SehirId = duzenlenmisSube.Sehir.SehirId;
+                    onay.TamamlandiMi = true;
+                    return onay;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Güncel bilgilerini girdiğiniz şubenin zaten bir görevlisi var.");
+                    return onay;
+                }
+                
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Güncellemek istediğiniz şube bulunamadı.");
+                return onay;
+            }
+        }
         public SubeModel SubeBul(int? id)
         {
             var Sube = subeDataLayer.SubeBul(id);
@@ -80,6 +110,7 @@ namespace BusinessLayer.Siniflar
             dondurulecekSube.SubeId = Sube.SubeId;
             dondurulecekSube.Kullanici =
                 kullaniciBusinessLayer.KullaniciGetir(Sube.KullaniciBilgileriTablo_KullaniciId);
+            dondurulecekSube.KullaniciId = Sube.KullaniciBilgileriTablo_KullaniciId;
             dondurulecekSube.Sehir = new SehirModel()
             {
                 SehirAdi=Sube.SehirTablo.SehirAdi,
