@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using BusinessLayer.Models.SubeModelleri;
@@ -151,18 +152,53 @@ namespace SosyalYardimProje.Controllers
                 var sube = subeBusinessLayer.SubeBul(id);
                 if (sube != null)
                 {
+                    Tanimla();
                     return View(sube);
                 }
                 else
                 {
-                    TempData["hata"] = "Silinecek şube bulunamadı";
+                    TempData["hata"] = "Düzenlemek istediğiniz şube bulunamadı.";
                     return RedirectToAction("Liste");
                 }
             }
             else
             {
-                TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
+                Tanimla();
+                TempData["hata"] = "Lütfen düzenlemek istediğiniz şubeyi bulunuz.";
                 return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [KullaniciLoginFilter]
+        [ValidateAntiForgeryToken]
+        public ActionResult Duzenle(SubeModel duzenlenmisSube)
+        {
+            if (ModelState.IsValid)
+            {
+                var sonuc = subeBusinessLayer.SubeGuncelle(duzenlenmisSube);
+                if (sonuc.TamamlandiMi==true)
+                {
+                    TempData["uyari"] = "Şube güncelleme işlemi başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    String hatalar = "";
+                    foreach (var hata in sonuc.HataMesajlari)
+                    {
+                        hatalar = hatalar + " " + hata;
+                    }
+
+                    TempData["hata"] = hatalar;
+                    Tanimla();
+                    return View(duzenlenmisSube);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(duzenlenmisSube);
             }
         }
         public void Tanimla()
