@@ -201,6 +201,30 @@ namespace SosyalYardimProje.Controllers
                 return View(duzenlenmisSube);
             }
         }
+
+        [HttpGet]
+        [KullaniciLoginFilter]
+        public ActionResult Detay(int? id)
+        {
+            if (id != null)
+            {
+                var sube = subeBusinessLayer.SubeBul(id);
+                if (sube != null)
+                {
+                    return View(sube);
+                }
+                else
+                {
+                    TempData["hata"] = "Görüntülenecek şube bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen görüntülemek istediğiniz şubeyi seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p => new SelectListItem()
