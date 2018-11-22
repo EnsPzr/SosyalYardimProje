@@ -11,6 +11,11 @@ namespace BusinessLayer.Siniflar
     public class Yetki
     {
         private DataLayer.Siniflar.Yetki yetkiDAL = new DataLayer.Siniflar.Yetki();
+        private Kullanici kullaniciBAL = new Kullanici();
 
+        public List<KullaniciModel> KullanicilariGetir(int? id)
+        {
+            return KullanicilariGetir(id);
+        }
     }
 }
