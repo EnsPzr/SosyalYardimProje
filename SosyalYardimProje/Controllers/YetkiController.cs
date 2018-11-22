@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BusinessLayer.Models.KullaniciModelleri;
 using BusinessLayer.Siniflar;
 using System.Threading;
+using BusinessLayer.Models.YetkiModelleri;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -47,6 +48,73 @@ namespace SosyalYardimProje.Controllers
             return Json(kullanicilar, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpGet]
+        [KullaniciLoginFilter]
+        public ActionResult YetkiListesi(int? id)
+        {
+            YetkiDurumlari();
+            if (id != null)
+            {
+                var kullanici = kullaniciBAL.KullaniciGetir(id);
+                if (kullanici != null)
+                {
+                    if (yetkiBAL.KullaniciAyniBolgedeMi(id, KullaniciBilgileriDondur.KullaniciId()))
+                    {
+                        var yetkiler = yetkiBAL.YetkileriGetir(id);
+                        if (yetkiler != null)
+                        {
+                            return View(yetkiler);
+                        }
+                        else
+                        {
+                            TempData["hata"] = "Yetkiler bulunamadı.";
+                            return RedirectToAction("Liste");
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Yalnızca kendi görevli oolduğunuz bölgedeki kullanıcılar için işlem yapabilirsiniz.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Yetkilerini görüntülemek istediğiniz kullanıcı bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+
+            }
+            else
+            {
+                TempData["hata"] = "Yetkileri görüntülemek için lütfen kullanıcı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [KullaniciLoginFilter]
+        public ActionResult YetkileriKaydet(List<YetkiModel> yetkiler)
+        {
+            YetkiDurumlari();
+            var sonuc = yetkiBAL.YetkileriKaydet(yetkiler);
+            if (sonuc.TamamlandiMi == true)
+            {
+                TempData["uyari"] = "Yetki kaydetme işlemi başarı ile tamamlandı.";
+                return RedirectToAction("Liste");
+            }
+            else
+            {
+                String hatalar = "";
+                foreach (var hataItem in sonuc.HataMesajlari)
+                {
+                    hatalar = hatalar + " " + hataItem;
+                }
+                TempData["hata"] = hatalar;
+                return View(yetkiler);
+            }
+        }
+
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
@@ -56,6 +124,14 @@ namespace SosyalYardimProje.Controllers
                     Value = p.SehirId.ToString()
                 }).ToList();
             ViewBag.sehirler = sehirler;
+        }
+
+        public void YetkiDurumlari()
+        {
+            var yetkiDurumlari = new List<SelectListItem>();
+            yetkiDurumlari.Add(new SelectListItem() { Value = "true", Text = "Girebilir" });
+            yetkiDurumlari.Add(new SelectListItem() { Value = "false", Text = "Giremez" });
+            ViewBag.yetkiDurumlari = yetkiDurumlari;
         }
     }
 }

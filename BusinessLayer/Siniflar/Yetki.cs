@@ -50,7 +50,7 @@ namespace BusinessLayer.Siniflar
             var yetkiler = yetkiDAL.YetkileriGetir(kullaniciId);
             if (yetkiler == null)
             {
-                return new List<YetkiModel>();
+                return null;
             }
             else
             {
