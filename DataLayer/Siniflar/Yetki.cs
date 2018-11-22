@@ -20,18 +20,37 @@ namespace DataLayer.Siniflar
             var yetki = db.YetkiTablo.FirstOrDefault(p => p.YetkiId == yetkiId);
             if (yetki != null)
             {
-                yetki.GirebilirMi = yetkiDurumu;
-                if (db.SaveChanges() > 0)
+                if (yetki.GirebilirMi == yetkiDurumu)
                 {
                     return true;
                 }
-
-                return false;
+                else
+                {
+                    if (yetkiDurumu == true)
+                    {
+                        yetki.GirebilirMi = true;
+                    }
+                    else
+                    {
+                        yetki.GirebilirMi = false;
+                    }
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
             }
             else
             {
                 return false;
             }
+        }
+
+        public YetkiTablo YetkiGetir(int? id)
+        {
+            return db.YetkiTablo.Include(p => p.RotaTablo).Include(p => p.KullaniciBilgileriTablo)
+                .FirstOrDefault(p => p.YetkiId == id);
         }
     }
 }

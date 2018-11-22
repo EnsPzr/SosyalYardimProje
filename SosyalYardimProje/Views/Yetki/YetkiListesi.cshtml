@@ -1,0 +1,74 @@
+﻿@model List<BusinessLayer.Models.YetkiModelleri.YetkiModel>
+
+@{
+    ViewBag.Title = "Yetki Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yetki Listesi</h2>
+<div class="col-md-12 col-xs-12">
+    @if (TempData["uyari"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["uyari"].ToString()
+        </div>
+    }
+    @if (TempData["hata"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["hata"].ToString()
+        </div>
+    }
+</div>
+
+@using (Html.BeginForm("YetkileriKaydet","Yetki",FormMethod.Post))
+{
+    <table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top:10px">
+        <thead>
+        <tr>
+            <th class="col-md-4 col-xs-4">Kullanıcı Adı Soyadı</th>
+            <th class="col-md-4 col-xs-4">Rota Adi</th>
+            <th class="col-md-4 col-xs-4">Girebilir Mi</th>
+        </tr>
+        </thead>
+        <tbody class="points_table_scrollbar" id="tablo_tbody">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            if (i % 2 == 0)
+            {
+                <tr class="even">
+                    @Html.HiddenFor(m=>m[i].YetkiId)
+                    <td class="col-md-4 col-xs-4">
+                        @Model[i].Kullanici.KullaniciAdi @Model[i].Kullanici.KullaniciSoyadi
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Model[i].RotaAdi @Model[i].GirebilirMi.ToString()
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DropDownListFor(m => m[i].GirebilirMi, new SelectList(ViewBag.yetkiDurumlari, "Value", "Text", Model[i].GirebilirMi.ToString()), htmlAttributes: new { @class = "form-control" })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="odd">
+                    @Html.HiddenFor(m => m[i].YetkiId)
+                    <td class="col-md-4 col-xs-4">
+                        @Model[i].Kullanici.KullaniciAdi @Model[i].Kullanici.KullaniciSoyadi
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Model[i].RotaAdi @Model[i].GirebilirMi.ToString()
+                    </td>
+                    <td class="col-md-4 col-xs-4">
+                        @Html.DropDownListFor(m => m[i].GirebilirMi, new SelectList(ViewBag.yetkiDurumlari, "Value", "Text", Model[i].GirebilirMi.ToString()), htmlAttributes: new { @class = "form-control" })
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+    <br />  <br /><br /><br />
+    <div class="col-md-12 col-xs-12">
+        <button type="submit" style="width:100%" class="btn btn-success">Kaydet</button>
+    </div>
+}

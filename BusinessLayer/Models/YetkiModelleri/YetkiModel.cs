@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BusinessLayer.Models.YetkiModelleri
 {
     public class YetkiModel
@@ -18,5 +14,6 @@ namespace BusinessLayer.Models.YetkiModelleri
         public KullaniciModelleri.KullaniciModel Kullanici { get; set; }
 
         public String RotaAdi { get; set; }
+
     }
 }

@@ -111,7 +111,12 @@ namespace SosyalYardimProje.Controllers
                     hatalar = hatalar + " " + hataItem;
                 }
                 TempData["hata"] = hatalar;
-                return View(yetkiler);
+                if (yetkiler[0].YetkiId != null)
+                {
+                    int? yetkiId = yetkiler[0].YetkiId;
+                    yetkiler= yetkiBAL.YetkidenKullaniciBul(yetkiId);
+                }
+                return View("YetkiListesi",yetkiler);
             }
         }
 
@@ -131,7 +136,7 @@ namespace SosyalYardimProje.Controllers
             var yetkiDurumlari = new List<SelectListItem>();
             yetkiDurumlari.Add(new SelectListItem() { Value = "true", Text = "Girebilir" });
             yetkiDurumlari.Add(new SelectListItem() { Value = "false", Text = "Giremez" });
-            ViewBag.yetkiDurumlari = yetkiDurumlari;
+            ViewBag.yetkiDurumlari = new SelectList(yetkiDurumlari, "Value", "Text");
         }
     }
 }

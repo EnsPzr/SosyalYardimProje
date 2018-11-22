@@ -75,7 +75,8 @@ namespace BusinessLayer.Siniflar
             int sayac = 0;
             for (int i = 0; i < yetkiler.Count; i++)
             {
-                bool? cevap=yetkiDAL.YetkiyiKaydet(yetkiler[i].YetkiId, yetkiler[i].GirebilirMi);
+
+                bool? cevap = yetkiDAL.YetkiyiKaydet(yetkiler[i].YetkiId, yetkiler[i].GirebilirMi);
                 if (cevap == true)
                 {
                     sayac++;
@@ -91,8 +92,13 @@ namespace BusinessLayer.Siniflar
             {
                 onay.TamamlandiMi = true;
             }
-
             return onay;
+        }
+
+        public List<YetkiModel> YetkidenKullaniciBul(int? YetkiId)
+        {
+            var Yetki = yetkiDAL.YetkiGetir(YetkiId);
+            return YetkileriGetir(Yetki.KullaniciBilgileriTablo_KullaniciId);
         }
     }
 }

@@ -16,12 +16,12 @@
                             Liste = Liste + "<tr class='even'>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].KullaniciAdi + " " + result.KullaniciModelList[i].KullaniciSoyadi+ "</td>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].Sehir.SehirAdi + "</td>" +
-                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Kullanici/Duzenle/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
+                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Yetki/YetkiListesi/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].KullaniciAdi + " " + result.KullaniciModelList[i].KullaniciSoyadi + "</td>" +
                                 "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].Sehir.SehirAdi + "</td>" +
-                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Kullanici/Duzenle/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
+                                "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Yetki/YetkiListesi/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
                         }
                         $("#tablo_tbody").html("");
                         $("#tablo_tbody").html(Liste);
@@ -80,12 +80,12 @@
                                 Liste = Liste + "<tr class='even'>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].KullaniciAdi + " " + result.KullaniciModelList[i].KullaniciSoyadi + "</td>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].Sehir.SehirAdi + "</td>" +
-                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Kullanici/Duzenle/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
+                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Yetki/YetkiListesi/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].KullaniciAdi + " " + result.KullaniciModelList[i].KullaniciSoyadi + "</td>" +
                                     "<td class='col-md-4 col-xs-4'>" + result.KullaniciModelList[i].Sehir.SehirAdi + "</td>" +
-                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Kullanici/Duzenle/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
+                                    "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Yetki/YetkiListesi/" + result.KullaniciModelList[i].KullaniciId + "'></a></td></tr >";
                             }
                             $("#tablo_tbody").html("");
                             $("#tablo_tbody").html(Liste);
