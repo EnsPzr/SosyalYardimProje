@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Models.YetkiModelleri
 {
-    public class Yetki
+    public class YetkiModel
     {
 
         public int? YetkiId { get; set; }
