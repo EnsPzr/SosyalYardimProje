@@ -15,7 +15,12 @@ namespace BusinessLayer.Siniflar
 
         public List<KullaniciModel> KullanicilariGetir(int? id)
         {
-            return KullanicilariGetir(id);
+            return kullaniciBAL.TumKullanicilariGetir(id);
+        }
+
+        public List<KullaniciModel> FiltreliKullanicilariGetir(string aranan, int? sehirId, int? kullaniciId)
+        {
+            return kullaniciBAL.FiltreliKullanicilariGetir(aranan, sehirId, kullaniciId);
         }
     }
 }

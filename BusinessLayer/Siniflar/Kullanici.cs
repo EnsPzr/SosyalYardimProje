@@ -132,7 +132,88 @@ namespace BusinessLayer.Siniflar
                 return dondurulecekKullanicilar.OrderBy(p=>p.Sira).ToList();
             }
         }
-
+        public List<KullaniciModel> FiltreliKullanicilariGetir(string aranan, int? sehirId, int? kullaniciId)
+        {
+            var Kullanici = kullaniciYonetimi.LoginKullaniciBul(kullaniciId);
+            if (Convert.ToBoolean(Kullanici.KullaniciMerkezdeMi))
+            {
+                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan,sehirId,kullaniciId).Where(p => p.BagisciMi == false).ToList();
+                List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
+                for (int i = 0; i < kullanicilar.Count; i++)
+                {
+                    var eklenecekKullanici = new KullaniciModel();
+                    eklenecekKullanici.AktifMi = kullanicilar[i].AktifMi != null
+                        ? kullanicilar[i].AktifMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciSoyadi = kullanicilar[i].KullaniciSoyadi;
+                    eklenecekKullanici.KullaniciAdi = kullanicilar[i].KullaniciAdi;
+                    eklenecekKullanici.KullaniciId = kullanicilar[i].KullaniciId;
+                    eklenecekKullanici.Sehir.SehirAdi = kullanicilar[i].SehirTablo != null ? kullanicilar[i].SehirTablo.SehirAdi : string.Empty;
+                    eklenecekKullanici.Sehir.SehirId = kullanicilar[i].SehirTablo_SehirId;
+                    eklenecekKullanici.KullaniciOnayliMi = kullanicilar[i].KullaniciOnayliMi != null
+                        ? kullanicilar[i].KullaniciOnayliMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciTelegramKullaniciAdi = kullanicilar[i].KullaniciTelegramKullaniciAdi;
+                    eklenecekKullanici.KullaniciTCKimlik = kullanicilar[i].KullaniciTCKimlikNumarasi;
+                    eklenecekKullanici.KullaniciTelNo = kullanicilar[i].KullaniciTelefonNumarasi;
+                    eklenecekKullanici.KullaniciMerkezdeMi = kullanicilar[i].KullaniciMerkezdeMi != null
+                        ? kullanicilar[i].KullaniciMerkezdeMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciEPosta = kullanicilar[i].KullaniciEPosta;
+                    eklenecekKullanici.AktifMiStr = kullanicilar[i].AktifMi != null
+                        ? kullanicilar[i].AktifMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.KullaniciOnayliMiStr = kullanicilar[i].KullaniciOnayliMi != null
+                        ? kullanicilar[i].KullaniciOnayliMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.KullaniciMerkezdeMiStr = kullanicilar[i].KullaniciMerkezdeMi != null
+                        ? kullanicilar[i].KullaniciMerkezdeMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.Sira = i;
+                    dondurulecekKullanicilar.Add(eklenecekKullanici);
+                }
+                return dondurulecekKullanicilar.OrderBy(p => p.Sira).ToList();
+            }
+            else
+            {
+                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan, sehirId, kullaniciId).Where(p => p.BagisciMi == false).ToList();
+                List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
+                for (int i = 0; i < kullanicilar.Count; i++)
+                {
+                    var eklenecekKullanici = new KullaniciModel();
+                    eklenecekKullanici.AktifMi = kullanicilar[i].AktifMi != null
+                        ? kullanicilar[i].AktifMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciSoyadi = kullanicilar[i].KullaniciSoyadi;
+                    eklenecekKullanici.KullaniciAdi = kullanicilar[i].KullaniciAdi;
+                    eklenecekKullanici.KullaniciId = kullanicilar[i].KullaniciId;
+                    eklenecekKullanici.Sehir.SehirAdi = kullanicilar[i].SehirTablo != null ? kullanicilar[i].SehirTablo.SehirAdi : string.Empty;
+                    eklenecekKullanici.Sehir.SehirId = kullanicilar[i].SehirTablo_SehirId;
+                    eklenecekKullanici.KullaniciOnayliMi = kullanicilar[i].KullaniciOnayliMi != null
+                        ? kullanicilar[i].KullaniciOnayliMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciTelegramKullaniciAdi = kullanicilar[i].KullaniciTelegramKullaniciAdi;
+                    eklenecekKullanici.KullaniciTCKimlik = kullanicilar[i].KullaniciTCKimlikNumarasi;
+                    eklenecekKullanici.KullaniciTelNo = kullanicilar[i].KullaniciTelefonNumarasi;
+                    eklenecekKullanici.KullaniciMerkezdeMi = kullanicilar[i].KullaniciMerkezdeMi != null
+                        ? kullanicilar[i].KullaniciMerkezdeMi == true ? true : false
+                        : false;
+                    eklenecekKullanici.KullaniciEPosta = kullanicilar[i].KullaniciEPosta;
+                    eklenecekKullanici.AktifMiStr = kullanicilar[i].AktifMi != null
+                        ? kullanicilar[i].AktifMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.KullaniciOnayliMiStr = kullanicilar[i].KullaniciOnayliMi != null
+                        ? kullanicilar[i].KullaniciOnayliMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.KullaniciMerkezdeMiStr = kullanicilar[i].KullaniciMerkezdeMi != null
+                        ? kullanicilar[i].KullaniciMerkezdeMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    eklenecekKullanici.Sira = i;
+                    dondurulecekKullanicilar.Add(eklenecekKullanici);
+                }
+                return dondurulecekKullanicilar.OrderBy(p => p.Sira).ToList();
+            }
+        }
         public List<SehirModel> SehirleriGetir(int? kullaniciId)
         {
             var kullanici = kullaniciYonetimi.LoginKullaniciBul(kullaniciId);

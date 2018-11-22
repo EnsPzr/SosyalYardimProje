@@ -19,6 +19,37 @@ namespace DataLayer.Siniflar
         {
             return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == id).ToList();
         }
+        public List<KullaniciBilgileriTablo> FiltreliKullanicilariGetir(string aranan, int? SehirId, int? KullaniciId)
+        {
+            var kullanici = KullaniciGetir(KullaniciId);
+            if (Convert.ToBoolean(kullanici.KullaniciMerkezdeMi))
+            {
+                IQueryable<KullaniciBilgileriTablo> sorgu = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo)
+                    .Where(p => (p.KullaniciAdi.Contains(aranan) ||
+                                 p.KullaniciSoyadi.Contains(aranan) ||
+                                 p.KullaniciTelegramKullaniciAdi.Contains(aranan) ||
+                                 p.KullaniciTelefonNumarasi.Contains(aranan) ||
+                                 p.KullaniciEPosta.Contains(aranan)
+                                 || p.SehirTablo.SehirAdi.Contains(aranan)));
+                if (SehirId != null)
+                {
+                    sorgu = sorgu.Where(p => p.SehirTablo_SehirId == SehirId);
+                }
+                return sorgu.ToList();
+            }
+            else
+            {
+                IQueryable<KullaniciBilgileriTablo> sorgu = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo)
+                    .Where(p => (p.KullaniciAdi.Contains(aranan) ||
+                                 p.KullaniciSoyadi.Contains(aranan) ||
+                                 p.KullaniciTelegramKullaniciAdi.Contains(aranan) ||
+                                 p.KullaniciTelefonNumarasi.Contains(aranan) ||
+                                 p.KullaniciEPosta.Contains(aranan)) &&p.SehirTablo_SehirId==kullanici.SehirTablo_SehirId);
+                return sorgu.ToList();
+            }
+            
+        }
+        
         public List<SehirTablo> TumSehirler()
         {
             return db.SehirTablo.ToList();

@@ -6943,6 +6943,7 @@
     <Content Include="Scripts\KullaniciListeleScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\SubeListeleScript.js" />
+    <Content Include="Scripts\YetkiScript.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\README.md" />
   </ItemGroup>
@@ -6979,6 +6980,7 @@
     <Content Include="Views\Sube\Sil.cshtml" />
     <Content Include="Views\Sube\Duzenle.cshtml" />
     <Content Include="Views\Sube\Detay.cshtml" />
+    <Content Include="Views\Yetki\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6991,7 +6993,6 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\Yetki\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
