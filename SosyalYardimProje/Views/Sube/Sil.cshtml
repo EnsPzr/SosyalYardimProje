@@ -1,0 +1,38 @@
+﻿@model BusinessLayer.Models.SubeModelleri.SubeModel
+
+@{
+    ViewBag.Title = "Şube Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Şube Sil</h2>
+
+<h3>Şubeyi silmek istediğinize emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kullanici)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kullanici.KullaniciAdi) @Html.DisplayFor(model => model.Kullanici.KullaniciSoyadi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir.SehirId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir.SehirAdi)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("SubeyiSil","Sube",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("SubeId",Model.SubeId)
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Liteye Geri Dön", "Liste")
+        </div>
+    }
+</div>

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
-using BusinessLayer;
 using BusinessLayer.Models.KullaniciModelleri;
 using BusinessLayer.Siniflar;
 using SosyalYardimProje.Filters;
@@ -162,22 +159,30 @@ namespace SosyalYardimProje.Controllers
             if (id != null)
             {
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
-                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                if (kullanici != null)
                 {
-                    return View(kullanici);
-                }
-                else
-                {
-                    if (kullanici.Sehir.SehirId ==
-                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
                     {
                         return View(kullanici);
                     }
                     else
                     {
-                        TempData["hata"] = sadeceGorevli;
-                        return RedirectToAction("Liste", "Kullanici");
+                        if (kullanici.Sehir.SehirId ==
+                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                        {
+                            return View(kullanici);
+                        }
+                        else
+                        {
+                            TempData["hata"] = sadeceGorevli;
+                            return RedirectToAction("Liste", "Kullanici");
+                        }
                     }
+                }
+                else
+                {
+                    TempData["hata"] = "Lütfen silmek istediğiniz kullanıcıyı seçiniz";
+                    return RedirectToAction("Liste");
                 }
             }
             else
@@ -190,29 +195,15 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         [KullaniciLoginFilter]
-        [Route("Sil")]
+        [Route("Sil/{id}")]
         public ActionResult KullaniciSil(int? id)
         {
             if (id != null)
             {
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
-                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                if (kullanici != null)
                 {
-                    if (kullaniciBusinessLayer.KullaniciSil(id))
-                    {
-                        TempData["uyari"] = "Kullanıcı silme işlemi başarı ile tamamlandı";
-                        return RedirectToAction("Liste");
-                    }
-                    else
-                    {
-                        TempData["hata"] = "Bilinmeyen bir hata oluştu";
-                        return RedirectToAction("Sil", "Kullanici",new {id});
-                    }
-                }
-                else
-                {
-                    if (kullanici.Sehir.SehirId ==
-                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
                     {
                         if (kullaniciBusinessLayer.KullaniciSil(id))
                         {
@@ -227,9 +218,31 @@ namespace SosyalYardimProje.Controllers
                     }
                     else
                     {
-                        TempData["hata"] = sadeceGorevli;
-                        return RedirectToAction("Liste", "Kullanici");
+                        if (kullanici.Sehir.SehirId ==
+                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                        {
+                            if (kullaniciBusinessLayer.KullaniciSil(id))
+                            {
+                                TempData["uyari"] = "Kullanıcı silme işlemi başarı ile tamamlandı";
+                                return RedirectToAction("Liste");
+                            }
+                            else
+                            {
+                                TempData["hata"] = "Bilinmeyen bir hata oluştu";
+                                return RedirectToAction("Sil", "Kullanici", new { id });
+                            }
+                        }
+                        else
+                        {
+                            TempData["hata"] = sadeceGorevli;
+                            return RedirectToAction("Liste", "Kullanici");
+                        }
                     }
+                }
+                else
+                {
+                    TempData["hata"] = "Lütfen silmek istediğiniz kullanıcıyı seçiniz";
+                    return RedirectToAction("Liste");
                 }
             }
             else
@@ -247,22 +260,30 @@ namespace SosyalYardimProje.Controllers
             if (id != null)
             {
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
-                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                if (kullanici != null)
                 {
-                    return View(kullanici);
-                }
-                else
-                {
-                    if (kullanici.Sehir.SehirId ==
-                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
                     {
                         return View(kullanici);
                     }
                     else
                     {
-                        TempData["hata"] = sadeceGorevli;
-                        return RedirectToAction("Liste", "Kullanici");
+                        if (kullanici.Sehir.SehirId ==
+                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                        {
+                            return View(kullanici);
+                        }
+                        else
+                        {
+                            TempData["hata"] = sadeceGorevli;
+                            return RedirectToAction("Liste", "Kullanici");
+                        }
                     }
+                }
+                else
+                {
+                    TempData["hata"] = "Lütfen silmek istediğiniz kullanıcıyı seçiniz";
+                    return RedirectToAction("Liste");
                 }
             }
             else
@@ -279,52 +300,19 @@ namespace SosyalYardimProje.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi == true)
+                var kullanici = kullaniciBusinessLayer.KullaniciGetir(duzenlenmisKullanici.KullaniciId);
+                if (kullanici != null)
                 {
-                    if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta,duzenlenmisKullanici.KullaniciId))
+                    if (KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi == true)
                     {
-                        if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
-                        {
-                            if (kullaniciBusinessLayer.KullaniciGuncelle(duzenlenmisKullanici))
-                            {
-                                TempData["uyari"] = duzenlenmisKullanici.KullaniciAdi + " " + duzenlenmisKullanici.KullaniciSoyadi +
-                                                    " kullanıcısı başarı ile düzenlendi.";
-                                return RedirectToAction("Liste", "Kullanici");
-                            }
-                            else
-                            {
-                                TempData["hata"] = "Güncelleme işlemi sırasında hata oluştu.";
-                                MerkezdeGosterilecekMi();
-                                return View(duzenlenmisKullanici);
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("KullaniciTCKimlik", "Lütfen geçerli bir TC Kimlik numarası giriniz.");
-                            MerkezdeGosterilecekMi();
-                            return View(duzenlenmisKullanici);
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
-                        MerkezdeGosterilecekMi();
-                        return View(duzenlenmisKullanici);
-                    }
-                }
-                else
-                {
-                    if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta))
-                    {
-                        if (duzenlenmisKullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                        if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta, duzenlenmisKullanici.KullaniciId))
                         {
                             if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
                             {
                                 if (kullaniciBusinessLayer.KullaniciGuncelle(duzenlenmisKullanici))
                                 {
                                     TempData["uyari"] = duzenlenmisKullanici.KullaniciAdi + " " + duzenlenmisKullanici.KullaniciSoyadi +
-                                                        " kullanıcısı başarı ile güncellendi.";
+                                                        " kullanıcısı başarı ile düzenlendi.";
                                     return RedirectToAction("Liste", "Kullanici");
                                 }
                                 else
@@ -343,17 +331,59 @@ namespace SosyalYardimProje.Controllers
                         }
                         else
                         {
-                            TempData["hata"] = "Sadece görevli olduğunuz bölgelerdeki kullanıcıları düzenleyebilirsiniz.";
+                            ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
                             MerkezdeGosterilecekMi();
                             return View(duzenlenmisKullanici);
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
-                        MerkezdeGosterilecekMi();
-                        return View(duzenlenmisKullanici);
+                        if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta))
+                        {
+                            if (duzenlenmisKullanici.Sehir.SehirId ==
+                                KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                            {
+                                if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
+                                {
+                                    if (kullaniciBusinessLayer.KullaniciGuncelle(duzenlenmisKullanici))
+                                    {
+                                        TempData["uyari"] = duzenlenmisKullanici.KullaniciAdi + " " + duzenlenmisKullanici.KullaniciSoyadi +
+                                                            " kullanıcısı başarı ile güncellendi.";
+                                        return RedirectToAction("Liste", "Kullanici");
+                                    }
+                                    else
+                                    {
+                                        TempData["hata"] = "Güncelleme işlemi sırasında hata oluştu.";
+                                        MerkezdeGosterilecekMi();
+                                        return View(duzenlenmisKullanici);
+                                    }
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("KullaniciTCKimlik", "Lütfen geçerli bir TC Kimlik numarası giriniz.");
+                                    MerkezdeGosterilecekMi();
+                                    return View(duzenlenmisKullanici);
+                                }
+                            }
+                            else
+                            {
+                                TempData["hata"] = "Sadece görevli olduğunuz bölgelerdeki kullanıcıları düzenleyebilirsiniz.";
+                                MerkezdeGosterilecekMi();
+                                return View(duzenlenmisKullanici);
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("KullaniciEPosta", "E Posta adresi kullanımda.");
+                            MerkezdeGosterilecekMi();
+                            return View(duzenlenmisKullanici);
+                        }
                     }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlenecek kullanıcıyı seçiniz";
+                    return RedirectToAction("Liste", "Kullanici");
                 }
             }
             else
@@ -370,22 +400,30 @@ namespace SosyalYardimProje.Controllers
             if (id != null)
             {
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
-                if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                if (kullanici != null)
                 {
-                    return View(kullanici);
-                }
-                else
-                {
-                    if (kullanici.Sehir.SehirId ==
-                        KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
                     {
                         return View(kullanici);
                     }
                     else
                     {
-                        TempData["hata"] = sadeceGorevli;
-                        return RedirectToAction("Liste", "Kullanici");
+                        if (kullanici.Sehir.SehirId ==
+                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                        {
+                            return View(kullanici);
+                        }
+                        else
+                        {
+                            TempData["hata"] = sadeceGorevli;
+                            return RedirectToAction("Liste", "Kullanici");
+                        }
                     }
+                }
+                else
+                {
+                    TempData["hata"] = "Lütfen görüntülemek istediğiniz kullanıcıyı seçiniz";
+                    return RedirectToAction("Liste");
                 }
             }
             else

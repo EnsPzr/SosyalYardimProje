@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models.SubeModelleri;
 using BusinessLayer.Siniflar;
@@ -89,6 +86,31 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                var sube = subeBusinessLayer.SubeBul(id);
+                if (sube != null)
+                {
+                    return View(sube);
+                }
+                else
+                {
+                    TempData["hata"] = "Silinecek şube bulunamadı";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [KullaniciLoginFilter]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubeyiSil(int? id)
         {
             if (id != null)
             {
