@@ -58,6 +58,7 @@
     <Compile Include="Models\SubeModelleri\SubeModel.cs" />
     <Compile Include="Models\YetkiModelleri\YetkiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Siniflar\IhtiyacSahibi.cs" />
     <Compile Include="Siniflar\Kullanici.cs" />
     <Compile Include="Siniflar\Sube.cs" />
     <Compile Include="Siniflar\Yetki.cs" />

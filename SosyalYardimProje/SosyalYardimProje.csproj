@@ -6950,6 +6950,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GirisController.cs" />
+    <Compile Include="Controllers\IhtiyacSahibiController.cs" />
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
     <Compile Include="Controllers\SubeController.cs" />
@@ -6994,6 +6995,7 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\IhtiyacSahibi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
@@ -7001,7 +7003,7 @@
       <Name>BusinessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
-      <Project>{6D8F5D9E-E8B1-4550-ABD1-FCA4066C9FB4}</Project>
+      <Project>{6d8f5d9e-e8b1-4550-abd1-fca4066c9fb4}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
