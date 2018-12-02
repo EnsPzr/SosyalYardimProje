@@ -84,6 +84,7 @@
           <Property Name="IhtiyacSahibiTelNo" Type="varchar" MaxLength="50" />
           <Property Name="IhtiyacSahibiAdres" Type="text" />
           <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="IhtiyacSahibiAciklama" Type="text" />
         </EntityType>
         <EntityType Name="IhtiyacSahibiVeKullaniciTablo">
           <Key>
@@ -696,6 +697,7 @@
           <NavigationProperty Name="IhtiyacSahibiKontrolTablo" Relationship="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiTablo" ToRole="IhtiyacSahibiKontrolTablo" />
           <NavigationProperty Name="SehirTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="IhtiyacSahibiTablo" ToRole="SehirTablo" />
           <NavigationProperty Name="IhtiyacSahibiVeKullaniciTablo" Relationship="Self.FK_IhtiyacSahibiVeKullaniciTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiTablo" ToRole="IhtiyacSahibiVeKullaniciTablo" />
+          <Property Name="IhtiyacSahibiAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="IhtiyacSahibiVeKullaniciTablo">
           <Key>
@@ -1320,6 +1322,7 @@
           <EntitySetMapping Name="IhtiyacSahibiTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.IhtiyacSahibiTablo">
               <MappingFragment StoreEntitySet="IhtiyacSahibiTablo">
+                <ScalarProperty Name="IhtiyacSahibiAciklama" ColumnName="IhtiyacSahibiAciklama" />
                 <ScalarProperty Name="IhtiyacSahibiId" ColumnName="IhtiyacSahibiId" />
                 <ScalarProperty Name="IhtiyacSahibiAdi" ColumnName="IhtiyacSahibiAdi" />
                 <ScalarProperty Name="IhtiyacSahibiSoyadi" ColumnName="IhtiyacSahibiSoyadi" />

@@ -27,6 +27,7 @@ namespace DataLayer
         public string IhtiyacSahibiTelNo { get; set; }
         public string IhtiyacSahibiAdres { get; set; }
         public Nullable<int> SehirTablo_SehirId { get; set; }
+        public string IhtiyacSahibiAciklama { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IhtiyacSahibiKontrolTablo> IhtiyacSahibiKontrolTablo { get; set; }
