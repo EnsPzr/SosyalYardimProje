@@ -119,7 +119,6 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         [KullaniciLoginFilter]
-        [Route("Sil/{id}")]
         public ActionResult IhtiyacSahibiSil(int? id)
         {
             if (id != null)
@@ -129,7 +128,7 @@ namespace SosyalYardimProje.Controllers
                     var islemSonucu = ihtiyacSahibiBAL.IhtiyacSahibiSil(id);
                     if (islemSonucu.TamamlandiMi==true)
                     {
-                        TempData["hata"] =
+                        TempData["uyari"] =
                             "Silme işlemi başarı ile sonuçlandı.";
                         return RedirectToAction("Liste");
                     }
