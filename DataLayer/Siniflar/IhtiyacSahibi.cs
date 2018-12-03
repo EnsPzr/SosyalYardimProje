@@ -75,5 +75,34 @@ namespace DataLayer.Siniflar
                 return null;
             }
         }
+
+        public bool IhtiyacSahibiSil(int? ihtiyacSahibiId)
+        {
+            var ihtiyacSahibi = db.IhtiyacSahibiTablo.FirstOrDefault(p => p.IhtiyacSahibiId == ihtiyacSahibiId);
+            db.IhtiyacSahibiTablo.Remove(ihtiyacSahibi);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;   
+
+            }
+        }
+
+        public IhtiyacSahibiTablo IhtiyacSahibiGetir(int? ihtiyacSahibiId)
+        {
+            var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo)
+                .FirstOrDefault(p => p.IhtiyacSahibiId == ihtiyacSahibiId);
+            if (ihtiyacSahibi != null)
+            {
+                return ihtiyacSahibi;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

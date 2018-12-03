@@ -8,6 +8,7 @@ namespace BusinessLayer.Siniflar
 {
     public class IhtiyacSahibi
     {
+        private KullaniciYonetimi kullaniciBAL = new KullaniciYonetimi();
         private DataLayer.Siniflar.IhtiyacSahibi ihtiyacSahibiDAL = new DataLayer.Siniflar.IhtiyacSahibi();
 
         public List<IhtiyacSahibiModel> TumIhtiyacSahipleriniGetir(int? KullaniciId)
@@ -94,6 +95,45 @@ namespace BusinessLayer.Siniflar
             }
 
             return onay;
+        }
+
+        public IhtiyacSahibiModel IhtiyacSahibiGetir(int? ihtiyacSahibiId, int? kullaniciId)
+        {
+            var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiGetir(ihtiyacSahibiId);
+            IhtiyacSahibiModel goruntulenecekIhtiyacSahibi = new IhtiyacSahibiModel();
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiId = ihtiyacSahibi.IhtiyacSahibiId;
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiAdi = ihtiyacSahibi.IhtiyacSahibiAdi;
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiSoyadi = ihtiyacSahibi.IhtiyacSahibiSoyadi;
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiTelNo = ihtiyacSahibi.IhtiyacSahibiTelNo;
+            goruntulenecekIhtiyacSahibi.IhtiyacSahibiAciklama = ihtiyacSahibi.IhtiyacSahibiAciklama;
+            goruntulenecekIhtiyacSahibi.Sehir = new SehirModel
+            {
+                SehirAdi = ihtiyacSahibi.SehirTablo.SehirAdi,
+                SehirId = ihtiyacSahibi.SehirTablo_SehirId
+            };
+            return goruntulenecekIhtiyacSahibi;
+        }
+
+        public bool IhtiyacSahibiGoruntulenebilirMi(int? ihtiyacSahibiId, int? kullaniciId)
+        {
+            var kullanici = kullaniciBAL.LoginKullaniciBul(kullaniciId);
+            if (kullanici.KullaniciMerkezdeMi == true)
+            {
+                return true;
+            }
+            else
+            {
+                var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiGetir(ihtiyacSahibiId);
+                if (ihtiyacSahibi.SehirTablo_SehirId == kullanici.SehirTablo_SehirId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
