@@ -161,13 +161,14 @@ namespace BusinessLayer.Siniflar
                 duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo)==null)
             {
                 IhtiyacSahibiTablo eklenecekIhtiyacSahibi = new IhtiyacSahibiTablo();
+                eklenecekIhtiyacSahibi.IhtiyacSahibiId = Convert.ToInt32(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
                 eklenecekIhtiyacSahibi.IhtiyacSahibiAdi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi;
                 eklenecekIhtiyacSahibi.IhtiyacSahibiSoyadi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi;
                 eklenecekIhtiyacSahibi.IhtiyacSahibiTelNo = duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo;
                 eklenecekIhtiyacSahibi.IhtiyacSahibiAdres = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdres;
                 eklenecekIhtiyacSahibi.IhtiyacSahibiAciklama = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAciklama;
                 eklenecekIhtiyacSahibi.SehirTablo_SehirId = duzenlenmisIhtiyacSahibi.Sehir.SehirId;
-                if (ihtiyacSahibiDAL.IhtiyacSahibiKaydet(eklenecekIhtiyacSahibi))
+                if (ihtiyacSahibiDAL.IhtiyacSahibiGuncelle(eklenecekIhtiyacSahibi))
                 {
                     onay.TamamlandiMi = true;
                 }

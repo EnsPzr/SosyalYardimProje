@@ -52,7 +52,7 @@ namespace DataLayer.Siniflar
 
         public bool IhtiyacSahibiKaydet(IhtiyacSahibiTablo yeniIhtiyacSahibi)
         {
-            db.IhtiyacSahibiTablo.AddOrUpdate(yeniIhtiyacSahibi);
+            db.IhtiyacSahibiTablo.Add(yeniIhtiyacSahibi);
             if (db.SaveChanges() > 0)
             {
                 return true;
@@ -122,6 +122,19 @@ namespace DataLayer.Siniflar
             }
         }
 
-
+        public bool IhtiyacSahibiGuncelle(IhtiyacSahibiTablo duzenlenmisIhtiyacSahibi)
+        {
+            var ihtiyacSahibi =
+                db.IhtiyacSahibiTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiId == duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
+            ihtiyacSahibi.IhtiyacSahibiAdi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi;
+            ihtiyacSahibi.IhtiyacSahibiSoyadi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi;
+            ihtiyacSahibi.IhtiyacSahibiTelNo = duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo;
+            ihtiyacSahibi.SehirTablo_SehirId = duzenlenmisIhtiyacSahibi.SehirTablo_SehirId;
+            ihtiyacSahibi.IhtiyacSahibiAdres = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdres;
+            ihtiyacSahibi.IhtiyacSahibiAciklama = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAciklama;
+            db.SaveChanges();
+            return true;
+        }
     }
 }

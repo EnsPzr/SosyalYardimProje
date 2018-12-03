@@ -1,11 +1,12 @@
 ﻿@model BusinessLayer.Models.IhtiyacSahibiModelleri.IhtiyacSahibiModel
 
 @{
-    ViewBag.Title = "İhtiyac Sahibi Ekle";
+    ViewBag.Title = "İhtiyaç Sahibi Düzenle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="col-md-12 col-xs-12">
-    <h2>Yeni İhtiyac Sahibi</h2>
+    <h2>İhtiyac Sahibi Düzenle</h2>
 
 
     @if (TempData["hata"] != null)
@@ -24,15 +25,16 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.IhtiyacSahibiAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.HiddenFor(m=>m.IhtiyacSahibiId)
+                @Html.LabelFor(model => model.IhtiyacSahibiAdi, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.IhtiyacSahibiAdi, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.IhtiyacSahibiAdi, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.IhtiyacSahibiAdi, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.IhtiyacSahibiAdi, "", new {@class = "text-danger"})
                 </div>
-                @Html.LabelFor(model => model.IhtiyacSahibiSoyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.IhtiyacSahibiSoyadi, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.IhtiyacSahibiSoyadi, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.IhtiyacSahibiSoyadi, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.IhtiyacSahibiSoyadi, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.IhtiyacSahibiSoyadi, "", new {@class = "text-danger"})
                 </div>
             </div>
 
