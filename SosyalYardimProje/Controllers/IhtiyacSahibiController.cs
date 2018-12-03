@@ -156,6 +156,89 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
+        [KullaniciLoginFilter]
+        public ActionResult Duzenle(int? id)
+        {
+            if (id != null)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
+                {
+                    if (ihtiyacSahibiBAL.IhtiyacSahibiGetir(id) != null)
+                    {
+                        Tanimla();
+                        return View(ihtiyacSahibiBAL.IhtiyacSahibiGetir(id));
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Düzenlemek istediğiniz ihtiyaç sahibi bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz ihtiyaç sahibi sizin bölgenizde bulunmuyor";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz ihtiyaç sahibini seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [KullaniciLoginFilter]
+        [HttpPost]
+        public ActionResult Duzenle(IhtiyacSahibiModel duzenlenmisIhtiyacSahibi)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId, KullaniciBilgileriDondur.KullaniciId()))
+                {
+                    var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
+                    if (ihtiyacSahibi != null)
+                    {
+                        var onay = ihtiyacSahibiBAL.IhtiyacSahibiGuncelle(duzenlenmisIhtiyacSahibi);
+                        if (onay.TamamlandiMi == true)
+                        {
+                            TempData["uyari"] = "İhtiyaç sahibi güncelleme işlemi başarı ile sonuçlandı";
+                            return RedirectToAction("Liste");
+                        }
+                        else
+                        {
+                            string hata = "";
+                            foreach (var hataItem in onay.HataMesajlari)
+                            {
+                                hata += hataItem + "\n";
+                            }
+
+                            TempData["hata"] = hata;
+                            Tanimla();
+                            return View(duzenlenmisIhtiyacSahibi);
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] =
+                            "Güncellemek istediğiniz ihtiyaç sahibi bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] =
+                        "Güncellemeye çalıştığınız ihtiyaç sahibi sizin bölgenizde bulunmayan bir ihtiyaç sahibidir.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(duzenlenmisIhtiyacSahibi);
+            }
+        }
+
+
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
