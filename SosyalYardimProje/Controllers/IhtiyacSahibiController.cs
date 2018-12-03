@@ -239,6 +239,35 @@ namespace SosyalYardimProje.Controllers
         }
 
 
+        public ActionResult Detay(int? id)
+        {
+            if (id != null)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
+                {
+                    if (ihtiyacSahibiBAL.IhtiyacSahibiGetir(id) != null)
+                    {
+                        return View(ihtiyacSahibiBAL.IhtiyacSahibiGetir(id));
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Görüntülemek istediğiniz ihtiyaç sahibi bulunamadı";
+                        return RedirectToAction("Liste", "IhtiyacSahibi");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Görüntülemek istediğiniz ihtiyaç sahibi sizin bölgenizde bulunmuyor.";
+                    return RedirectToAction("Liste", "IhtiyacSahibi");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Görüntülek istediğiniz ihtiyaç sahibini seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
+
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
