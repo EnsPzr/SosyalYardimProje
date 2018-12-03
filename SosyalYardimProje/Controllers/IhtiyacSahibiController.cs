@@ -51,6 +51,7 @@ namespace SosyalYardimProje.Controllers
         }
 
         [KullaniciLoginFilter]
+        [HttpPost]
         public ActionResult Ekle(IhtiyacSahibiModel yeniIhtiyacSahibi)
         {
             if (ModelState.IsValid)

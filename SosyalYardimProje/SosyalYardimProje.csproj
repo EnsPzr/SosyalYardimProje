@@ -6985,6 +6985,7 @@
     <Content Include="Views\Yetki\Liste.cshtml" />
     <Content Include="Views\Yetki\YetkiListesi.cshtml" />
     <Content Include="Views\IhtiyacSahibi\Liste.cshtml" />
+    <Content Include="Views\IhtiyacSahibi\Ekle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
