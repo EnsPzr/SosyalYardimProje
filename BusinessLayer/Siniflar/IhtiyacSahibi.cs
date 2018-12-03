@@ -152,5 +152,39 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public IslemOnayModel IhtiyacSahibiGuncelle(IhtiyacSahibiModel duzenlenmisIhtiyacSahibi)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (ihtiyacSahibiDAL.IhtiyacSahibiVarMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId,
+                duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi, duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi,
+                duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo)==null)
+            {
+                IhtiyacSahibiTablo eklenecekIhtiyacSahibi = new IhtiyacSahibiTablo();
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAdi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiSoyadi = duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiTelNo = duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAdres = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdres;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAciklama = duzenlenmisIhtiyacSahibi.IhtiyacSahibiAciklama;
+                eklenecekIhtiyacSahibi.SehirTablo_SehirId = duzenlenmisIhtiyacSahibi.Sehir.SehirId;
+                if (ihtiyacSahibiDAL.IhtiyacSahibiKaydet(eklenecekIhtiyacSahibi))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                var sehir = ihtiyacSahibiDAL.IhtiyacSahibiVarMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi,
+                    duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi, duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo).SehirTablo.SehirAdi;
+                onay.HataMesajlari.Add($"Bu bilgilerde {sehir} için zaten bir ihtiyaç sahibi kayıt edilmiş");
+            }
+            return onay;
+        }
     }
 }

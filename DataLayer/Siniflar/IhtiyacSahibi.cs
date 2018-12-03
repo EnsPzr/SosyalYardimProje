@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
+
 namespace DataLayer.Siniflar
 {
     public class IhtiyacSahibi
@@ -50,7 +52,7 @@ namespace DataLayer.Siniflar
 
         public bool IhtiyacSahibiKaydet(IhtiyacSahibiTablo yeniIhtiyacSahibi)
         {
-            db.IhtiyacSahibiTablo.Add(yeniIhtiyacSahibi);
+            db.IhtiyacSahibiTablo.AddOrUpdate(yeniIhtiyacSahibi);
             if (db.SaveChanges() > 0)
             {
                 return true;
@@ -66,6 +68,21 @@ namespace DataLayer.Siniflar
             var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p=>p.SehirTablo).FirstOrDefault(p =>
                 p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
                                                  && p.IhtiyacSahibiTelNo == telNo);
+            if (ihtiyacSahibi != null)
+            {
+                return ihtiyacSahibi;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IhtiyacSahibiTablo IhtiyacSahibiVarMi(int? id, string adi, string soyadi, string telNo)
+        {
+            var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).FirstOrDefault(p =>
+                (p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
+                                                  && p.IhtiyacSahibiTelNo == telNo)&&p.IhtiyacSahibiId!=id);
             if (ihtiyacSahibi != null)
             {
                 return ihtiyacSahibi;
@@ -104,5 +121,7 @@ namespace DataLayer.Siniflar
                 return null;
             }
         }
+
+
     }
 }
