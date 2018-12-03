@@ -43,8 +43,43 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(ihtiyacSahibiModel, JsonRequestBehavior.AllowGet);
         }
+        [KullaniciLoginFilter]
+        public ActionResult Ekle()
+        {
+            Tanimla();
+            return View();
+        }
 
+        [KullaniciLoginFilter]
+        public ActionResult Ekle(IhtiyacSahibiModel yeniIhtiyacSahibi)
+        {
+            if (ModelState.IsValid)
+            {
+                var onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(yeniIhtiyacSahibi);
+                if (onay.TamamlandiMi==true)
+                {
+                    TempData["uyari"] = "İhtiyaç sahibi ekleme işlemi başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    string hata = "";
+                    foreach (var hataItem in onay.HataMesajlari)
+                    {
+                        hata = hata + "" + hataItem + "\n";
+                    }
 
+                    TempData["hata"] = hata;
+                    Tanimla();
+                    return View(yeniIhtiyacSahibi);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(yeniIhtiyacSahibi);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
