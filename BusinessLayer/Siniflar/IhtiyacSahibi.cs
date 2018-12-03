@@ -97,7 +97,7 @@ namespace BusinessLayer.Siniflar
             return onay;
         }
 
-        public IhtiyacSahibiModel IhtiyacSahibiGetir(int? ihtiyacSahibiId, int? kullaniciId)
+        public IhtiyacSahibiModel IhtiyacSahibiGetir(int? ihtiyacSahibiId)
         {
             var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiGetir(ihtiyacSahibiId);
             IhtiyacSahibiModel goruntulenecekIhtiyacSahibi = new IhtiyacSahibiModel();
@@ -134,6 +134,23 @@ namespace BusinessLayer.Siniflar
                     return false;
                 }
             }
+        }
+
+        public IslemOnayModel IhtiyacSahibiSil(int? ihtiyacSahibiId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var sonuc = ihtiyacSahibiDAL.IhtiyacSahibiSil(ihtiyacSahibiId);
+            if (sonuc == true)
+            {
+                onay.TamamlandiMi = true;
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("İhtiyaç sahibi silinirken hata oluştu");
+            }
+
+            return onay;
         }
     }
 }

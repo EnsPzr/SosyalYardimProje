@@ -52,6 +52,7 @@ namespace SosyalYardimProje.Controllers
 
         [KullaniciLoginFilter]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Ekle(IhtiyacSahibiModel yeniIhtiyacSahibi)
         {
             if (ModelState.IsValid)
@@ -79,6 +80,81 @@ namespace SosyalYardimProje.Controllers
             {
                 Tanimla();
                 return View(yeniIhtiyacSahibi);
+            }
+        }
+        [KullaniciLoginFilter]
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
+                {
+                    var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(id);
+                    if (ihtiyacSahibi != null)
+                    {
+                        return View(ihtiyacSahibi);
+                    }
+                    else
+                    {
+                        TempData["hata"] =
+                            "Görüntülemek istediğiniz ihtiyaç sahibi bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] =
+                        "Görüntelemeye çalıştığınız ihtiyaç sahibi sizin bölgenizde bulunmayan bir ihtiyaç sahibidir.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] =
+                    "Görüntülemek istediğiniz ihtiyaç sahibini seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [KullaniciLoginFilter]
+        [Route("Sil/{id}")]
+        public ActionResult IhtiyacSahibiSil(int? id)
+        {
+            if (id != null)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
+                {
+                    var islemSonucu = ihtiyacSahibiBAL.IhtiyacSahibiSil(id);
+                    if (islemSonucu.TamamlandiMi==true)
+                    {
+                        TempData["hata"] =
+                            "Silme işlemi başarı ile sonuçlandı.";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        string hata = "";
+                        foreach (var hataItem in islemSonucu.HataMesajlari)
+                        {
+                            hata += hataItem + "\n";
+                        }
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] =
+                        "Silmeye çalıştığınız ihtiyaç sahibi sizin bölgenizde bulunmayan bir ihtiyaç sahibidir.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] =
+                    "Silmek istediğiniz ihtiyaç sahibini seçiniz.";
+                return RedirectToAction("Liste");
             }
         }
         public void Tanimla()
