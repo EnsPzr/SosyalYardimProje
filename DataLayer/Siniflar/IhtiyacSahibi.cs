@@ -136,5 +136,20 @@ namespace DataLayer.Siniflar
             db.SaveChanges();
             return true;
         }
+
+        public List<IhtiyacSahibiKontrolTablo> KontrolEdilecekIhtiyacSahipleriniGetir(int? kullaniciId)
+        {
+            var kullanici = kullaniciDAL.KullaniciBul(kullaniciId);
+            if (kullanici.KullaniciMerkezdeMi == true)
+            {
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).OrderBy(p => p.Tarih).ToList();
+            }
+            else
+            {
+                int? sehirId = kullanici.SehirTablo_SehirId;
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).OrderBy(p => p.Tarih)
+                    .Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == sehirId).ToList();
+            }
+        }
     }
 }
