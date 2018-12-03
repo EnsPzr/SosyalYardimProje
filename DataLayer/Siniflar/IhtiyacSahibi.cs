@@ -47,5 +47,33 @@ namespace DataLayer.Siniflar
             }
             return ihtiyacSahipleri.ToList();
         }
+
+        public bool IhtiyacSahibiKaydet(IhtiyacSahibiTablo yeniIhtiyacSahibi)
+        {
+            db.IhtiyacSahibiTablo.Add(yeniIhtiyacSahibi);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public IhtiyacSahibiTablo IhtiyacSahibiVarMi(string adi, string soyadi, string telNo)
+        {
+            var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p=>p.SehirTablo).FirstOrDefault(p =>
+                p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
+                                                 && p.IhtiyacSahibiTelNo == telNo);
+            if (ihtiyacSahibi != null)
+            {
+                return ihtiyacSahibi;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
