@@ -9,8 +9,11 @@
             if (result.BasariliMi) {
                 Liste = "";
                 if (parseInt(result.SubeSayisi) == 0) {
-                   
                     $('#myModal').modal('hide');
+                    var yazilacak = "<tr class='even'>" +
+                        "<td class='col-md-12 col-xs-12'> Filtreniz ile eşleşen birşey bulunamadı. </td></tr>";
+                    $("#tablo_tbody").html("");
+                    $("#tablo_tbody").html(yazilacak);
                 } else {
                     for (var i = 0; i < parseInt(result.SubeSayisi); i++) {
                         if (parseInt(result.SubeModelList[i].Sira) % 2 == 0) {

@@ -16,8 +16,9 @@ namespace DataLayer.Siniflar
             }
             else
             {
+                int? sehirId = kullaniciDAL.KullaniciBul(KullaniciId).SehirTablo_SehirId;
                 return db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).Where(p =>
-                    p.SehirTablo_SehirId == kullaniciDAL.KullaniciBul(KullaniciId).SehirTablo_SehirId).ToList();
+                    p.SehirTablo_SehirId == sehirId).ToList();
             }
         }
 
@@ -37,8 +38,12 @@ namespace DataLayer.Siniflar
 
             if (kullaniciId != null)
             {
-                ihtiyacSahipleri = ihtiyacSahipleri.Where(p =>
-                    p.SehirTablo_SehirId == kullaniciDAL.KullaniciBul(kullaniciId).SehirTablo_SehirId);
+                var kullanici = kullaniciDAL.KullaniciBul(kullaniciId);
+                if (kullanici.KullaniciMerkezdeMi == false)
+                {
+                    ihtiyacSahipleri = ihtiyacSahipleri.Where(p =>
+                        p.SehirTablo_SehirId == kullanici.SehirTablo_SehirId);
+                }
             }
             return ihtiyacSahipleri.ToList();
         }

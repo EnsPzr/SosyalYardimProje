@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BusinessLayer.Models.IhtiyacSahibiModelleri;
 namespace BusinessLayer.Siniflar
 {
@@ -32,12 +33,9 @@ namespace BusinessLayer.Siniflar
             return dondurulecekIhtiyacSahipleri;
         }
 
-        public List<IhtiyacSahibiModel> FiltreliIhtiyacSahibiListesiniGetir(
-            IhtiyacSahibiFiltreModel filtreliIhtiyacSahipleri, int? kullaniciId)
+        public List<IhtiyacSahibiModel> FiltreliIhtiyacSahibiListesiniGetir(String aranan, int? sehirId, int? kullaniciId)
         {
-            var ihtiyacSahipleri = ihtiyacSahibiDAL.FiltreliIhtiyacSahipleriListesiniGetir(filtreliIhtiyacSahipleri.IhtiyacSahibiAranan,
-                filtreliIhtiyacSahipleri.Sehir.SehirId,
-                kullaniciId);
+            var ihtiyacSahipleri = ihtiyacSahibiDAL.FiltreliIhtiyacSahipleriListesiniGetir(aranan, sehirId, kullaniciId);
             var dondurulecekIhtiyacSahipleri = new List<IhtiyacSahibiModel>();
             for (int i = 0; i < ihtiyacSahipleri.Count; i++)
             {

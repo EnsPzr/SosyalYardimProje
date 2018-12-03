@@ -18,7 +18,8 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
-            return View();
+            Tanimla();
+            return View(new IhtiyacSahibiModel());
         }
         [SadeceLoginFilter]
         public JsonResult IhtiyacSahipleriniGetir()
@@ -32,11 +33,11 @@ namespace SosyalYardimProje.Controllers
             return Json(ihtiyacSahibiModel, JsonRequestBehavior.AllowGet);
         }
         [SadeceLoginFilter]
-        public JsonResult FiltreliIhtiyacSahipleriniGetir(IhtiyacSahibiFiltreModel filtreliModel)
+        public JsonResult FiltreliIhtiyacSahipleriniGetir(String IhtiyacSahibiAranan, int? SehirId)
         {
             IhtiyacSahibiJSModel ihtiyacSahibiModel = new IhtiyacSahibiJSModel();
             ihtiyacSahibiModel.IhtiyacSahipleri =
-                ihtiyacSahibiBAL.FiltreliIhtiyacSahibiListesiniGetir(filtreliModel, KullaniciBilgileriDondur.KullaniciId());
+                ihtiyacSahibiBAL.FiltreliIhtiyacSahibiListesiniGetir(IhtiyacSahibiAranan, SehirId, KullaniciBilgileriDondur.KullaniciId());
             ihtiyacSahibiModel.BasariliMi = true;
             ihtiyacSahibiModel.IhtiyacSahibiSayisi = ihtiyacSahibiModel.IhtiyacSahipleri.Count;
             Thread.Sleep(2000);
