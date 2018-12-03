@@ -1,0 +1,65 @@
+﻿@model BusinessLayer.Models.IhtiyacSahibiModelleri.IhtiyacSahibiModel
+
+@{
+    ViewBag.Title = "İhtiyaç Sahibi Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>İhtiyaç Sahibi Detay</h2>
+
+
+<div class="col-md-12 col-xs-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IhtiyacSahibiAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IhtiyacSahibiAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IhtiyacSahibiSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IhtiyacSahibiSoyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IhtiyacSahibiTelNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IhtiyacSahibiTelNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IhtiyacSahibiAdres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IhtiyacSahibiAdres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir.SehirAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir.SehirAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IhtiyacSahibiAciklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IhtiyacSahibiAciklama)
+        </dd>
+    </dl>
+    <a class="glyphicon glyphicon-pencil" href="/IhtiyacSahibi/Duzenle/@Model.IhtiyacSahibiId"></a> |
+    <a class="glyphicon glyphicon-trash" href="/IhtiyacSahibi/Sil/@Model.IhtiyacSahibiId"></a>
+
+</div>

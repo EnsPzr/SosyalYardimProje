@@ -238,7 +238,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
+        [KullaniciLoginFilter]
         public ActionResult Detay(int? id)
         {
             if (id != null)
