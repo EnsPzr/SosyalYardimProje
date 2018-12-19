@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Siniflar;
@@ -25,6 +26,7 @@ namespace SosyalYardimProje.Controllers
                 EsyaList= esyaBAL.TumEsyalariGetir()
             };
             model.EsyaSayisi = model.EsyaList.Count();
+            Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
@@ -36,6 +38,7 @@ namespace SosyalYardimProje.Controllers
                 EsyaList = esyaBAL.FiltreliEsyalariGetir(aranan)
             };
             model.EsyaSayisi = model.EsyaList.Count();
+            Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
@@ -80,7 +83,7 @@ namespace SosyalYardimProje.Controllers
                 var esya = esyaBAL.EsyaGetir(id);
                 if (esya != null)
                 {
-                    return View();
+                    return View(esya);
                 }
                 else
                 {

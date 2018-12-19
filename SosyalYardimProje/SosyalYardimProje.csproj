@@ -6993,6 +6993,7 @@
     <Content Include="Views\IhtiyacSahibi\Detay.cshtml" />
     <Content Include="Views\Esya\Liste.cshtml" />
     <Content Include="Views\Esya\Ekle.cshtml" />
+    <Content Include="Views\Esya\Duzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
