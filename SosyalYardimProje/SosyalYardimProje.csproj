@@ -6950,6 +6950,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EsyaController.cs" />
     <Compile Include="Controllers\GirisController.cs" />
     <Compile Include="Controllers\IhtiyacSahibiController.cs" />
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
@@ -7001,6 +7002,7 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\Esya\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
