@@ -103,5 +103,38 @@ namespace DataLayer
             db = null;
             db = new SosyalYardimDB();
         }
+
+        public bool KullaniciMerkezdeMi(int? id)
+        {
+            var kullanici = KullaniciBul(id);
+            if (kullanici != null)
+            {
+                if (kullanici.KullaniciMerkezdeMi == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int? KullaniciSehir(int? id)
+        {
+            var kullanici = KullaniciBul(id);
+            if (kullanici != null)
+            {
+                return kullanici.SehirTablo_SehirId;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
