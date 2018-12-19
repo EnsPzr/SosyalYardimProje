@@ -38,5 +38,39 @@ namespace SosyalYardimProje.Controllers
             model.EsyaSayisi = model.EsyaList.Count();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Ekle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Ekle(EsyaModel eklenecekEsya)
+        {
+            if (ModelState.IsValid)
+            {
+                var sonuc = esyaBAL.Ekle(eklenecekEsya);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Eşya ekleme işlemi başarı ile gerçekleşti";
+                    return RedirectToAction("Liste", "Esya");
+                }
+                else
+                {
+                    String hatalar = "";
+                    foreach (var hata in sonuc.HataMesajlari)
+                    {
+                        hatalar += hata + "\n";
+                    }
+
+                    TempData["hata"] = hatalar;
+                    return View(eklenecekEsya);
+                }
+            }
+            else
+            {
+                return View(eklenecekEsya);
+            }
+        }
     }
 }
