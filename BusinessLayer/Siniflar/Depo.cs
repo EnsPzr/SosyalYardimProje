@@ -14,7 +14,7 @@ namespace BusinessLayer.Siniflar
         private DataLayer.Siniflar.Depo depoDAL = new DataLayer.Siniflar.Depo();
         public List<DepoModel> DepoGetir(int? KullaniciId)
         {
-            List<DepoModel> depoListe= new List<DepoModel>();
+            List<DepoModel> depoListe = new List<DepoModel>();
             var depoEsyalari = depoDAL.DepoGetir(KullaniciId);
             for (int i = 0; i < depoEsyalari.Count; i++)
             {
@@ -23,10 +23,32 @@ namespace BusinessLayer.Siniflar
                 gonderilecekDepo.DepoEsyaId = depoEsyalari[i].DepoEsyaId;
                 gonderilecekDepo.EsyaId = depoEsyalari[i].EsyaTablo.EsyaId;
                 gonderilecekDepo.EsyaAdi = depoEsyalari[i].EsyaTablo.EsyaAdi;
-                gonderilecekDepo.Sehir= new SehirModel()
+                gonderilecekDepo.Sehir = new SehirModel()
                 {
-                    SehirAdi=depoEsyalari[i].SehirTablo.SehirAdi,
-                    SehirId=depoEsyalari[i].SehirTablo_SehirId
+                    SehirAdi = depoEsyalari[i].SehirTablo.SehirAdi,
+                    SehirId = depoEsyalari[i].SehirTablo_SehirId
+                };
+                depoListe.Add(gonderilecekDepo);
+            }
+
+            return depoListe.OrderBy(p => p.Sehir).ToList();
+        }
+
+        public List<DepoModel> FiltreliDepoGetir(int? KullaniciId, int? esyaId, int? sehirId, String aranan)
+        {
+            List<DepoModel> depoListe = new List<DepoModel>();
+            var depoEsyalari = depoDAL.FiltreliDepoGetir(KullaniciId, esyaId, sehirId, aranan);
+            for (int i = 0; i < depoEsyalari.Count; i++)
+            {
+                DepoModel gonderilecekDepo = new DepoModel();
+                gonderilecekDepo.Adet = depoEsyalari[i].Adet;
+                gonderilecekDepo.DepoEsyaId = depoEsyalari[i].DepoEsyaId;
+                gonderilecekDepo.EsyaId = depoEsyalari[i].EsyaTablo.EsyaId;
+                gonderilecekDepo.EsyaAdi = depoEsyalari[i].EsyaTablo.EsyaAdi;
+                gonderilecekDepo.Sehir = new SehirModel()
+                {
+                    SehirAdi = depoEsyalari[i].SehirTablo.SehirAdi,
+                    SehirId = depoEsyalari[i].SehirTablo_SehirId
                 };
                 depoListe.Add(gonderilecekDepo);
             }
