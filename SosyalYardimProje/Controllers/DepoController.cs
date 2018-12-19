@@ -30,5 +30,18 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(depoJs, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult FiltreliDepoGetir(int? esyaId, int? sehirId, String aranan)
+        {
+            var depoEsyalari = depoBAL.FiltreliDepoGetir(KullaniciBilgileriDondur.KullaniciId(), esyaId, sehirId, aranan);
+            DepoJsModel depoJs = new DepoJsModel()
+            {
+                BasariliMi = true,
+                DepoList = depoEsyalari
+            };
+            depoJs.DepoEsyaSayisi = depoJs.DepoList.Count;
+            Thread.Sleep(2000);
+            return Json(depoJs, JsonRequestBehavior.AllowGet);
+        }
     }
 }
