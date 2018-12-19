@@ -41,5 +41,48 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public EsyaTablo EsyaGetir(int? id)
+        {
+            return db.EsyaTablo.FirstOrDefault(p => p.EsyaId == id);
+        }
+
+        public bool EsyaDuzenle(EsyaTablo guncelEsya)
+        {
+            var esya = db.EsyaTablo.FirstOrDefault(p => p.EsyaId == guncelEsya.EsyaId);
+            if (esya != null)
+            {
+                if (esya.EsyaAdi.Trim().ToLower().Equals(guncelEsya.EsyaAdi.Trim().ToLower()))
+                {
+                    return true;
+                }
+                else
+                {
+                    esya.EsyaAdi = guncelEsya.EsyaAdi;
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool EsyaVarMi(EsyaTablo esya)
+        {
+            if (db.EsyaTablo.FirstOrDefault(p => p.EsyaId != esya.EsyaId && p.EsyaAdi.Trim().ToLower() == esya.EsyaAdi.Trim().ToLower()) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

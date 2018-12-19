@@ -61,5 +61,52 @@ namespace BusinessLayer.Siniflar
                 }
             }
         }
+
+        public EsyaModel EsyaGetir(int? id)
+        {
+            var esya = esyaDAL.EsyaGetir(id);
+            if (esya == null)
+            {
+                return null;
+            }
+            else
+            {
+                EsyaModel gosterilecekEsya= new EsyaModel()
+                {
+                    EsyaAdi=esya.EsyaAdi,
+                    EsyaId=esya.EsyaId
+                };
+                return gosterilecekEsya;
+            }
+        }
+
+        public IslemOnayModel EsyaDuzenle(EsyaModel duzenlenmisEsya)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            EsyaTablo esya = new EsyaTablo()
+            {
+                EsyaId=Convert.ToInt32(duzenlenmisEsya.EsyaId),
+                EsyaAdi=duzenlenmisEsya.EsyaAdi
+            };
+            if (esyaDAL.EsyaVarMi(esya))
+            {
+                onay.HataMesajlari.Add("Sistemde aynı isimde bir başka eşya kayıtlıdır.");
+                onay.TamamlandiMi = false;
+            }
+            else
+            {
+                if (esyaDAL.EsyaDuzenle(esya))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Ekleme işlemi sorasında hata oluştu.");
+                }
+            }
+
+            return onay;
+        }
     }
 }
