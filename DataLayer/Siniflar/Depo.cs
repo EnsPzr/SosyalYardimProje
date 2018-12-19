@@ -106,5 +106,60 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool AyniEsyaVarMi(DepoTablo esya)
+        {
+            if (db.DepoTablo.FirstOrDefault(p =>
+                    p.DepoEsyaId != esya.DepoEsyaId && p.EsyaTablo_EsyaId == esya.EsyaTablo_EsyaId &&
+                    p.SehirTablo_SehirId == esya.SehirTablo_SehirId) != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public DepoTablo DepoEsyaGetir(int? id)
+        {
+            var esya = db.DepoTablo.Include(p => p.EsyaTablo).Include(p => p.SehirTablo)
+                .FirstOrDefault(p => p.DepoEsyaId == id);
+            return esya;
+        }
+
+        public bool DepoEsyaGuncelle(DepoTablo esya)
+        {
+            var guncellenecekEsya = db.DepoTablo.FirstOrDefault(p => p.DepoEsyaId == esya.DepoEsyaId);
+            if (guncellenecekEsya != null)
+            {
+                if (guncellenecekEsya.SehirTablo_SehirId == esya.SehirTablo_SehirId && guncellenecekEsya.Adet ==
+                                                                                    esya.Adet
+                                                                                    && guncellenecekEsya
+                                                                                        .EsyaTablo_EsyaId ==
+                                                                                    esya.EsyaTablo_EsyaId)
+                {
+                    return true;
+                }
+                else
+                {
+                    guncellenecekEsya.Adet = esya.Adet;
+                    guncellenecekEsya.EsyaTablo_EsyaId = esya.EsyaTablo_EsyaId;
+                    guncellenecekEsya.SehirTablo_SehirId = esya.SehirTablo_SehirId;
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

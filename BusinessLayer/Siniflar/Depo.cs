@@ -96,5 +96,75 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public DepoModel DepoEsyaGetir(int? esyaDepoId,int? kullaniciId)
+        {
+            var depoEsya = depoDAL.DepoEsyaGetir(esyaDepoId);
+            if (depoEsya != null)
+            {
+                if (depoDAL.KullaniciEklemeYapabilirMi(kullaniciId, depoEsya.SehirTablo_SehirId))
+                {
+                    DepoModel rtrnModel = new DepoModel();
+                    rtrnModel.EsyaId = depoEsya.EsyaTablo_EsyaId;
+                    rtrnModel.Adet = depoEsya.Adet;
+                    rtrnModel.DepoEsyaId = depoEsya.DepoEsyaId;
+                    rtrnModel.DepoEsyaId = depoEsya.DepoEsyaId;
+                    return rtrnModel;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IslemOnayModel DepoEsyaGuncelle(DepoModel gunModel,int? kullaniciId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var depoEsya = depoDAL.DepoEsyaGetir(gunModel.DepoEsyaId);
+            if (depoEsya != null)
+            {
+                if (depoDAL.KullaniciEklemeYapabilirMi(kullaniciId, depoEsya.SehirTablo_SehirId))
+                {
+                    depoEsya.SehirTablo_SehirId = gunModel.Sehir.SehirId;
+                    depoEsya.Adet = gunModel.Adet;
+                    depoEsya.DepoEsyaId = Convert.ToInt32(gunModel.DepoEsyaId);
+                    depoEsya.EsyaTablo_EsyaId = gunModel.EsyaId;
+                    if (!(depoDAL.AyniEsyaVarMi(depoEsya)))
+                    {
+                        if (depoDAL.DepoEsyaGuncelle(depoEsya))
+                        {
+                            onay.TamamlandiMi = true;
+                        }
+                        else
+                        {
+                            onay.TamamlandiMi = false;
+                            onay.HataMesajlari.Add("Güncelleme işlemi sırasında bir hata oluştu.");
+                        }
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Aynı isme sahip bir eşya zaten var.");
+                    }
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Sadece kendi deponuzda değişiklik yapabilirsiniz.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Düzenlenmek istenen eşya bulunamadı.");
+            }
+
+            return onay;
+        }
     }
 }
