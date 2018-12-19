@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer;
+using BusinessLayer.Models;
 using BusinessLayer.Models.DepoModelleri;
 using BusinessLayer.Siniflar;
 
@@ -47,6 +48,28 @@ namespace SosyalYardimProje.Controllers
             return Json(depoJs, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Ekle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ekle(DepoModel eklenecekEsya)
+        {
+            var sonuc = depoBAL.DepoyaEsyaEkle(eklenecekEsya,KullaniciBilgileriDondur.KullaniciId());
+            if (sonuc.TamamlandiMi == true)
+            {
+                TempData["uyari"] = "Depoya eşya başarı ile eklendi.";
+                return RedirectToAction("Liste");
+            }
+            else
+            {
+                String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                TempData["hata"] = hatalar;
+                return View(eklenecekEsya);
+            }
+        }
         public void Tanimla()
         {
             var esyalarSelect = esyaBAL.TumEsyalariGetir().Select(p => new SelectListItem()

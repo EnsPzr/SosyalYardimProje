@@ -58,7 +58,7 @@ namespace BusinessLayer.Siniflar
         }
 
 
-        public IslemOnayModel DepoyaEsyaEkle(DepoModel eklenecekEsya)
+        public IslemOnayModel DepoyaEsyaEkle(DepoModel eklenecekEsya, int? kullaniciId)
         {
             IslemOnayModel onay = new IslemOnayModel();
             if (depoDAL.DepodaEsyaVarMi(eklenecekEsya.EsyaId, eklenecekEsya.Sehir.SehirId))
@@ -74,15 +74,24 @@ namespace BusinessLayer.Siniflar
                     EsyaTablo_EsyaId = eklenecekEsya.EsyaId,
                     SehirTablo_SehirId = eklenecekEsya.Sehir.SehirId
                 };
-                if (depoDAL.DepoyaEsyaEkle(esya))
+                if (depoDAL.KullaniciEklemeYapabilirMi(kullaniciId, eklenecekEsya.Sehir.SehirId))
                 {
-                    onay.TamamlandiMi = true;
+                    if (depoDAL.DepoyaEsyaEkle(esya))
+                    {
+                        onay.TamamlandiMi = true;
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Ekleme sırasında hata oluştu.");
+                    }
                 }
                 else
                 {
                     onay.TamamlandiMi = false;
-                    onay.HataMesajlari.Add("Ekleme sırasında hata oluştu.");
+                    onay.HataMesajlari.Add("Yalnızca kendi şehriniz için ekleme yapabilirsiniz.");
                 }
+
             }
 
             return onay;

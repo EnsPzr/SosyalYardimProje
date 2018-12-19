@@ -90,5 +90,21 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool KullaniciEklemeYapabilirMi(int? kullaniciId, int? sehirId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                if (kullaniciDAL.KullaniciSehir(kullaniciId) == sehirId)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
