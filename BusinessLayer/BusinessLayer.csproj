@@ -53,6 +53,7 @@
     <Compile Include="Models\EsyaModelleri\EsyaModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiFiltreModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiJSModel.cs" />
+    <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiKontrolJSModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiKontrolModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciFiltrelemeModel.cs" />

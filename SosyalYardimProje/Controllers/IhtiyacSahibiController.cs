@@ -268,6 +268,22 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        public ActionResult IhtiyacSahibiKontrolListesi()
+        {
+            return View();
+        }
+
+        public JsonResult TumIhtiyacSahipleriniGetir()
+        {
+            IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
+            {
+                BasariliMi=true,
+                IhtiyacSahibiKontrolListe =ihtiyacSahibiBAL.KontrolEdilecekIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId())
+            };
+            model.IhtiyacSahibiSayisi = model.IhtiyacSahibiKontrolListe.Count();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
