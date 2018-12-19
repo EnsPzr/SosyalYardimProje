@@ -146,7 +146,6 @@ namespace SosyalYardimProje.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        [Route("Sil/{id}")]
         public ActionResult EsyaSil(int? id)
         {
             if (id != null)
