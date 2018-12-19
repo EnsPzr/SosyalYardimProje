@@ -84,5 +84,23 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool EsyaSil(int? id)
+        {
+            var esya = EsyaGetir(id);
+            if (esya != null)
+            {
+                db.EsyaTablo.Remove(esya);
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
     }
 }

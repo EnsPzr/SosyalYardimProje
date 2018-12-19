@@ -15,9 +15,9 @@ namespace BusinessLayer.Siniflar
 
         public List<EsyaModel> TumEsyalariGetir()
         {
-            var esyalar = esyaDAL.TumEsyalariGetir().Select(p=>new EsyaModel()
+            var esyalar = esyaDAL.TumEsyalariGetir().Select(p => new EsyaModel()
             {
-                EsyaAdi=p.EsyaAdi,
+                EsyaAdi = p.EsyaAdi,
                 EsyaId = p.EsyaId
             }).ToList();
             return esyalar;
@@ -46,7 +46,7 @@ namespace BusinessLayer.Siniflar
             {
                 EsyaTablo esyaTabloEklenecek = new EsyaTablo()
                 {
-                    EsyaAdi=eklenecekEsya.EsyaAdi
+                    EsyaAdi = eklenecekEsya.EsyaAdi
                 };
                 if (esyaDAL.Ekle(esyaTabloEklenecek))
                 {
@@ -71,10 +71,10 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                EsyaModel gosterilecekEsya= new EsyaModel()
+                EsyaModel gosterilecekEsya = new EsyaModel()
                 {
-                    EsyaAdi=esya.EsyaAdi,
-                    EsyaId=esya.EsyaId
+                    EsyaAdi = esya.EsyaAdi,
+                    EsyaId = esya.EsyaId
                 };
                 return gosterilecekEsya;
             }
@@ -85,8 +85,8 @@ namespace BusinessLayer.Siniflar
             IslemOnayModel onay = new IslemOnayModel();
             EsyaTablo esya = new EsyaTablo()
             {
-                EsyaId=Convert.ToInt32(duzenlenmisEsya.EsyaId),
-                EsyaAdi=duzenlenmisEsya.EsyaAdi
+                EsyaId = Convert.ToInt32(duzenlenmisEsya.EsyaId),
+                EsyaAdi = duzenlenmisEsya.EsyaAdi
             };
             if (esyaDAL.EsyaVarMi(esya))
             {
@@ -104,6 +104,31 @@ namespace BusinessLayer.Siniflar
                     onay.TamamlandiMi = false;
                     onay.HataMesajlari.Add("Ekleme işlemi sorasında hata oluştu.");
                 }
+            }
+
+            return onay;
+        }
+
+        public IslemOnayModel EsyaSil(int? id)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var esya = esyaDAL.EsyaGetir(id);
+            if (esya != null)
+            {
+                if (esyaDAL.EsyaSil(id))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Silme işlemi tamamlanamadı.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Silmek istediğiniz eşya bulunmadı.");
             }
 
             return onay;
