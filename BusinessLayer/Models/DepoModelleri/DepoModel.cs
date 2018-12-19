@@ -11,8 +11,9 @@ namespace BusinessLayer.Models
     public class DepoModel
     {
         public int? DepoEsyaId { get; set; }
+        public int? EsyaId { get; set; }
 
-        public EsyaModel Esya { get; set; }
+        public String EsyaAdi { get; set; }
 
         public SehirModel Sehir { get; set; }
 

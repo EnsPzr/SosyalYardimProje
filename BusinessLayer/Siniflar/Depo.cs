@@ -21,11 +21,8 @@ namespace BusinessLayer.Siniflar
                 DepoModel gonderilecekDepo = new DepoModel();
                 gonderilecekDepo.Adet = depoEsyalari[i].Adet;
                 gonderilecekDepo.DepoEsyaId = depoEsyalari[i].DepoEsyaId;
-                gonderilecekDepo.Esya = new EsyaModel()
-                {
-                    EsyaAdi = depoEsyalari[i].EsyaTablo.EsyaAdi,
-                    EsyaId = depoEsyalari[i].DepoEsyaId
-                };
+                gonderilecekDepo.EsyaId = depoEsyalari[i].EsyaTablo.EsyaId;
+                gonderilecekDepo.EsyaAdi = depoEsyalari[i].EsyaTablo.EsyaAdi;
                 gonderilecekDepo.Sehir= new SehirModel()
                 {
                     SehirAdi=depoEsyalari[i].SehirTablo.SehirAdi,

@@ -18,7 +18,7 @@ namespace SosyalYardimProje.Controllers
                 String kullaniciId = HttpContext.Current.Session["KullaniciId"].ToString();
                 return Convert.ToInt32(kullaniciId);
             }
-            else return null;
+            else return 1;
         }
 
         public static KullaniciBilgileriTablo KullaniciBilgileriGetir()
