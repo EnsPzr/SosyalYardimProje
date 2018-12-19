@@ -80,6 +80,59 @@ namespace SosyalYardimProje.Controllers
                 return View(eklenecekEsya);
             }
         }
+
+
+        public ActionResult Duzenle(int? id)
+        {
+            if (id != null)
+            {
+                var duzenlenecekEsya = depoBAL.DepoEsyaGetir(id,KullaniciBilgileriDondur.KullaniciId());
+                if (duzenlenecekEsya != null)
+                {
+                    Tanimla();
+                    return View(duzenlenecekEsya);
+                }
+                else
+                {
+                    TempData["hata"] = "Deponuzdan düzenlemek istediğiniz eşya bulunmadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Deponuzdan düzenlemek istediğiniz eşyayı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Duzenle(DepoModel duzenlenmisModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var sonuc = depoBAL.DepoEsyaGuncelle(duzenlenmisModel,KullaniciBilgileriDondur.KullaniciId());
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Deponuzdaki eşyayı güncelleme işlemi başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    Tanimla();
+                    return View(duzenlenmisModel);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(duzenlenmisModel);
+            }
+        }
+
+
         public void Tanimla()
         {
             var esyalarSelect = esyaBAL.TumEsyalariGetir().Select(p => new SelectListItem()

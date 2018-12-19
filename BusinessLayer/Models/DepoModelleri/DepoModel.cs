@@ -22,5 +22,10 @@ namespace BusinessLayer.Models
 
         [Required(ErrorMessage = "Adet girilmek zorundadır.")]
         public int? Adet { get; set; }
+
+        public DepoModel()
+        {
+            Sehir = new SehirModel();
+        }
     }
 }

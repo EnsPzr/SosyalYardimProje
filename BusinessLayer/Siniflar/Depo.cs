@@ -108,7 +108,7 @@ namespace BusinessLayer.Siniflar
                     rtrnModel.EsyaId = depoEsya.EsyaTablo_EsyaId;
                     rtrnModel.Adet = depoEsya.Adet;
                     rtrnModel.DepoEsyaId = depoEsya.DepoEsyaId;
-                    rtrnModel.DepoEsyaId = depoEsya.DepoEsyaId;
+                    rtrnModel.Sehir.SehirId = depoEsya.SehirTablo_SehirId;
                     return rtrnModel;
                 }
                 else

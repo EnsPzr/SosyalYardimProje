@@ -113,11 +113,11 @@ namespace DataLayer.Siniflar
                     p.DepoEsyaId != esya.DepoEsyaId && p.EsyaTablo_EsyaId == esya.EsyaTablo_EsyaId &&
                     p.SehirTablo_SehirId == esya.SehirTablo_SehirId) != null)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -139,6 +139,7 @@ namespace DataLayer.Siniflar
                                                                                         .EsyaTablo_EsyaId ==
                                                                                     esya.EsyaTablo_EsyaId)
                 {
+                    db.SaveChanges();
                     return true;
                 }
                 else

@@ -6999,6 +6999,7 @@
     <Content Include="Views\Esya\Sil.cshtml" />
     <Content Include="Views\Depo\Liste.cshtml" />
     <Content Include="Views\Depo\Ekle.cshtml" />
+    <Content Include="Views\Depo\Duzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
