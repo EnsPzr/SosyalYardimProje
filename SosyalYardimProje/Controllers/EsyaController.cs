@@ -72,5 +72,50 @@ namespace SosyalYardimProje.Controllers
                 return View(eklenecekEsya);
             }
         }
+
+        public ActionResult Duzenle(int? id)
+        {
+            if (id != null)
+            {
+                var esya = esyaBAL.EsyaGetir(id);
+                if (esya != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    TempData["hata"] = "Aradığınız eşya sistemde bulunmamaktadır";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen düzenlemek istediğiniz eşyayı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Duzenle(EsyaModel esya)
+        {
+            var onay = esyaBAL.EsyaDuzenle(esya);
+            if (onay.TamamlandiMi==true)
+            {
+                TempData["uyari"] = "Eşya düzenleme işlemi başarı ile tamamlandı.";
+                return RedirectToAction("Liste");
+            }
+            else
+            {
+                String hatalar = "";
+                foreach (var hata in onay.HataMesajlari)
+                {
+                    hatalar += hata + "\n";
+                }
+
+                TempData["hata"] = hatalar;
+                return View(esya);
+            }
+        }
     }
 }
