@@ -8,13 +8,13 @@ namespace DataLayer.Siniflar
 {
     public class IhtiyacSahibi
     {
-        private KullaniciYonetimi kullaniciDAL= new KullaniciYonetimi();
+        private KullaniciYonetimi kullaniciDAL = new KullaniciYonetimi();
         private SosyalYardimDB db = new SosyalYardimDB();
         public List<IhtiyacSahibiTablo> TumIhtiyacSahipleriniGetir(int? KullaniciId)
         {
             if (kullaniciDAL.KullaniciBul(KullaniciId).KullaniciMerkezdeMi == true)
             {
-                return db.IhtiyacSahibiTablo.Include(p=>p.SehirTablo).ToList();
+                return db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).ToList();
             }
             else
             {
@@ -24,7 +24,7 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public List<IhtiyacSahibiTablo> FiltreliIhtiyacSahipleriListesiniGetir(String aranan, int? sehirId,int? kullaniciId)
+        public List<IhtiyacSahibiTablo> FiltreliIhtiyacSahipleriListesiniGetir(String aranan, int? sehirId, int? kullaniciId)
         {
             var ihtiyacSahipleri = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).Where(p =>
                 p.IhtiyacSahibiAdi.Contains(aranan) ||
@@ -65,9 +65,9 @@ namespace DataLayer.Siniflar
 
         public IhtiyacSahibiTablo IhtiyacSahibiVarMi(string adi, string soyadi, string telNo)
         {
-            var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p=>p.SehirTablo).FirstOrDefault(p =>
-                p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
-                                                 && p.IhtiyacSahibiTelNo == telNo);
+            var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).FirstOrDefault(p =>
+                  p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
+                                                   && p.IhtiyacSahibiTelNo == telNo);
             if (ihtiyacSahibi != null)
             {
                 return ihtiyacSahibi;
@@ -82,7 +82,7 @@ namespace DataLayer.Siniflar
         {
             var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).FirstOrDefault(p =>
                 (p.IhtiyacSahibiAdi.Contains(adi) && p.IhtiyacSahibiSoyadi.Contains(soyadi)
-                                                  && p.IhtiyacSahibiTelNo == telNo)&&p.IhtiyacSahibiId!=id);
+                                                  && p.IhtiyacSahibiTelNo == telNo) && p.IhtiyacSahibiId != id);
             if (ihtiyacSahibi != null)
             {
                 return ihtiyacSahibi;
@@ -103,7 +103,7 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                return false;   
+                return false;
 
             }
         }
@@ -149,6 +149,54 @@ namespace DataLayer.Siniflar
                 int? sehirId = kullanici.SehirTablo_SehirId;
                 return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).OrderBy(p => p.Tarih)
                     .Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == sehirId).ToList();
+            }
+        }
+
+        public List<IhtiyacSahibiKontrolTablo> KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(int? kullaniciId, string aranan, int? sehirId, DateTime? tarih)
+        {
+            var kullanici = kullaniciDAL.KullaniciBul(kullaniciId);
+            if (kullanici.KullaniciMerkezdeMi == true)
+            {
+                IQueryable<IhtiyacSahibiKontrolTablo> sorgu = db.IhtiyacSahibiKontrolTablo
+                    .Include(p => p.IhtiyacSahibiTablo).OrderBy(p => p.Tarih);
+                if (!(aranan.Equals("")))
+                {
+                    sorgu = sorgu.Where(p => p.IhtiyacSahibiTablo.IhtiyacSahibiAdi.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiSoyadi.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiTelNo.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiAdres.Contains(aranan));
+                }
+
+                if (sehirId != null)
+                {
+                    sorgu = sorgu.Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == sehirId);
+                }
+
+                if (tarih != null)
+                {
+                    sorgu = sorgu.Where(p => p.Tarih == tarih || p.KontrolYapilmaTarihi == tarih || p.TahminiTeslimTarihi == tarih);
+                }
+
+                return sorgu.ToList();
+            }
+            else
+            {
+                int? kullaniciSehirId = kullanici.SehirTablo_SehirId;
+                IQueryable<IhtiyacSahibiKontrolTablo> sorgu = db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).OrderBy(p => p.Tarih)
+                    .Where(p => p.IhtiyacSahibiTablo.SehirTablo_SehirId == kullaniciSehirId);
+                if (!(aranan.Equals("")))
+                {
+                    sorgu = sorgu.Where(p => p.IhtiyacSahibiTablo.IhtiyacSahibiAdi.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiSoyadi.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiTelNo.Contains(aranan)
+                                             || p.IhtiyacSahibiTablo.IhtiyacSahibiAdres.Contains(aranan));
+                }
+                if (tarih != null)
+                {
+                    sorgu = sorgu.Where(p => p.Tarih == tarih || p.KontrolYapilmaTarihi == tarih || p.TahminiTeslimTarihi == tarih);
+                }
+
+                return sorgu.ToList();
             }
         }
     }

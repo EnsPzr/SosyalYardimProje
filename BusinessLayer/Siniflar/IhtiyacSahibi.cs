@@ -158,7 +158,7 @@ namespace BusinessLayer.Siniflar
             IslemOnayModel onay = new IslemOnayModel();
             if (ihtiyacSahibiDAL.IhtiyacSahibiVarMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId,
                 duzenlenmisIhtiyacSahibi.IhtiyacSahibiAdi, duzenlenmisIhtiyacSahibi.IhtiyacSahibiSoyadi,
-                duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo)==null)
+                duzenlenmisIhtiyacSahibi.IhtiyacSahibiTelNo) == null)
             {
                 IhtiyacSahibiTablo eklenecekIhtiyacSahibi = new IhtiyacSahibiTablo();
                 eklenecekIhtiyacSahibi.IhtiyacSahibiId = Convert.ToInt32(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
@@ -191,7 +191,70 @@ namespace BusinessLayer.Siniflar
         public List<IhtiyacSahibiKontrolModel> KontrolEdilecekIhtiyacSahipleriniGetir(int? kullaniciId)
         {
             var kontrolEdilecekIhtiyacSahipleri = ihtiyacSahibiDAL.KontrolEdilecekIhtiyacSahipleriniGetir(kullaniciId);
-            List <IhtiyacSahibiKontrolModel> kontrolListeModel = new List<IhtiyacSahibiKontrolModel>();
+            List<IhtiyacSahibiKontrolModel> kontrolListeModel = new List<IhtiyacSahibiKontrolModel>();
+            for (int i = 0; i < kontrolEdilecekIhtiyacSahipleri.Count; i++)
+            {
+                IhtiyacSahibiKontrolModel eklenecekModel = new IhtiyacSahibiKontrolModel();
+                eklenecekModel.IhtiyacSahibiAdiSoyadi =
+                    kontrolEdilecekIhtiyacSahipleri[i].IhtiyacSahibiTablo.IhtiyacSahibiAdi + " " +
+                    kontrolEdilecekIhtiyacSahipleri[i].IhtiyacSahibiTablo.IhtiyacSahibiSoyadi;
+                eklenecekModel.IhtiyacSahibiTelNo =
+                    kontrolEdilecekIhtiyacSahipleri[i].IhtiyacSahibiTablo.IhtiyacSahibiTelNo;
+                eklenecekModel.IhtiyacSahibiAdres =
+                    kontrolEdilecekIhtiyacSahipleri[i].IhtiyacSahibiTablo.IhtiyacSahibiAdres;
+                eklenecekModel.IhtiyacSahibiKontrolId = kontrolEdilecekIhtiyacSahipleri[i].IhtiyacSahibiKontrolId;
+                if (kontrolEdilecekIhtiyacSahipleri[i].MuhtacMi != null)
+                {
+                    if (kontrolEdilecekIhtiyacSahipleri[i].MuhtacMi == true)
+                    {
+                        eklenecekModel.MuhtacMi = "Evet";
+                    }
+                    else
+                    {
+                        eklenecekModel.MuhtacMi = "Hayır";
+                    }
+                }
+                else
+                {
+                    eklenecekModel.MuhtacMi = "Hayır";
+                }
+
+                eklenecekModel.EklenmeTarih = kontrolEdilecekIhtiyacSahipleri[i].Tarih;
+                if (kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi != null)
+                {
+                    eklenecekModel.KontrolTarih = kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi;
+                }
+
+                if (kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi != null)
+                {
+                    eklenecekModel.TahminiTeslimTarihi = kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi;
+                }
+
+                if (kontrolEdilecekIhtiyacSahipleri[i].TeslimTamamlandiMi != null)
+                {
+                    if (kontrolEdilecekIhtiyacSahipleri[i].TeslimTamamlandiMi == true)
+                    {
+                        eklenecekModel.TeslimTamamlandiMi = "Evet";
+                    }
+                    else
+                    {
+                        eklenecekModel.TeslimTamamlandiMi = "Hayır";
+                    }
+                }
+                else
+                {
+                    eklenecekModel.TeslimTamamlandiMi = "Hayır";
+                }
+            }
+
+            return kontrolListeModel;
+        }
+
+        public List<IhtiyacSahibiKontrolModel> KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(int? kullaniciId,
+            string aranan, int? sehirId, DateTime? tarih)
+        {
+            var kontrolEdilecekIhtiyacSahipleri = ihtiyacSahibiDAL.KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(kullaniciId, aranan, sehirId, tarih);
+            List<IhtiyacSahibiKontrolModel> kontrolListeModel = new List<IhtiyacSahibiKontrolModel>();
             for (int i = 0; i < kontrolEdilecekIhtiyacSahipleri.Count; i++)
             {
                 IhtiyacSahibiKontrolModel eklenecekModel = new IhtiyacSahibiKontrolModel();
