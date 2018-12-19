@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayer.Models;
 using BusinessLayer.Models.EsyaModelleri;
 using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
@@ -56,5 +57,35 @@ namespace BusinessLayer.Siniflar
             return depoListe.OrderBy(p => p.Sehir.SehirId).ToList();
         }
 
+
+        public IslemOnayModel DepoyaEsyaEkle(DepoModel eklenecekEsya)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (depoDAL.DepodaEsyaVarMi(eklenecekEsya.EsyaId, eklenecekEsya.Sehir.SehirId))
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Eklemeye çalıştığınız eşya zaten deponuzda var. Güncelleme işlemlerini düzenleme sayfasında yapınız.");
+            }
+            else
+            {
+                DepoTablo esya = new DepoTablo()
+                {
+                    Adet = eklenecekEsya.Adet,
+                    EsyaTablo_EsyaId = eklenecekEsya.EsyaId,
+                    SehirTablo_SehirId = eklenecekEsya.Sehir.SehirId
+                };
+                if (depoDAL.DepoyaEsyaEkle(esya))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Ekleme sırasında hata oluştu.");
+                }
+            }
+
+            return onay;
+        }
     }
 }

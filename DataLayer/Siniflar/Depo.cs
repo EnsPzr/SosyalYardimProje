@@ -64,5 +64,31 @@ namespace DataLayer.Siniflar
                 return sonuc.ToList();
             }
         }
+
+        public bool DepodaEsyaVarMi(int? esyaId, int? sehirId)
+        {
+            if (db.DepoTablo.FirstOrDefault(p => p.EsyaTablo_EsyaId == esyaId && p.SehirTablo_SehirId == sehirId) !=
+                null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DepoyaEsyaEkle(DepoTablo eklenecekEsya)
+        {
+            db.DepoTablo.Add(eklenecekEsya);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
