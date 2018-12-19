@@ -6929,6 +6929,7 @@
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\EsyaListeleScript.js" />
     <Content Include="Scripts\IhtiyacSahibiListeleScript.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -6990,6 +6991,7 @@
     <Content Include="Views\IhtiyacSahibi\Sil.cshtml" />
     <Content Include="Views\IhtiyacSahibi\Duzenle.cshtml" />
     <Content Include="Views\IhtiyacSahibi\Detay.cshtml" />
+    <Content Include="Views\Esya\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7002,7 +7004,6 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\Esya\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

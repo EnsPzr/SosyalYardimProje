@@ -27,5 +27,16 @@ namespace SosyalYardimProje.Controllers
             model.EsyaSayisi = model.EsyaList.Count();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult FiltreliEsyalariGetir(String aranan)
+        {
+            EsyaJsModel model = new EsyaJsModel()
+            {
+                BasariliMi = true,
+                EsyaList = esyaBAL.FiltreliEsyalariGetir(aranan)
+            };
+            model.EsyaSayisi = model.EsyaList.Count();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }
