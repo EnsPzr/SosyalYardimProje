@@ -20,5 +20,15 @@ namespace BusinessLayer.Siniflar
             }).ToList();
             return esyalar;
         }
+
+        public List<EsyaModel> FiltreliEsyalariGetir(String aranan)
+        {
+            var esyalar = esyaDAL.FiltreliEsyalariGetir(aranan).Select(p => new EsyaModel()
+            {
+                EsyaAdi = p.EsyaAdi,
+                EsyaId = p.EsyaId
+            }).ToList();
+            return esyalar;
+        }
     }
 }

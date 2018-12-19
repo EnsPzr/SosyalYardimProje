@@ -13,5 +13,10 @@ namespace DataLayer.Siniflar
         {
             return db.EsyaTablo.ToList();
         }
+
+        public List<EsyaTablo> FiltreliEsyalariGetir(String aranan)
+        {
+            return db.EsyaTablo.Where(p => p.EsyaAdi.Contains(aranan)).ToList();
+        }
     }
 }
