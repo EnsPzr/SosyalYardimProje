@@ -50,6 +50,7 @@ namespace SosyalYardimProje.Controllers
 
         public ActionResult Ekle()
         {
+            Tanimla();
             return View();
         }
 
@@ -57,16 +58,25 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Ekle(DepoModel eklenecekEsya)
         {
-            var sonuc = depoBAL.DepoyaEsyaEkle(eklenecekEsya,KullaniciBilgileriDondur.KullaniciId());
-            if (sonuc.TamamlandiMi == true)
+            if (ModelState.IsValid)
             {
-                TempData["uyari"] = "Depoya eşya başarı ile eklendi.";
-                return RedirectToAction("Liste");
+                var sonuc = depoBAL.DepoyaEsyaEkle(eklenecekEsya, KullaniciBilgileriDondur.KullaniciId());
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Depoya eşya başarı ile eklendi.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    Tanimla();
+                    String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    return View(eklenecekEsya);
+                }
             }
             else
             {
-                String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
-                TempData["hata"] = hatalar;
+                Tanimla();
                 return View(eklenecekEsya);
             }
         }

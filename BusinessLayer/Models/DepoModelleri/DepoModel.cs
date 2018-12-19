@@ -21,7 +21,6 @@ namespace BusinessLayer.Models
         public SehirModel Sehir { get; set; }
 
         [Required(ErrorMessage = "Adet girilmek zorundadır.")]
-        [Phone(ErrorMessage = "Lütfen sadece sayı giriniz")]
         public int? Adet { get; set; }
     }
 }
