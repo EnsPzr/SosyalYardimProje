@@ -284,6 +284,17 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult FiltreliIhtiyacSahipleriniGetir(string aranan, int? sehirId, DateTime? tarih)
+        {
+            IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
+            {
+                BasariliMi = true,
+                IhtiyacSahibiKontrolListe = ihtiyacSahibiBAL.KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId(),aranan,sehirId,tarih)
+            };
+            model.IhtiyacSahibiSayisi = model.IhtiyacSahibiKontrolListe.Count();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
