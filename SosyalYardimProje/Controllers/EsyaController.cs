@@ -120,5 +120,64 @@ namespace SosyalYardimProje.Controllers
                 return View(esya);
             }
         }
+
+
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                var esya = esyaBAL.EsyaGetir(id);
+                if (esya != null)
+                {
+                    return View(esya);
+                }
+                else
+                {
+                    TempData["hata"] = "Silmek istediğiniz eşya bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Silmek istediğiniz eşyayı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        [Route("Sil/{id}")]
+        public ActionResult EsyaSil(int? id)
+        {
+            if (id != null)
+            {
+                var esya = esyaBAL.EsyaGetir(id);
+                if (esya != null)
+                {
+                    var onay = esyaBAL.EsyaSil(id);
+                    if (onay.TamamlandiMi == true)
+                    {
+                        TempData["uyari"] = "Eşya silme işlemi başarı ile tamamlandı.";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
+                        TempData["hata"] = hatalar;
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Silmek istediğiniz eşya bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Silmek istediğiniz eşyayı seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
     }
 }

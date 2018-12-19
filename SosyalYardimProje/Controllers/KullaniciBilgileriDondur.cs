@@ -31,5 +31,16 @@ namespace SosyalYardimProje.Controllers
             }
             else return null;
         }
+
+        public static String HataMesajlariniOku(List<String> hataListesi)
+        {
+            String hatalar = "";
+            foreach (var hata in hataListesi)
+            {
+                hatalar += hata + "\n";
+            }
+
+            return hatalar;
+        }
     }
 }
