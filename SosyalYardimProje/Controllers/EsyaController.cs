@@ -6,29 +6,33 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
     public class EsyaController : Controller
     {
         private Esya esyaBAL = new Esya();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumEsyalariGetir()
         {
             EsyaJsModel model = new EsyaJsModel()
             {
                 BasariliMi = true,
-                EsyaList= esyaBAL.TumEsyalariGetir()
+                EsyaList = esyaBAL.TumEsyalariGetir()
             };
             model.EsyaSayisi = model.EsyaList.Count();
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliEsyalariGetir(String aranan)
         {
@@ -42,10 +46,12 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Ekle()
         {
             return View();
         }
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Ekle(EsyaModel eklenecekEsya)
@@ -76,6 +82,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -100,10 +107,11 @@ namespace SosyalYardimProje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(EsyaModel esya)
         {
             var onay = esyaBAL.EsyaDuzenle(esya);
-            if (onay.TamamlandiMi==true)
+            if (onay.TamamlandiMi == true)
             {
                 TempData["uyari"] = "Eşya düzenleme işlemi başarı ile tamamlandı.";
                 return RedirectToAction("Liste");
@@ -122,6 +130,7 @@ namespace SosyalYardimProje.Controllers
         }
 
 
+        [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
@@ -144,6 +153,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult EsyaSil(int? id)

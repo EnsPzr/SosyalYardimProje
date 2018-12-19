@@ -64,6 +64,7 @@
     <Compile Include="Models\SubeModelleri\SubeModel.cs" />
     <Compile Include="Models\YetkiModelleri\YetkiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Siniflar\Depo.cs" />
     <Compile Include="Siniflar\Esya.cs" />
     <Compile Include="Siniflar\IhtiyacSahibi.cs" />
     <Compile Include="Siniflar\Kullanici.cs" />
