@@ -47,6 +47,7 @@
     <Compile Include="Models\AnaSayfaModelleri\OnayBekleyenIhtiyacSahipleriModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimAlinmaBekleyenBagislarListe.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
+    <Compile Include="Models\DepoModel.cs" />
     <Compile Include="Models\EsyaModelleri\EsyaJsModel.cs" />
     <Compile Include="Models\EsyaModelleri\EsyaModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiFiltreModel.cs" />
