@@ -31,7 +31,7 @@ namespace BusinessLayer.Siniflar
                 depoListe.Add(gonderilecekDepo);
             }
 
-            return depoListe.OrderBy(p => p.Sehir).ToList();
+            return depoListe.OrderBy(p => p.Sehir.SehirId).ToList();
         }
 
         public List<DepoModel> FiltreliDepoGetir(int? KullaniciId, int? esyaId, int? sehirId, String aranan)
@@ -53,7 +53,7 @@ namespace BusinessLayer.Siniflar
                 depoListe.Add(gonderilecekDepo);
             }
 
-            return depoListe.OrderBy(p => p.Sehir).ToList();
+            return depoListe.OrderBy(p => p.Sehir.SehirId).ToList();
         }
 
     }

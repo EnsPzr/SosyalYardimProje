@@ -12,9 +12,12 @@ namespace SosyalYardimProje.Controllers
 {
     public class DepoController : Controller
     {
+        private Esya esyaBAL = new Esya();
         private Depo depoBAL = new Depo();
+        private Kullanici kullaniciBAL = new Kullanici();
         public ActionResult Liste()
         {
+            Tanimla();
             return View();
         }
 
@@ -42,6 +45,23 @@ namespace SosyalYardimProje.Controllers
             depoJs.DepoEsyaSayisi = depoJs.DepoList.Count;
             Thread.Sleep(2000);
             return Json(depoJs, JsonRequestBehavior.AllowGet);
+        }
+
+        public void Tanimla()
+        {
+            var esyalarSelect = esyaBAL.TumEsyalariGetir().Select(p => new SelectListItem()
+            {
+                Text = p.EsyaAdi,
+                Value = p.EsyaId.ToString()
+            }).ToList();
+            ViewBag.esyalarSelect = esyalarSelect;
+            var sehirlerSelect = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
+                new SelectListItem()
+                {
+                    Text = p.SehirAdi,
+                    Value = p.SehirId.ToString()
+                }).ToList();
+            ViewBag.sehirlerSelect = sehirlerSelect;
         }
     }
 }

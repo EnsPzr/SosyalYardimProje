@@ -27,39 +27,39 @@ namespace DataLayer.Siniflar
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(KullaniciId))
             {
-                var sonuc = db.DepoTablo.Include(p => p.EsyaTablo).Include(p => p.SehirTablo).AsQueryable();
+                IQueryable<DepoTablo> sonuc = db.DepoTablo.Include(p => p.EsyaTablo).Include(p => p.SehirTablo);
                 if (esyaId != null)
                 {
-                    sonuc.Where(p => p.EsyaTablo_EsyaId == esyaId);
+                    sonuc = sonuc.Where(p => p.EsyaTablo.EsyaId == esyaId);
                 }
 
                 if (sehirId != null)
                 {
-                    sonuc.Where(p => p.SehirTablo_SehirId == sehirId);
+                    sonuc = sonuc.Where(p => p.SehirTablo.SehirId == sehirId);
                 }
 
-                if (aranan != null)
+                if (!(aranan.Equals("")))
                 {
                     aranan = aranan.Trim().ToLower();
-                    sonuc.Where(p => p.SehirTablo.SehirAdi.Trim().ToLower().Contains(aranan)
-                                     || p.EsyaTablo.EsyaAdi.Trim().ToLower().Contains(aranan));
+                    sonuc = sonuc.Where(p => p.SehirTablo.SehirAdi.Trim().ToLower().Contains(aranan)
+                                       || p.EsyaTablo.EsyaAdi.Trim().ToLower().Contains(aranan));
                 }
                 return sonuc.ToList();
             }
             else
             {
                 int? KullaniciSehirId = kullaniciDAL.KullaniciSehir(KullaniciId);
-                var sonuc = db.DepoTablo.Include(p => p.EsyaTablo).Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == KullaniciSehirId).AsQueryable();
+                IQueryable<DepoTablo> sonuc = db.DepoTablo.Include(p => p.EsyaTablo).Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == KullaniciSehirId).AsQueryable();
                 if (esyaId != null)
                 {
-                    sonuc.Where(p => p.EsyaTablo_EsyaId == esyaId);
+                    sonuc = sonuc.Where(p => p.EsyaTablo.EsyaId == esyaId);
                 }
 
-                if (aranan != null)
+                if (!(aranan.Equals("")))
                 {
                     aranan = aranan.Trim().ToLower();
-                    sonuc.Where(p => p.SehirTablo.SehirAdi.Trim().ToLower().Contains(aranan)
-                                     || p.EsyaTablo.EsyaAdi.Trim().ToLower().Contains(aranan));
+                    sonuc = sonuc.Where(p => p.SehirTablo.SehirAdi.Trim().ToLower().Contains(aranan)
+                                       || p.EsyaTablo.EsyaAdi.Trim().ToLower().Contains(aranan));
                 }
                 return sonuc.ToList();
             }
