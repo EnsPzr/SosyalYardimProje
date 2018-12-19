@@ -43,7 +43,7 @@ namespace SosyalYardimProje.Controllers
         {
             return View();
         }
-
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Ekle(EsyaModel eklenecekEsya)
         {
