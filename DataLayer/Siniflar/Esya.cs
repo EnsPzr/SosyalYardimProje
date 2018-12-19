@@ -18,5 +18,28 @@ namespace DataLayer.Siniflar
         {
             return db.EsyaTablo.Where(p => p.EsyaAdi.Contains(aranan)).ToList();
         }
+
+        public bool Ekle(EsyaTablo eklenecekEsya)
+        {
+            db.EsyaTablo.Add(eklenecekEsya);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool EsyaVarMi(String esyaAdi)
+        {
+            if (db.EsyaTablo.FirstOrDefault(p => p.EsyaAdi.Trim().ToLower().Equals(esyaAdi.Trim().ToLower())) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

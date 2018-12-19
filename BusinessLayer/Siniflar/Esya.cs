@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.EsyaModelleri;
+using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 using DataLayer.Siniflar;
 namespace BusinessLayer.Siniflar
 {
@@ -29,6 +31,35 @@ namespace BusinessLayer.Siniflar
                 EsyaId = p.EsyaId
             }).ToList();
             return esyalar;
+        }
+
+        public IslemOnayModel Ekle(EsyaModel eklenecekEsya)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (esyaDAL.EsyaVarMi(eklenecekEsya.EsyaAdi))
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Eklenmek istenen eşya sistemde bulunuyor.");
+                return onay;
+            }
+            else
+            {
+                EsyaTablo esyaTabloEklenecek = new EsyaTablo()
+                {
+                    EsyaAdi=eklenecekEsya.EsyaAdi
+                };
+                if (esyaDAL.Ekle(esyaTabloEklenecek))
+                {
+                    onay.TamamlandiMi = true;
+                    return onay;
+                }
+                else
+                {
+                    onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                    onay.TamamlandiMi = false;
+                    return onay;
+                }
+            }
         }
     }
 }
