@@ -241,6 +241,26 @@ namespace DataLayer.Siniflar
                 p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
         }
 
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                if (kullaniciDAL.KullaniciSehir(kullaniciId) ==
+                    ihtiyacSahibiGetir(ihtiyacSahibiKontrolId).SehirTablo_SehirId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool DonusurMu(string a, int? tip)
         {
             try

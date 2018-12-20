@@ -299,7 +299,7 @@ namespace BusinessLayer.Siniflar
                 if (kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi != null)
                 {
                     eklenecekModel.KontrolTarih = kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi;
-                    eklenecekModel.KontrolTarihStr= Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi).ToString("dd.MM.yyyy");
+                    eklenecekModel.KontrolTarihStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi).ToString("dd.MM.yyyy");
                 }
                 else
                 {
@@ -366,7 +366,7 @@ namespace BusinessLayer.Siniflar
             {
                 gonModel.NakdiBagisMiktari = 0;
             }
-            
+
             var verEsyalar = ihtiyacSahibiDAL.IhtiyacSahibiVerilecekEsyaGetir(ihtiyacSahibiKontrolId);
             for (int i = 0; i < verEsyalar.Count; i++)
             {
@@ -376,6 +376,28 @@ namespace BusinessLayer.Siniflar
                 verilecekEsyalar.EsyaId = verEsyalar[i].EsyaTablo_EsyaId;
                 gonModel.verileceklerList.Add(verilecekEsyalar);
             }
+            for (int i = 0; i < esyalar.Count; i++)
+            {
+                int sayac = 0;
+                for (int j = 0; j < gonModel.verileceklerList.Count; j++)
+                {
+                    if (esyalar[i].EsyaAdi.Equals(gonModel.verileceklerList[j].EsyaAdi))
+                    {
+                        sayac++;
+                    }
+                }
+
+                if (sayac == 0)
+                {
+                    gonModel.verileceklerList.Add(new IhtiyacSahibiVerileceklerModel()
+                    {
+                        Adet=0,
+                        EsyaAdi=esyalar[i].EsyaAdi,
+                        EsyaId=esyalar[i].EsyaId
+                    });
+                }
+            }
+            
 
             return gonModel;
             //var verilecekEsyalar = ihtiyacSahibiDAL.IhtiyacSahibiVerilecekEsyaGetir(ihtiyacSahibiKontrolId);
@@ -388,6 +410,11 @@ namespace BusinessLayer.Siniflar
             //gonModel.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
             //gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
             //if()
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)
+        {
+            return ihtiyacSahibiDAL.KullaniciIslemYapabilirMi(kullaniciId, ihtiyacSahibiKontrolId);
         }
     }
 }
