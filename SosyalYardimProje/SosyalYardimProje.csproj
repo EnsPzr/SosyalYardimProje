@@ -7002,6 +7002,7 @@
     <Content Include="Views\Depo\Ekle.cshtml" />
     <Content Include="Views\Depo\Duzenle.cshtml" />
     <Content Include="Views\IhtiyacSahibi\IhtiyacSahibiKontrolListesi.cshtml" />
+    <Content Include="Views\IhtiyacSahibi\Kontrol.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

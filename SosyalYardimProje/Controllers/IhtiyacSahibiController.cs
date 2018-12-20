@@ -8,6 +8,7 @@ using BusinessLayer;
 using BusinessLayer.Models.IhtiyacSahibiModelleri;
 using BusinessLayer.Siniflar;
 using SosyalYardimProje.Filters;
+using Exception = System.Exception;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -325,6 +326,105 @@ namespace SosyalYardimProje.Controllers
             {
                 TempData["hata"] = "Lütfen işlem yapmak istediğiniz ihtiyaç sahibini seçiniz";
                 return RedirectToAction("IhtiyacSahibiKontrolListesi");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Kontrol(IhtiyacSahibiKontrolSayfaModel model)
+        {
+            if (model.MuhtacMi == true)
+            {
+                if (ModelState.IsValid)
+                {
+                    int sayac = 0;
+                    for (int i = 0; i < model.verileceklerList.Count; i++)
+                    {
+                        try
+                        {
+                            Convert.ToInt32(model.verileceklerList[i].Adet);
+                        }
+                        catch (Exception)
+                        {
+                            sayac++;
+                        }
+                    }
+
+                    if (sayac < 0)
+                    {
+                        TempData["hata"] = "Verilecek eşya adetleri sadece sayıdan oluşmalıdır.";
+                        return View(model);
+                    }
+
+                    bool d = false;
+                    try
+                    {
+                        Convert.ToDouble(model.NakdiBagisMiktari);
+                        d = true;
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
+
+                    if (d == false)
+                    {
+                        TempData["hata"] = "Verilen nakdi bağış sadece virgül içeren bir sayıdan oluşabilir.";
+                        return View(model);
+                    }
+
+                    d = false;
+
+                    if (!(model.TahminiTeslim.HasValue))
+                    {
+                        ModelState.AddModelError("TahminiTeslim", "Tahmini teslim tarihi seçilmek zorundadır");
+                        return View(model);
+                    }
+                    try
+                    {
+                        Convert.ToDateTime(model.TahminiTeslim);
+                        d = true;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+                    if (d == false)
+                    {
+                        TempData["hata"] = "Tahmini teslim tarihi doğru formatta değil.";
+                        return View(model);
+                    }
+
+                    if (ihtiyacSahibiBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),
+                        model.IhtiyacSahibiKontrolId))
+                    {
+                        if (ihtiyacSahibiBAL.ihtiyacSahibiKontrolKaydet(model))
+                        {
+                            TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                            return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                        }
+                        else
+                        {
+                            TempData["hata"] = "İşlem sırasında hata oluştu.";
+                            return View(model);
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Sadece kendi bölgenizdeki ihtiyaç sahipleri için işlem yapabilirsiniz.";
+                        return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                    }
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("MuhtacMi","Muhtaç durumunu true yapmanız gerekmektedir.");
+                return View(model);
             }
         }
 

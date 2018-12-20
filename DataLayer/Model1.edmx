@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SosyalYardimProjeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SosyalYardimProjeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BagisDetayResimTablo">
           <Key>
             <PropertyRef Name="BagisResimId" />
@@ -108,8 +108,8 @@
           <Key>
             <PropertyRef Name="IhtiyacSahibiVerilecekMaddiId" />
           </Key>
-          <Property Name="IhtiyacSahibiVerilecekMaddiId" Type="int" Nullable="false" />
-          <Property Name="VerilecekMaddiYardim" Type="decimal" Precision="5" Scale="3" />
+          <Property Name="IhtiyacSahibiVerilecekMaddiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VerilecekMaddiYardim" Type="float" />
           <Property Name="IhtiyacSahibiKontrolTablo.IhtiyacSahibiKontrolId" Type="int" />
           <Property Name="VerilmeGerceklesmeTarihi" Type="date" />
         </EntityType>
@@ -165,7 +165,7 @@
           <Property Name="RotaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ControllerAdi" Type="varchar" MaxLength="20" />
           <Property Name="ActionAdi" Type="varchar" MaxLength="30" />
-          <Property Name="LinkAdi" Type="varchar" MaxLength="20" />
+          <Property Name="LinkAdi" Type="varchar" MaxLength="25" />
           <Property Name="RotaTablo.RotaId" Type="int" />
           <Property Name="GosterilecekMi" Type="bit" />
           <Property Name="DropdownBaslikAdi" Type="varchar" MaxLength="25" />
@@ -596,7 +596,8 @@
             <End Role="YetkiTablo" EntitySet="YetkiTablo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SosyalYardimProjeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -694,10 +695,10 @@
           <Property Name="IhtiyacSahibiTelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IhtiyacSahibiAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <Property Name="IhtiyacSahibiAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="IhtiyacSahibiKontrolTablo" Relationship="Self.FK_IhtiyacSahibiKontrolTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiTablo" ToRole="IhtiyacSahibiKontrolTablo" />
           <NavigationProperty Name="SehirTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="IhtiyacSahibiTablo" ToRole="SehirTablo" />
           <NavigationProperty Name="IhtiyacSahibiVeKullaniciTablo" Relationship="Self.FK_IhtiyacSahibiVeKullaniciTablo_IhtiyacSahibiTablo" FromRole="IhtiyacSahibiTablo" ToRole="IhtiyacSahibiVeKullaniciTablo" />
-          <Property Name="IhtiyacSahibiAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="IhtiyacSahibiVeKullaniciTablo">
           <Key>
@@ -725,8 +726,8 @@
           <Key>
             <PropertyRef Name="IhtiyacSahibiVerilecekMaddiId" />
           </Key>
-          <Property Name="IhtiyacSahibiVerilecekMaddiId" Type="Int32" Nullable="false" />
-          <Property Name="VerilecekMaddiYardim" Type="Decimal" Precision="5" Scale="3" />
+          <Property Name="IhtiyacSahibiVerilecekMaddiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VerilecekMaddiYardim" Type="Double" />
           <Property Name="IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId" Type="Int32" />
           <Property Name="VerilmeGerceklesmeTarihi" Type="DateTime" Precision="0" />
           <NavigationProperty Name="IhtiyacSahibiKontrolTablo" Relationship="Self.FK_IhtiyacSahibiVerilecekMaddiTablo_IhtiyacSahibiKontrolTablo" FromRole="IhtiyacSahibiVerilecekMaddiTablo" ToRole="IhtiyacSahibiKontrolTablo" />
@@ -752,12 +753,12 @@
           <NavigationProperty Name="BagisTablo" Relationship="Self.FK_BagisTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="BagisTablo" />
           <NavigationProperty Name="GeriBildirimTablo" Relationship="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="GeriBildirimTablo" />
           <NavigationProperty Name="IhtiyacSahibiVeKullaniciTablo" Relationship="Self.FK_IhtiyacSahibiVeKullaniciTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="IhtiyacSahibiVeKullaniciTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="Self.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="KullaniciBilgileriTablo" ToRole="SehirTablo" />
           <NavigationProperty Name="LogTablo" Relationship="Self.FK_LogTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="LogTablo" />
           <NavigationProperty Name="MesajDetayTablo" Relationship="Self.FK_MesajDetayTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="MesajDetayTablo" />
           <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="MesajTablo" />
           <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="SubeTablo" />
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="YetkiTablo" />
-          <NavigationProperty Name="SehirTablo" Relationship="SosyalYardimProjeDBModel.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="KullaniciBilgileriTablo" ToRole="SehirTablo" />
         </EntityType>
         <EntityType Name="LogTablo">
           <Key>
@@ -797,7 +798,7 @@
           <Property Name="RotaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ControllerAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ActionAdi" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="LinkAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LinkAdi" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="RotaTablo_RotaId" Type="Int32" />
           <Property Name="GosterilecekMi" Type="Boolean" />
           <Property Name="DropdownBaslikAdi" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -813,8 +814,8 @@
           <Property Name="SehirAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DepoTablo" Relationship="Self.FK_DepoTablo_SehirTablo" FromRole="SehirTablo" ToRole="DepoTablo" />
           <NavigationProperty Name="IhtiyacSahibiTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="SehirTablo" ToRole="IhtiyacSahibiTablo" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="SehirTablo" ToRole="KullaniciBilgileriTablo" />
           <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_SehirTablo" FromRole="SehirTablo" ToRole="SubeTablo" />
-          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="SosyalYardimProjeDBModel.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="SehirTablo" ToRole="KullaniciBilgileriTablo" />
         </EntityType>
         <EntityType Name="SubeTablo">
           <Key>
@@ -1015,6 +1016,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KullaniciBilgileriTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LogTablo_KullaniciBilgileriTablo">
           <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
           <End Role="LogTablo" Type="Self.LogTablo" Multiplicity="*" />
@@ -1188,6 +1201,10 @@
             <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
             <End Role="IhtiyacSahibiVeKullaniciTablo" EntitySet="IhtiyacSahibiVeKullaniciTablo" />
           </AssociationSet>
+          <AssociationSet Name="FK_KullaniciBilgileriTablo_SehirTablo" Association="Self.FK_KullaniciBilgileriTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+          </AssociationSet>
           <AssociationSet Name="FK_LogTablo_KullaniciBilgileriTablo" Association="Self.FK_LogTablo_KullaniciBilgileriTablo">
             <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
             <End Role="LogTablo" EntitySet="LogTablo" />
@@ -1220,23 +1237,7 @@
             <End Role="SehirTablo" EntitySet="SehirTablo" />
             <End Role="SubeTablo" EntitySet="SubeTablo" />
           </AssociationSet>
-          <AssociationSet Name="FK_KullaniciBilgileriTablo_SehirTablo" Association="SosyalYardimProjeDBModel.FK_KullaniciBilgileriTablo_SehirTablo">
-            <End Role="SehirTablo" EntitySet="SehirTablo" />
-            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_KullaniciBilgileriTablo_SehirTablo">
-          <End Type="SosyalYardimProjeDBModel.SehirTablo" Role="SehirTablo" Multiplicity="0..1" />
-          <End Type="SosyalYardimProjeDBModel.KullaniciBilgileriTablo" Role="KullaniciBilgileriTablo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SehirTablo">
-              <PropertyRef Name="SehirId" />
-            </Principal>
-            <Dependent Role="KullaniciBilgileriTablo">
-              <PropertyRef Name="SehirTablo_SehirId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1322,13 +1323,13 @@
           <EntitySetMapping Name="IhtiyacSahibiTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.IhtiyacSahibiTablo">
               <MappingFragment StoreEntitySet="IhtiyacSahibiTablo">
-                <ScalarProperty Name="IhtiyacSahibiAciklama" ColumnName="IhtiyacSahibiAciklama" />
                 <ScalarProperty Name="IhtiyacSahibiId" ColumnName="IhtiyacSahibiId" />
                 <ScalarProperty Name="IhtiyacSahibiAdi" ColumnName="IhtiyacSahibiAdi" />
                 <ScalarProperty Name="IhtiyacSahibiSoyadi" ColumnName="IhtiyacSahibiSoyadi" />
                 <ScalarProperty Name="IhtiyacSahibiTelNo" ColumnName="IhtiyacSahibiTelNo" />
                 <ScalarProperty Name="IhtiyacSahibiAdres" ColumnName="IhtiyacSahibiAdres" />
                 <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="IhtiyacSahibiAciklama" ColumnName="IhtiyacSahibiAciklama" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -359,8 +359,10 @@ namespace BusinessLayer.Siniflar
             gonModel.TahminiTeslim = ihtiyacSahibi.TahminiTeslimTarihi;
             if (ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId) != null)
             {
-                gonModel.NakdiBagisMiktari =
-                    ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).VerilecekMaddiYardim;
+                gonModel.IhtiyacSahibiVerilecekMaddiId = ihtiyacSahibiDAL
+                    .VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).IhtiyacSahibiVerilecekMaddiId;
+                    gonModel.NakdiBagisMiktari =
+                    Convert.ToDouble(ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).VerilecekMaddiYardim);
             }
             else
             {
@@ -371,7 +373,7 @@ namespace BusinessLayer.Siniflar
             for (int i = 0; i < verEsyalar.Count; i++)
             {
                 var verilecekEsyalar = new IhtiyacSahibiVerileceklerModel();
-                verilecekEsyalar.Adet = verEsyalar[i].Adet;
+                verilecekEsyalar.Adet = Convert.ToInt32(verEsyalar[i].Adet);
                 verilecekEsyalar.EsyaAdi = verEsyalar[i].EsyaTablo.EsyaAdi;
                 verilecekEsyalar.EsyaId = verEsyalar[i].EsyaTablo_EsyaId;
                 gonModel.verileceklerList.Add(verilecekEsyalar);
@@ -410,6 +412,34 @@ namespace BusinessLayer.Siniflar
             //gonModel.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
             //gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
             //if()
+        }
+
+
+        public bool ihtiyacSahibiKontrolKaydet(IhtiyacSahibiKontrolSayfaModel model)
+        {
+            IhtiyacSahibiKontrolTablo kontrolTablo= new IhtiyacSahibiKontrolTablo();
+            kontrolTablo.IhtiyacSahibiKontrolId = Convert.ToInt32(model.IhtiyacSahibiKontrolId);
+            kontrolTablo.MuhtacMi = model.MuhtacMi;
+            kontrolTablo.TahminiTeslimTarihi = model.TahminiTeslim;
+
+            IhtiyacSahibiVerilecekMaddiTablo maddiTablo = new IhtiyacSahibiVerilecekMaddiTablo();
+            if (model.IhtiyacSahibiVerilecekMaddiId != null)
+            {
+                maddiTablo.IhtiyacSahibiVerilecekMaddiId = Convert.ToInt32(model.IhtiyacSahibiVerilecekMaddiId);
+            }
+            maddiTablo.VerilecekMaddiYardim = model.NakdiBagisMiktari;
+            maddiTablo.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = kontrolTablo.IhtiyacSahibiKontrolId;
+            List<IhtiyacSahibiVerilecekEsyaTablo> esyaTablo = new List<IhtiyacSahibiVerilecekEsyaTablo>();
+            for (int i = 0; i < model.verileceklerList.Count; i++)
+            {
+                var eklenecek=new IhtiyacSahibiVerilecekEsyaTablo();
+                eklenecek.EsyaTablo_EsyaId = model.verileceklerList[i].EsyaId;
+                eklenecek.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = kontrolTablo.IhtiyacSahibiKontrolId;
+                eklenecek.Adet = model.verileceklerList[i].Adet;
+                esyaTablo.Add(eklenecek);
+            }
+
+            return ihtiyacSahibiDAL.ihtiyacSahibiKontrolKaydet(kontrolTablo, esyaTablo, maddiTablo);
         }
 
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)

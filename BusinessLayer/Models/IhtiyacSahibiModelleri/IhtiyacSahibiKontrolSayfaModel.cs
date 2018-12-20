@@ -27,11 +27,15 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
 
         public List<IhtiyacSahibiVerileceklerModel> verileceklerList { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Tahmini Teslim")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? TahminiTeslim { get; set; }
 
+        public int? IhtiyacSahibiVerilecekMaddiId { get; set; }
         [Display(Name ="Nakdi Bağış")]
-        public Decimal? NakdiBagisMiktari { get; set; }
+        [Range(0, 9999999999999999.99, ErrorMessage = "Çok büyük miktarda bir nakdi bağış miktarı girdiniz.")]
+        public Double NakdiBagisMiktari { get; set; }
         public IhtiyacSahibiKontrolSayfaModel()
         {
             verileceklerList = new List<IhtiyacSahibiVerileceklerModel>();

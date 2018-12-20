@@ -15,7 +15,7 @@ namespace DataLayer
     public partial class IhtiyacSahibiVerilecekMaddiTablo
     {
         public int IhtiyacSahibiVerilecekMaddiId { get; set; }
-        public Nullable<decimal> VerilecekMaddiYardim { get; set; }
+        public Nullable<double> VerilecekMaddiYardim { get; set; }
         public Nullable<int> IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId { get; set; }
         public Nullable<System.DateTime> VerilmeGerceklesmeTarihi { get; set; }
     

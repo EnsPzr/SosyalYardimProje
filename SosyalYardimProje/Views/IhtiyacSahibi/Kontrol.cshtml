@@ -1,0 +1,109 @@
+﻿@model BusinessLayer.Models.IhtiyacSahibiModelleri.IhtiyacSahibiKontrolSayfaModel
+
+@{
+    ViewBag.Title = "Kontrol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    <h2>İhtiyaç Sahibi Kontrol ve Teslim Edilecekler</h2>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.HiddenFor(m => m.IhtiyacSahibiKontrolId)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.IhtiyacSahibiAdiSoyadi)
+                @Html.LabelFor(model => model.IhtiyacSahibiAdiSoyadi, htmlAttributes: new { @class = "control-label col-md-4" })
+                <h5>@Html.DisplayTextFor(model => model.IhtiyacSahibiAdiSoyadi)</h5>
+            </div>
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.IhtiyacSahibiTel)
+                @Html.LabelFor(model => model.IhtiyacSahibiTel, htmlAttributes: new { @class = "control-label col-md-4" })
+                <h5>@Html.DisplayFor(model => model.IhtiyacSahibiTel, new { htmlAttributes = new { @class = "form-control" } })</h5>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.IhtiyacSahibiAdres)
+                @Html.LabelFor(model => model.IhtiyacSahibiAdres, htmlAttributes: new { @class = "control-label col-md-4" })
+                <h5>@Html.DisplayFor(model => model.IhtiyacSahibiAdres, new { htmlAttributes = new { @class = "form-control" } })</h5>
+            </div>
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.IhtiyacSahibiIl)
+                @Html.LabelFor(model => model.IhtiyacSahibiIl, htmlAttributes: new { @class = "control-label col-md-4" })
+                <h5>@Html.DisplayFor(model => model.IhtiyacSahibiIl, new { htmlAttributes = new { @class = "form-control" } })</h5>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MuhtacMi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.MuhtacMi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MuhtacMi, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.NakdiBagisMiktari, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.HiddenFor(m => m.IhtiyacSahibiVerilecekMaddiId)
+                @Html.EditorFor(model => model.NakdiBagisMiktari, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NakdiBagisMiktari, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @for (int i = 0; i < Model.verileceklerList.Count; i++)
+            {
+                @Html.HiddenFor(m => Model.verileceklerList[i].EsyaId)
+                <div class="col-md-12" style="margin-bottom:3px">
+                    <div class="col-md-2">
+                        &emsp;
+                    </div>
+                    <div class="col-md-4">
+                        @Html.HiddenFor(m => Model.verileceklerList[i].EsyaAdi)
+                        @Html.Label(Model.verileceklerList[i].EsyaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => Model.verileceklerList[i].Adet, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-2">
+                        &emsp;
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                &emsp;
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.TahminiTeslim)
+            </div>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TahminiTeslim, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TahminiTeslim, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                &emsp;
+            </div>
+            
+        </div>
+        <div class="form-group">
+
+            <center>
+                <input type="submit" value="Kaydet" class="btn btn-success" />
+            </center>
+        </div>
+    </div>
+}
+
+
+<div>
+    @Html.ActionLink("Listeye Geri Dön", "IhtiyacSahibiKontrolListesi")
+</div>

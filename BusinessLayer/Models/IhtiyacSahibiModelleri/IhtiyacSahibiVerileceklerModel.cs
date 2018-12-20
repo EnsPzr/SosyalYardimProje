@@ -12,6 +12,6 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
 
         public String EsyaAdi { get; set; }
 
-        public int? Adet { get; set; }
+        public int Adet { get; set; }
     }
 }
