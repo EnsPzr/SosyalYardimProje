@@ -207,6 +207,39 @@ namespace DataLayer.Siniflar
                 return sorgu.ToList();
             }
         }
+        //
+        public List<IhtiyacSahibiVerilecekEsyaTablo> IhtiyacSahibiVerilecekEsyaGetir(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiVerilecekEsyaTablo.Include(p => p.IhtiyacSahibiKontrolTablo).Include(p => p.EsyaTablo).Include(p => p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo)
+                .Where(p => p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId).OrderBy(p=>p.EsyaTablo.EsyaAdi).ToList();
+        }
+        //
+        public IhtiyacSahibiVerilecekMaddiTablo IhtıyacSahibiVerilecekMaddiGetir(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiVerilecekMaddiTablo.Include(p => p.IhtiyacSahibiKontrolTablo)
+                .Include(p => p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo).FirstOrDefault(p =>
+                    p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+        }
+        //
+        public IhtiyacSahibiTablo ihtiyacSahibiGetir(int? ihtiyacSahibiKontrolId)
+        {
+            var ihtiyacSahibiKontrol =
+                db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+            return ihtiyacSahibiKontrol.IhtiyacSahibiTablo;
+        }
+
+        public IhtiyacSahibiKontrolTablo IhtiyacSahibiKontrolBilgileri(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiVerilecekEsyaTablo)
+                .Include(p => p.IhtiyacSahibiTablo).Include(p => p.IhtiyacSahibiTablo.SehirTablo)
+                .FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+        }
+
+        public IhtiyacSahibiVerilecekMaddiTablo VerilecekMaddiTutariGetir(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiVerilecekMaddiTablo.FirstOrDefault(p =>
+                p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+        }
 
         public bool DonusurMu(string a, int? tip)
         {

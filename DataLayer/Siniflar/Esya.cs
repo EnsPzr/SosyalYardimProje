@@ -11,7 +11,7 @@ namespace DataLayer.Siniflar
         private SosyalYardimDB db = new SosyalYardimDB();
         public List<EsyaTablo> TumEsyalariGetir()
         {
-            return db.EsyaTablo.ToList();
+            return db.EsyaTablo.OrderBy(p=>p.EsyaAdi).ToList();
         }
 
         public List<EsyaTablo> FiltreliEsyalariGetir(String aranan)

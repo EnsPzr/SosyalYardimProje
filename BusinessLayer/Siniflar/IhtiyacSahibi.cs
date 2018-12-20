@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using BusinessLayer.Models.IhtiyacSahibiModelleri;
 using BusinessLayer.Models.OrtakModeller;
 using DataLayer;
-
+using System.Data.Entity;
 namespace BusinessLayer.Siniflar
 {
     public class IhtiyacSahibi
     {
         private KullaniciYonetimi kullaniciBAL = new KullaniciYonetimi();
         private DataLayer.Siniflar.IhtiyacSahibi ihtiyacSahibiDAL = new DataLayer.Siniflar.IhtiyacSahibi();
-
+        private DataLayer.Siniflar.Esya esyaDAL = new DataLayer.Siniflar.Esya();
         public List<IhtiyacSahibiModel> TumIhtiyacSahipleriniGetir(int? KullaniciId)
         {
             var ihtiyacSahipleri = ihtiyacSahibiDAL.TumIhtiyacSahipleriniGetir(KullaniciId);
@@ -335,6 +335,59 @@ namespace BusinessLayer.Siniflar
             }
 
             return kontrolListeModel;
+        }
+
+        public IhtiyacSahibiKontrolSayfaModel IhtiyacSahibiVerileceklerGetir(int? ihtiyacSahibiKontrolId)
+        {
+            var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiKontrolBilgileri(ihtiyacSahibiKontrolId);
+            IhtiyacSahibiKontrolSayfaModel gonModel = new IhtiyacSahibiKontrolSayfaModel();
+            var esyalar = esyaDAL.TumEsyalariGetir();
+            gonModel.IhtiyacSahibiAdiSoyadi = ihtiyacSahibi.IhtiyacSahibiTablo.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiTablo.IhtiyacSahibiSoyadi;
+            gonModel.IhtiyacSahibiKontrolId = ihtiyacSahibiKontrolId;
+            gonModel.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiTablo.IhtiyacSahibiAdres;
+            gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTablo.IhtiyacSahibiTelNo;
+            gonModel.IhtiyacSahibiIl = ihtiyacSahibi.IhtiyacSahibiTablo.SehirTablo.SehirAdi;
+            if (ihtiyacSahibi.MuhtacMi == true)
+            {
+                gonModel.MuhtacMi = true;
+            }
+            else
+            {
+                gonModel.MuhtacMi = false;
+            }
+
+            gonModel.TahminiTeslim = ihtiyacSahibi.TahminiTeslimTarihi;
+            if (ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId) != null)
+            {
+                gonModel.NakdiBagisMiktari =
+                    ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).VerilecekMaddiYardim;
+            }
+            else
+            {
+                gonModel.NakdiBagisMiktari = 0;
+            }
+            
+            var verEsyalar = ihtiyacSahibiDAL.IhtiyacSahibiVerilecekEsyaGetir(ihtiyacSahibiKontrolId);
+            for (int i = 0; i < verEsyalar.Count; i++)
+            {
+                var verilecekEsyalar = new IhtiyacSahibiVerileceklerModel();
+                verilecekEsyalar.Adet = verEsyalar[i].Adet;
+                verilecekEsyalar.EsyaAdi = verEsyalar[i].EsyaTablo.EsyaAdi;
+                verilecekEsyalar.EsyaId = verEsyalar[i].EsyaTablo_EsyaId;
+                gonModel.verileceklerList.Add(verilecekEsyalar);
+            }
+
+            return gonModel;
+            //var verilecekEsyalar = ihtiyacSahibiDAL.IhtiyacSahibiVerilecekEsyaGetir(ihtiyacSahibiKontrolId);
+            //var verilecekMaddi = ihtiyacSahibiDAL.IhtıyacSahibiVerilecekMaddiGetir(ihtiyacSahibiKontrolId);
+            //IhtiyacSahibiKontrolSayfaModel gonModel = new IhtiyacSahibiKontrolSayfaModel();
+            //var esyalar = esyaDAL.TumEsyalariGetir();
+            //var ihtiyacSahibi = ihtiyacSahibiDAL.ihtiyacSahibiGetir(ihtiyacSahibiKontrolId);
+            //gonModel.IhtiyacSahibiAdiSoyadi = ihtiyacSahibi.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiSoyadi;
+            //gonModel.IhtiyacSahibiKontrolId = ihtiyacSahibiKontrolId;
+            //gonModel.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
+            //gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
+            //if()
         }
     }
 }

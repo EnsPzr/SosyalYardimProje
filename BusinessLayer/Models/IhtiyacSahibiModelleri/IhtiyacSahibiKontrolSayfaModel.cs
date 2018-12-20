@@ -32,5 +32,9 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
 
         [Display(Name ="Nakdi Bağış")]
         public Decimal? NakdiBagisMiktari { get; set; }
+        public IhtiyacSahibiKontrolSayfaModel()
+        {
+            verileceklerList = new List<IhtiyacSahibiVerileceklerModel>();
+        }
     }
 }

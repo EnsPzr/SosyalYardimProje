@@ -10,6 +10,8 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
     {
         public int? EsyaId { get; set; }
 
+        public String EsyaAdi { get; set; }
+
         public int? Adet { get; set; }
     }
 }
