@@ -361,8 +361,8 @@ namespace BusinessLayer.Siniflar
             {
                 gonModel.IhtiyacSahibiVerilecekMaddiId = ihtiyacSahibiDAL
                     .VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).IhtiyacSahibiVerilecekMaddiId;
-                    gonModel.NakdiBagisMiktari =
-                    Convert.ToDouble(ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).VerilecekMaddiYardim);
+                gonModel.NakdiBagisMiktari =
+                Convert.ToDouble(ihtiyacSahibiDAL.VerilecekMaddiTutariGetir(ihtiyacSahibiKontrolId).VerilecekMaddiYardim);
             }
             else
             {
@@ -393,13 +393,13 @@ namespace BusinessLayer.Siniflar
                 {
                     gonModel.verileceklerList.Add(new IhtiyacSahibiVerileceklerModel()
                     {
-                        Adet=0,
-                        EsyaAdi=esyalar[i].EsyaAdi,
-                        EsyaId=esyalar[i].EsyaId
+                        Adet = 0,
+                        EsyaAdi = esyalar[i].EsyaAdi,
+                        EsyaId = esyalar[i].EsyaId
                     });
                 }
             }
-            
+
 
             return gonModel;
             //var verilecekEsyalar = ihtiyacSahibiDAL.IhtiyacSahibiVerilecekEsyaGetir(ihtiyacSahibiKontrolId);
@@ -413,11 +413,10 @@ namespace BusinessLayer.Siniflar
             //gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
             //if()
         }
-
-
+        
         public bool ihtiyacSahibiKontrolKaydet(IhtiyacSahibiKontrolSayfaModel model)
         {
-            IhtiyacSahibiKontrolTablo kontrolTablo= new IhtiyacSahibiKontrolTablo();
+            IhtiyacSahibiKontrolTablo kontrolTablo = new IhtiyacSahibiKontrolTablo();
             kontrolTablo.IhtiyacSahibiKontrolId = Convert.ToInt32(model.IhtiyacSahibiKontrolId);
             kontrolTablo.MuhtacMi = model.MuhtacMi;
             kontrolTablo.TahminiTeslimTarihi = model.TahminiTeslim;
@@ -432,7 +431,7 @@ namespace BusinessLayer.Siniflar
             List<IhtiyacSahibiVerilecekEsyaTablo> esyaTablo = new List<IhtiyacSahibiVerilecekEsyaTablo>();
             for (int i = 0; i < model.verileceklerList.Count; i++)
             {
-                var eklenecek=new IhtiyacSahibiVerilecekEsyaTablo();
+                var eklenecek = new IhtiyacSahibiVerilecekEsyaTablo();
                 eklenecek.EsyaTablo_EsyaId = model.verileceklerList[i].EsyaId;
                 eklenecek.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = kontrolTablo.IhtiyacSahibiKontrolId;
                 eklenecek.Adet = model.verileceklerList[i].Adet;
@@ -441,6 +440,72 @@ namespace BusinessLayer.Siniflar
 
             return ihtiyacSahibiDAL.ihtiyacSahibiKontrolKaydet(kontrolTablo, esyaTablo, maddiTablo);
         }
+
+        public IhtiyacSahibiTeslimModel teslimEdilecekBilgileriGetir(int? ihtiyacSahibiId)
+        {
+            var ihtiyacSahibi = ihtiyacSahibiDAL.ihtiyacSahibiGetir(ihtiyacSahibiId);
+            var ihtiyacSahibiEsyalar = ihtiyacSahibiDAL.verilecekEsyalariGetir(ihtiyacSahibiId);
+            var ihtiyacSahibiNakdi = ihtiyacSahibiDAL.verilecekMaddiGetir(ihtiyacSahibiId);
+            IhtiyacSahibiTeslimModel model = new IhtiyacSahibiTeslimModel();
+            model.IhtiyacSahibiAdiSoyadi = ihtiyacSahibi.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiSoyadi;
+            model.IhtiyacSahibiKontrolId = ihtiyacSahibiId;
+            model.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
+            model.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
+            model.IhtiyacSahibiIl = ihtiyacSahibi.SehirTablo.SehirAdi;
+            if (ihtiyacSahibiNakdi.VerilecekMaddiYardim > 0)
+            {
+                model.MaddiBagis = ihtiyacSahibiNakdi.VerilecekMaddiYardim.ToString();
+            }
+            else
+            {
+                model.MaddiBagis = "0";
+            }
+
+            if (!(ihtiyacSahibiNakdi.VerilmeGerceklesmeTarihi.HasValue))
+            {
+                model.MaddiBagisYapildiMi = true;
+            }
+            else
+            {
+                model.MaddiBagisYapildiMi = false;
+            }
+            for (int i = 0; i < ihtiyacSahibiEsyalar.Count; i++)
+            {
+                model.ihtiyacSahibiTeslimEdilecekEsyaList.Add(new IhtiyacSahibiTeslimEdilecekEsyaModel()
+                {
+                    EsyaAdi = ihtiyacSahibiEsyalar[i].EsyaTablo.EsyaAdi,
+                    EsyaId = ihtiyacSahibiEsyalar[i].EsyaTablo_EsyaId,
+                    TeslimEdildiMi = ihtiyacSahibiEsyalar[i].TeslimGerceklesmeTarihi.HasValue ? false : true
+                });
+            }
+
+            return model;
+        }
+
+        public bool ihtiyacSahibiTeslimKaydet(IhtiyacSahibiTeslimModel model)
+        {
+            IhtiyacSahibiVerilecekMaddiTablo maddiTablo= new IhtiyacSahibiVerilecekMaddiTablo();
+            maddiTablo.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = model.IhtiyacSahibiKontrolId;
+            if (model.MaddiBagisYapildiMi == true)
+            {
+                maddiTablo.VerilmeGerceklesmeTarihi = DateTime.Now;
+            }
+            List<IhtiyacSahibiVerilecekEsyaTablo> esyaTablo = new List<IhtiyacSahibiVerilecekEsyaTablo>();
+            for (int i = 0; i < model.ihtiyacSahibiTeslimEdilecekEsyaList.Count; i++)
+            {
+                var eklenecek = new IhtiyacSahibiVerilecekEsyaTablo();
+                eklenecek.EsyaTablo_EsyaId = model.ihtiyacSahibiTeslimEdilecekEsyaList[i].EsyaId;
+                eklenecek.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = model.IhtiyacSahibiKontrolId;
+                if (model.ihtiyacSahibiTeslimEdilecekEsyaList[i].TeslimEdildiMi == true)
+                {
+                    eklenecek.TeslimGerceklesmeTarihi=DateTime.Now;
+                }
+                esyaTablo.Add(eklenecek);
+            }
+
+            return ihtiyacSahibiDAL.ihtiyacSahibiTeslimKaydet(esyaTablo, maddiTablo);
+        }
+
 
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)
         {

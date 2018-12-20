@@ -4,6 +4,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace DataLayer.Siniflar
 {
@@ -329,7 +330,65 @@ namespace DataLayer.Siniflar
             return true;
         }
 
+        public List<IhtiyacSahibiVerilecekEsyaTablo> verilecekEsyalariGetir(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiVerilecekEsyaTablo
+                .Where(p => p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId).ToList();
+        }
 
+        public IhtiyacSahibiVerilecekMaddiTablo verilecekMaddiGetir(int? ihtiyacSahibiKontrolId)
+        {
+            return db.IhtiyacSahibiVerilecekMaddiTablo.FirstOrDefault(p =>
+                p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+        }
+
+
+
+        public bool ihtiyacSahibiTeslimKaydet(List<IhtiyacSahibiVerilecekEsyaTablo> esyaTablo,
+            IhtiyacSahibiVerilecekMaddiTablo maddiTablo)
+        {
+            int sayac = 0;
+            for (int i = 0; i < esyaTablo.Count; i++)
+            {
+                int? ihtiyacSahibiKontrolId = esyaTablo[i].IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId;
+                int? esyaId = esyaTablo[i].EsyaTablo_EsyaId;
+                var esya = db.IhtiyacSahibiVerilecekEsyaTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId &&
+                    p.EsyaTablo_EsyaId == esyaId);
+                if (esya != null)
+                {
+                    if (!(esyaTablo[i].TeslimGerceklesmeTarihi.HasValue))
+                    {
+                        esya.TeslimGerceklesmeTarihi = esyaTablo[i].TeslimGerceklesmeTarihi;
+                        sayac++;
+                    }
+                }
+            }
+
+            if (sayac == esyaTablo.Count)
+            {
+                var ihtiyacSahibiKontrol = db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiKontrolId == maddiTablo.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId);
+                if (ihtiyacSahibiKontrol != null)
+                {
+                    ihtiyacSahibiKontrol.TeslimTamamlandiMi = true;
+                }
+            }
+            db.SaveChanges();
+            if (!(maddiTablo.VerilmeGerceklesmeTarihi.HasValue))
+            {
+                var maddiYardim = db.IhtiyacSahibiVerilecekMaddiTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId ==
+                    maddiTablo.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId);
+                if (maddiYardim != null)
+                {
+                    maddiYardim.VerilmeGerceklesmeTarihi=DateTime.Now;
+                }
+            }
+
+            db.SaveChanges();
+            return true;
+        }
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
