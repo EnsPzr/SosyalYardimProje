@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer;
+using BusinessLayer.Models.AnaSayfaModelleri;
 using BusinessLayer.Models.IhtiyacSahibiModelleri;
 using BusinessLayer.Siniflar;
 using SosyalYardimProje.Filters;
@@ -399,14 +400,22 @@ namespace SosyalYardimProje.Controllers
                     if (ihtiyacSahibiBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),
                         model.IhtiyacSahibiKontrolId))
                     {
-                        if (ihtiyacSahibiBAL.ihtiyacSahibiKontrolKaydet(model))
+                        if (!(ihtiyacSahibiBAL.TeslimTamamlandiMi(model.IhtiyacSahibiKontrolId)))
                         {
-                            TempData["uyari"] = "İşlem başarı ile tamamlandı.";
-                            return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                            if (ihtiyacSahibiBAL.ihtiyacSahibiKontrolKaydet(model))
+                            {
+                                TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                                return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                            }
+                            else
+                            {
+                                TempData["hata"] = "İşlem sırasında hata oluştu.";
+                                return View(model);
+                            }
                         }
                         else
                         {
-                            TempData["hata"] = "İşlem sırasında hata oluştu.";
+                            TempData["hata"] = "Teslim tamamlandıktan sonra güncelleme yapılamaz.";
                             return View(model);
                         }
                     }
@@ -428,6 +437,84 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+
+        public ActionResult Teslim(int? id)
+        {
+            if (id != null)
+            {
+                if (ihtiyacSahibiBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),id))
+                {
+                    if (ihtiyacSahibiBAL.IhtiyacSahibiMuhtacMi(id))
+                    {
+                        var teslimModel = ihtiyacSahibiBAL.teslimEdilecekBilgileriGetir(id);
+                        return View(teslimModel);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "İhtiyaç sahibinin durumu muhtaç olmadığından işlem yapılamamaktadır.";
+                        return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bölgenizdeki ihtiyaç sahipleri ile ilgili işlem yapabilirsiniz";
+                    return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen işlem yapmak istediğiniz ihtiyaç sahibini seçiniz";
+                return RedirectToAction("IhtiyacSahibiKontrolListesi");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Teslim(IhtiyacSahibiTeslimModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ihtiyacSahibiBAL.IhtiyacSahibiKontrolVarMi(model.IhtiyacSahibiKontrolId))
+                {
+                    if (ihtiyacSahibiBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),
+                        model.IhtiyacSahibiKontrolId))
+                    {
+                        if (ihtiyacSahibiBAL.IhtiyacSahibiMuhtacMi(model.IhtiyacSahibiKontrolId))
+                        {
+                            if (ihtiyacSahibiBAL.ihtiyacSahibiTeslimKaydet(model))
+                            {
+                                TempData["uyari"] = "Teslim işlemi başarı ile tamamlandı.";
+                                return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                            }
+                            else
+                            {
+                                TempData["hata"] = "Teslim edilen eşyaları kaydetme işleminde hata oluştu.";
+                                return View(model);
+                            }
+                        }
+                        else
+                        {
+                            TempData["hata"] = "İhtiyaç sahibinin durumu muhtaç olarak ayarlanmadığından işlem yapılamamaktadır.";
+                            return View(model);
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Sadece kendi bölgenizdeki ihtiyaç sahipleri için işlem yapabilirsiniz.";
+                        return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "İşlem yapmak istediğiniz ihtiyac sahibi bulunamadı.";
+                    return RedirectToAction("IhtiyacSahibiKontrolListesi");
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBusinessLayer.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>

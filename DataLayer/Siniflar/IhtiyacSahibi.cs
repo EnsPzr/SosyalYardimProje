@@ -409,6 +409,63 @@ namespace DataLayer.Siniflar
             }
         }
 
+        public bool IhtiyacSahibiKontrolVarMi(int? ihtiyacSahibiKontrolId)
+        {
+            if (db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId) !=
+                null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IhtiyacSahibiMuhtacMi(int? ihtiyacSahibiKontrolId)
+        {
+            if (db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId) !=
+                null)
+            {
+                if (db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId)
+                        .MuhtacMi == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        public bool TeslimTamamlandiMi(int? ihtiyacSahibiKontrolId)
+        {
+            if (IhtiyacSahibiKontrolVarMi(ihtiyacSahibiKontrolId))
+            {
+                var sonuc = db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+                if (sonuc.TeslimTamamlandiMi != null)
+                {
+                    if (sonuc.TeslimTamamlandiMi == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool DonusurMu(string a, int? tip)
         {
             try

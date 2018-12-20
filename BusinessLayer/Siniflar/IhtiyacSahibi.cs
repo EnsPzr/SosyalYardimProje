@@ -506,10 +506,24 @@ namespace BusinessLayer.Siniflar
             return ihtiyacSahibiDAL.ihtiyacSahibiTeslimKaydet(esyaTablo, maddiTablo);
         }
 
+        public bool IhtiyacSahibiKontrolVarMi(int? ihtiyacSahibiKontrolId)
+        {
+            return ihtiyacSahibiDAL.IhtiyacSahibiKontrolVarMi(ihtiyacSahibiKontrolId);
+        }
+
+        public bool IhtiyacSahibiMuhtacMi(int? ihtiyacSahibiKontrolId)
+        {
+            return ihtiyacSahibiDAL.IhtiyacSahibiMuhtacMi(ihtiyacSahibiKontrolId);
+        }
 
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? ihtiyacSahibiKontrolId)
         {
             return ihtiyacSahibiDAL.KullaniciIslemYapabilirMi(kullaniciId, ihtiyacSahibiKontrolId);
+        }
+
+        public bool TeslimTamamlandiMi(int? ihtiyacSahibiKontrolId)
+        {
+            return ihtiyacSahibiDAL.TeslimTamamlandiMi(ihtiyacSahibiKontrolId);
         }
     }
 }

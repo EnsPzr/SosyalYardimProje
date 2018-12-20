@@ -29,6 +29,12 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
 
         [Display(Name = "Nakdi Bağış Yapıldı Mı?")]
         public bool? MaddiBagisYapildiMi { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Randevu Tarihi")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? RandevuTarihi { get; set; }
+
         public IhtiyacSahibiTeslimModel()
         {
             ihtiyacSahibiTeslimEdilecekEsyaList=new List<IhtiyacSahibiTeslimEdilecekEsyaModel>();
