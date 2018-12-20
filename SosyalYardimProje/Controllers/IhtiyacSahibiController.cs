@@ -13,7 +13,7 @@ namespace SosyalYardimProje.Controllers
 {
     public class IhtiyacSahibiController : Controller
     {
-        private IhtiyacSahibi ihtiyacSahibiBAL= new IhtiyacSahibi();
+        private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();
         private Kullanici kullaniciBusinessLayer = new Kullanici();
         [KullaniciLoginFilter]
         public ActionResult Liste()
@@ -58,7 +58,7 @@ namespace SosyalYardimProje.Controllers
             if (ModelState.IsValid)
             {
                 var onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(yeniIhtiyacSahibi);
-                if (onay.TamamlandiMi==true)
+                if (onay.TamamlandiMi == true)
                 {
                     TempData["uyari"] = "İhtiyaç sahibi ekleme işlemi başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
@@ -126,7 +126,7 @@ namespace SosyalYardimProje.Controllers
                 if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
                 {
                     var islemSonucu = ihtiyacSahibiBAL.IhtiyacSahibiSil(id);
-                    if (islemSonucu.TamamlandiMi==true)
+                    if (islemSonucu.TamamlandiMi == true)
                     {
                         TempData["uyari"] =
                             "Silme işlemi başarı ile sonuçlandı.";
@@ -270,6 +270,7 @@ namespace SosyalYardimProje.Controllers
 
         public ActionResult IhtiyacSahibiKontrolListesi()
         {
+            Tanimla();
             return View();
         }
 
@@ -277,21 +278,23 @@ namespace SosyalYardimProje.Controllers
         {
             IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
             {
-                BasariliMi=true,
-                IhtiyacSahibiKontrolListe =ihtiyacSahibiBAL.KontrolEdilecekIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId())
+                BasariliMi = true,
+                IhtiyacSahibiKontrolListe = ihtiyacSahibiBAL.KontrolEdilecekIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId())
             };
             model.IhtiyacSahibiSayisi = model.IhtiyacSahibiKontrolListe.Count();
+            Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult FiltreliIhtiyacSahipleriniGetir(string aranan, int? sehirId, DateTime? tarih)
+        public JsonResult FiltreliKontrolIhtiyacSahipleriniGetir(String aranan, int? sehirId, String tarih)
         {
             IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
             {
                 BasariliMi = true,
-                IhtiyacSahibiKontrolListe = ihtiyacSahibiBAL.KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId(),aranan,sehirId,tarih)
+                IhtiyacSahibiKontrolListe = ihtiyacSahibiBAL.KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId(), aranan, sehirId, tarih)
             };
             model.IhtiyacSahibiSayisi = model.IhtiyacSahibiKontrolListe.Count();
+            Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

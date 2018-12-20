@@ -6931,6 +6931,7 @@
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\DepoEsyaListeleScript.js" />
     <Content Include="Scripts\EsyaListeleScript.js" />
+    <Content Include="Scripts\IhtiyacSahibiKontrolListeleScript.js" />
     <Content Include="Scripts\IhtiyacSahibiListeleScript.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -7000,6 +7001,7 @@
     <Content Include="Views\Depo\Liste.cshtml" />
     <Content Include="Views\Depo\Ekle.cshtml" />
     <Content Include="Views\Depo\Duzenle.cshtml" />
+    <Content Include="Views\IhtiyacSahibi\IhtiyacSahibiKontrolListesi.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

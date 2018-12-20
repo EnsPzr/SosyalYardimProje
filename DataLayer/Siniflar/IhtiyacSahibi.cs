@@ -152,7 +152,7 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public List<IhtiyacSahibiKontrolTablo> KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(int? kullaniciId, string aranan, int? sehirId, DateTime? tarih)
+        public List<IhtiyacSahibiKontrolTablo> KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(int? kullaniciId, string aranan, int? sehirId, String tarih)
         {
             var kullanici = kullaniciDAL.KullaniciBul(kullaniciId);
             if (kullanici.KullaniciMerkezdeMi == true)
@@ -174,7 +174,11 @@ namespace DataLayer.Siniflar
 
                 if (tarih != null)
                 {
-                    sorgu = sorgu.Where(p => p.Tarih == tarih || p.KontrolYapilmaTarihi == tarih || p.TahminiTeslimTarihi == tarih);
+                    if (DonusurMu(tarih, 1))
+                    {
+                        DateTime? trh = Convert.ToDateTime(tarih);
+                        sorgu = sorgu.Where(p => p.Tarih == trh || p.KontrolYapilmaTarihi == trh || p.TahminiTeslimTarihi == trh);
+                    }
                 }
 
                 return sorgu.ToList();
@@ -193,10 +197,34 @@ namespace DataLayer.Siniflar
                 }
                 if (tarih != null)
                 {
-                    sorgu = sorgu.Where(p => p.Tarih == tarih || p.KontrolYapilmaTarihi == tarih || p.TahminiTeslimTarihi == tarih);
+                    if (DonusurMu(tarih, 1))
+                    {
+                        DateTime? trh = Convert.ToDateTime(tarih);
+                        sorgu = sorgu.Where(p => p.Tarih == trh || p.KontrolYapilmaTarihi == trh || p.TahminiTeslimTarihi == trh);
+                    }
                 }
 
                 return sorgu.ToList();
+            }
+        }
+
+        public bool DonusurMu(string a, int? tip)
+        {
+            try
+            {
+                if (tip == 1)
+                {
+                    Convert.ToDateTime(a);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
     }

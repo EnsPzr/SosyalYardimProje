@@ -21,17 +21,13 @@
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].EsyaAdi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Sehir.SehirAdi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Adet + "</td>" +
-                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId+"'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Depo/Detay/" + result.DepoList[i].DepoEsyaId  +"'></a> | " +
-                                "<a class='glyphicon glyphicon-trash' href='/Depo/Sil/" + result.DepoList[i].DepoEsyaId +"'></a></td></tr >";
+                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId+"'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].EsyaAdi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Sehir.SehirAdi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Adet + "</td>" +
-                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Depo/Detay/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                "<a class='glyphicon glyphicon-trash' href='/Depo/Sil/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
+                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
                         }
                     };
                     $("#tablo_tbody").html("");
@@ -93,17 +89,13 @@
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].EsyaAdi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Sehir.SehirAdi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Adet + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Depo/Detay/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-trash' href='/Depo/Sil/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
+                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].EsyaAdi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Sehir.SehirAdi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.DepoList[i].Adet + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Depo/Detay/" + result.DepoList[i].DepoEsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-trash' href='/Depo/Sil/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
+                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Depo/Duzenle/" + result.DepoList[i].DepoEsyaId + "'></a></td></tr >";
                             }
                         };
                         $("#tablo_tbody").html("");

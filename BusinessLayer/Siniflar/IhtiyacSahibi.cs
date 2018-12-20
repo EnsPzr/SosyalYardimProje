@@ -220,14 +220,25 @@ namespace BusinessLayer.Siniflar
                 }
 
                 eklenecekModel.EklenmeTarih = kontrolEdilecekIhtiyacSahipleri[i].Tarih;
+                eklenecekModel.EklenmeTarihiStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].Tarih).ToString("dd.MM.yyyy");
                 if (kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi != null)
                 {
                     eklenecekModel.KontrolTarih = kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi;
+                    eklenecekModel.KontrolTarihStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi).ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    eklenecekModel.KontrolTarihStr = "Kontrol Yapılmadı";
                 }
 
                 if (kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi != null)
                 {
                     eklenecekModel.TahminiTeslimTarihi = kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi;
+                    eklenecekModel.TahminiTeslimTarihiStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi).ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    eklenecekModel.TahminiTeslimTarihiStr = "Kontrol Yapılmadı";
                 }
 
                 if (kontrolEdilecekIhtiyacSahipleri[i].TeslimTamamlandiMi != null)
@@ -245,13 +256,14 @@ namespace BusinessLayer.Siniflar
                 {
                     eklenecekModel.TeslimTamamlandiMi = "Hayır";
                 }
+                kontrolListeModel.Add(eklenecekModel);
             }
 
             return kontrolListeModel;
         }
 
         public List<IhtiyacSahibiKontrolModel> KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(int? kullaniciId,
-            string aranan, int? sehirId, DateTime? tarih)
+            string aranan, int? sehirId, String tarih)
         {
             var kontrolEdilecekIhtiyacSahipleri = ihtiyacSahibiDAL.KontrolEdilecekFiltreliIhtiyacSahipleriniGetir(kullaniciId, aranan, sehirId, tarih);
             List<IhtiyacSahibiKontrolModel> kontrolListeModel = new List<IhtiyacSahibiKontrolModel>();
@@ -283,14 +295,25 @@ namespace BusinessLayer.Siniflar
                 }
 
                 eklenecekModel.EklenmeTarih = kontrolEdilecekIhtiyacSahipleri[i].Tarih;
+                eklenecekModel.EklenmeTarihiStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].Tarih).ToString("dd.MM.yyyy");
                 if (kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi != null)
                 {
                     eklenecekModel.KontrolTarih = kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi;
+                    eklenecekModel.KontrolTarihStr= Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].KontrolYapilmaTarihi).ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    eklenecekModel.KontrolTarihStr = "Kontrol Yapılmadı";
                 }
 
                 if (kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi != null)
                 {
                     eklenecekModel.TahminiTeslimTarihi = kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi;
+                    eklenecekModel.TahminiTeslimTarihiStr = Convert.ToDateTime(kontrolEdilecekIhtiyacSahipleri[i].TahminiTeslimTarihi).ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    eklenecekModel.TahminiTeslimTarihiStr = "Kontrol Yapılmadı";
                 }
 
                 if (kontrolEdilecekIhtiyacSahipleri[i].TeslimTamamlandiMi != null)
@@ -308,6 +331,7 @@ namespace BusinessLayer.Siniflar
                 {
                     eklenecekModel.TeslimTamamlandiMi = "Hayır";
                 }
+                kontrolListeModel.Add(eklenecekModel);
             }
 
             return kontrolListeModel;
