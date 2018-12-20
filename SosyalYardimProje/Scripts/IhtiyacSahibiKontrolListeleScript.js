@@ -22,7 +22,8 @@
                                 "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].KontrolTarihStr + "</td>" +
                                 "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].TahminiTeslimTarihiStr + "</td>" +
                                 "<td class='col-md-1 hidden-xs'>" + result.IhtiyacSahibiKontrolListe[i].TeslimTamamlandiMi + "</td>" +
-                                "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a></td ></tr > ";
+                                "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a>| " +
+                                "<a class='glyphicon glyphicon-eye-open' href='/IhtiyacSahibi/Teslim/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a> </td ></tr > ";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-2 col-xs-3'>" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiAdiSoyadi + "</td>" +
@@ -32,7 +33,8 @@
                                 "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].KontrolTarihStr + "</td>" +
                                 "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].TahminiTeslimTarihiStr + "</td>" +
                                 "<td class='col-md-1 hidden-xs'>" + result.IhtiyacSahibiKontrolListe[i].TeslimTamamlandiMi + "</td>" +
-                                "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a></td ></tr > ";
+                                "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a>| " +
+                                "<a class='glyphicon glyphicon-eye-open' href='/IhtiyacSahibi/Teslim/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a> </td ></tr > ";
                         }
                         $("#tablo_tbody").html("");
                         $("#tablo_tbody").html(Liste);
@@ -97,7 +99,8 @@
                                     "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].KontrolTarihStr + "</td>" +
                                     "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].TahminiTeslimTarihiStr + "</td>" +
                                     "<td class='col-md-1 hidden-xs'>" + result.IhtiyacSahibiKontrolListe[i].TeslimTamamlandiMi + "</td>" +
-                                    "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a></td ></tr > ";
+                                    "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a>| " +
+                                    "<a class='glyphicon glyphicon-eye-open' href='/IhtiyacSahibi/Teslim/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a> </td ></tr > ";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-2 col-xs-3'>" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiAdiSoyadi + "</td>" +
@@ -107,7 +110,8 @@
                                     "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].KontrolTarihStr + "</td>" +
                                     "<td class='col-md-2 col-xs-2'>" + result.IhtiyacSahibiKontrolListe[i].TahminiTeslimTarihiStr + "</td>" +
                                     "<td class='col-md-1 hidden-xs'>" + result.IhtiyacSahibiKontrolListe[i].TeslimTamamlandiMi + "</td>" +
-                                    "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a></td ></tr > ";
+                                    "<td class='col-md-1 col-xs-1'><a class='glyphicon glyphicon-pencil' href='/IhtiyacSahibi/Kontrol/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a>| " +
+                                    "<a class='glyphicon glyphicon-eye-open' href='/IhtiyacSahibi/Teslim/" + result.IhtiyacSahibiKontrolListe[i].IhtiyacSahibiKontrolId + "'></a> </td ></tr > ";
                             }
                             $("#tablo_tbody").html("");
                             $("#tablo_tbody").html(Liste);
