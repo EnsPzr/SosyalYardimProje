@@ -60,7 +60,7 @@ namespace BusinessLayer.Siniflar
             return don;
         }
 
-        public List<TeslimAlinacakBagisModel> FiltreliBagislariGetir(int? kullaniciId, int sehirId, String aranan, String tarih)
+        public List<TeslimAlinacakBagisModel> FiltreliBagislariGetir(int? kullaniciId, int? sehirId, String aranan, String tarih)
         {
             var bagislar = tesDAL.FiltreliBagislariGetir(kullaniciId, sehirId, aranan, tarih);
             List<TeslimAlinacakBagisModel> don = new List<TeslimAlinacakBagisModel>();
