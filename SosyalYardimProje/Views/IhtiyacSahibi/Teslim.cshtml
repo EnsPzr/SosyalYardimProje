@@ -1,22 +1,13 @@
-﻿@model BusinessLayer.Models.IhtiyacSahibiModelleri.IhtiyacSahibiKontrolSayfaModel
+﻿@model BusinessLayer.Models.IhtiyacSahibiModelleri.IhtiyacSahibiTeslimModel
 
 @{
-    ViewBag.Title = "Kontrol";
+    ViewBag.Title = "Teslim Onaylama";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-@if (TempData["hata"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["hata"].ToString()
-    </div>
-}
 @using (Html.BeginForm())
 {
-    <h2>İhtiyaç Sahibi Kontrol ve Teslim Edilecekler</h2>
+    <h2>İhtiyaç Sahibi Teslim Onaylama</h2>
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <hr />
@@ -48,38 +39,40 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MuhtacMi, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(m => m.MaddiBagis)
+            @Html.LabelFor(model => model.MaddiBagis, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.MuhtacMi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MuhtacMi, "", new { @class = "text-danger" })
+                <h5>@Html.DisplayFor(model => model.MaddiBagis, new { htmlAttributes = new { @class = "form-control" } })</h5>
             </div>
 
-            @Html.LabelFor(model => model.NakdiBagisMiktari, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MaddiBagisYapildiMi, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.HiddenFor(m => m.IhtiyacSahibiVerilecekMaddiId)
-                @Html.EditorFor(model => model.NakdiBagisMiktari, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NakdiBagisMiktari, "", new { @class = "text-danger" })
+                @Html.CheckBoxFor(model => model.MaddiBagisYapildiMi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaddiBagisYapildiMi, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @for (int i = 0; i < Model.verileceklerList.Count; i++)
+            @for (int i = 0; i < Model.ihtiyacSahibiTeslimEdilecekEsyaList.Count; i++)
             {
-                @Html.HiddenFor(m => Model.verileceklerList[i].EsyaId)
-                <div class="col-md-12" style="margin-bottom:3px">
-                    <div class="col-md-2">
-                        &emsp;
-                    </div>
-                    <div class="col-md-4">
-                        @Html.HiddenFor(m => Model.verileceklerList[i].EsyaAdi)
-                        @Html.Label(Model.verileceklerList[i].EsyaAdi, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => Model.verileceklerList[i].Adet, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-md-2">
-                        &emsp;
-                    </div>
+                @Html.HiddenFor(m => Model.ihtiyacSahibiTeslimEdilecekEsyaList[i].EsyaId)
+            <div class="col-md-12" style="margin-bottom:3px">
+                <div class="col-md-2">
+                    &emsp;
                 </div>
+                <div class="col-md-2">
+                    @Html.HiddenFor(m => Model.ihtiyacSahibiTeslimEdilecekEsyaList[i].EsyaAdi)
+                    @Html.Label(Model.ihtiyacSahibiTeslimEdilecekEsyaList[i].EsyaAdi, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => Model.ihtiyacSahibiTeslimEdilecekEsyaList[i].Adet, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-3">
+                    <b>Teslim Edildi Mi?</b>    @Html.CheckBoxFor(model => Model.ihtiyacSahibiTeslimEdilecekEsyaList[i].TeslimEdildiMi, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-2">
+                    &emsp;
+                </div>
+            </div>
             }
 
         </div>
@@ -87,17 +80,17 @@
             <div class="col-md-2">
                 &emsp;
             </div>
-            <div class="col-md-4">
-                @Html.LabelFor(model => model.TahminiTeslim)
-            </div>
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.TahminiTeslim, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TahminiTeslim, "", new { @class = "text-danger" })
-            </div>
             <div class="col-md-2">
+                @Html.LabelFor(model => model.RandevuTarihi)
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.RandevuTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RandevuTarihi, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
                 &emsp;
             </div>
-            
+
         </div>
         <div class="form-group">
 

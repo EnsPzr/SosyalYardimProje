@@ -300,7 +300,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Kontrol(int? id)
+        public ActionResult Kontrol(int? id=12)
         {
             if (id != null)
             {
@@ -374,27 +374,53 @@ namespace SosyalYardimProje.Controllers
                         return View(model);
                     }
 
-                    d = false;
+                    d = true;
 
-                    if (!(model.TahminiTeslim.HasValue))
-                    {
-                        ModelState.AddModelError("TahminiTeslim", "Tahmini teslim tarihi seçilmek zorundadır");
-                        return View(model);
-                    }
-                    try
-                    {
-                        Convert.ToDateTime(model.TahminiTeslim);
-                        d = true;
-                    }
-                    catch (Exception)
-                    {
 
+                    if (model.TahminiTeslim.HasValue)
+                    {
+                        try
+                        {
+                            Convert.ToDateTime(model.TahminiTeslim);
+                            d = false;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                     }
 
                     if (d == false)
                     {
                         TempData["hata"] = "Tahmini teslim tarihi doğru formatta değil.";
                         return View(model);
+                    }
+
+                    sayac = 0;
+                    int sayac2 = 0;
+                    for (int i = 0; i < model.verileceklerList.Count; i++)
+                    {
+                        if (model.verileceklerList[i].Adet > 0)
+                        {
+                            sayac++;
+                        }
+                        else if (model.verileceklerList[i].Adet < 0)
+                        {
+                            sayac2++;
+                        }
+                    }
+                    if (sayac2 > 0)
+                    {
+                        TempData["hata"] = "Verilecek eşya sayısı 0'dan küçük olamaz";
+                        return View(model);
+                    }
+                    if (sayac > 0)
+                    {
+                        if (!(model.TahminiTeslim.HasValue))
+                        {
+                            ModelState.AddModelError("TahiminTeslimTarihi","Verilecek eşya seçildiğinden dolayı tahmini teslim tarihi seçilmedilir.");
+                            return View(model);
+                        }
                     }
 
                     if (ihtiyacSahibiBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),
@@ -438,7 +464,7 @@ namespace SosyalYardimProje.Controllers
         }
 
 
-        public ActionResult Teslim(int? id)
+        public ActionResult Teslim(int? id=1)
         {
             if (id != null)
             {

@@ -72,12 +72,12 @@ namespace DataLayer
         {
             if (id == null)
             {
-                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null)
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null ||p.MuhtacMi==false)
                     .ToList();
             }
             else
             {
-                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => p.MuhtacMi == null && p.IhtiyacSahibiTablo.SehirTablo_SehirId == id)
+                return db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo).Where(p => (p.MuhtacMi == null||p.MuhtacMi==false) && p.IhtiyacSahibiTablo.SehirTablo_SehirId == id)
                     .ToList();
             }
         }

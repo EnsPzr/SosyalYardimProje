@@ -28,7 +28,7 @@ namespace BusinessLayer.Models.IhtiyacSahibiModelleri
         public String MaddiBagis { get; set; }
 
         [Display(Name = "Nakdi Bağış Yapıldı Mı?")]
-        public bool? MaddiBagisYapildiMi { get; set; }
+        public bool MaddiBagisYapildiMi { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Randevu Tarihi")]

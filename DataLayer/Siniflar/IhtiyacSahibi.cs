@@ -57,6 +57,22 @@ namespace DataLayer.Siniflar
             db.IhtiyacSahibiTablo.Add(yeniIhtiyacSahibi);
             if (db.SaveChanges() > 0)
             {
+                IhtiyacSahibiKontrolTablo kontrolTablo= new IhtiyacSahibiKontrolTablo();
+                kontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId = db.IhtiyacSahibiTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiAdi == yeniIhtiyacSahibi.IhtiyacSahibiAdi
+                    && p.IhtiyacSahibiSoyadi == yeniIhtiyacSahibi.IhtiyacSahibiSoyadi
+                    && p.IhtiyacSahibiTelNo == yeniIhtiyacSahibi.IhtiyacSahibiTelNo).IhtiyacSahibiId;
+                kontrolTablo.MuhtacMi = false;
+                kontrolTablo.Tarih=DateTime.Now;
+                kontrolTablo.TeslimTamamlandiMi = false;
+                db.IhtiyacSahibiKontrolTablo.Add(kontrolTablo);
+                db.SaveChanges();
+                kontrolTablo.IhtiyacSahibiVerilecekMaddiTablo.Add(new IhtiyacSahibiVerilecekMaddiTablo()
+                {
+                    IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId=kontrolTablo.IhtiyacSahibiKontrolId,
+                    VerilecekMaddiYardim=0
+                });
+                db.SaveChanges();
                 return true;
             }
             else
@@ -357,7 +373,7 @@ namespace DataLayer.Siniflar
                     p.EsyaTablo_EsyaId == esyaId);
                 if (esya != null)
                 {
-                    if (!(esyaTablo[i].TeslimGerceklesmeTarihi.HasValue))
+                    if ((esyaTablo[i].TeslimGerceklesmeTarihi.HasValue))
                     {
                         esya.TeslimGerceklesmeTarihi = esyaTablo[i].TeslimGerceklesmeTarihi;
                         sayac++;
@@ -375,7 +391,7 @@ namespace DataLayer.Siniflar
                 }
             }
             db.SaveChanges();
-            if (!(maddiTablo.VerilmeGerceklesmeTarihi.HasValue))
+            if ((maddiTablo.VerilmeGerceklesmeTarihi.HasValue))
             {
                 var maddiYardim = db.IhtiyacSahibiVerilecekMaddiTablo.FirstOrDefault(p =>
                     p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId ==

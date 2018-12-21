@@ -452,16 +452,23 @@ namespace BusinessLayer.Siniflar
             model.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
             model.IhtiyacSahibiAdres = ihtiyacSahibi.IhtiyacSahibiAdres;
             model.IhtiyacSahibiIl = ihtiyacSahibi.SehirTablo.SehirAdi;
-            if (ihtiyacSahibiNakdi.VerilecekMaddiYardim > 0)
+            if (ihtiyacSahibiNakdi != null)
             {
-                model.MaddiBagis = ihtiyacSahibiNakdi.VerilecekMaddiYardim.ToString();
+                if (ihtiyacSahibiNakdi.VerilecekMaddiYardim > 0)
+                {
+                    model.MaddiBagis = ihtiyacSahibiNakdi.VerilecekMaddiYardim.ToString();
+                }
+                else
+                {
+                    model.MaddiBagis = "0";
+                }
             }
             else
             {
                 model.MaddiBagis = "0";
             }
 
-            if (!(ihtiyacSahibiNakdi.VerilmeGerceklesmeTarihi.HasValue))
+            if ((ihtiyacSahibiNakdi.VerilmeGerceklesmeTarihi.HasValue))
             {
                 model.MaddiBagisYapildiMi = true;
             }
@@ -475,7 +482,8 @@ namespace BusinessLayer.Siniflar
                 {
                     EsyaAdi = ihtiyacSahibiEsyalar[i].EsyaTablo.EsyaAdi,
                     EsyaId = ihtiyacSahibiEsyalar[i].EsyaTablo_EsyaId,
-                    TeslimEdildiMi = ihtiyacSahibiEsyalar[i].TeslimGerceklesmeTarihi.HasValue ? false : true
+                    TeslimEdildiMi = ihtiyacSahibiEsyalar[i].TeslimGerceklesmeTarihi.HasValue ? true : false,
+                    Adet =ihtiyacSahibiEsyalar[i].Adet
                 });
             }
 
