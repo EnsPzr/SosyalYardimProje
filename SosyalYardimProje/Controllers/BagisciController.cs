@@ -27,5 +27,16 @@ namespace SosyalYardimProje.Controllers
             };
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult FiltreliBagiscilariGetir(int? sehirId, string aranan)
+        {
+            BagisciJSModel model = new BagisciJSModel()
+            {
+                BagisciList = bagisciBAL.FiltreliBagiscilariGetir(KullaniciBilgileriDondur.KullaniciId(), sehirId, aranan),
+                BasariliMi = true,
+                BagisciSayisi = bagisciBAL.FiltreliBagiscilariGetir(KullaniciBilgileriDondur.KullaniciId(), sehirId, aranan).Count
+            };
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace DataLayer.Siniflar
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(KullaniciId))
             {
-                return db.KullaniciBilgileriTablo.Include(p=>p.SehirTablo).Where(p => p.BagisciMi == true).ToList();
+                return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.BagisciMi == true).ToList();
             }
             else
             {
@@ -28,31 +28,37 @@ namespace DataLayer.Siniflar
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(KullaniciId))
             {
-                return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => (p.BagisciMi == true) &&
-                                                                                        (p.SehirTablo_SehirId ==
-                                                                                         SehirId && (
-                                                                                             p.KullaniciAdi.Contains(
-                                                                                                 aranan)
-                                                                                             || p.KullaniciSoyadi
-                                                                                                 .Contains(aranan)
-                                                                                             || p.SehirTablo.SehirAdi
-                                                                                                 .Contains(aranan)
-                                                                                             ||p.KullaniciEPosta.Contains(aranan)
-                                                                                             ||p.KullaniciAdres.Contains(aranan)))).ToList();
+                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).AsQueryable();
+                if (SehirId != null)
+                {
+                    dondurulecek = dondurulecek.Where(p => p.SehirTablo_SehirId == SehirId);
+                }
+
+                if (aranan != null)
+                {
+                    dondurulecek = dondurulecek.Where(p => p.KullaniciAdi.Contains(aranan)
+                                                           || p.KullaniciSoyadi.Contains(aranan)
+                                                           || p.SehirTablo.SehirAdi.Contains(aranan)
+                                                           || p.KullaniciEPosta.Contains(aranan)
+                                                           || p.KullaniciAdres.Contains(aranan));
+                }
+
+                return dondurulecek.ToList();
             }
             else
             {
                 int? sehirId = kullaniciDAL.KullaniciSehir(KullaniciId);
-                return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => (p.BagisciMi == true && p.SehirTablo_SehirId == sehirId)&&
-                                                                                        (p.KullaniciAdi.Contains(
-                                                                                             aranan)
-                                                                                         || p.KullaniciSoyadi
-                                                                                             .Contains(aranan)
-                                                                                         || p.SehirTablo.SehirAdi
-                                                                                             .Contains(aranan)
-                                                                                         || p.KullaniciEPosta.Contains(aranan)
-                                                                                         || p.KullaniciAdres.Contains(aranan)))
-                    .ToList();
+                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == sehirId).AsQueryable();
+                if (aranan != null)
+                {
+                    dondurulecek = dondurulecek.Where(p => p.KullaniciAdi.Contains(aranan)
+                                                           || p.KullaniciSoyadi.Contains(aranan)
+                                                           || p.SehirTablo.SehirAdi.Contains(aranan)
+                                                           || p.KullaniciEPosta.Contains(aranan)
+                                                           || p.KullaniciAdres.Contains(aranan));
+                }
+
+                return dondurulecek.ToList();
             }
         }
     }
