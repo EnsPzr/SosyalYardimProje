@@ -21,7 +21,7 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
         public String BagisciAdres { get; set; }
 
         [Display(Name = "Eklenme Tarihi")]
-        public String EklenmeTarihi { get; set; }
+        public DateTime? EklenmeTarihi { get; set; }
         
         [Display(Name = "Onaylandı Mı")]
         public String OnaylandiMiStr { get; set; }
@@ -29,7 +29,7 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
         [Display(Name = "Teslim Alındı Mı")]
         public String TeslimAlindiMi { get; set; }
 
-        private List<TeslimAlinacakBagisEsyaModel> esyaModel { get; set; }
+        public List<TeslimAlinacakBagisEsyaModel> esyaModel { get; set; }
 
         public TeslimAlinacakBagisModel()
         {
