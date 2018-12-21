@@ -39,9 +39,9 @@ namespace BusinessLayer.Siniflar
             }
         }
 
-        public List<KasaModel> FiltreliKasaGetir(int? kullaniciId, string aranan, string tarih, int? sehirId)
+        public List<KasaModel> FiltreliKasaGetir(int? kullaniciId, string aranan, string tarih, int? sehirId, int? gelirGider)
         {
-            var kasa = kasaDAL.FiltreliKasaGetir(kullaniciId, aranan, tarih, sehirId);
+            var kasa = kasaDAL.FiltreliKasaGetir(kullaniciId, aranan, tarih, sehirId, gelirGider);
             if (kasa.Count == 0)
             {
                 return new List<KasaModel>();

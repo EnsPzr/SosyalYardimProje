@@ -117,12 +117,13 @@
           <Key>
             <PropertyRef Name="KasaId" />
           </Key>
-          <Property Name="KasaId" Type="int" Nullable="false" />
+          <Property Name="KasaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Miktar" Type="float" />
           <Property Name="Tarih" Type="date" />
           <Property Name="Aciklama" Type="varchar" MaxLength="50" />
           <Property Name="KullaniciBilgleriTablo.KullaniciId" Type="int" />
           <Property Name="SehirTablo.SehirId" Type="int" />
+          <Property Name="GelirGider" Type="bit" />
         </EntityType>
         <EntityType Name="KullaniciBilgileriTablo">
           <Key>
@@ -1306,6 +1307,7 @@
           <Property Name="SehirTablo_SehirId" Type="Int32" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_KullaniciBilgileriTablo" FromRole="KasaTablo" ToRole="KullaniciBilgileriTablo" />
           <NavigationProperty Name="SehirTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_SehirTablo" FromRole="KasaTablo" ToRole="SehirTablo" />
+          <Property Name="GelirGider" Type="Boolean" />
         </EntityType>
         <Association Name="FK_KasaTablo_KullaniciBilgileriTablo">
           <End Type="SosyalYardimProjeDBModel.KullaniciBilgileriTablo" Role="KullaniciBilgileriTablo" Multiplicity="0..1" />
@@ -1562,6 +1564,7 @@
           <EntitySetMapping Name="KasaTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.KasaTablo">
               <MappingFragment StoreEntitySet="KasaTablo">
+                <ScalarProperty Name="GelirGider" ColumnName="GelirGider" />
                 <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
                 <ScalarProperty Name="KullaniciBilgleriTablo_KullaniciId" ColumnName="KullaniciBilgleriTablo.KullaniciId" />
                 <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />

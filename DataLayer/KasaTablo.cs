@@ -20,6 +20,7 @@ namespace DataLayer
         public string Aciklama { get; set; }
         public Nullable<int> KullaniciBilgleriTablo_KullaniciId { get; set; }
         public Nullable<int> SehirTablo_SehirId { get; set; }
+        public Nullable<bool> GelirGider { get; set; }
     
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
         public virtual SehirTablo SehirTablo { get; set; }

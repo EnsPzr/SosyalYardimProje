@@ -34,7 +34,7 @@ namespace SosyalYardimProje.Controllers
         }
 
         [HttpGet]
-        public JsonResult FiltreliKasaGetir(string aranan, string tarih, int? sehirId)
+        public JsonResult FiltreliKasaGetir(string aranan, string tarih, int? sehirId, int? gelirGider)
         {
             if (aranan.Equals(""))
             {
@@ -59,7 +59,7 @@ namespace SosyalYardimProje.Controllers
             KasaJsModel model = new KasaJsModel()
             {
                 BasariliMi = true,
-                KasaList = kasaBAL.FiltreliKasaGetir(KullaniciBilgileriDondur.KullaniciId(), aranan, tarih, sehirId)
+                KasaList = kasaBAL.FiltreliKasaGetir(KullaniciBilgileriDondur.KullaniciId(), aranan, tarih, sehirId, gelirGider)
             };
             model.KasaSayisi = model.KasaList.Count;
             Thread.Sleep(2000);
@@ -74,6 +74,11 @@ namespace SosyalYardimProje.Controllers
                     Value = p.SehirId.ToString()
                 }).ToList();
             ViewBag.sehirlerSelect = sehirler;
+            var gelirGider = new List<SelectListItem>();
+            gelirGider.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
+            gelirGider.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
+            gelirGider.Add(new SelectListItem() { Text = "Gider", Value = "2" });
+            ViewBag.gelirGiderSelect = gelirGider;
         }
     }
 }

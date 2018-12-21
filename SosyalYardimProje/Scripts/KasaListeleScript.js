@@ -70,7 +70,8 @@
         var data = {
             aranan: $("#ara").val(),
             sehirId: $("#sehirId").val(),
-            tarih: $("#tarih").val()
+            tarih: $("#tarih").val(),
+            gelirGider: $("#gelirGiderId").val()
         };
         $.ajax({
             type: "GET",

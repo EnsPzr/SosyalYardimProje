@@ -25,7 +25,7 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public List<KasaTablo> FiltreliKasaGetir(int? kullaniciId, string aranan, string tarih, int? sehirId)
+        public List<KasaTablo> FiltreliKasaGetir(int? kullaniciId, string aranan, string tarih, int? sehirId, int? gelirGider)
         {
             if (KullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
@@ -53,13 +53,21 @@ namespace DataLayer.Siniflar
                     sorgu = sorgu.Where(p => p.SehirTablo_SehirId == sehirId);
                 }
 
+                if (gelirGider != null)
+                {
+                    if (!(gelirGider == 0))
+                    {
+                        bool GelirGider = gelirGider == 1 ? true : false;
+                        sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
+                    }
+                }
                 return sorgu.ToList();
             }
             else
             {
                 int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
                 var sorgu = db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo)
-                    .Where(p=>p.SehirTablo_SehirId==kullaniciSehirId).AsQueryable();
+                    .Where(p => p.SehirTablo_SehirId == kullaniciSehirId).AsQueryable();
                 if (aranan != null)
                 {
                     sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
@@ -76,7 +84,14 @@ namespace DataLayer.Siniflar
                     DateTime Tarih = Convert.ToDateTime(tarih);
                     sorgu = sorgu.Where(p => p.Tarih == Tarih);
                 }
-
+                if (gelirGider != null)
+                {
+                    if (!(gelirGider == 0))
+                    {
+                        bool GelirGider = gelirGider == 1 ? true : false;
+                        sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
+                    }
+                }
                 return sorgu.ToList();
             }
         }
