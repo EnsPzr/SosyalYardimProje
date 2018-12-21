@@ -7009,6 +7009,7 @@
     <Content Include="Views\Bagisci\Liste.cshtml" />
     <Content Include="Views\Bagisci\Duzenle.cshtml" />
     <Content Include="Views\Bagisci\Sil.cshtml" />
+    <Content Include="Views\Bagisci\Detay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

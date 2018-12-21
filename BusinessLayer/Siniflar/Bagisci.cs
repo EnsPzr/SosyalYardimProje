@@ -96,23 +96,30 @@ namespace BusinessLayer.Siniflar
             var kullanici = kullaniciDAL.KullaniciGetir(id);
             if (kullanici != null)
             {
-                BagisciModel model = new BagisciModel();
-                model.Adres = kullanici.KullaniciAdres;
-                model.BagisciAdi = kullanici.KullaniciAdi;
-                model.BagisciSoyadi = kullanici.KullaniciSoyadi;
-                model.TelNo = kullanici.KullaniciTelefonNumarasi;
-                model.BagisciId = kullanici.KullaniciId;
-                if (kullanici.SehirTablo_SehirId != null)
+                if (kullanici.BagisciMi == true)
                 {
-                    model.Sehir.SehirAdi = kullanici.SehirTablo.SehirAdi;
-                    model.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                    BagisciModel model = new BagisciModel();
+                    model.Adres = kullanici.KullaniciAdres;
+                    model.BagisciAdi = kullanici.KullaniciAdi;
+                    model.BagisciSoyadi = kullanici.KullaniciSoyadi;
+                    model.TelNo = kullanici.KullaniciTelefonNumarasi;
+                    model.BagisciId = kullanici.KullaniciId;
+                    if (kullanici.SehirTablo_SehirId != null)
+                    {
+                        model.Sehir.SehirAdi = kullanici.SehirTablo.SehirAdi;
+                        model.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                    }
+                    model.BagisciEPosta = kullanici.KullaniciEPosta;
+                    model.BagisciSifre = kullanici.KullaniciSifre;
+                    model.Durum = kullanici.AktifMi != null
+                        ? kullanici.AktifMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
+                    return model;
                 }
-                model.BagisciEPosta = kullanici.KullaniciEPosta;
-                model.BagisciSifre = kullanici.KullaniciSifre;
-                model.Durum = kullanici.AktifMi != null
-                    ? kullanici.AktifMi == true ? "Evet" : "Hayır"
-                    : "Hayır";
-                return model;
+                else
+                {
+                    return null;
+                }
             }
             else
             {

@@ -121,7 +121,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        public ActionResult Sil(int? id=1004)
+        public ActionResult Sil(int? id)
         {
             if (id != null)
             {
