@@ -176,6 +176,37 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
+
+        public ActionResult Detay(int? id)
+        {
+            if (id != null)
+            {
+                if (bagisciBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
+                {
+                    var bagisci = bagisciBAL.BagisciBul(id);
+                    if (bagisci != null)
+                    {
+                        Tanimla();
+                        return View(bagisci);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Görüntülemek istediğiniz bağışçı bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bölgenizdeki bağışçılar ile ilgili işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Görüntülemek istediğiniz bağışçıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
