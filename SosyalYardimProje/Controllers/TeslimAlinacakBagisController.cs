@@ -8,8 +8,7 @@ namespace SosyalYardimProje.Controllers
 {
     public class TeslimAlinacakBagisController : Controller
     {
-        // GET: TeslimAlinacakBagis
-        public ActionResult Index()
+        public ActionResult Liste()
         {
             return View();
         }

@@ -77,6 +77,9 @@
     <Compile Include="Models\OrtakModeller\SehirModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeJSModel.cs" />
     <Compile Include="Models\SubeModelleri\SubeModel.cs" />
+    <Compile Include="Models\TeslimAlinacakBagis\TeslimAlinacakBagisEsyaModel.cs" />
+    <Compile Include="Models\TeslimAlinacakBagis\TeslimAlinacakBagisModel.cs" />
+    <Compile Include="Models\TeslimAlinacakBagis\TeslimAlinacakBagisResimModel.cs" />
     <Compile Include="Models\YetkiModelleri\YetkiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Siniflar\Bagisci.cs" />
