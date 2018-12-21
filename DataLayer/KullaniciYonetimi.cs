@@ -10,7 +10,7 @@ namespace DataLayer
         private SosyalYardimDB db = new SosyalYardimDB();
         public KullaniciBilgileriTablo KullaniciBul(int? KullaniciId)
         {
-            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == KullaniciId);
+            var Kullanici = db.KullaniciBilgileriTablo.Include(p=>p.SehirTablo).FirstOrDefault(p => p.KullaniciId == KullaniciId);
             return Kullanici;
         }
 

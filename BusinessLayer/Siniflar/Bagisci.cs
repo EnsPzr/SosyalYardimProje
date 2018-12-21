@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.BagisciModelleri;
 using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
     public class Bagisci
     {
         private DataLayer.Siniflar.Bagisci bagisciDAL = new DataLayer.Siniflar.Bagisci();
+        private DataLayer.Siniflar.Kullanici kullaniciDAL = new DataLayer.Siniflar.Kullanici();
         public List<BagisciModel> TumBagiscilariGetir(int? KullaniciId)
         {
             var bagiscilar = bagisciDAL.TumBagiscilariGetir(KullaniciId);
@@ -77,6 +79,67 @@ namespace BusinessLayer.Siniflar
                 //}).ToList();
                 return BagisciList;
             }
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? bagisciId)
+        {
+            return bagisciDAL.KullaniciIslemYapabilirMi(kullaniciId, bagisciId);
+        }
+
+        public BagisciModel BagisciBul(int? id)
+        {
+            var kullanici = kullaniciDAL.KullaniciGetir(id);
+            if (kullanici != null)
+            {
+                BagisciModel model = new BagisciModel();
+                model.Adres = kullanici.KullaniciAdres;
+                model.BagisciAdi = kullanici.KullaniciAdi;
+                model.BagisciSoyadi = kullanici.KullaniciSoyadi;
+                model.TelNo = kullanici.KullaniciTelefonNumarasi;
+                model.BagisciId = kullanici.KullaniciId;
+                model.Sehir.SehirAdi = kullanici.SehirTablo.SehirAdi;
+                model.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                model.BagisciEPosta = kullanici.KullaniciEPosta;
+                model.BagisciSifre = kullanici.KullaniciSifre;
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IslemOnayModel BagisciKaydet(BagisciModel bagisci)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (bagisciDAL.BagisciIdVarMi(bagisci.BagisciId))
+            {
+                KullaniciBilgileriTablo kullanici = new KullaniciBilgileriTablo();
+                kullanici.KullaniciId = Convert.ToInt32(bagisci.BagisciId);
+                kullanici.KullaniciAdi = bagisci.BagisciAdi;
+                kullanici.KullaniciSoyadi = bagisci.BagisciSoyadi;
+                kullanici.SehirTablo_SehirId = bagisci.Sehir.SehirId;
+                kullanici.KullaniciTelefonNumarasi = bagisci.TelNo;
+                kullanici.KullaniciEPosta = bagisci.BagisciEPosta;
+                kullanici.KullaniciAdres = bagisci.Adres;
+                if (!(bagisciDAL.BagiscidanVarMi(kullanici)))
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Aynı eposta adresine sahip başka bir bağışçı var.");
+                }
+                else
+                {
+                    bagisciDAL.BagisciKaydet(kullanici);
+                    onay.TamamlandiMi = true;
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Aranan bağışçı bulunamadı.");
+            }
+
+            return onay;
         }
     }
 }
