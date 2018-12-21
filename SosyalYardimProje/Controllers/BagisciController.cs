@@ -8,8 +8,7 @@ namespace SosyalYardimProje.Controllers
 {
     public class BagisciController : Controller
     {
-        // GET: Bagisci
-        public ActionResult Index()
+        public ActionResult Liste()
         {
             return View();
         }
