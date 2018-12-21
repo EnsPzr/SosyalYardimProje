@@ -97,8 +97,11 @@ namespace BusinessLayer.Siniflar
                 model.BagisciSoyadi = kullanici.KullaniciSoyadi;
                 model.TelNo = kullanici.KullaniciTelefonNumarasi;
                 model.BagisciId = kullanici.KullaniciId;
-                model.Sehir.SehirAdi = kullanici.SehirTablo.SehirAdi;
-                model.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                if (kullanici.SehirTablo_SehirId != null)
+                {
+                    model.Sehir.SehirAdi = kullanici.SehirTablo.SehirAdi;
+                    model.Sehir.SehirId = kullanici.SehirTablo_SehirId;
+                }
                 model.BagisciEPosta = kullanici.KullaniciEPosta;
                 model.BagisciSifre = kullanici.KullaniciSifre;
                 return model;
@@ -124,13 +127,13 @@ namespace BusinessLayer.Siniflar
                 kullanici.KullaniciAdres = bagisci.Adres;
                 if (!(bagisciDAL.BagiscidanVarMi(kullanici)))
                 {
-                    onay.TamamlandiMi = false;
-                    onay.HataMesajlari.Add("Aynı eposta adresine sahip başka bir bağışçı var.");
+                    bagisciDAL.BagisciKaydet(kullanici);
+                    onay.TamamlandiMi = true;
                 }
                 else
                 {
-                    bagisciDAL.BagisciKaydet(kullanici);
-                    onay.TamamlandiMi = true;
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Aynı eposta adresine sahip başka bir bağışçı var.");
                 }
             }
             else

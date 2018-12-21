@@ -42,5 +42,9 @@ namespace BusinessLayer.Models.BagisciModelleri
 
         [Display(Name = "Şifre")]
         public String BagisciSifre { get; set; }
+        public BagisciModel()
+        {
+            Sehir = new SehirModel();
+        }
     }
 }

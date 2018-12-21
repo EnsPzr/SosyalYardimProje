@@ -55,7 +55,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model2, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Duzenle(int? id)
+        public ActionResult Duzenle(int? id=1004)
         {
             if (id != null)
             {
