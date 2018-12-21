@@ -6929,6 +6929,7 @@
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\BagisciListeleScript.js" />
     <Content Include="Scripts\DepoEsyaListeleScript.js" />
     <Content Include="Scripts\EsyaListeleScript.js" />
     <Content Include="Scripts\IhtiyacSahibiKontrolListeleScript.js" />
@@ -7005,6 +7006,7 @@
     <Content Include="Views\IhtiyacSahibi\IhtiyacSahibiKontrolListesi.cshtml" />
     <Content Include="Views\IhtiyacSahibi\Kontrol.cshtml" />
     <Content Include="Views\IhtiyacSahibi\Teslim.cshtml" />
+    <Content Include="Views\Bagisci\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7017,7 +7019,6 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\Bagisci\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
