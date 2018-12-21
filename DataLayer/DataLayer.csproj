@@ -118,6 +118,7 @@
     <Compile Include="SehirTablo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Siniflar\Bagisci.cs" />
     <Compile Include="Siniflar\Depo.cs" />
     <Compile Include="Siniflar\Esya.cs" />
     <Compile Include="Siniflar\IhtiyacSahibi.cs" />
