@@ -44,7 +44,8 @@ namespace DataLayer.Siniflar
 
                 if (tarih != null)
                 {
-                    sorgu = sorgu.Where(p => p.Tarih == Convert.ToDateTime(tarih));
+                    DateTime Tarih = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.Tarih == Tarih);
                 }
 
                 if (sehirId != null)
@@ -72,7 +73,8 @@ namespace DataLayer.Siniflar
 
                 if (tarih != null)
                 {
-                    sorgu = sorgu.Where(p => p.Tarih == Convert.ToDateTime(tarih));
+                    DateTime Tarih = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.Tarih == Tarih);
                 }
 
                 return sorgu.ToList();

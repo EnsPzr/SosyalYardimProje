@@ -6945,6 +6945,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\KasaListeleScript.js" />
     <Content Include="Scripts\KullaniciListeleScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\SubeListeleScript.js" />
@@ -7015,6 +7016,7 @@
     <Content Include="Views\Bagisci\Detay.cshtml" />
     <Content Include="Views\TeslimAlinacakBagis\Liste.cshtml" />
     <Content Include="Views\TeslimAlinacakBagis\Duzenle.cshtml" />
+    <Content Include="Views\Kasa\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7028,7 +7030,6 @@
     <Folder Include="Picture\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\Kasa\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
