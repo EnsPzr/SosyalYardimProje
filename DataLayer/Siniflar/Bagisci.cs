@@ -28,13 +28,13 @@ namespace DataLayer.Siniflar
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(KullaniciId))
             {
-                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).AsQueryable();
+                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.BagisciMi == true).AsQueryable();
                 if (SehirId != null)
                 {
                     dondurulecek = dondurulecek.Where(p => p.SehirTablo_SehirId == SehirId);
                 }
 
-                if (aranan != null)
+                if (!(aranan.Equals("")))
                 {
                     dondurulecek = dondurulecek.Where(p => p.KullaniciAdi.Contains(aranan)
                                                            || p.KullaniciSoyadi.Contains(aranan)
@@ -48,8 +48,8 @@ namespace DataLayer.Siniflar
             else
             {
                 int? sehirId = kullaniciDAL.KullaniciSehir(KullaniciId);
-                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == sehirId).AsQueryable();
-                if (aranan != null)
+                var dondurulecek = db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == sehirId && p.BagisciMi == true).AsQueryable();
+                if (!(aranan.Equals("")))
                 {
                     dondurulecek = dondurulecek.Where(p => p.KullaniciAdi.Contains(aranan)
                                                            || p.KullaniciSoyadi.Contains(aranan)

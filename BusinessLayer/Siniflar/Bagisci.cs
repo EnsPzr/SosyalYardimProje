@@ -36,22 +36,47 @@ namespace BusinessLayer.Siniflar
         public List<BagisciModel> FiltreliBagiscilariGetir(int? KullaniciId, int? SehirId, String aranan)
         {
             var bagiscilar = bagisciDAL.FiltreliBagiscilariGetir(KullaniciId,SehirId,aranan);
-            var bagisciList = bagiscilar.Select(p => new BagisciModel()
+            if (bagiscilar.Count == 0)
             {
-                BagisciAdi = p.KullaniciAdi,
-                BagisciEPosta = p.KullaniciEPosta,
-                BagisciId = p.KullaniciId,
-                BagisciSifre = p.KullaniciSifre,
-                BagisciSoyadi = p.KullaniciSoyadi,
-                TelNo = p.KullaniciTelefonNumarasi,
-                Sehir = new SehirModel()
+                return new List<BagisciModel>();
+            }
+            else
+            {
+                var BagisciList = new List<BagisciModel>();
+                for (int i = 0; i < bagiscilar.Count; i++)
                 {
-                    SehirAdi = p.SehirTablo.SehirAdi,
-                    SehirId = p.SehirTablo_SehirId
-                },
-                Adres = p.KullaniciAdres
-            }).ToList();
-            return bagisciList;
+                    var bagisci = new BagisciModel();
+                    bagisci.BagisciAdi = bagiscilar[i].KullaniciAdi;
+                    bagisci.BagisciEPosta = bagiscilar[i].KullaniciEPosta;
+                    bagisci.BagisciId = bagiscilar[i].KullaniciId;
+                    bagisci.BagisciSifre = bagiscilar[i].KullaniciSifre;
+                    bagisci.BagisciSoyadi = bagiscilar[i].KullaniciSoyadi;
+                    bagisci.TelNo = bagiscilar[i].KullaniciTelefonNumarasi;
+                    bagisci.Sehir = new SehirModel()
+                    {
+                        SehirAdi = bagiscilar[i].SehirTablo.SehirAdi,
+                        SehirId = bagiscilar[i].SehirTablo_SehirId
+                    };
+                    bagisci.Adres = bagiscilar[i].KullaniciAdres;
+                    BagisciList.Add(bagisci);
+                }
+                //var bagisciList = bagiscilar.Select(p => new BagisciModel()
+                //{
+                //    BagisciAdi = p.KullaniciAdi,
+                //    BagisciEPosta = p.KullaniciEPosta,
+                //    BagisciId = p.KullaniciId,
+                //    BagisciSifre = p.KullaniciSifre,
+                //    BagisciSoyadi = p.KullaniciSoyadi,
+                //    TelNo = p.KullaniciTelefonNumarasi,
+                //    Sehir = new SehirModel()
+                //    {
+                //        SehirAdi = p.SehirTablo.SehirAdi,
+                //        SehirId = p.SehirTablo_SehirId
+                //    },
+                //    Adres = p.KullaniciAdres
+                //}).ToList();
+                return BagisciList;
+            }
         }
     }
 }
