@@ -141,6 +141,11 @@ namespace BusinessLayer.Siniflar
                     model.EklenmeTarihiStr = bagis.EklenmeTarihi.Value.ToShortDateString();
                 }
 
+                if (bagis.TahminiTeslimAlmaTarihi != null)
+                {
+                    model.TahminiTeslimAlma = bagis.TahminiTeslimAlmaTarihi;
+                }
+
                 model.OnaylandiMiStr =
                     bagis.OnaylandiMi != null ? bagis.OnaylandiMi == true ? "Evet" : "Hayır" : "Hayır";
                 model.TeslimAlindiMi = bagis.TeslimAlindiMi != null ? bagis.TeslimAlindiMi == true ? "Evet" : "Hayır" : "Hayır";
@@ -173,6 +178,25 @@ namespace BusinessLayer.Siniflar
             {
                 return null;
             }
+        }
+
+        public bool TeslimBagisKaydet(TeslimAlinacakBagisModel model)
+        {
+            BagisTablo bagisTablo= new BagisTablo();
+            bagisTablo.BagisId = Convert.ToInt32(model.BagisId);
+            bagisTablo.TahminiTeslimAlmaTarihi = model.TahminiTeslimAlma;
+            List<BagisDetayTablo> bagisDetayTablo = new List<BagisDetayTablo>();
+            for (int i = 0; i < model.esyaModel.Count; i++)
+            {
+                var eklenecek=new BagisDetayTablo();
+                eklenecek.Adet = model.esyaModel[i].Adet;
+                eklenecek.AlinacakMi = model.esyaModel[i].AlinacakMi;
+                eklenecek.AlindiMi = model.esyaModel[i].AlindiMi;
+                eklenecek.BagisDetayId = Convert.ToInt32(model.esyaModel[i].BagisDetayId);
+                bagisDetayTablo.Add(eklenecek);
+            }
+
+            return tesDAL.TeslimBagisKaydet(bagisTablo, bagisDetayTablo);
         }
 
         public bool KullaniciBagisDetayiGorebilirMi(int? kullaniciId, int? bagisId)

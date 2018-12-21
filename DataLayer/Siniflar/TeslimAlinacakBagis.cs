@@ -125,5 +125,53 @@ namespace DataLayer.Siniflar
                 }
             }
         }
+
+
+        public bool TeslimBagisKaydet(BagisTablo bagisTablo,List<BagisDetayTablo> bagisDetayTablo)
+        {
+            var duzenlenecekBagis = db.BagisTablo.FirstOrDefault(p => p.BagisId == bagisTablo.BagisId);
+            if (duzenlenecekBagis != null)
+            {
+                duzenlenecekBagis.OnaylandiMi = true;
+                if (bagisTablo.TahminiTeslimAlmaTarihi != null)
+                {
+                    duzenlenecekBagis.TahminiTeslimAlmaTarihi = bagisTablo.TahminiTeslimAlmaTarihi;
+                }
+            }
+
+            db.SaveChanges();
+            int sayac = 0;
+            int sayac2 = 0;
+            for (int i = 0; i < bagisDetayTablo.Count; i++)
+            {
+                int? bagisDetayId = bagisDetayTablo[i].BagisDetayId;
+                var duzenlenecekBagisDetay = db.BagisDetayTablo.FirstOrDefault(p => p.BagisDetayId== bagisDetayId);
+                if (duzenlenecekBagisDetay != null)
+                {
+                    duzenlenecekBagisDetay.Adet = bagisDetayTablo[i].Adet;
+                    duzenlenecekBagisDetay.AlinacakMi = bagisDetayTablo[i].AlinacakMi;
+                    if (bagisDetayTablo[i].AlinacakMi == true)
+                    {
+                        sayac2++;
+                    }
+                    duzenlenecekBagisDetay.AlindiMi = bagisDetayTablo[i].AlindiMi;
+                    if (bagisDetayTablo[i].AlindiMi == true)
+                    {
+                        sayac++;
+                        duzenlenecekBagisDetay.AlinmaTarihi = DateTime.Now;
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+            if (sayac2 == sayac)
+            {
+                duzenlenecekBagis.TeslimAlindiMi = true;
+                db.SaveChanges();
+            }
+
+            return true;
+        }
     }
 }

@@ -32,6 +32,11 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
         [Display(Name = "Teslim Alındı Mı")]
         public String TeslimAlindiMi { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Tahmini Teslim Alma")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? TahminiTeslimAlma { get; set; }
+
         public List<TeslimAlinacakBagisEsyaModel> esyaModel { get; set; }
 
         public TeslimAlinacakBagisModel()

@@ -95,6 +95,12 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Duzenle(TeslimAlinacakBagisModel model)
+        {
+            return View();
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
