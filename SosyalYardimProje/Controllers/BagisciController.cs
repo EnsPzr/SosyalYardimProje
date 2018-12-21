@@ -55,6 +55,71 @@ namespace SosyalYardimProje.Controllers
             return Json(model2, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Duzenle(int? id)
+        {
+            if (id != null)
+            {
+                if (bagisciBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),id))
+                {
+                    var bagisci = bagisciBAL.BagisciBul(id);
+                    if (bagisci != null)
+                    {
+                        Tanimla();
+                        return View(bagisci);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Düzenlemek istediğiniz bağışçı bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bölgenizdeki bağışçılar ile ilgili işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz bağışçıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Duzenle(BagisciModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (bagisciBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), model.BagisciId))
+                {
+                    var onay = bagisciBAL.BagisciKaydet(model);
+                    if (onay.TamamlandiMi == true)
+                    {
+                        TempData["uyari"] = "Bağışçı güncelleme işlemi başarı ile tamamlandı.";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
+                        TempData["hata"] = hatalar;
+                        Tanimla();
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bölgenizdeki bağışçılar ile ilgili işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
