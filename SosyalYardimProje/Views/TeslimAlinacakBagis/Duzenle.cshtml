@@ -1,0 +1,104 @@
+﻿@model BusinessLayer.Models.TeslimAlinacakBagis.TeslimAlinacakBagisModel
+
+@{
+    ViewBag.Title = "Bagış Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12 col-xs-12">
+    <h2>Bağış Detay</h2>
+    @if (TempData["hata"] != null)
+    {
+        <div class="col-md-12 col-xs-12">
+            <div class="alert alert-danger">
+                @TempData["hata"].ToString()
+            </div>
+        </div>
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.HiddenFor(m => m.BagisId)
+                @Html.LabelFor(model => model.BagisciAdiSoyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.HiddenFor(m => m.BagisciAdiSoyadi)
+                    <h5>@Html.DisplayTextFor(model => model.BagisciAdiSoyadi)</h5>
+                </div>
+                @Html.HiddenFor(m => m.BagisciTelNo)
+                @Html.LabelFor(model => model.BagisciTelNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    <h5>@Html.DisplayTextFor(model => model.BagisciTelNo)</h5>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BagisciAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.HiddenFor(m => m.BagisciAdres)
+                    <h5>@Html.DisplayTextFor(model => model.BagisciAdres)</h5>
+                </div>
+                @Html.LabelFor(model => model.EklenmeTarihiStr, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.HiddenFor(m => m.EklenmeTarihiStr)
+                    <h5>@Html.DisplayTextFor(model => model.EklenmeTarihiStr)</h5>
+                </div>
+            </div>
+            <div class="form-group">
+                @for (int i = 0; i < Model.esyaModel.Count; i++)
+                {
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <center>
+                                    @Html.HiddenFor(model => model.esyaModel[i].BagisDetayId)
+                                    @Html.Label(Model.esyaModel[i].EsyaAdi, new { htmlAttributes = new { @class = "form-control" } })<br />
+                                    <div class="col-md-4">
+                                        &emsp;
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(Model => Model.esyaModel[i].Adet, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        &emsp;
+                                    </div><br /><br />
+                                    @Html.LabelFor(Model => Model.esyaModel[i].AlinacakMi)
+                                    @Html.CheckBoxFor(model => model.esyaModel[i].AlinacakMi)<br />
+                                    @Html.LabelFor(Model => Model.esyaModel[i].AlindiMi)
+                                    @Html.CheckBoxFor(model => model.esyaModel[i].AlindiMi)<br />
+                                </center>
+                            </div>
+                            <div class="panel-body">
+                                <center>
+                                    @for (int j = 0; j < Model.esyaModel[i].resimModel.Count; j++)
+                                    {
+                                        <div class="col-md-4">
+                                            <img src="@Model.esyaModel[i].resimModel[j].ResimYol" style="height: 400px; width: 300px;" />
+                                        </div>
+                                    }
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <center>
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </center>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Listeye Geri Dön", "Liste")
+    </div>
+
+</div>

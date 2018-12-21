@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.TeslimAlinacakBagis;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
@@ -70,7 +72,7 @@ namespace BusinessLayer.Siniflar
             List<TeslimAlinacakBagisModel> don = new List<TeslimAlinacakBagisModel>();
             if (bagislar.Count == 0)
             {
-                return don=new List<TeslimAlinacakBagisModel>();
+                return don = new List<TeslimAlinacakBagisModel>();
             }
             else
             {
@@ -123,6 +125,59 @@ namespace BusinessLayer.Siniflar
             }
 
             return don;
+        }
+
+        public TeslimAlinacakBagisModel Detay(int? id)
+        {
+            var bagis = tesDAL.Detay(id);
+            if (bagis != null)
+            {
+                TeslimAlinacakBagisModel model = new TeslimAlinacakBagisModel();
+                model.BagisId = bagis.BagisId;
+                model.BagisciAdres = bagis.KullaniciBilgileriTablo.KullaniciAdres;
+                model.BagisciTelNo = bagis.KullaniciBilgileriTablo.KullaniciTelefonNumarasi;
+                if (bagis.EklenmeTarihi != null)
+                {
+                    model.EklenmeTarihiStr = bagis.EklenmeTarihi.Value.ToShortDateString();
+                }
+
+                model.OnaylandiMiStr =
+                    bagis.OnaylandiMi != null ? bagis.OnaylandiMi == true ? "Evet" : "Hayır" : "Hayır";
+                model.TeslimAlindiMi = bagis.TeslimAlindiMi != null ? bagis.TeslimAlindiMi == true ? "Evet" : "Hayır" : "Hayır";
+                model.BagisciAdiSoyadi = bagis.KullaniciBilgileriTablo.KullaniciAdi + " " +
+                                         bagis.KullaniciBilgileriTablo.KullaniciSoyadi;
+
+                var bagisEsya = tesDAL.BagisDetay(id);
+                for (int i = 0; i < bagisEsya.Count; i++)
+                {
+                    var eklenecekBagisDetay=new TeslimAlinacakBagisEsyaModel();
+                    eklenecekBagisDetay.EsyaAdi = bagisEsya[i].EsyaTablo.EsyaAdi;
+                    eklenecekBagisDetay.Adet = bagisEsya[i].Adet;
+                    eklenecekBagisDetay.AlinacakMi=bagisEsya[i].AlinacakMi != null ? bagisEsya[i].AlinacakMi == true ? true : false : false;
+                    eklenecekBagisDetay.AlindiMi= bagisEsya[i].AlindiMi != null ? bagisEsya[i].AlindiMi == true ? true : false : false;
+                    eklenecekBagisDetay.BagisDetayId = bagisEsya[i].BagisDetayId;
+                    var resTablo = tesDAL.BagisResim(eklenecekBagisDetay.BagisDetayId);
+                    for (int j = 0; j < resTablo.Count; j++)
+                    {
+                        var eklenecekResim=new TeslimAlinacakBagisResimModel();
+                        eklenecekResim.ResimId = resTablo[j].BagisResimId;
+                        eklenecekResim.ResimYol = resTablo[j].BagisResimUrl;
+                        eklenecekBagisDetay.resimModel.Add(eklenecekResim);
+                    }
+                    model.esyaModel.Add(eklenecekBagisDetay);
+                }
+
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool KullaniciBagisDetayiGorebilirMi(int? kullaniciId, int? bagisId)
+        {
+            return tesDAL.KullaniciBagisDetayiGorebilirMi(kullaniciId, bagisId);
         }
     }
 }

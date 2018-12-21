@@ -65,6 +65,36 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Duzenle(int? bagisId=1)
+        {
+            if (bagisId != null)
+            {
+                if (bagisBAL.KullaniciBagisDetayiGorebilirMi(KullaniciBilgileriDondur.KullaniciId(), bagisId))
+                {
+                    var bagis = bagisBAL.Detay(bagisId);
+                    if (bagis != null)
+                    {
+                        return View(bagis);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Bağış bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Bu bağışı düzenlemek için yetjniz bulunmamaktadır.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek için bağış seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>

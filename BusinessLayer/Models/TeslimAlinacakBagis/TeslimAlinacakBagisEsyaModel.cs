@@ -15,9 +15,10 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
         public String EsyaAdi { get; set; }
 
         public int? Adet { get; set; }
-
+        [Display(Name = "Alınacak Mı?")]
         public bool AlinacakMi { get; set; }
 
+        [Display(Name = "Alındı Mı?")]
         public bool AlindiMi { get; set; }
 
         public List<TeslimAlinacakBagisResimModel> resimModel { get; set; }
