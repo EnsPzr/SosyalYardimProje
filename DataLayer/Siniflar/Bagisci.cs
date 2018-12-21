@@ -126,6 +126,21 @@ namespace DataLayer.Siniflar
             }
         }
 
+        public bool BagisciSil(int? id)
+        {
+            var bagisci = kullaniciDAL.KullaniciBul(id);
+            if (bagisci != null)
+            {
+                bagisci.AktifMi = false;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool BagisciIdVarMi(int? id)
         {
             if (db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == id) != null)

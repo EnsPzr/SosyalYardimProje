@@ -144,5 +144,45 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public IslemOnayModel BagisciSil(int? kullaniciId, int? id)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var bagisci = kullaniciDAL.KullaniciGetir(id);
+            if (bagisci != null)
+            {
+                if (KullaniciIslemYapabilirMi(kullaniciId, id))
+                {
+                    if (bagisci.BagisciMi == true)
+                    {
+                        if (bagisciDAL.BagisciSil(id))
+                        {
+                            onay.TamamlandiMi = true;
+                        }
+                        else
+                        {
+                            onay.TamamlandiMi = false;
+                        }
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Bu sayfada sadece bağışçılar ile ilgili işlem yapılabilir.");
+                    }
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Sadece kendi bölgenizdeki bağışçılar için işlem yapabilirsiniz.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Silinmek istenen bağışçı bulunamadı.");
+            }
+
+            return onay;
+        }
     }
 }
