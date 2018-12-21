@@ -23,6 +23,10 @@ namespace BusinessLayer.Siniflar
                 eklenecek.BagisciTelNo = bagislar[i].KullaniciBilgileriTablo.KullaniciTelefonNumarasi;
                 eklenecek.BagisciAdres = bagislar[i].KullaniciBilgileriTablo.KullaniciAdres;
                 eklenecek.EklenmeTarihi = bagislar[i].EklenmeTarihi;
+                if (bagislar[i].EklenmeTarihi != null)
+                {
+                    eklenecek.EklenmeTarihiStr = bagislar[i].EklenmeTarihi.Value.ToShortDateString();
+                }
                 if (bagislar[i].OnaylandiMi != null)
                 {
                     if (bagislar[i].OnaylandiMi == true)
@@ -64,47 +68,58 @@ namespace BusinessLayer.Siniflar
         {
             var bagislar = tesDAL.FiltreliBagislariGetir(kullaniciId, sehirId, aranan, tarih);
             List<TeslimAlinacakBagisModel> don = new List<TeslimAlinacakBagisModel>();
-            for (int i = 0; i < bagislar.Count; i++)
+            if (bagislar.Count == 0)
             {
-                var eklenecek = new TeslimAlinacakBagisModel();
-                eklenecek.BagisId = bagislar[i].BagisId;
-                eklenecek.BagisciAdiSoyadi = bagislar[i].KullaniciBilgileriTablo.KullaniciAdi + " " +
-                                             bagislar[i].KullaniciBilgileriTablo.KullaniciSoyadi;
-                eklenecek.BagisciTelNo = bagislar[i].KullaniciBilgileriTablo.KullaniciTelefonNumarasi;
-                eklenecek.BagisciAdres = bagislar[i].KullaniciBilgileriTablo.KullaniciAdres;
-                eklenecek.EklenmeTarihi = bagislar[i].EklenmeTarihi;
-                if (bagislar[i].OnaylandiMi != null)
+                return don=new List<TeslimAlinacakBagisModel>();
+            }
+            else
+            {
+                for (int i = 0; i < bagislar.Count; i++)
                 {
-                    if (bagislar[i].OnaylandiMi == true)
+                    var eklenecek = new TeslimAlinacakBagisModel();
+                    eklenecek.BagisId = bagislar[i].BagisId;
+                    eklenecek.BagisciAdiSoyadi = bagislar[i].KullaniciBilgileriTablo.KullaniciAdi + " " +
+                                                 bagislar[i].KullaniciBilgileriTablo.KullaniciSoyadi;
+                    eklenecek.BagisciTelNo = bagislar[i].KullaniciBilgileriTablo.KullaniciTelefonNumarasi;
+                    eklenecek.BagisciAdres = bagislar[i].KullaniciBilgileriTablo.KullaniciAdres;
+                    eklenecek.EklenmeTarihi = bagislar[i].EklenmeTarihi;
+                    if (bagislar[i].EklenmeTarihi != null)
                     {
-                        eklenecek.OnaylandiMiStr = "Evet";
+                        eklenecek.EklenmeTarihiStr = bagislar[i].EklenmeTarihi.Value.ToShortDateString();
+                    }
+                    if (bagislar[i].OnaylandiMi != null)
+                    {
+                        if (bagislar[i].OnaylandiMi == true)
+                        {
+                            eklenecek.OnaylandiMiStr = "Evet";
+                        }
+                        else
+                        {
+                            eklenecek.OnaylandiMiStr = "Hayır";
+                        }
                     }
                     else
                     {
                         eklenecek.OnaylandiMiStr = "Hayır";
                     }
-                }
-                else
-                {
-                    eklenecek.OnaylandiMiStr = "Hayır";
-                }
 
-                if (bagislar[i].TeslimAlindiMi != null)
-                {
-                    if (bagislar[i].TeslimAlindiMi == true)
+                    if (bagislar[i].TeslimAlindiMi != null)
                     {
-                        eklenecek.TeslimAlindiMi = "Evet";
+                        if (bagislar[i].TeslimAlindiMi == true)
+                        {
+                            eklenecek.TeslimAlindiMi = "Evet";
+                        }
+                        else
+                        {
+                            eklenecek.TeslimAlindiMi = "Hayır";
+                        }
                     }
                     else
                     {
                         eklenecek.TeslimAlindiMi = "Hayır";
                     }
+                    don.Add(eklenecek);
                 }
-                else
-                {
-                    eklenecek.TeslimAlindiMi = "Hayır";
-                }
-                don.Add(eklenecek);
             }
 
             return don;

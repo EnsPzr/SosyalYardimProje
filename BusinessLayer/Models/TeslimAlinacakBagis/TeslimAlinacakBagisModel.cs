@@ -22,7 +22,10 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
 
         [Display(Name = "Eklenme Tarihi")]
         public DateTime? EklenmeTarihi { get; set; }
-        
+
+        [Display(Name = "Eklenme Tarihi")]
+        public String EklenmeTarihiStr { get; set; }
+
         [Display(Name = "Onaylandı Mı")]
         public String OnaylandiMiStr { get; set; }
 

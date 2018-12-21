@@ -46,11 +46,20 @@ namespace SosyalYardimProje.Controllers
                     tarih = null;
                 }
             }
+            else
+            {
+                tarih = null;
+            }
+
+            if ((aranan.Equals("")))
+            {
+                aranan = null;
+            }
             TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
             {
                 BagisList = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(),sehirId,aranan,tarih),
                 BasariliMi = true,
-                BagisSayisi = bagisBAL.TumBagislariGetir(KullaniciBilgileriDondur.KullaniciId()).Count
+                BagisSayisi = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(), sehirId, aranan, tarih).Count
             };
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
