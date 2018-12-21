@@ -32,5 +32,26 @@ namespace BusinessLayer.Siniflar
             }).ToList();
             return bagisciList;
         }
+
+        public List<BagisciModel> FiltreliBagiscilariGetir(int? KullaniciId, int? SehirId, String aranan)
+        {
+            var bagiscilar = bagisciDAL.FiltreliBagiscilariGetir(KullaniciId,SehirId,aranan);
+            var bagisciList = bagiscilar.Select(p => new BagisciModel()
+            {
+                BagisciAdi = p.KullaniciAdi,
+                BagisciEPosta = p.KullaniciEPosta,
+                BagisciId = p.KullaniciId,
+                BagisciSifre = p.KullaniciSifre,
+                BagisciSoyadi = p.KullaniciSoyadi,
+                TelNo = p.KullaniciTelefonNumarasi,
+                Sehir = new SehirModel()
+                {
+                    SehirAdi = p.SehirTablo.SehirAdi,
+                    SehirId = p.SehirTablo_SehirId
+                },
+                Adres = p.KullaniciAdres
+            }).ToList();
+            return bagisciList;
+        }
     }
 }
