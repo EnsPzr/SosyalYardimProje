@@ -99,7 +99,66 @@ namespace SosyalYardimProje.Controllers
         [HttpPost]
         public ActionResult Duzenle(TeslimAlinacakBagisModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                int sayac = 0;
+                for (int i = 0; i < model.esyaModel.Count; i++)
+                {
+                    if (model.esyaModel[i].AlinacakMi == true)
+                    {
+                        sayac++;
+                    }
+                }
+
+                if (!(sayac > 0 && model.TahminiTeslimAlma.HasValue))
+                {
+                    ModelState.AddModelError("TahminiTeslimAlma", "Tahmini Teslim Alma Tarihi Seçilmelidir.");
+                    return View(model);
+                }
+
+                if (model.TahminiTeslimAlma.HasValue)
+                {
+                    try
+                    {
+                        Convert.ToDateTime(model.TahminiTeslimAlma);
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("TahminiTeslimAlma","Tahmini teslim alma formatı uygun değil");
+                        return View(model);
+                    }
+                }
+
+                int sayac2 = 0;
+                for (int i = 0; i < model.esyaModel.Count; i++)
+                {
+                    if (model.esyaModel[i].AlinacakMi == false && model.esyaModel[i].AlindiMi == true)
+                    {
+                        sayac2++;
+                    }
+                }
+
+                if (sayac2 > 0)
+                {
+                    TempData["hata"] = "Teslim alınmayacak olarak işaretlenen eşya için teslim alındı işaretlenmiş.";
+                    return View(model);
+                }
+
+                if (bagisBAL.TeslimBagisKaydet(model))
+                {
+                    TempData["uyari"] = "Kayıt başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    TempData["hata"] = "Kayıt sırasında hata oluştu.";
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
         }
         public void Tanimla()
         {

@@ -55,6 +55,7 @@
                             <div class="panel-heading">
                                 <center>
                                     @Html.HiddenFor(model => model.esyaModel[i].BagisDetayId)
+                                    @Html.HiddenFor(model => model.esyaModel[i].EsyaAdi)
                                     @Html.Label(Model.esyaModel[i].EsyaAdi, new { htmlAttributes = new { @class = "form-control" } })<br />
                                     <div class="col-md-4">
                                         &emsp;
@@ -76,7 +77,8 @@
                                     @for (int j = 0; j < Model.esyaModel[i].resimModel.Count; j++)
                                     {
                                         <div class="col-md-4">
-                                            <img src="@Model.esyaModel[i].resimModel[j].ResimYol" style="height: 400px; width: 300px;" />
+                                            @Html.HiddenFor(m=>m.esyaModel[i].resimModel[j].ResimYol)
+                                            <img src="@Model.esyaModel[i].resimModel[j].ResimYol" style="height: 400px; width: 300px;"/>
                                         </div>
                                     }
                                 </center>
@@ -87,13 +89,19 @@
             </div>
             <div class="form-group">
                 <div class="col-md-12">
+                    <div class="col-md-3">
+                        &emsp;
+                    </div>
                     <center>
-                        @Html.LabelFor(model => model.TahminiTeslimAlma, htmlAttributes: new {@class = "control-label col-md-2"})
+                        @Html.LabelFor(model => model.TahminiTeslimAlma, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.TahminiTeslimAlma, new {htmlAttributes = new {@class = "form-control"}})
-                            @Html.ValidationMessageFor(model => model.TahminiTeslimAlma, "", new {@class = "text-danger"})
+                            @Html.EditorFor(model => model.TahminiTeslimAlma, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TahminiTeslimAlma, "", new { @class = "text-danger" })
                         </div>
                     </center>
+                    <div class="col-md-3">
+                        &emsp;
+                    </div>
                 </div>
             </div>
         </div>
