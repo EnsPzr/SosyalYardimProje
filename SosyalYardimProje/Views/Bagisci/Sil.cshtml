@@ -1,0 +1,74 @@
+﻿@model BusinessLayer.Models.BagisciModelleri.BagisciModel
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bağışçı Sil</h2>
+
+<h3>Silmek İstediğinize Emin Misiniz?</h3>
+<div class="col-md-12 col-xs-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BagisciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BagisciSoyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir.SehirAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir.SehirAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciEPosta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BagisciEPosta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Durum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Durum)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("BagisciSil", "Bagisci", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.Hidden("id", Model.BagisciId)
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "Liste")
+        </div>
+    }
+</div>

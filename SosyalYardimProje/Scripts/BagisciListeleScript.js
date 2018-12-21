@@ -24,7 +24,8 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.BagisciList[i].TelNo + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].Sehir.SehirAdi + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].BagisciEPosta + "</td>" +
-                                "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId+"'></a> | " +
+                                "<td class='col-md-1 hidden-xs'>" + result.BagisciList[i].Durum + "</td>" +
+                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId+"'></a> | " +
                                 "<a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.BagisciList[i].BagisciId +"'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Bagisci/Sil/" + result.BagisciList[i].BagisciId +"'></a></td></tr >";
                         } else {
@@ -34,7 +35,8 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.BagisciList[i].TelNo + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].Sehir.SehirAdi + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].BagisciEPosta + "</td>" +
-                                "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
+                                "<td class='col-md-1 hidden-xs'>" + result.BagisciList[i].Durum + "</td>" +
+                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Bagisci/Sil/" + result.BagisciList[i].BagisciId + "'></a></td></tr >";
                         }
@@ -99,7 +101,8 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.BagisciList[i].TelNo + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].Sehir.SehirAdi + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].BagisciEPosta + "</td>" +
-                                    "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
+                                    "<td class='col-md-1 hidden-xs'>" + result.BagisciList[i].Durum + "</td>" +
+                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Bagisci/Sil/" + result.BagisciList[i].BagisciId + "'></a></td></tr >";
                             } else {
@@ -109,7 +112,8 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.BagisciList[i].TelNo + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].Sehir.SehirAdi + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.BagisciList[i].BagisciEPosta + "</td>" +
-                                    "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
+                                    "<td class='col-md-1 hidden-xs'>" + result.BagisciList[i].Durum + "</td>" +
+                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Bagisci/Duzenle/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.BagisciList[i].BagisciId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Bagisci/Sil/" + result.BagisciList[i].BagisciId + "'></a></td></tr >";
                             }

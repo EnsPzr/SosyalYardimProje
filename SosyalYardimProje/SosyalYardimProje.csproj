@@ -7008,6 +7008,7 @@
     <Content Include="Views\IhtiyacSahibi\Teslim.cshtml" />
     <Content Include="Views\Bagisci\Liste.cshtml" />
     <Content Include="Views\Bagisci\Duzenle.cshtml" />
+    <Content Include="Views\Bagisci\Sil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

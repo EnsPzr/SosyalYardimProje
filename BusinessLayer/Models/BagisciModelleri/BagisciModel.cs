@@ -46,5 +46,7 @@ namespace BusinessLayer.Models.BagisciModelleri
         {
             Sehir = new SehirModel();
         }
+        [Display(Name = "Durum")]
+        public String Durum { get; set; }
     }
 }

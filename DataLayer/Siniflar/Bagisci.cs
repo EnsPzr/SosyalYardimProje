@@ -131,9 +131,13 @@ namespace DataLayer.Siniflar
             var bagisci = kullaniciDAL.KullaniciBul(id);
             if (bagisci != null)
             {
-                bagisci.AktifMi = false;
-                db.SaveChanges();
-                return true;
+                var kul = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == id);
+                kul.AktifMi = false;
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             else
             {

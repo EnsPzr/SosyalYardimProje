@@ -55,7 +55,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model2, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Duzenle(int? id=1004)
+        public ActionResult Duzenle(int? id)
         {
             if (id != null)
             {
@@ -118,6 +118,62 @@ namespace SosyalYardimProje.Controllers
             {
                 Tanimla();
                 return View(model);
+            }
+        }
+
+        public ActionResult Sil(int? id=1004)
+        {
+            if (id != null)
+            {
+                if (bagisciBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
+                {
+                    var bagisci = bagisciBAL.BagisciBul(id);
+                    if (bagisci != null)
+                    {
+                        return View(bagisci);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Düzenlemek istediğiniz bağışçı bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bölgenizdeki bağışçılar ile ilgili işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz bağışçıyı seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult BagisciSil(int? id)
+        {
+            if (id != null)
+            {
+                var sonuc = bagisciBAL.BagisciSil(KullaniciBilgileriDondur.KullaniciId(), id);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz bağışçıyı seçiniz";
+                return RedirectToAction("Liste");
             }
         }
         public void Tanimla()

@@ -30,14 +30,15 @@ namespace BusinessLayer.Siniflar
                     SehirAdi = p.SehirTablo.SehirAdi,
                     SehirId = p.SehirTablo_SehirId
                 },
-                Adres=p.KullaniciAdres
+                Adres = p.KullaniciAdres,
+                Durum = p.AktifMi != null ? p.AktifMi == true ? "Evet" : "Hayır" : "Hayır"
             }).ToList();
             return bagisciList;
         }
 
         public List<BagisciModel> FiltreliBagiscilariGetir(int? KullaniciId, int? SehirId, String aranan)
         {
-            var bagiscilar = bagisciDAL.FiltreliBagiscilariGetir(KullaniciId,SehirId,aranan);
+            var bagiscilar = bagisciDAL.FiltreliBagiscilariGetir(KullaniciId, SehirId, aranan);
             if (bagiscilar.Count == 0)
             {
                 return new List<BagisciModel>();
@@ -60,6 +61,10 @@ namespace BusinessLayer.Siniflar
                         SehirId = bagiscilar[i].SehirTablo_SehirId
                     };
                     bagisci.Adres = bagiscilar[i].KullaniciAdres;
+
+                    bagisci.Durum = bagiscilar[i].AktifMi != null
+                        ? bagiscilar[i].AktifMi == true ? "Evet" : "Hayır"
+                        : "Hayır";
                     BagisciList.Add(bagisci);
                 }
                 //var bagisciList = bagiscilar.Select(p => new BagisciModel()
@@ -104,6 +109,9 @@ namespace BusinessLayer.Siniflar
                 }
                 model.BagisciEPosta = kullanici.KullaniciEPosta;
                 model.BagisciSifre = kullanici.KullaniciSifre;
+                model.Durum = kullanici.AktifMi != null
+                    ? kullanici.AktifMi == true ? "Evet" : "Hayır"
+                    : "Hayır";
                 return model;
             }
             else
