@@ -6962,6 +6962,7 @@
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
     <Compile Include="Controllers\SubeController.cs" />
+    <Compile Include="Controllers\TeslimAlinacakBagisController.cs" />
     <Compile Include="Controllers\YetkiController.cs" />
     <Compile Include="Filters\KullaniciLoginFilter.cs" />
     <Compile Include="Filters\SadeceLoginFilter.cs" />
@@ -7022,6 +7023,7 @@
     <Folder Include="Models\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\TeslimAlinacakBagis\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
