@@ -53,6 +53,8 @@
     <Compile Include="Models\AnaSayfaModelleri\OnayBekleyenIhtiyacSahipleriModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimAlinmaBekleyenBagislarListe.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
+    <Compile Include="Models\BagisciModelleri\BagisciJSModel.cs" />
+    <Compile Include="Models\BagisciModelleri\BagisciModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoJsModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoModel.cs" />
     <Compile Include="Models\EsyaModelleri\EsyaJsModel.cs" />
@@ -95,8 +97,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\BagisciModelleri\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

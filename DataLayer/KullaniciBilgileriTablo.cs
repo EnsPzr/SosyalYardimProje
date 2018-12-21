@@ -41,6 +41,7 @@ namespace DataLayer
         public string KullaniciSifre { get; set; }
         public string AndroidToken { get; set; }
         public Nullable<bool> AktifMi { get; set; }
+        public string KullaniciAdres { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BagisTablo> BagisTablo { get; set; }
