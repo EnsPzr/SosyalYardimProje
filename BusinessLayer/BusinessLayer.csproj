@@ -68,6 +68,7 @@
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiTeslimEdilecekEsyaModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiTeslimModel.cs" />
     <Compile Include="Models\IhtiyacSahibiModelleri\IhtiyacSahibiVerileceklerModel.cs" />
+    <Compile Include="Models\KasaModelleri\KasaModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciFiltrelemeModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciGirisModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciJSModel.cs" />
