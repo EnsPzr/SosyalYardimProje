@@ -48,6 +48,9 @@
         <AssociationConnector Association="SosyalYardimProjeDBModel.FK_MesajDetayTablo_MesajTablo" ManuallyRouted="false" />
         <AssociationConnector Association="SosyalYardimProjeDBModel.FK_YetkiTablo_RotaTablo" ManuallyRouted="false" />
         <AssociationConnector Association="SosyalYardimProjeDBModel.FK_SubeTablo_SehirTablo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SosyalYardimProjeDBModel.KasaTablo" Width="1.5" PointX="11.25" PointY="27.125" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_KasaTablo_KullaniciBilgileriTablo" />
+        <AssociationConnector Association="SosyalYardimProjeDBModel.FK_KasaTablo_SehirTablo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

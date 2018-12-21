@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SosyalYardimProjeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SosyalYardimProjeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BagisDetayResimTablo">
           <Key>
             <PropertyRef Name="BagisResimId" />
@@ -112,6 +112,17 @@
           <Property Name="VerilecekMaddiYardim" Type="float" />
           <Property Name="IhtiyacSahibiKontrolTablo.IhtiyacSahibiKontrolId" Type="int" />
           <Property Name="VerilmeGerceklesmeTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="KasaTablo">
+          <Key>
+            <PropertyRef Name="KasaId" />
+          </Key>
+          <Property Name="KasaId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="float" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="50" />
+          <Property Name="KullaniciBilgleriTablo.KullaniciId" Type="int" />
+          <Property Name="SehirTablo.SehirId" Type="int" />
         </EntityType>
         <EntityType Name="KullaniciBilgileriTablo">
           <Key>
@@ -375,6 +386,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KasaTablo_KullaniciBilgileriTablo">
+          <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="KullaniciBilgleriTablo.KullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_SehirTablo">
+          <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
+          <End Role="KasaTablo" Type="Self.KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="SehirTablo.SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KullaniciBilgileriTablo_SehirTablo">
           <End Role="SehirTablo" Type="Self.SehirTablo" Multiplicity="0..1" />
           <End Role="KullaniciBilgileriTablo" Type="Self.KullaniciBilgileriTablo" Multiplicity="*" />
@@ -495,6 +530,7 @@
           <EntitySet Name="IhtiyacSahibiVeKullaniciTablo" EntityType="Self.IhtiyacSahibiVeKullaniciTablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IhtiyacSahibiVerilecekEsyaTablo" EntityType="Self.IhtiyacSahibiVerilecekEsyaTablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IhtiyacSahibiVerilecekMaddiTablo" EntityType="Self.IhtiyacSahibiVerilecekMaddiTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KasaTablo" EntityType="Self.KasaTablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KullaniciBilgileriTablo" EntityType="Self.KullaniciBilgileriTablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogTablo" EntityType="Self.LogTablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MesajDetayTablo" EntityType="Self.MesajDetayTablo" Schema="dbo" store:Type="Tables" />
@@ -560,6 +596,14 @@
             <End Role="IhtiyacSahibiKontrolTablo" EntitySet="IhtiyacSahibiKontrolTablo" />
             <End Role="IhtiyacSahibiVerilecekMaddiTablo" EntitySet="IhtiyacSahibiVerilecekMaddiTablo" />
           </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_KullaniciBilgileriTablo" Association="Self.FK_KasaTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_SehirTablo" Association="Self.FK_KasaTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
           <AssociationSet Name="FK_KullaniciBilgileriTablo_SehirTablo" Association="Self.FK_KullaniciBilgileriTablo_SehirTablo">
             <End Role="SehirTablo" EntitySet="SehirTablo" />
             <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
@@ -597,8 +641,7 @@
             <End Role="YetkiTablo" EntitySet="YetkiTablo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SosyalYardimProjeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -761,6 +804,7 @@
           <NavigationProperty Name="MesajTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="MesajTablo" />
           <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="SubeTablo" />
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="YetkiTablo" />
+          <NavigationProperty Name="KasaTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_KullaniciBilgileriTablo" FromRole="KullaniciBilgileriTablo" ToRole="KasaTablo" />
         </EntityType>
         <EntityType Name="LogTablo">
           <Key>
@@ -818,6 +862,7 @@
           <NavigationProperty Name="IhtiyacSahibiTablo" Relationship="Self.FK_IhtiyacSahibiTablo_SehirTablo" FromRole="SehirTablo" ToRole="IhtiyacSahibiTablo" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_KullaniciBilgileriTablo_SehirTablo" FromRole="SehirTablo" ToRole="KullaniciBilgileriTablo" />
           <NavigationProperty Name="SubeTablo" Relationship="Self.FK_SubeTablo_SehirTablo" FromRole="SehirTablo" ToRole="SubeTablo" />
+          <NavigationProperty Name="KasaTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_SehirTablo" FromRole="SehirTablo" ToRole="KasaTablo" />
         </EntityType>
         <EntityType Name="SubeTablo">
           <Key>
@@ -1239,7 +1284,53 @@
             <End Role="SehirTablo" EntitySet="SehirTablo" />
             <End Role="SubeTablo" EntitySet="SubeTablo" />
           </AssociationSet>
+          <EntitySet Name="KasaTablo" EntityType="SosyalYardimProjeDBModel.KasaTablo" />
+          <AssociationSet Name="FK_KasaTablo_KullaniciBilgileriTablo" Association="SosyalYardimProjeDBModel.FK_KasaTablo_KullaniciBilgileriTablo">
+            <End Role="KullaniciBilgileriTablo" EntitySet="KullaniciBilgileriTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KasaTablo_SehirTablo" Association="SosyalYardimProjeDBModel.FK_KasaTablo_SehirTablo">
+            <End Role="SehirTablo" EntitySet="SehirTablo" />
+            <End Role="KasaTablo" EntitySet="KasaTablo" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="KasaTablo">
+          <Key>
+            <PropertyRef Name="KasaId" />
+          </Key>
+          <Property Name="KasaId" Type="Int32" Nullable="false" />
+          <Property Name="Miktar" Type="Double" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Aciklama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciBilgleriTablo_KullaniciId" Type="Int32" />
+          <Property Name="SehirTablo_SehirId" Type="Int32" />
+          <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_KullaniciBilgileriTablo" FromRole="KasaTablo" ToRole="KullaniciBilgileriTablo" />
+          <NavigationProperty Name="SehirTablo" Relationship="SosyalYardimProjeDBModel.FK_KasaTablo_SehirTablo" FromRole="KasaTablo" ToRole="SehirTablo" />
+        </EntityType>
+        <Association Name="FK_KasaTablo_KullaniciBilgileriTablo">
+          <End Type="SosyalYardimProjeDBModel.KullaniciBilgileriTablo" Role="KullaniciBilgileriTablo" Multiplicity="0..1" />
+          <End Type="SosyalYardimProjeDBModel.KasaTablo" Role="KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciBilgileriTablo">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="KullaniciBilgleriTablo_KullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KasaTablo_SehirTablo">
+          <End Type="SosyalYardimProjeDBModel.SehirTablo" Role="SehirTablo" Multiplicity="0..1" />
+          <End Type="SosyalYardimProjeDBModel.KasaTablo" Role="KasaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SehirTablo">
+              <PropertyRef Name="SehirId" />
+            </Principal>
+            <Dependent Role="KasaTablo">
+              <PropertyRef Name="SehirTablo_SehirId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1465,6 +1556,18 @@
                 <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciId" ColumnName="KullaniciBilgileriTablo.KullaniciId" />
                 <ScalarProperty Name="RotaTablo_RotaId" ColumnName="RotaTablo.RotaId" />
                 <ScalarProperty Name="GirebilirMi" ColumnName="GirebilirMi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KasaTablo">
+            <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.KasaTablo">
+              <MappingFragment StoreEntitySet="KasaTablo">
+                <ScalarProperty Name="SehirTablo_SehirId" ColumnName="SehirTablo.SehirId" />
+                <ScalarProperty Name="KullaniciBilgleriTablo_KullaniciId" ColumnName="KullaniciBilgleriTablo.KullaniciId" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="KasaId" ColumnName="KasaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
