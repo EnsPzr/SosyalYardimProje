@@ -232,6 +232,80 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
+
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                var kasa = kasaBAL.KasaGetir(id);
+                if (kasa != null)
+                {
+                    if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), kasa.Sehir.SehirId))
+                    {
+                        Tanimla();
+                        return View(kasa);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Sedece kendi bölgeniz için işlem yapabilirsiniz.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz kasa işlemi bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen düzenlemek istediğiniz kasa işlemini seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult KasaSil(int? id)
+        {
+            if (id != null)
+            {
+                var kasa = kasaBAL.KasaGetir(id);
+                if (kasa != null)
+                {
+                    if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), kasa.Sehir.SehirId))
+                    {
+                        var sonuc = kasaBAL.KasaSil(KullaniciBilgileriDondur.KullaniciId(), id);
+                        if (sonuc.TamamlandiMi == true)
+                        {
+                            TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                            return RedirectToAction("Liste");
+                        }
+                        else
+                        {
+                            string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                            TempData["hata"] = hatalar;
+                            return View(kasa);
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Sedece kendi bölgeniz için işlem yapabilirsiniz.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz kasa işlemi bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen düzenlemek istediğiniz kasa işlemini seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>

@@ -121,6 +121,7 @@ namespace BusinessLayer.Siniflar
                 kasaModel.Aciklama = kasa.Aciklama;
                 kasaModel.KasaId = kasa.KasaId;
                 kasaModel.Sehir.SehirId = kasa.SehirTablo_SehirId;
+                kasaModel.Sehir.SehirAdi = kasa.SehirTablo.SehirAdi;
                 return kasaModel;
             }
             else
