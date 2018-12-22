@@ -16,14 +16,31 @@ namespace BusinessLayer.Siniflar
             var geriBildirimler = geriBildirimDAL.TumGeriBildirimleriGetir(kullaniciId);
             var donGeriBildirimler = geriBildirimler.Select(p => new GeriBildirimModel()
             {
-                DurumInt=p.GeriBildirimDurumu,
-                DurumStr=p.GeriBildirimDurumu==0?"Okunmadı": p.GeriBildirimDurumu == 1?"Okundu": p.GeriBildirimDurumu == 2?"Geri Dönüş Yapıldı":"Geri Dönüşe Gerek Görülmedi",
-                GeriBildirimId=p.GeriBildirimId,
-                Konu=p.GeriBildirimKonu,
-                KullaniciAdiSoyadi=p.KullaniciBilgileriTablo.KullaniciAdi+" "+p.KullaniciBilgileriTablo.KullaniciSoyadi,
-                KullaniciTel=p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi,
-                Mesaj=p.GeriBildirimMesaj,
-                Tarih=p.Tarih
+                DurumInt = p.GeriBildirimDurumu,
+                DurumStr = p.GeriBildirimDurumu == 0 ? "Okunmadı" : p.GeriBildirimDurumu == 1 ? "Okundu" : p.GeriBildirimDurumu == 2 ? "Geri Dönüş Yapıldı" : "Geri Dönüşe Gerek Görülmedi",
+                GeriBildirimId = p.GeriBildirimId,
+                Konu = p.GeriBildirimKonu,
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                KullaniciTel = p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi,
+                Mesaj = p.GeriBildirimMesaj,
+                Tarih = p.Tarih
+            }).ToList();
+            return donGeriBildirimler;
+        }
+
+        public List<GeriBildirimModel> FiltreliGeriBildirimleriGetir(int? kullaniciId, string aranan, string tarih, int? sehirId)
+        {
+            var geriBildirimler = geriBildirimDAL.FiltreliGeriBildirimleriGetir(kullaniciId, aranan, tarih, sehirId);
+            var donGeriBildirimler = geriBildirimler.Select(p => new GeriBildirimModel()
+            {
+                DurumInt = p.GeriBildirimDurumu,
+                DurumStr = p.GeriBildirimDurumu == 0 ? "Okunmadı" : p.GeriBildirimDurumu == 1 ? "Okundu" : p.GeriBildirimDurumu == 2 ? "Geri Dönüş Yapıldı" : "Geri Dönüşe Gerek Görülmedi",
+                GeriBildirimId = p.GeriBildirimId,
+                Konu = p.GeriBildirimKonu,
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                KullaniciTel = p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi,
+                Mesaj = p.GeriBildirimMesaj,
+                Tarih = p.Tarih
             }).ToList();
             return donGeriBildirimler;
         }

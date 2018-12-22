@@ -24,5 +24,61 @@ namespace DataLayer.Siniflar
                     .Include(p => p.KullaniciBilgileriTablo.SehirTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).ToList();
             }
         }
+
+        public List<GeriBildirimTablo> FiltreliGeriBildirimleriGetir(int? kullaniciId, string aranan, string tarih, int? sehirId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                var sorgu = db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo).AsQueryable();
+
+                if (aranan != null)
+                {
+                    sorgu = sorgu.Where(p => p.GeriBildirimKonu.Contains(aranan)
+                                             || p.GeriBildirimMesaj.Contains(aranan)
+                                             || p.Tarih.ToString().Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi.Contains(aranan));
+                }
+
+                if (tarih != null)
+                {
+                    DateTime? cTarih = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.Tarih == cTarih);
+                }
+
+                if (sehirId != null)
+                {
+                    sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == sehirId);
+                }
+
+                return sorgu.ToList();
+            }
+            else
+            {
+                int? kullaniciSehirId = kullaniciDAL.KullaniciSehir(kullaniciId);
+                var sorgu = db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).AsQueryable();
+
+                if (aranan != null)
+                {
+                    sorgu = sorgu.Where(p => p.GeriBildirimKonu.Contains(aranan)
+                                             || p.GeriBildirimMesaj.Contains(aranan)
+                                             || p.Tarih.ToString().Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi.Contains(aranan));
+                }
+
+                if (tarih != null)
+                {
+                    DateTime? cTarih = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.Tarih == cTarih);
+                }
+                
+                return sorgu.ToList();
+            }
+        }
     }
 }
