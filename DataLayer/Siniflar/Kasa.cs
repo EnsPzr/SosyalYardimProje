@@ -151,5 +151,20 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool KasaSil(int? kasaId)
+        {
+            var bilKasa = db.KasaTablo.FirstOrDefault(p => p.KasaId == kasaId);
+            if (bilKasa != null)
+            {
+                db.KasaTablo.Remove(bilKasa);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

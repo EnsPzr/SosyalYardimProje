@@ -156,5 +156,38 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public IslemOnayModel KasaSil(int? kullaniciId, int? kasaId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var kasa = KasaGetir(kasaId);
+            if (kasa != null)
+            {
+                if (KullaniciIslemYapabilirMi(kullaniciId, kasa.Sehir.SehirId))
+                {
+                    if (kasaDAL.KasaSil(kasaId))
+                    {
+                        onay.TamamlandiMi = true;
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Silme sırasında hata oluştu.");
+                    }
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Sadece kendi bölgeniz için işlem yapabilirsiniz.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Silinecek kasa işlemi bulunamadı.");
+            }
+
+            return onay;
+        }
     }
 }
