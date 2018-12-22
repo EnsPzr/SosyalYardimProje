@@ -95,5 +95,36 @@ namespace DataLayer.Siniflar
                 return sorgu.ToList();
             }
         }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? sehirId)
+        {
+            if (KullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
+                if (kullaniciSehirId == sehirId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool KasaIslemKaydet(KasaTablo model)
+        {
+            db.KasaTablo.Add(model);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

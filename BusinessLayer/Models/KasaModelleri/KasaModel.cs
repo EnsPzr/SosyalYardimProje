@@ -34,6 +34,6 @@ namespace BusinessLayer.Models.KasaModelleri
 
         public SehirModel Sehir { get; set; }
 
-        public bool? GelirGider { get; set; }
+        public int? GelirGider { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.KasaModelleri;
 using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
@@ -65,6 +66,41 @@ namespace BusinessLayer.Siniflar
                 }).ToList();
                 return kasaList;
             }
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? sehirId)
+        {
+            return kasaDAL.KullaniciIslemYapabilirMi(kullaniciId, sehirId);
+        }
+
+        public IslemOnayModel KasaKaydet(int? kullaniciId,KasaModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (KullaniciIslemYapabilirMi(kullaniciId, model.Sehir.SehirId))
+            {
+                KasaTablo tablo = new KasaTablo();
+                tablo.Aciklama = model.Aciklama;
+                if (model.GelirGider == 1)
+                {
+                    tablo.GelirGider = true;
+                }
+                else
+                {
+                    tablo.GelirGider = false;
+                }
+
+                tablo.Miktar = model.Miktar;
+                tablo.KullaniciBilgleriTablo_KullaniciId = model.KullaniciId;
+                tablo.SehirTablo_SehirId = model.Sehir.SehirId;
+                tablo.Tarih=DateTime.Now;
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Sadece kendi bölgeniz için işlem yapabilirsiniz.");
+            }
+
+            return onay;
         }
     }
 }
