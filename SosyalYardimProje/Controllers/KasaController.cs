@@ -95,7 +95,13 @@ namespace SosyalYardimProje.Controllers
                 if (model.Miktar < 0)
                 {
                     Tanimla();
-                    ModelState.AddModelError("Miktar", "Negatif bir miktar girilemez");
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+                else if (model.Miktar == 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
                     return View(model);
                 }
 
@@ -131,7 +137,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        public ActionResult Duzenle(int? id)
+        public ActionResult Duzenle(int? id=1)
         {
             if (id != null)
             {
@@ -185,7 +191,13 @@ namespace SosyalYardimProje.Controllers
                 if (model.Miktar < 0)
                 {
                     Tanimla();
-                    ModelState.AddModelError("Miktar", "Negatif bir miktar girilemez");
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+                else if (model.Miktar == 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
                     return View(model);
                 }
 

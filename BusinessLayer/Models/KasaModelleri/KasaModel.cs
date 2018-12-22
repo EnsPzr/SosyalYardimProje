@@ -38,5 +38,10 @@ namespace BusinessLayer.Models.KasaModelleri
 
         [Required(ErrorMessage = "Gelir gider seçilmek zorundadır.")]
         public int? GelirGider { get; set; }
+
+        public KasaModel()
+        {
+            Sehir=new SehirModel();
+        }
     }
 }
