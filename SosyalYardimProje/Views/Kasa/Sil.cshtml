@@ -1,0 +1,61 @@
+﻿@model BusinessLayer.Models.KasaModelleri.KasaModel
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kasa Sil</h2>
+
+<h3>Silmek İstediğinize Emin Misiniz? </h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciAdiSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciAdiSoyadi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Miktar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miktar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir.SehirAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir.SehirAdi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tarih)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GelirGider)
+        </dt>
+
+        <dd>
+            @(Model.GelirGider == 1 ? "Gelir" : "Gider")
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("KasaSil", "Kasa", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.Hidden("id", Model.KasaId)
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "Liste")
+        </div>
+    }
+</div>

@@ -7019,6 +7019,7 @@
     <Content Include="Views\Kasa\Liste.cshtml" />
     <Content Include="Views\Kasa\Ekle.cshtml" />
     <Content Include="Views\Kasa\Duzenle.cshtml" />
+    <Content Include="Views\Kasa\Sil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -120,8 +120,11 @@ namespace BusinessLayer.Siniflar
                 kasaModel.Tarih = kasa.Tarih;
                 kasaModel.Aciklama = kasa.Aciklama;
                 kasaModel.KasaId = kasa.KasaId;
+                kasaModel.Miktar = Convert.ToDouble(kasa.Miktar);
                 kasaModel.Sehir.SehirId = kasa.SehirTablo_SehirId;
                 kasaModel.Sehir.SehirAdi = kasa.SehirTablo.SehirAdi;
+                kasaModel.KullaniciAdiSoyadi = kasa.KullaniciBilgileriTablo.KullaniciAdi + " " +
+                                               kasa.KullaniciBilgileriTablo.KullaniciSoyadi;
                 return kasaModel;
             }
             else

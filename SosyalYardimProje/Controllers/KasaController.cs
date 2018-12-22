@@ -137,7 +137,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        public ActionResult Duzenle(int? id=1)
+        public ActionResult Duzenle(int? id)
         {
             if (id != null)
             {
@@ -233,7 +233,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        public ActionResult Sil(int? id)
+        public ActionResult Sil(int? id=1)
         {
             if (id != null)
             {

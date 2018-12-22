@@ -36,6 +36,7 @@ namespace BusinessLayer.Models.KasaModelleri
 
         public SehirModel Sehir { get; set; }
 
+        [Display(Name = "Gelir-Gider")]
         [Required(ErrorMessage = "Gelir gider seçilmek zorundadır.")]
         public int? GelirGider { get; set; }
 
