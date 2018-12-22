@@ -65,6 +65,71 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Ekle()
+        {
+            Tanimla();
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Ekle(KasaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Tarih.HasValue)
+                {
+                    try
+                    {
+                        Convert.ToDateTime(model.Tarih);
+                    }
+                    catch (Exception)
+                    {
+                        Tanimla();
+                        ModelState.AddModelError("Tarih", "Tarih formatı geçerli değil.");
+                        return View(model);
+                    }
+                }
+
+                if (model.Miktar < 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Negatif bir miktar girilemez");
+                    return View(model);
+                }
+
+                try
+                {
+                    Convert.ToDateTime(model.Miktar);
+                }
+                catch (Exception)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Lütfen geçerli bir miktar giriniz");
+                    return View(model);
+                }
+
+                model.KullaniciId = KullaniciBilgileriDondur.KullaniciId();
+                var onay = kasaBAL.KasaKaydet(KullaniciBilgileriDondur.KullaniciId(), model);
+                if (onay.TamamlandiMi == true)
+                {
+                    TempData["uyari"]="İşlem başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
@@ -79,6 +144,11 @@ namespace SosyalYardimProje.Controllers
             gelirGider.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
             gelirGider.Add(new SelectListItem() { Text = "Gider", Value = "2" });
             ViewBag.gelirGiderSelect = gelirGider;
+            var gelirGider2 = new List<SelectListItem>();
+            //gelirGider2.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
+            gelirGider2.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
+            gelirGider2.Add(new SelectListItem() { Text = "Gider", Value = "2" });
+            ViewBag.gelirGiderSelect2 = gelirGider2;
         }
     }
 }

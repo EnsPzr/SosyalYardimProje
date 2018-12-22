@@ -92,7 +92,7 @@ namespace BusinessLayer.Siniflar
                 tablo.Miktar = model.Miktar;
                 tablo.KullaniciBilgleriTablo_KullaniciId = model.KullaniciId;
                 tablo.SehirTablo_SehirId = model.Sehir.SehirId;
-                tablo.Tarih=DateTime.Now;
+                tablo.Tarih = model.Tarih;
             }
             else
             {

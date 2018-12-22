@@ -15,8 +15,10 @@ namespace BusinessLayer.Models.KasaModelleri
         public int KasaId { get; set; }
 
         [Display(Name = "Miktar")]
+        [Required(ErrorMessage = "Miktar girilmelidir.")]
         public double Miktar { get; set; }
 
+        [Required(ErrorMessage = "Tarih girilmelidir.")]
         [DataType(DataType.Date)]
         [Display(Name = "Gerçekleşme Tarihi")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -34,6 +36,7 @@ namespace BusinessLayer.Models.KasaModelleri
 
         public SehirModel Sehir { get; set; }
 
+        [Required(ErrorMessage = "Gelir gider seçilmek zorundadır.")]
         public int? GelirGider { get; set; }
     }
 }
