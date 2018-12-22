@@ -73,7 +73,7 @@ namespace BusinessLayer.Siniflar
             return kasaDAL.KullaniciIslemYapabilirMi(kullaniciId, sehirId);
         }
 
-        public IslemOnayModel KasaKaydet(int? kullaniciId,KasaModel model)
+        public IslemOnayModel KasaKaydet(int? kullaniciId, KasaModel model)
         {
             IslemOnayModel onay = new IslemOnayModel();
             if (KullaniciIslemYapabilirMi(kullaniciId, model.Sehir.SehirId))
@@ -99,6 +99,59 @@ namespace BusinessLayer.Siniflar
             {
                 onay.TamamlandiMi = false;
                 onay.HataMesajlari.Add("Sadece kendi bölgeniz için işlem yapabilirsiniz.");
+            }
+
+            return onay;
+        }
+
+        public KasaModel KasaGetir(int? kasaId)
+        {
+            var kasa = kasaDAL.KasaGetir(kasaId);
+            if (kasa != null)
+            {
+                KasaModel kasaModel = new KasaModel();
+                kasaModel.KullaniciId = kasa.KullaniciBilgleriTablo_KullaniciId;
+                kasaModel.GelirGider = 2;
+                if (kasa.GelirGider == true)
+                {
+                    kasaModel.GelirGider = 1;
+                }
+
+                kasaModel.Tarih = kasa.Tarih;
+                kasaModel.Aciklama = kasa.Aciklama;
+                kasaModel.KasaId = kasa.KasaId;
+                kasaModel.Sehir.SehirId = kasa.SehirTablo_SehirId;
+                return kasaModel;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IslemOnayModel KasaIslemGuncelle(int? kullaniciId, KasaModel kasa)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (KullaniciIslemYapabilirMi(kullaniciId, kasa.Sehir.SehirId))
+            {
+                KasaTablo gunKasa = new KasaTablo();
+                gunKasa.Aciklama = kasa.Aciklama;
+                gunKasa.GelirGider = false;
+                if (kasa.GelirGider == 1)
+                {
+                    gunKasa.GelirGider = true;
+                }
+
+                gunKasa.KasaId = kasa.KasaId;
+                gunKasa.Miktar = kasa.Miktar;
+                gunKasa.SehirTablo_SehirId = kasa.Sehir.SehirId;
+                gunKasa.Tarih = kasa.Tarih;
+                onay.TamamlandiMi = kasaDAL.KasaIslemGuncelle(gunKasa);
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Sadce kendi bölgeniz için işlem yapabilirsiniz.");
             }
 
             return onay;

@@ -126,5 +126,30 @@ namespace DataLayer.Siniflar
 
             return false;
         }
+
+        public KasaTablo KasaGetir(int? kasaId)
+        {
+            return db.KasaTablo.Include(p => p.SehirTablo).Include(p => p.KullaniciBilgileriTablo)
+                .FirstOrDefault(p => p.KasaId == kasaId);
+        }
+
+        public bool KasaIslemGuncelle(KasaTablo model)
+        {
+            var gunKasa = db.KasaTablo.FirstOrDefault(p => p.KasaId == model.KasaId);
+            if (gunKasa!=null)
+            {
+                gunKasa.Aciklama = model.Aciklama;
+                gunKasa.GelirGider = model.GelirGider;
+                gunKasa.Miktar = model.Miktar;
+                gunKasa.SehirTablo_SehirId = model.SehirTablo_SehirId;
+                gunKasa.Tarih = model.Tarih;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
