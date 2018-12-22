@@ -19,6 +19,7 @@ namespace DataLayer
         public string GeriBildirimMesaj { get; set; }
         public Nullable<int> GeriBildirimDurumu { get; set; }
         public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
+        public Nullable<System.DateTime> Tarih { get; set; }
     
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
     }

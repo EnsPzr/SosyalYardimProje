@@ -61,6 +61,7 @@
           <Property Name="GeriBildirimMesaj" Type="text" />
           <Property Name="GeriBildirimDurumu" Type="int" />
           <Property Name="KullaniciBilgileriTablo.KullaniciId" Type="int" />
+          <Property Name="Tarih" Type="date" />
         </EntityType>
         <EntityType Name="IhtiyacSahibiKontrolTablo">
           <Key>
@@ -714,6 +715,7 @@
           <Property Name="GeriBildirimDurumu" Type="Int32" />
           <Property Name="KullaniciBilgileriTablo_KullaniciId" Type="Int32" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_GeriBildirimTablo_KullaniciBilgileriTablo" FromRole="GeriBildirimTablo" ToRole="KullaniciBilgileriTablo" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="IhtiyacSahibiKontrolTablo">
           <Key>
@@ -1394,6 +1396,7 @@
           <EntitySetMapping Name="GeriBildirimTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.GeriBildirimTablo">
               <MappingFragment StoreEntitySet="GeriBildirimTablo">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
                 <ScalarProperty Name="GeriBildirimId" ColumnName="GeriBildirimId" />
                 <ScalarProperty Name="GeriBildirimKonu" ColumnName="GeriBildirimKonu" />
                 <ScalarProperty Name="GeriBildirimMesaj" ColumnName="GeriBildirimMesaj" />

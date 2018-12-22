@@ -31,5 +31,8 @@ namespace BusinessLayer.Models
         [Display(Name = "Geri Bil. Durumu")]
         [Required(ErrorMessage = "Geri Bildirim Durumu seçilmek zorundadır.")]
         public int? DurumInt { get; set; }
+
+        [Display(Name = "Eklenme Tarihi")]
+        public DateTime? Tarih { get; set; }
     }
 }
