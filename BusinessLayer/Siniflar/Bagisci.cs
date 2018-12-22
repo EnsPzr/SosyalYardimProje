@@ -27,7 +27,7 @@ namespace BusinessLayer.Siniflar
                 TelNo = p.KullaniciTelefonNumarasi,
                 Sehir = new SehirModel()
                 {
-                    SehirAdi = p.SehirTablo.SehirAdi,
+                    SehirAdi = p.SehirTablo_SehirId != null ? p.SehirTablo.SehirAdi : "",
                     SehirId = p.SehirTablo_SehirId
                 },
                 Adres = p.KullaniciAdres,
@@ -57,7 +57,7 @@ namespace BusinessLayer.Siniflar
                     bagisci.TelNo = bagiscilar[i].KullaniciTelefonNumarasi;
                     bagisci.Sehir = new SehirModel()
                     {
-                        SehirAdi = bagiscilar[i].SehirTablo.SehirAdi,
+                        SehirAdi = bagiscilar[i].SehirTablo_SehirId != null ? bagiscilar[i].SehirTablo.SehirAdi : "",
                         SehirId = bagiscilar[i].SehirTablo_SehirId
                     };
                     bagisci.Adres = bagiscilar[i].KullaniciAdres;

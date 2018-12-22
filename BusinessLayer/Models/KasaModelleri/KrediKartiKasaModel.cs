@@ -35,9 +35,9 @@ namespace BusinessLayer.Models.KasaModelleri
         [Display(Name = "Miktar")]
         [Required(ErrorMessage = "Miktar girilmelidir.")]
         public double Miktar { get; set; }
-
-        [DataType(DataType.CreditCard,ErrorMessage = "Lütfen geçerli bir kart bilgisi giriniz.")]
+        
         [Required(ErrorMessage = "Kart numarası zorunludur.")]
+        [MinLength(16, ErrorMessage = "Kart numarası {1} hane olmalıdır."),MaxLength(16, ErrorMessage = "Kart numarası {1} hane olmalıdır.")]
         public String KartNo { get; set; }
 
         [Required(ErrorMessage = "Kart üstündeki isim girilmelidir.")]

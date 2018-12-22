@@ -7020,6 +7020,7 @@
     <Content Include="Views\Kasa\Ekle.cshtml" />
     <Content Include="Views\Kasa\Duzenle.cshtml" />
     <Content Include="Views\Kasa\Sil.cshtml" />
+    <Content Include="Views\Kasa\KartIleEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

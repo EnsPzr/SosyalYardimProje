@@ -315,7 +315,7 @@ namespace SosyalYardimProje.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult KartIleEkleme(KrediKartiKasaModel model)
+        public ActionResult KartIleEkle(KrediKartiKasaModel model)
         {
             if (ModelState.IsValid)
             {
@@ -332,6 +332,19 @@ namespace SosyalYardimProje.Controllers
                     return View(model);
                 }
 
+                try
+                {
+                    String ilkYari = model.KartNo.Substring(0, 8);
+                    String ikinciYari = model.KartNo.Substring(8, 8);
+                    Convert.ToInt32(ilkYari);
+                    Convert.ToInt32(ikinciYari);
+                }
+                catch (Exception)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("KartNo", "Kart No sadece rakamlardan oluşabilir");
+                    return View(model);
+                }
                 if (model.GuvenlikKodu != null)
                 {
                     try
@@ -376,7 +389,7 @@ namespace SosyalYardimProje.Controllers
                 }).ToList();
             ViewBag.sehirlerSelect = sehirler;
             sehirler.Add(new SelectListItem() { Selected = true, Text = "Nerede ihtiyaç varsa", Value = "82" });
-            ViewBag.sehirlerSelec2 = sehirler;
+            ViewBag.sehirlerSelect2 = sehirler;
             var gelirGider = new List<SelectListItem>();
             gelirGider.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
             gelirGider.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
@@ -388,7 +401,7 @@ namespace SosyalYardimProje.Controllers
             gelirGider2.Add(new SelectListItem() { Text = "Gider", Value = "2" });
             ViewBag.gelirGiderSelect2 = gelirGider2;
             List<SelectListItem> ay= new List<SelectListItem>();
-            for (int i = 0; i < 13; i++)
+            for (int i = 1; i < 13; i++)
             {
                 ay.Add(new SelectListItem(){Value = i.ToString(), Text = i.ToString()});
             }
@@ -400,7 +413,7 @@ namespace SosyalYardimProje.Controllers
                 yil.Add(new SelectListItem() { Value = i.ToString(), Text = i.ToString() });
             }
 
-            ViewBag.aySelectList = yil;
+            ViewBag.yilSelectList = yil;
         }
     }
 }
