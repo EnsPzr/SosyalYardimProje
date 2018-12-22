@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer;
+using BusinessLayer.Models.AnaSayfaModelleri;
 using BusinessLayer.Models.KasaModelleri;
 using BusinessLayer.Siniflar;
 
@@ -120,7 +121,7 @@ namespace SosyalYardimProje.Controllers
                 var onay = kasaBAL.KasaKaydet(KullaniciBilgileriDondur.KullaniciId(), model);
                 if (onay.TamamlandiMi == true)
                 {
-                    TempData["uyari"]="İşlem başarı ile tamamlandı.";
+                    TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
                 else
@@ -144,7 +145,7 @@ namespace SosyalYardimProje.Controllers
                 var kasa = kasaBAL.KasaGetir(id);
                 if (kasa != null)
                 {
-                    if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),kasa.Sehir.SehirId))
+                    if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), kasa.Sehir.SehirId))
                     {
                         Tanimla();
                         return View(kasa);
@@ -233,7 +234,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        public ActionResult Sil(int? id=1)
+        public ActionResult Sil(int? id = 1)
         {
             if (id != null)
             {
@@ -306,6 +307,65 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
+
+        public ActionResult KartIleEkle()
+        {
+            Tanimla();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult KartIleEkleme(KrediKartiKasaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Miktar < 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+                else if (model.Miktar == 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+
+                if (model.GuvenlikKodu != null)
+                {
+                    try
+                    {
+                        Convert.ToInt32(model.GuvenlikKodu);
+                    }
+                    catch (Exception)
+                    {
+                        Tanimla();
+                        ModelState.AddModelError("GuvenlikKodu", "Güvenlik kodu sadece sayılardan oluşabilir");
+                        return View(model);
+                    }
+                }
+
+                var sonuc = kasaBAL.KrediKartiEkleme(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Bağış ekleme işlemi başarı ile gerçekleşti.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    Tanimla();
+                    return View(model);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
@@ -315,6 +375,8 @@ namespace SosyalYardimProje.Controllers
                     Value = p.SehirId.ToString()
                 }).ToList();
             ViewBag.sehirlerSelect = sehirler;
+            sehirler.Add(new SelectListItem() { Selected = true, Text = "Nerede ihtiyaç varsa", Value = "82" });
+            ViewBag.sehirlerSelec2 = sehirler;
             var gelirGider = new List<SelectListItem>();
             gelirGider.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
             gelirGider.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
@@ -325,6 +387,20 @@ namespace SosyalYardimProje.Controllers
             gelirGider2.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
             gelirGider2.Add(new SelectListItem() { Text = "Gider", Value = "2" });
             ViewBag.gelirGiderSelect2 = gelirGider2;
+            List<SelectListItem> ay= new List<SelectListItem>();
+            for (int i = 0; i < 13; i++)
+            {
+                ay.Add(new SelectListItem(){Value = i.ToString(), Text = i.ToString()});
+            }
+
+            ViewBag.aySelectList = ay;
+            List<SelectListItem> yil = new List<SelectListItem>();
+            for (int i = 19; i < 28; i++)
+            {
+                yil.Add(new SelectListItem() { Value = i.ToString(), Text = i.ToString() });
+            }
+
+            ViewBag.aySelectList = yil;
         }
     }
 }
