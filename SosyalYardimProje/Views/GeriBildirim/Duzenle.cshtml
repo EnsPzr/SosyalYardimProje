@@ -1,0 +1,88 @@
+﻿@model BusinessLayer.Models.GeriBildirimModel
+
+@{
+    ViewBag.Title = "Geri Bildirim Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Geri Bildirim Düzenle</h2>
+
+<center>
+    <div>
+        <hr />
+        <dl class="dl-horizontal col-md-12">
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.KullaniciAdiSoyadi)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.KullaniciAdiSoyadi)
+            </dd>
+
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.KullaniciTel)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.KullaniciTel)
+            </dd>
+
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.Konu)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.Konu)
+            </dd>
+
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.Mesaj)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.Mesaj)
+            </dd>
+
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.DurumStr)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.DurumStr)
+            </dd>
+
+            <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.TarihStr)
+            </dt>
+
+            <dd class="col-md-4">
+                @Html.DisplayFor(model => model.TarihStr)
+            </dd>
+        </dl>
+        @using (Html.BeginForm("Duzenle", "GeriBildirim", FormMethod.Post))
+        {
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.GeriBildirimId)
+                    @Html.HiddenFor(m => m.KullaniciAdiSoyadi)
+                    @Html.HiddenFor(m => m.KullaniciTel)
+                    @Html.HiddenFor(m => m.Konu)
+                    @Html.HiddenFor(m => m.Mesaj)
+                    @Html.HiddenFor(m => m.Tarih)
+                    @Html.LabelFor(model => model.DurumInt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.DurumInt, (List<SelectListItem>)ViewBag.durumlarSelectList, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DurumInt, "", new { @class = "text-danger" })
+                    </div>
+                    <br /><br />
+                    <div class="col-md-12">
+                        <center>
+                            <button type="submit" value="Kaydet" class="btn btn-success">Kaydet</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</center>

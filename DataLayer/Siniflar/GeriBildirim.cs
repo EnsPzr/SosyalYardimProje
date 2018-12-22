@@ -137,7 +137,7 @@ namespace DataLayer.Siniflar
             {
                 geriBildirim.GeriBildirimDurumu = durumId;
                 db.SaveChanges();
-                return false;
+                return true;
             }
             else
             {

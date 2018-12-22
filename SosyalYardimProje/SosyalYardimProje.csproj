@@ -7024,6 +7024,7 @@
     <Content Include="Views\Kasa\Sil.cshtml" />
     <Content Include="Views\Kasa\KartIleEkle.cshtml" />
     <Content Include="Views\GeriBildirim\Liste.cshtml" />
+    <Content Include="Views\GeriBildirim\Duzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

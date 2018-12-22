@@ -56,7 +56,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Duzenle(int? id)
+        public ActionResult Duzenle(int? id=1)
         {
             if (id != null)
             {
@@ -122,9 +122,10 @@ namespace SosyalYardimProje.Controllers
             ViewBag.sehirlerSelect = sehirlerSelect;
 
             var durumlar = new List<SelectListItem>();
-            durumlar.Add(new SelectListItem() {Text = "Okundu", Value = "2"});
-            durumlar.Add(new SelectListItem() { Text = "Geri Dönüş Yapıldı", Value = "3" });
-            durumlar.Add(new SelectListItem() { Text = "Geri Dönüşe Gerek Görülmedi", Value = "4" });
+            durumlar.Add(new SelectListItem() { Text = "Okunmadı", Value = "0" });
+            durumlar.Add(new SelectListItem() {Text = "Okundu", Value = "1"});
+            durumlar.Add(new SelectListItem() { Text = "Geri Dönüş Yapıldı", Value = "2" });
+            durumlar.Add(new SelectListItem() { Text = "Geri Dönüşe Gerek Görülmedi", Value = "3" });
             ViewBag.durumlarSelectList = durumlar;
         }
     }
