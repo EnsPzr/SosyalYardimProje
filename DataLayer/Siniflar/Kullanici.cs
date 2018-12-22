@@ -44,12 +44,12 @@ namespace DataLayer.Siniflar
                                  p.KullaniciSoyadi.Contains(aranan) ||
                                  p.KullaniciTelegramKullaniciAdi.Contains(aranan) ||
                                  p.KullaniciTelefonNumarasi.Contains(aranan) ||
-                                 p.KullaniciEPosta.Contains(aranan)) &&p.SehirTablo_SehirId==kullanici.SehirTablo_SehirId);
+                                 p.KullaniciEPosta.Contains(aranan)) && p.SehirTablo_SehirId == kullanici.SehirTablo_SehirId);
                 return sorgu.ToList();
             }
-            
+
         }
-        
+
         public List<SehirTablo> TumSehirler()
         {
             return db.SehirTablo.ToList();
@@ -63,7 +63,7 @@ namespace DataLayer.Siniflar
         public bool KullaniciSil(int? id)
         {
             KullaniciGetir(id).AktifMi = false;
-            if (db.SaveChanges()>0) return true;
+            if (db.SaveChanges() > 0) return true;
             else return false;
         }
 
@@ -71,9 +71,13 @@ namespace DataLayer.Siniflar
         {
             return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? true : false;
         }
+        public int? KullaniciVarMiInt(String eposta)
+        {
+            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta) != null ? db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta).KullaniciId : -1;
+        }
         public bool KullaniciVarMi(String eposta, int? id)
         {
-            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta&&p.KullaniciId!=id) != null ? true : false;
+            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta && p.KullaniciId != id) != null ? true : false;
         }
 
         public bool KullaniciEkle(KullaniciBilgileriTablo eklenecekKullanici)

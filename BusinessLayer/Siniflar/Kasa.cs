@@ -193,5 +193,33 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public IslemOnayModel KrediKartiEkleme(KrediKartiKasaModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            KullaniciBilgileriTablo kullaniciTablo = new KullaniciBilgileriTablo();
+            kullaniciTablo.KullaniciAdi = model.BagisciAdi;
+            kullaniciTablo.KullaniciSoyadi = model.BagisciSoyadi;
+            kullaniciTablo.KullaniciEPosta = model.BagisciEPosta;
+            kullaniciTablo.KullaniciTelefonNumarasi = model.BagisciTelNo;
+            kullaniciTablo.BagisciMi = true;
+            KasaTablo kasaTablo = new KasaTablo();
+            kasaTablo.Aciklama = model.BagisciAdi + " " + model.BagisciSoyadi + " bağışçısından gelen bağış";
+            kasaTablo.GelirGider = true;
+            kasaTablo.Miktar = model.Miktar;
+            kasaTablo.SehirTablo_SehirId = model.Sehir.SehirId;
+            kasaTablo.Tarih=DateTime.Now;
+            if (kasaDAL.KrediKartiEkleme(kullaniciTablo, kasaTablo))
+            {
+                onay.TamamlandiMi = true;
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Kayıt işlemi yapılamadı.");
+            }
+
+            return onay;
+        }
     }
 }

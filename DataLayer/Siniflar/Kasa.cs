@@ -9,6 +9,7 @@ namespace DataLayer.Siniflar
 {
     public class Kasa
     {
+        private Kullanici Kullanici2DAL = new Kullanici();
         private KullaniciYonetimi KullaniciDAL = new KullaniciYonetimi();
         private SosyalYardimDB db = new SosyalYardimDB();
         public List<KasaTablo> TumKasaGetir(int? kullaniciId)
@@ -164,6 +165,28 @@ namespace DataLayer.Siniflar
             else
             {
                 return false;
+            }
+        }
+
+        public bool KrediKartiEkleme(KullaniciBilgileriTablo kullanici, KasaTablo kasa)
+        {
+            if (Kullanici2DAL.KullaniciVarMi(kullanici.KullaniciEPosta))
+            {
+                int? kullaniciId = Kullanici2DAL.KullaniciVarMiInt(kullanici.KullaniciEPosta);
+                kasa.KullaniciBilgleriTablo_KullaniciId = kullaniciId;
+                db.KasaTablo.Add(kasa);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                db.KullaniciBilgileriTablo.Add(kullanici);
+                db.SaveChanges();
+                int? kullaniciId = Kullanici2DAL.KullaniciVarMiInt(kullanici.KullaniciEPosta);
+                kasa.KullaniciBilgleriTablo_KullaniciId = kullaniciId;
+                db.KasaTablo.Add(kasa);
+                db.SaveChanges();
+                return true;
             }
         }
     }
