@@ -23,7 +23,8 @@ namespace BusinessLayer.Siniflar
                 KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
                 KullaniciTel = p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi,
                 Mesaj = p.GeriBildirimMesaj,
-                Tarih = p.Tarih
+                Tarih = p.Tarih,
+                TarihStr = p.Tarih != null ? p.Tarih.Value.ToShortDateString() : ""
             }).ToList();
             return donGeriBildirimler;
         }
@@ -40,7 +41,8 @@ namespace BusinessLayer.Siniflar
                 KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
                 KullaniciTel = p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi,
                 Mesaj = p.GeriBildirimMesaj,
-                Tarih = p.Tarih
+                Tarih = p.Tarih,
+                TarihStr = p.Tarih != null ? p.Tarih.Value.ToShortDateString() : ""
             }).ToList();
             return donGeriBildirimler;
         }

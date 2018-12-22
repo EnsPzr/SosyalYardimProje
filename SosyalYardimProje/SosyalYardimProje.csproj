@@ -6932,6 +6932,7 @@
     <Content Include="Scripts\BagisciListeleScript.js" />
     <Content Include="Scripts\DepoEsyaListeleScript.js" />
     <Content Include="Scripts\EsyaListeleScript.js" />
+    <Content Include="Scripts\GeriBildirimListeleScript.js" />
     <Content Include="Scripts\IhtiyacSahibiKontrolListeleScript.js" />
     <Content Include="Scripts\IhtiyacSahibiListeleScript.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -7022,6 +7023,7 @@
     <Content Include="Views\Kasa\Duzenle.cshtml" />
     <Content Include="Views\Kasa\Sil.cshtml" />
     <Content Include="Views\Kasa\KartIleEkle.cshtml" />
+    <Content Include="Views\GeriBildirim\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7035,7 +7037,6 @@
     <Folder Include="Picture\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\GeriBildirim\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

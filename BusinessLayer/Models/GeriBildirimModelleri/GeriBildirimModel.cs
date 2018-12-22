@@ -32,7 +32,11 @@ namespace BusinessLayer.Models
         [Required(ErrorMessage = "Geri Bildirim Durumu seçilmek zorundadır.")]
         public int? DurumInt { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Eklenme Tarihi")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Tarih { get; set; }
+
+        public String TarihStr { get; set; }
     }
 }
