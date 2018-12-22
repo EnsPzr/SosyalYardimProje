@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLayer.Models.OrtakModeller;
 
 namespace BusinessLayer.Siniflar
 {
@@ -45,6 +46,61 @@ namespace BusinessLayer.Siniflar
                 TarihStr = p.Tarih != null ? p.Tarih.Value.ToShortDateString() : ""
             }).ToList();
             return donGeriBildirimler;
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? geriBildirimId)
+        {
+            return geriBildirimDAL.KullaniciIslemYapabilirMi(kullaniciId, geriBildirimId);
+        }
+
+        public GeriBildirimModel GeriBildirimGetir(int? geriBildirimId)
+        {
+            var geriBildirim = geriBildirimDAL.GeriBildirimGetir(geriBildirimId);
+            if (geriBildirim != null)
+            {
+                GeriBildirimModel model = new GeriBildirimModel();
+                model.GeriBildirimId = geriBildirimId;
+                model.KullaniciAdiSoyadi = geriBildirim.KullaniciBilgileriTablo.KullaniciAdi + " " +
+                                           geriBildirim.KullaniciBilgileriTablo.KullaniciSoyadi;
+                model.KullaniciTel = geriBildirim.KullaniciBilgileriTablo.KullaniciTelefonNumarasi;
+                model.Konu = geriBildirim.GeriBildirimKonu;
+                model.Mesaj = geriBildirim.GeriBildirimMesaj;
+                model.DurumStr = geriBildirim.GeriBildirimDurumu == 0 ? "Okunmadı" :
+                    geriBildirim.GeriBildirimDurumu == 1 ? "Okundu" :
+                    geriBildirim.GeriBildirimDurumu == 2 ? "Geri Dönüş Yapıldı" : "Geri Dönüşe Gerek Görülmedi";
+                model.DurumInt = geriBildirim.GeriBildirimDurumu;
+                model.Tarih = geriBildirim.Tarih;
+                model.TarihStr = geriBildirim.Tarih != null ? geriBildirim.Tarih.Value.ToShortDateString() : "";
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IslemOnayModel GeriBildirimKaydet(int? kullaniciId, int? geriBildirimId, int? durumId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (KullaniciIslemYapabilirMi(kullaniciId, geriBildirimId))
+            {
+                if (geriBildirimDAL.GeriBildirimKaydet(geriBildirimId, durumId))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Düzenlenecek geri bildirim bulunamadı.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Sadece kendi bölgenize yapılan geri bildirimler ile ilgili işlem yapabilirsiniz.");
+            }
+
+            return onay;
         }
     }
 }

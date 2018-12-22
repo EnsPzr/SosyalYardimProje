@@ -80,5 +80,69 @@ namespace DataLayer.Siniflar
                 return sorgu.ToList();
             }
         }
+
+        public GeriBildirimTablo GeriBildirimGetir(int? geriBildirimId)
+        {
+            var geriBildirim = db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
+                .FirstOrDefault(p => p.GeriBildirimId == geriBildirimId);
+            if (geriBildirim != null)
+            {
+                geriBildirim.GeriBildirimDurumu = 1;
+                db.SaveChanges();
+            }
+
+            return geriBildirim;
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? geriBildirimId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                var geriBildirim = db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
+                    .FirstOrDefault(p => p.GeriBildirimId == geriBildirimId);
+                if (geriBildirim != null)
+                {
+                    int? kullaniciSehirId = kullaniciDAL.KullaniciSehir(kullaniciId);
+                    if (geriBildirim.KullaniciBilgileriTablo.SehirTablo_SehirId != null)
+                    {
+                        if (geriBildirim.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool GeriBildirimKaydet(int? geriBildirimId, int? durumId)
+        {
+            var geriBildirim = db.GeriBildirimTablo.FirstOrDefault(p => p.GeriBildirimId == geriBildirimId);
+            if (geriBildirim != null)
+            {
+                geriBildirim.GeriBildirimDurumu = durumId;
+                db.SaveChanges();
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
