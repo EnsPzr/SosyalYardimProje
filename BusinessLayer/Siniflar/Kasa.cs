@@ -93,6 +93,7 @@ namespace BusinessLayer.Siniflar
                 tablo.KullaniciBilgleriTablo_KullaniciId = model.KullaniciId;
                 tablo.SehirTablo_SehirId = model.Sehir.SehirId;
                 tablo.Tarih = model.Tarih;
+                onay.TamamlandiMi = kasaDAL.KasaIslemKaydet(tablo);
             }
             else
             {

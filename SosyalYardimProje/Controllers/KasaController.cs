@@ -101,7 +101,7 @@ namespace SosyalYardimProje.Controllers
 
                 try
                 {
-                    Convert.ToDateTime(model.Miktar);
+                    Convert.ToDouble(model.Miktar);
                 }
                 catch (Exception)
                 {

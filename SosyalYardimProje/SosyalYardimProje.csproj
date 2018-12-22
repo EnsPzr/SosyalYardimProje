@@ -7017,6 +7017,7 @@
     <Content Include="Views\TeslimAlinacakBagis\Liste.cshtml" />
     <Content Include="Views\TeslimAlinacakBagis\Duzenle.cshtml" />
     <Content Include="Views\Kasa\Liste.cshtml" />
+    <Content Include="Views\Kasa\Ekle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
