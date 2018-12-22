@@ -6959,6 +6959,7 @@
     <Compile Include="Controllers\BagisciController.cs" />
     <Compile Include="Controllers\DepoController.cs" />
     <Compile Include="Controllers\EsyaController.cs" />
+    <Compile Include="Controllers\GeriBildirimController.cs" />
     <Compile Include="Controllers\GirisController.cs" />
     <Compile Include="Controllers\IhtiyacSahibiController.cs" />
     <Compile Include="Controllers\KasaController.cs" />
@@ -7034,6 +7035,7 @@
     <Folder Include="Picture\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\GeriBildirim\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
