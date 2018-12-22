@@ -25,14 +25,35 @@ namespace SosyalYardimProje.Controllers
         {
             GeriBildirimJsModel model = new GeriBildirimJsModel()
             {
-                BasariliMi=true,
-                GeriBildirimList=geriBildirimBAL.TumGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId())
+                BasariliMi = true,
+                GeriBildirimList = geriBildirimBAL.TumGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId())
             };
             model.GeriBildirimSayisi = model.GeriBildirimList.Count;
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult FiltreliGeriBildirimleriGetir(string aranan, string tarih, int? sehirId)
+        {
+            if (aranan.Equals(""))
+            {
+                aranan = null;
+            }
+
+            if (tarih.Equals(""))
+            {
+                tarih = null;
+            }
+            GeriBildirimJsModel model = new GeriBildirimJsModel()
+            {
+                BasariliMi = true,
+                GeriBildirimList = geriBildirimBAL.FiltreliGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId(), aranan, tarih, sehirId)
+            };
+            model.GeriBildirimSayisi = model.GeriBildirimList.Count;
+            Thread.Sleep(2000);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
         public void Tanimla()
         {
             var sehirlerSelect = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
