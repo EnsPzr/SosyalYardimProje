@@ -130,6 +130,96 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
+
+        public ActionResult Duzenle(int? id)
+        {
+            if (id != null)
+            {
+                var kasa = kasaBAL.KasaGetir(id);
+                if (kasa != null)
+                {
+                    if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(),kasa.Sehir.SehirId))
+                    {
+                        Tanimla();
+                        return View(kasa);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Sedece kendi bölgeniz için işlem yapabilirsiniz.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz kasa işlemi bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen düzenlemek istediğiniz kasa işlemini seçiniz";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Duzenle(KasaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Tarih.HasValue)
+                {
+                    try
+                    {
+                        Convert.ToDateTime(model.Tarih);
+                    }
+                    catch (Exception)
+                    {
+                        Tanimla();
+                        ModelState.AddModelError("Tarih", "Tarih formatı geçerli değil.");
+                        return View(model);
+                    }
+                }
+
+                if (model.Miktar < 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Negatif bir miktar girilemez");
+                    return View(model);
+                }
+
+                try
+                {
+                    Convert.ToDouble(model.Miktar);
+                }
+                catch (Exception)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Lütfen geçerli bir miktar giriniz");
+                    return View(model);
+                }
+
+                model.KullaniciId = KullaniciBilgileriDondur.KullaniciId();
+                var onay = kasaBAL.KasaIslemGuncelle(KullaniciBilgileriDondur.KullaniciId(), model);
+                if (onay.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
