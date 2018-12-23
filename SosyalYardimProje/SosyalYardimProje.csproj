@@ -6948,6 +6948,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\KasaListeleScript.js" />
     <Content Include="Scripts\KullaniciListeleScript.js" />
+    <Content Include="Scripts\MesajDetayListeleScript.js" />
     <Content Include="Scripts\MesajListeleScript.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\SubeListeleScript.js" />
@@ -7028,6 +7029,7 @@
     <Content Include="Views\GeriBildirim\Liste.cshtml" />
     <Content Include="Views\GeriBildirim\Duzenle.cshtml" />
     <Content Include="Views\Mesaj\Liste.cshtml" />
+    <Content Include="Views\Mesaj\DetayListe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

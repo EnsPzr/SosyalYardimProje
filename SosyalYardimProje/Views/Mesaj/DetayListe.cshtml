@@ -1,7 +1,7 @@
-﻿@model IEnumerable<BusinessLayer.Models.MesajModelleri.MesajModel>
+﻿@model IEnumerable<BusinessLayer.Models.MesajModelleri.MesajDetayModel>
 
 @{
-    ViewBag.Title = "Liste";
+    ViewBag.Title = "DetayListe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,25 +19,15 @@
         </div>
     }
     <div class="col-md-12 col-xs-12">
-        <h2>Göderilen Mesaj Listesi</h2>
+        <input type="hidden" value="@ViewBag.MesajId" id="mesajId" />
+        <h2>Mesaj Detay Listesi</h2>
         <p>
-            @Html.ActionLink(" ", "Ekle", new { }, new { @class = "glyphicon glyphicon-plus" }) |
             <span class="glyphicon glyphicon-arrow-down" id="arama"></span>
         </p>
         <div class="form-horizontal" id="aramaSecenekleri" hidden>
             <div class="col-md-12">
                 <div class="col-md-4">
-                     @Html.DropDownList("kullaniciId", (List<SelectListItem>) ViewBag.kullanicilarSelect, "Kullanıcı Seçiniz", htmlAttributes: new {@class = "form-control", @id = "kullaniciId"})
-                    </div>
-                <div class="col-md-4">
-                    &emsp;
-                </div>
-                <div class="col-md-4">
-                    <input type="date" class="form-control" id="tarih" />
-                </div>
-                <br /><br />
-                <div class="col-md-4">
-                    @Html.DropDownList("kimeGonderildi", (List<SelectListItem>)ViewBag.kimeGonderildi, htmlAttributes: new { @class = "form-control", @id = "kimeGonderildi" })
+                    <input type="text" class="form-control" id="ara"/>
                 </div>
                 <div class="col-md-4">
                     &emsp;
@@ -55,19 +45,17 @@
         <thead>
             <tr>
                 <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.KullaniciAdiSoyadi)</th>
-                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.AliciStr)</th>
-                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.Tarih)</th>
-                <th class="col-md-3 col-xs-3">İşlemler</th>
+                <th class="col-md-9 col-xs-9">@Html.DisplayNameFor(model => model.MesajMetni)</th>
             </tr>
         </thead>
         <tbody class="points_table_scrollbar" id="tablo_tbody"></tbody>
     </table>
-    <script src="~/Scripts/MesajListeleScript.js"></script>
+    <script src="~/Scripts/MesajDetayListeleScript.js"></script>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"> Lütfen Bekleyiniz. Gönderilen mesajlar Listeleniyor...</h4>
+                    <h4 class="modal-title"> Lütfen Bekleyiniz. Mesaj Detayları Listeleniyor...</h4>
                 </div>
                 <div class="modal-body">
                     <div class="progress">
@@ -83,3 +71,6 @@
     </div>
 </div>
 
+
+
+</table>

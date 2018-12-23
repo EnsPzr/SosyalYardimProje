@@ -55,7 +55,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DetayListe(int? id)
+        public ActionResult DetayListe(int? id=1)
         {
             ViewBag.MesajId = id;
             Tanimla();
@@ -65,6 +65,7 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public JsonResult TumDetaylariGetir(int? detayId)
         {
+            Thread.Sleep(2000);
             if (mesajBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), detayId))
             {
                 MesajDetayJsModel model = new MesajDetayJsModel()
@@ -88,6 +89,7 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public JsonResult FiltreliDetaylariGetir(int? detayId, string aranan)
         {
+            Thread.Sleep(2000);
             if (mesajBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), detayId))
             {
                 if (aranan.Equals(""))

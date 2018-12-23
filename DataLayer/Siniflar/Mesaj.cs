@@ -74,7 +74,7 @@ namespace DataLayer.Siniflar
 
         public List<MesajDetayTablo> FiltreliMesajDetayGetir(int? mesajId, string aranan)
         {
-            var sorgu = db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).AsQueryable();
+            var sorgu = db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajTablo_MesajId == mesajId).AsQueryable();
 
             if (aranan != null)
             {

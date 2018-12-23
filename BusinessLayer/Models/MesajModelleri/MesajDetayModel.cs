@@ -9,6 +9,7 @@ namespace BusinessLayer.Models.MesajModelleri
 {
     public class MesajDetayModel
     {
+        public int? MesajId { get; set; }
         [Display(Name = "Gönderilen Kullanıcı")]
         public String KullaniciAdiSoyadi { get; set; }
 
