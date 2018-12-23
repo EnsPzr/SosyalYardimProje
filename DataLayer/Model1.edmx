@@ -171,6 +171,7 @@
           <Property Name="MesajId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KullaniciBilgleriTablo.KullaniciId" Type="int" />
           <Property Name="KimeAtildi" Type="int" />
+          <Property Name="Tarih" Type="date" />
         </EntityType>
         <EntityType Name="RotaTablo">
           <Key>
@@ -839,6 +840,7 @@
           <Property Name="KimeAtildi" Type="Int32" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_MesajTablo_KullaniciBilgileriTablo" FromRole="MesajTablo" ToRole="KullaniciBilgileriTablo" />
           <NavigationProperty Name="MesajDetayTablo" Relationship="Self.FK_MesajDetayTablo_MesajTablo" FromRole="MesajTablo" ToRole="MesajDetayTablo" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="RotaTablo">
           <Key>
@@ -1505,6 +1507,7 @@
           <EntitySetMapping Name="MesajTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.MesajTablo">
               <MappingFragment StoreEntitySet="MesajTablo">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
                 <ScalarProperty Name="MesajId" ColumnName="MesajId" />
                 <ScalarProperty Name="KullaniciBilgleriTablo_KullaniciId" ColumnName="KullaniciBilgleriTablo.KullaniciId" />
                 <ScalarProperty Name="KimeAtildi" ColumnName="KimeAtildi" />
