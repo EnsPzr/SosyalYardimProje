@@ -128,6 +128,7 @@
     <Compile Include="Siniflar\IhtiyacSahibi.cs" />
     <Compile Include="Siniflar\Kasa.cs" />
     <Compile Include="Siniflar\Kullanici.cs" />
+    <Compile Include="Siniflar\Mesaj.cs" />
     <Compile Include="Siniflar\Sube.cs" />
     <Compile Include="Siniflar\TeslimAlinacakBagis.cs" />
     <Compile Include="Siniflar\Yetki.cs" />
