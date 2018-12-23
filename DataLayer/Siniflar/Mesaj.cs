@@ -11,6 +11,8 @@ namespace DataLayer.Siniflar
     {
         private SosyalYardimDB db = new SosyalYardimDB();
         private KullaniciYonetimi kullaniciDAL = new KullaniciYonetimi();
+        private Kullanici kullaniciBilgileri = new Kullanici();
+        private Sube subeDAL = new Sube();
 
         public List<MesajTablo> TumMesajlariGetir(int? kullaniciId)
         {
@@ -47,6 +49,7 @@ namespace DataLayer.Siniflar
                 {
                     sorgu = sorgu.Where(p => p.KimeAtildi == kimeGonderildi);
                 }
+
                 return sorgu.ToList();
             }
             else
@@ -59,22 +62,26 @@ namespace DataLayer.Siniflar
                     DateTime? tarihDate = Convert.ToDateTime(tarih);
                     sorgu = sorgu.Where(p => p.Tarih == tarihDate);
                 }
+
                 if (kimeGonderildi != null)
                 {
                     sorgu = sorgu.Where(p => p.KimeAtildi == kimeGonderildi);
                 }
+
                 return sorgu.ToList();
             }
         }
 
         public List<MesajDetayTablo> TumMesajDetayGetir(int? mesajId)
         {
-            return db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).ToList();
+            return db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId)
+                .ToList();
         }
 
         public List<MesajDetayTablo> FiltreliMesajDetayGetir(int? mesajId, string aranan)
         {
-            var sorgu = db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajTablo_MesajId == mesajId).AsQueryable();
+            var sorgu = db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo)
+                .Where(p => p.MesajTablo_MesajId == mesajId).AsQueryable();
 
             if (aranan != null)
             {
@@ -96,9 +103,99 @@ namespace DataLayer.Siniflar
             else
             {
                 if (db.MesajTablo.FirstOrDefault(p =>
-                    p.KullaniciBilgleriTablo_KullaniciId == kullaniciId && p.MesajId == mesajId) != null)
+                        p.KullaniciBilgleriTablo_KullaniciId == kullaniciId && p.MesajId == mesajId) != null)
                 {
                     return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool MesajGonder(MesajTablo mesajTablo, MesajDetayTablo mesajDetay)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(mesajTablo.KullaniciBilgleriTablo_KullaniciId))
+            {
+                db.MesajTablo.Add(mesajTablo);
+                db.SaveChanges();
+                var id = db.MesajTablo.FirstOrDefault(p =>
+                    p.KullaniciBilgleriTablo_KullaniciId == mesajTablo.KullaniciBilgleriTablo_KullaniciId
+                    && p.Tarih == mesajTablo.Tarih && p.Zaman == mesajTablo.Zaman);
+                if (id != null)
+                {
+                    if (mesajTablo.KimeAtildi == 0)
+                    {
+                        var tumKullanicilar =
+                            kullaniciBilgileri.TumKullanicilariGetir(mesajTablo.KullaniciBilgleriTablo_KullaniciId);
+                        for (int i = 0; i < tumKullanicilar.Count; i++)
+                        {
+                            MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                            yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                            yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
+                            yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                            db.MesajDetayTablo.Add(yeniMesaj);
+                            db.SaveChanges();
+                        }
+
+                        return true;
+                    }
+                    else if (mesajTablo.KimeAtildi == 1)
+                    {
+                        var subeler = subeDAL.TumSubeleriGetir();
+                        for (int i = 0; i < subeler.Count; i++)
+                        {
+                            MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                            yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                            yeniMesaj.KullaniciBilgileriTablo_KullaniciId =
+                                subeler[i].KullaniciBilgileriTablo_KullaniciId;
+                            yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                            db.MesajDetayTablo.Add(yeniMesaj);
+                            db.SaveChanges();
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                db.MesajTablo.Add(mesajTablo);
+                db.SaveChanges();
+                var id = db.MesajTablo.FirstOrDefault(p =>
+                    p.KullaniciBilgleriTablo_KullaniciId == mesajTablo.KullaniciBilgleriTablo_KullaniciId
+                    && p.Tarih == mesajTablo.Tarih && p.Zaman == mesajTablo.Zaman);
+                if (id != null)
+                {
+                    if (mesajTablo.KimeAtildi == 0)
+                    {
+                        var tumKullanicilar =
+                            kullaniciBilgileri.TumKullanicilariGetir(mesajTablo.KullaniciBilgleriTablo_KullaniciId);
+                        for (int i = 0; i < tumKullanicilar.Count; i++)
+                        {
+                            MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                            yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                            yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
+                            yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                            db.MesajDetayTablo.Add(yeniMesaj);
+                            db.SaveChanges();
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {

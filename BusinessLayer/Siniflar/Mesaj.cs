@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.MesajModelleri;
+using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
     public class Mesaj
     {
         private DataLayer.Siniflar.Mesaj mesajDAL = new DataLayer.Siniflar.Mesaj();
-
+        private DataLayer.KullaniciYonetimi kullaniciDAL  = new DataLayer.KullaniciYonetimi();
         public List<MesajModel> TumMesajlariGetir(int? kullaniciId)
         {
             var mesajlar = mesajDAL.TumMesajlariGetir(kullaniciId);
@@ -64,6 +66,45 @@ namespace BusinessLayer.Siniflar
                 MesajMetni = p.MesajMetni
             }).ToList();
             return gonMesajlar;
+        }
+
+        public IslemOnayModel MesajGonder(GonderilecekMesajModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (kullaniciDAL.KullaniciMerkezdeMi(model.GonderenId))
+            {
+                MesajTablo mesajTablo = new MesajTablo();
+                mesajTablo.KimeAtildi = model.KimeGonderilecek;
+                mesajTablo.KullaniciBilgleriTablo_KullaniciId = model.GonderenId;
+                mesajTablo.Tarih = DateTime.Today;
+                mesajTablo.Zaman = DateTime.Now.TimeOfDay;
+
+                MesajDetayTablo mesajDetayTablo = new MesajDetayTablo();
+                mesajDetayTablo.MesajMetni = model.MesajMetni;
+                onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo);
+            }
+            else
+            {
+                if (model.KimeGonderilecek == 0)
+                {
+                    MesajTablo mesajTablo = new MesajTablo();
+                    mesajTablo.KimeAtildi = model.KimeGonderilecek;
+                    mesajTablo.KullaniciBilgleriTablo_KullaniciId = model.GonderenId;
+                    mesajTablo.Tarih = DateTime.Today;
+                    mesajTablo.Zaman = DateTime.Now.TimeOfDay;
+
+                    MesajDetayTablo mesajDetayTablo = new MesajDetayTablo();
+                    mesajDetayTablo.MesajMetni = model.MesajMetni;
+                    onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo);
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Koordinatör olduğunuzdan dolayı sadece herkes seçeneğini seçebilirsiniz.");
+                }
+            }
+
+            return onay;
         }
 
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? mesajId)

@@ -24,6 +24,7 @@ namespace DataLayer
         public Nullable<int> KullaniciBilgleriTablo_KullaniciId { get; set; }
         public Nullable<int> KimeAtildi { get; set; }
         public Nullable<System.DateTime> Tarih { get; set; }
+        public Nullable<System.TimeSpan> Zaman { get; set; }
     
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
