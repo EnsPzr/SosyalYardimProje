@@ -85,6 +85,33 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult FiltreliDetaylariGetir(int? detayId, string aranan)
+        {
+            if (mesajBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), detayId))
+            {
+                if (aranan.Equals(""))
+                {
+                    aranan = null;
+                }
+                MesajDetayJsModel model = new MesajDetayJsModel()
+                {
+                    BasariliMi = true,
+                    MesajDetayList = mesajBAL.FiltreliMesajlarDetaylariGetir(detayId,aranan)
+                };
+                model.MesajDetaySayisi = model.MesajDetayList.Count;
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                MesajDetayJsModel model = new MesajDetayJsModel()
+                {
+                    BasariliMi = false
+                };
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public void Tanimla()
         {
             var kullanicilar = kullaniciBAL.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId());
