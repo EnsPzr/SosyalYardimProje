@@ -6959,6 +6959,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BagisciBilgileriDondur.cs" />
     <Compile Include="Controllers\BagisciController.cs" />
     <Compile Include="Controllers\BagisciIslemleriController.cs" />
     <Compile Include="Controllers\DepoController.cs" />
@@ -7032,6 +7033,7 @@
     <Content Include="Views\Mesaj\Liste.cshtml" />
     <Content Include="Views\Mesaj\DetayListe.cshtml" />
     <Content Include="Views\Mesaj\YeniMesaj.cshtml" />
+    <Content Include="Views\BagisciIslemleri\Giris.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -7045,7 +7047,6 @@
     <Folder Include="Picture\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
-    <Folder Include="Views\BagisciIslemleri\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

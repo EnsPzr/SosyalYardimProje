@@ -24,5 +24,10 @@ namespace DataLayer.BagisciSiniflar
                 return null;
             }
         }
+
+        public KullaniciBilgileriTablo KullaniciBul(int? id)
+        {
+            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == id);
+        }
     }
 }

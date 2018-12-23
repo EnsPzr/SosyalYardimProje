@@ -27,7 +27,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     Session["KullaniciId"] = bagisci.KullaniciId;
                     Session["Bilgi"] = bagisci.KullaniciAdi + " " + bagisci.KullaniciSoyadi;
-                    return RedirectToAction("BagisciAnaSayfa");
+                    return RedirectToAction("AnaSayfa", "Giris");
                 }
                 else
                 {

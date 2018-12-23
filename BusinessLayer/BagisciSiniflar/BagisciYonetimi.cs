@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.KullaniciModelleri;
+using DataLayer;
 
 namespace BusinessLayer.BagisciSiniflar
 {
@@ -28,6 +29,11 @@ namespace BusinessLayer.BagisciSiniflar
             {
                 return null;
             }
+        }
+
+        public KullaniciBilgileriTablo LoginKullaniciBul(int? KullaniciId)
+        {
+            return bagisciDAL.KullaniciBul(KullaniciId);
         }
     }
 }
