@@ -15,6 +15,7 @@ namespace SosyalYardimProje.Controllers
         private Kullanici kullaniciBAL = new Kullanici();
         public ActionResult Liste()
         {
+            Tanimla();
             return View();
         }
 
@@ -32,7 +33,7 @@ namespace SosyalYardimProje.Controllers
         }
 
         [HttpGet]
-        public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih)
+        public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih,int? kimeGonderildi)
         {
             if (aranan.Equals(""))
             {
@@ -51,6 +52,23 @@ namespace SosyalYardimProje.Controllers
             model.MesajSayisi = model.MesajList.Count;
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public void Tanimla()
+        {
+            var kullanicilar = kullaniciBAL.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId());
+            var kullanicilarSelect = kullanicilar.Select(p => new SelectListItem()
+            {
+                Text = p.KullaniciAdi + " " + p.KullaniciSoyadi,
+                Value = p.KullaniciId.ToString()
+            }).ToList();
+            ViewBag.kullanicilarSelect = kullanicilarSelect;
+
+            var kimeGonderildi = new List<SelectListItem>();
+            kimeGonderildi.Add(new SelectListItem() { Text = "Herkes", Value = "0" });
+            kimeGonderildi.Add(new SelectListItem() { Text = "Koordinatörler", Value = "1" });
+            kimeGonderildi.Add(new SelectListItem() { Text = "Hiç Kimse", Value = "3" });
+            ViewBag.kimeGonderildi = kimeGonderildi;
         }
     }
 }

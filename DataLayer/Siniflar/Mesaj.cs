@@ -26,7 +26,7 @@ namespace DataLayer.Siniflar
         }
 
         public List<MesajTablo> FiltreliMesajlariGetir(int? kullaniciId, int? arananKullaniciId, string aranan,
-            string tarih)
+            string tarih, int? kimeGonderildi)
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
@@ -56,6 +56,10 @@ namespace DataLayer.Siniflar
                     sorgu = sorgu.Where(p => p.Tarih == tarihDate);
                 }
 
+                if (kimeGonderildi != null)
+                {
+                    sorgu = sorgu.Where(p => p.KimeAtildi == kimeGonderildi);
+                }
                 return sorgu.ToList();
             }
             else
@@ -81,7 +85,10 @@ namespace DataLayer.Siniflar
                     DateTime? tarihDate = Convert.ToDateTime(tarih);
                     sorgu = sorgu.Where(p => p.Tarih == tarihDate);
                 }
-
+                if (kimeGonderildi != null)
+                {
+                    sorgu = sorgu.Where(p => p.KimeAtildi == kimeGonderildi);
+                }
                 return sorgu.ToList();
             }
         }

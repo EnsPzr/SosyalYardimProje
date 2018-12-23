@@ -27,9 +27,9 @@ namespace BusinessLayer.Siniflar
         }
 
         public List<MesajModel> FiltreliMesajlariGetir(int? kullaniciId, int? arananKullaniciId, string aranan,
-            string tarih)
+            string tarih, int? kimeGonderildi)
         {
-            var mesajlar = mesajDAL.FiltreliMesajlariGetir(kullaniciId, arananKullaniciId, aranan, tarih);
+            var mesajlar = mesajDAL.FiltreliMesajlariGetir(kullaniciId, arananKullaniciId, aranan, tarih, kimeGonderildi);
             var gonMesajlar = mesajlar.Select(p => new MesajModel()
             {
                 AliciInt = p.KimeAtildi,
