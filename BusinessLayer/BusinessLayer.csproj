@@ -48,11 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BagisciSiniflar\BagisciYonetimi.cs" />
     <Compile Include="KullaniciYonetimi.cs" />
     <Compile Include="Models\AnaSayfaModelleri\AnaSayfaOrtakModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\OnayBekleyenIhtiyacSahipleriModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimAlinmaBekleyenBagislarListe.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
+    <Compile Include="Models\BagisciGiris\BagisciGirisModel.cs" />
     <Compile Include="Models\BagisciModelleri\BagisciJSModel.cs" />
     <Compile Include="Models\BagisciModelleri\BagisciModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoJsModel.cs" />
