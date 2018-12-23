@@ -25,5 +25,21 @@ namespace BusinessLayer.Siniflar
             }).ToList();
             return gonMesajlar;
         }
+
+        public List<MesajModel> FiltreliMesajlariGetir(int? kullaniciId, int? arananKullaniciId, string aranan,
+            string tarih)
+        {
+            var mesajlar = mesajDAL.FiltreliMesajlariGetir(kullaniciId, arananKullaniciId, aranan, tarih);
+            var gonMesajlar = mesajlar.Select(p => new MesajModel()
+            {
+                AliciInt = p.KimeAtildi,
+                AliciStr = p.KimeAtildi != null ? p.KimeAtildi == 0 ? "Herkes" : "Koordinatörler" : "Hiç Kimse",
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                KullaniciId = p.KullaniciBilgleriTablo_KullaniciId,
+                MesajId = p.MesajId,
+                Tarih = p.Tarih
+            }).ToList();
+            return gonMesajlar;
+        }
     }
 }
