@@ -114,6 +114,51 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+
+        public ActionResult YeniMesaj()
+        {
+            Tanimla();
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult YeniMesaj(GonderilecekMesajModel model)
+        {
+            model.GonderenId = KullaniciBilgileriDondur.KullaniciId();
+            if (ModelState.IsValid)
+            {
+                var sonuc = mesajBAL.MesajGonder(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "İşlem başarı ile gerçekleşti.";
+                    return RedirectToAction("Liste");
+                }
+                else
+                {
+                    string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    if (hatalar != null)
+                    {
+                        TempData["hata"] = "Gönderim işlemi sırasında hata oluştu.";
+                        Tanimla();
+                        return View(model);
+                    }
+                    else
+                    {
+                        TempData["hata"] = hatalar;
+                        Tanimla();
+                        return View(model);
+                    }
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
+
         public void Tanimla()
         {
             var kullanicilar = kullaniciBAL.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId());
@@ -127,8 +172,25 @@ namespace SosyalYardimProje.Controllers
             var kimeGonderildi = new List<SelectListItem>();
             kimeGonderildi.Add(new SelectListItem() { Text = "Herkes", Value = "0" });
             kimeGonderildi.Add(new SelectListItem() { Text = "Koordinatörler", Value = "1" });
-            kimeGonderildi.Add(new SelectListItem() { Text = "Hiç Kimse", Value = "3" });
             ViewBag.kimeGonderildi = kimeGonderildi;
+
+            var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId());
+            var sehirlerSelect = sehirler.Select(p => new SelectListItem()
+            {
+                Text = p.SehirAdi,
+                Value = p.SehirId.ToString()
+            }).ToList();
+            if (KullaniciBilgileriDondur.KullaniciBilgileriGetir()
+                    .KullaniciMerkezdeMi == true)
+            {
+                sehirlerSelect.Add(new SelectListItem()
+                {
+                    Text = "Her Yer",
+                    Selected = true,
+                    Value = "82"
+                });
+            }
+            ViewBag.sehirlerSelect = sehirlerSelect;
         }
     }
 }

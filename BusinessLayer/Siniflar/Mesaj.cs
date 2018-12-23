@@ -12,7 +12,7 @@ namespace BusinessLayer.Siniflar
     public class Mesaj
     {
         private DataLayer.Siniflar.Mesaj mesajDAL = new DataLayer.Siniflar.Mesaj();
-        private DataLayer.KullaniciYonetimi kullaniciDAL  = new DataLayer.KullaniciYonetimi();
+        private DataLayer.KullaniciYonetimi kullaniciDAL = new DataLayer.KullaniciYonetimi();
         public List<MesajModel> TumMesajlariGetir(int? kullaniciId)
         {
             var mesajlar = mesajDAL.TumMesajlariGetir(kullaniciId);
@@ -81,7 +81,7 @@ namespace BusinessLayer.Siniflar
 
                 MesajDetayTablo mesajDetayTablo = new MesajDetayTablo();
                 mesajDetayTablo.MesajMetni = model.MesajMetni;
-                onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo);
+                onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo, model.SehirId);
             }
             else
             {
@@ -95,7 +95,7 @@ namespace BusinessLayer.Siniflar
 
                     MesajDetayTablo mesajDetayTablo = new MesajDetayTablo();
                     mesajDetayTablo.MesajMetni = model.MesajMetni;
-                    onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo);
+                    onay.TamamlandiMi = mesajDAL.MesajGonder(mesajTablo, mesajDetayTablo, null);
                 }
                 else
                 {

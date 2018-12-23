@@ -114,7 +114,7 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public bool MesajGonder(MesajTablo mesajTablo, MesajDetayTablo mesajDetay)
+        public bool MesajGonder(MesajTablo mesajTablo, MesajDetayTablo mesajDetay, int? sehirId)
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(mesajTablo.KullaniciBilgleriTablo_KullaniciId))
             {
@@ -131,12 +131,39 @@ namespace DataLayer.Siniflar
                             kullaniciBilgileri.TumKullanicilariGetir(mesajTablo.KullaniciBilgleriTablo_KullaniciId);
                         for (int i = 0; i < tumKullanicilar.Count; i++)
                         {
-                            MesajDetayTablo yeniMesaj = new MesajDetayTablo();
-                            yeniMesaj.MesajTablo_MesajId = id.MesajId;
-                            yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
-                            yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
-                            db.MesajDetayTablo.Add(yeniMesaj);
-                            db.SaveChanges();
+                            if (sehirId != null)
+                            {
+                                if (sehirId == 82)
+                                {
+                                    MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                    yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                    yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
+                                    yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                    db.MesajDetayTablo.Add(yeniMesaj);
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    if (tumKullanicilar[i].SehirTablo_SehirId == sehirId)
+                                    {
+                                        MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                        yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                        yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
+                                        yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                        db.MesajDetayTablo.Add(yeniMesaj);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                yeniMesaj.KullaniciBilgileriTablo_KullaniciId = tumKullanicilar[i].KullaniciId;
+                                yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                db.MesajDetayTablo.Add(yeniMesaj);
+                                db.SaveChanges();
+                            }
                         }
 
                         return true;
@@ -146,13 +173,42 @@ namespace DataLayer.Siniflar
                         var subeler = subeDAL.TumSubeleriGetir();
                         for (int i = 0; i < subeler.Count; i++)
                         {
-                            MesajDetayTablo yeniMesaj = new MesajDetayTablo();
-                            yeniMesaj.MesajTablo_MesajId = id.MesajId;
-                            yeniMesaj.KullaniciBilgileriTablo_KullaniciId =
-                                subeler[i].KullaniciBilgileriTablo_KullaniciId;
-                            yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
-                            db.MesajDetayTablo.Add(yeniMesaj);
-                            db.SaveChanges();
+                            if (sehirId != null)
+                            {
+                                if (sehirId == 82)
+                                {
+                                    MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                    yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                    yeniMesaj.KullaniciBilgileriTablo_KullaniciId =
+                                        subeler[i].KullaniciBilgileriTablo_KullaniciId;
+                                    yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                    db.MesajDetayTablo.Add(yeniMesaj);
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    if (subeler[i].KullaniciBilgileriTablo.SehirTablo_SehirId == sehirId)
+                                    {
+                                        MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                        yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                        yeniMesaj.KullaniciBilgileriTablo_KullaniciId =
+                                            subeler[i].KullaniciBilgileriTablo_KullaniciId;
+                                        yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                        db.MesajDetayTablo.Add(yeniMesaj);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MesajDetayTablo yeniMesaj = new MesajDetayTablo();
+                                yeniMesaj.MesajTablo_MesajId = id.MesajId;
+                                yeniMesaj.KullaniciBilgileriTablo_KullaniciId =
+                                    subeler[i].KullaniciBilgileriTablo_KullaniciId;
+                                yeniMesaj.MesajMetni = mesajDetay.MesajMetni;
+                                db.MesajDetayTablo.Add(yeniMesaj);
+                                db.SaveChanges();
+                            }
                         }
 
                         return true;
