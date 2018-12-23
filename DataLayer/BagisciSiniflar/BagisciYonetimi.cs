@@ -39,5 +39,26 @@ namespace DataLayer.BagisciSiniflar
         {
             return db.BagisDetayTablo.Include(p=>p.EsyaTablo).Where(p => p.BagisTablo_BagisId == bagisId).ToList();
         }
+
+        public bool BagisciVarMi(string ePosta)
+        {
+            if (db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == ePosta) != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool BagisciKaydet(KullaniciBilgileriTablo kullaniciTablo)
+        {
+            db.KullaniciBilgileriTablo.Add(kullaniciTablo);
+            if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

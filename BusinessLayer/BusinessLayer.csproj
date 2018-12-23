@@ -56,7 +56,7 @@
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
     <Compile Include="Models\BagisciGiris\BagisciAnaSayfaModel.cs" />
     <Compile Include="Models\BagisciGiris\BagisciGirisModel.cs" />
-    <Compile Include="Models\BagisciGiris\BagisciKayit.cs" />
+    <Compile Include="Models\BagisciGiris\BagisciKayitModel.cs" />
     <Compile Include="Models\BagisciModelleri\BagisciJSModel.cs" />
     <Compile Include="Models\BagisciModelleri\BagisciModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoJsModel.cs" />

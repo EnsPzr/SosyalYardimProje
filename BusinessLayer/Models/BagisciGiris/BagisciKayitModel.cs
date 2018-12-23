@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Models.BagisciGiris
 {
-    public class BagisciKayit
+    public class BagisciKayitModel
     {
         [Display(Name = "Ad")]
         [MinLength(6,ErrorMessage = "Ad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Ad en fazla {1} karakter olabilir")]

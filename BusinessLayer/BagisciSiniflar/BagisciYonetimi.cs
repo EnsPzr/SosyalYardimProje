@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.BagisciGiris;
 using BusinessLayer.Models.KullaniciModelleri;
+using BusinessLayer.Models.OrtakModeller;
 using DataLayer;
 
 namespace BusinessLayer.BagisciSiniflar
@@ -64,6 +65,34 @@ namespace BusinessLayer.BagisciSiniflar
             }
 
             return anaSayfaModelList;
+        }
+
+        public bool BagisciVarMi(string ePosta)
+        {
+            return bagisciDAL.BagisciVarMi(ePosta);
+        }
+
+        public IslemOnayModel BagisciKaydet(BagisciKayitModel bagisciModel)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (!(BagisciVarMi(bagisciModel.BagisciEPosta)))
+            {
+                KullaniciBilgileriTablo kullanici = new KullaniciBilgileriTablo();
+                kullanici.KullaniciAdi = bagisciModel.BagisciAdi;
+                kullanici.KullaniciSoyadi = bagisciModel.BagisciSoyadi;
+                kullanici.SehirTablo_SehirId = bagisciModel.SehirId;
+                kullanici.KullaniciTelefonNumarasi = bagisciModel.BagisciTelNo;
+                kullanici.BagisciMi = true;
+                kullanici.KullaniciEPosta = bagisciModel.BagisciEPosta;
+                kullanici.KullaniciSifre = bagisciModel.BagisciSifre;
+                onay.TamamlandiMi= bagisciDAL.BagisciKaydet(kullanici);
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Bu e posta hesabı kullanımdadır.");
+            }
+            return onay;
         }
     }
 }
