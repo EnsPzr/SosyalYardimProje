@@ -235,6 +235,15 @@ namespace BusinessLayer.Siniflar
             }
         }
 
+        public List<SehirModel> TumSehirleriGetir()
+        {
+            return KullaniciDataLayer.TumSehirler().Select(p=>new SehirModel()
+            {
+                SehirAdi=p.SehirAdi,
+                SehirId=p.SehirId
+            }).ToList();
+        }
+
         public KullaniciModel KullaniciGetir(int? id)
         {
             var kullanici= KullaniciDataLayer.KullaniciGetir(id);

@@ -85,6 +85,7 @@ namespace BusinessLayer.BagisciSiniflar
                 kullanici.BagisciMi = true;
                 kullanici.KullaniciEPosta = bagisciModel.BagisciEPosta;
                 kullanici.KullaniciSifre = bagisciModel.BagisciSifre;
+                kullanici.KullaniciAdres = bagisciModel.BagisciAdres;
                 onay.TamamlandiMi= bagisciDAL.BagisciKaydet(kullanici);
             }
             else

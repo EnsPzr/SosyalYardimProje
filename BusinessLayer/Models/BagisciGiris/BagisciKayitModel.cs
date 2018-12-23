@@ -41,6 +41,12 @@ namespace BusinessLayer.Models.BagisciGiris
         [Compare("BagisciSifre")]
         public String BagisciSifreTekrar { get; set; }
 
+        [Display(Name = "Adres")]
+        [MinLength(8, ErrorMessage = "Adres en az {1} karakter olabilir"), MaxLength(150, ErrorMessage = "Adres en fazla {1} karakter olabilir")]
+        [Required(ErrorMessage = "Adres Tekrar giriniz")]
+        [DataType(DataType.MultilineText)]
+        public String BagisciAdres { get; set; }
+
         [Display(Name = "Şehir")]
         [Required(ErrorMessage = "Şehir seçiniz")]
         public int? SehirId { get; set; }
