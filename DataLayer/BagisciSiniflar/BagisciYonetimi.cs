@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace DataLayer.BagisciSiniflar
 {
     public class BagisciYonetimi
@@ -28,6 +28,16 @@ namespace DataLayer.BagisciSiniflar
         public KullaniciBilgileriTablo KullaniciBul(int? id)
         {
             return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == id);
+        }
+
+        public List<BagisTablo> BagislariGetir(int? kullaniciId)
+        {
+            return db.BagisTablo.Where(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId).ToList();
+        }
+
+        public List<BagisDetayTablo> BagisDetayBul(int? bagisId)
+        {
+            return db.BagisDetayTablo.Include(p=>p.EsyaTablo).Where(p => p.BagisTablo_BagisId == bagisId).ToList();
         }
     }
 }
