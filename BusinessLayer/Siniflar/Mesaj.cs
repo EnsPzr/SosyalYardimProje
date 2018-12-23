@@ -16,12 +16,12 @@ namespace BusinessLayer.Siniflar
             var mesajlar = mesajDAL.TumMesajlariGetir(kullaniciId);
             var gonMesajlar = mesajlar.Select(p => new MesajModel()
             {
-                AliciInt=p.KimeAtildi,
-                AliciStr = p.KimeAtildi!=null?p.KimeAtildi==0?"Herkes":"Koordinatörler":"Hiç Kimse",
-                KullaniciAdiSoyadi=p.KullaniciBilgileriTablo.KullaniciAdi+" "+p.KullaniciBilgileriTablo.KullaniciSoyadi,
-                KullaniciId=p.KullaniciBilgleriTablo_KullaniciId,
-                MesajId=p.MesajId,
-                Tarih=p.Tarih,
+                AliciInt = p.KimeAtildi,
+                AliciStr = p.KimeAtildi != null ? p.KimeAtildi == 0 ? "Herkes" : "Koordinatörler" : "Hiç Kimse",
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                KullaniciId = p.KullaniciBilgleriTablo_KullaniciId,
+                MesajId = p.MesajId,
+                Tarih = p.Tarih,
                 TarihStr = p.Tarih != null ? Convert.ToDateTime(p.Tarih).ToShortDateString() : ""
             }).ToList();
             return gonMesajlar;
@@ -39,7 +39,7 @@ namespace BusinessLayer.Siniflar
                 KullaniciId = p.KullaniciBilgleriTablo_KullaniciId,
                 MesajId = p.MesajId,
                 Tarih = p.Tarih,
-                TarihStr = p.Tarih!=null?Convert.ToDateTime(p.Tarih).ToShortDateString():""
+                TarihStr = p.Tarih != null ? Convert.ToDateTime(p.Tarih).ToShortDateString() : ""
             }).ToList();
             return gonMesajlar;
         }
@@ -49,7 +49,18 @@ namespace BusinessLayer.Siniflar
             var mesajlar = mesajDAL.TumMesajDetayGetir(mesajId);
             var gonMesajlar = mesajlar.Select(p => new MesajDetayModel()
             {
-                KullaniciAdiSoyadi=p.KullaniciBilgileriTablo.KullaniciAdi+" "+p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                MesajMetni = p.MesajMetni
+            }).ToList();
+            return gonMesajlar;
+        }
+
+        public List<MesajDetayModel> FiltreliMesajlarDetaylariGetir(int? mesajId, string aranan)
+        {
+            var mesajlar = mesajDAL.FiltreliMesajDetayGetir(mesajId, aranan);
+            var gonMesajlar = mesajlar.Select(p => new MesajDetayModel()
+            {
+                KullaniciAdiSoyadi = p.KullaniciBilgileriTablo.KullaniciAdi + " " + p.KullaniciBilgileriTablo.KullaniciSoyadi,
                 MesajMetni = p.MesajMetni
             }).ToList();
             return gonMesajlar;

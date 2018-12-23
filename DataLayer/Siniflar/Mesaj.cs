@@ -36,7 +36,7 @@ namespace DataLayer.Siniflar
                 {
                     sorgu = sorgu.Where(p => p.KullaniciBilgleriTablo_KullaniciId == arananKullaniciId);
                 }
-                
+
                 if (tarih != null)
                 {
                     DateTime? tarihDate = Convert.ToDateTime(tarih);
@@ -53,7 +53,7 @@ namespace DataLayer.Siniflar
             {
                 var sorgu = db.MesajTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.MesajDetayTablo)
                     .Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).AsQueryable();
-                
+
                 if (tarih != null)
                 {
                     DateTime? tarihDate = Convert.ToDateTime(tarih);
@@ -69,7 +69,22 @@ namespace DataLayer.Siniflar
 
         public List<MesajDetayTablo> TumMesajDetayGetir(int? mesajId)
         {
-            return db.MesajDetayTablo.Include(p=>p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).ToList();
+            return db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).ToList();
+        }
+
+        public List<MesajDetayTablo> FiltreliMesajDetayGetir(int? mesajId, string aranan)
+        {
+            var sorgu = db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).AsQueryable();
+
+            if (aranan != null)
+            {
+                sorgu = sorgu.Where(p => p.MesajMetni.Contains(aranan)
+                                         || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                         || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                         || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan));
+            }
+
+            return sorgu.ToList();
         }
 
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? mesajId)
@@ -81,7 +96,7 @@ namespace DataLayer.Siniflar
             else
             {
                 if (db.MesajTablo.FirstOrDefault(p =>
-                    p.KullaniciBilgleriTablo_KullaniciId == kullaniciId && p.MesajId == mesajId)!=null)
+                    p.KullaniciBilgleriTablo_KullaniciId == kullaniciId && p.MesajId == mesajId) != null)
                 {
                     return true;
                 }
