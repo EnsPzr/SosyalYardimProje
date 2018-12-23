@@ -43,5 +43,21 @@ namespace BusinessLayer.Siniflar
             }).ToList();
             return gonMesajlar;
         }
+
+        public List<MesajDetayModel> TumMesajlarDetaylariGetir(int? mesajId)
+        {
+            var mesajlar = mesajDAL.TumMesajDetayGetir(mesajId);
+            var gonMesajlar = mesajlar.Select(p => new MesajDetayModel()
+            {
+                KullaniciAdiSoyadi=p.KullaniciBilgileriTablo.KullaniciAdi+" "+p.KullaniciBilgileriTablo.KullaniciSoyadi,
+                MesajMetni = p.MesajMetni
+            }).ToList();
+            return gonMesajlar;
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? mesajId)
+        {
+            return mesajDAL.KullaniciIslemYapabilirMi(kullaniciId, mesajId);
+        }
     }
 }

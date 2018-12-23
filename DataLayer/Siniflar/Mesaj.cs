@@ -66,5 +66,30 @@ namespace DataLayer.Siniflar
                 return sorgu.ToList();
             }
         }
+
+        public List<MesajDetayTablo> TumMesajDetayGetir(int? mesajId)
+        {
+            return db.MesajDetayTablo.Include(p=>p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId).ToList();
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? mesajId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                if (db.MesajTablo.FirstOrDefault(p =>
+                    p.KullaniciBilgleriTablo_KullaniciId == kullaniciId && p.MesajId == mesajId)!=null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
