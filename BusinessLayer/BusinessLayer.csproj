@@ -77,6 +77,7 @@
     <Compile Include="Models\KullaniciModelleri\KullaniciGirisModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciJSModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciModel.cs" />
+    <Compile Include="Models\MesajModelleri\MesajJsModel.cs" />
     <Compile Include="Models\MesajModelleri\MesajModel.cs" />
     <Compile Include="Models\NavbarModel.cs" />
     <Compile Include="Models\OrtakModeller\IslemOnayModel.cs" />
