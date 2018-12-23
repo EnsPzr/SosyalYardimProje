@@ -27,7 +27,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     Session["KullaniciId"] = bagisci.KullaniciId;
                     Session["Bilgi"] = bagisci.KullaniciAdi + " " + bagisci.KullaniciSoyadi;
-                    return RedirectToAction("AnaSayfa", "Giris");
+                    return RedirectToAction("AnaSayfa", "BagisciIslemleri");
                 }
                 else
                 {
@@ -39,6 +39,18 @@ namespace SosyalYardimProje.Controllers
             {
                 return View(model);
             }
+        }
+
+        public ActionResult AnaSayfa()
+        {
+            return View();
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult anaSayfaPartialGetir()
+        {
+            var anaSayfaModel = bagisciBAL.AnaSayfaBagislariGetir(BagisciBilgileriDondur.KullaniciId());
+            return PartialView(anaSayfaModel);
         }
     }
 }

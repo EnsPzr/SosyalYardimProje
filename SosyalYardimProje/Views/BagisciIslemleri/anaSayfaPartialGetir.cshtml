@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BusinessLayer.Models.BagisciGiris.BagisciAnaSayfaModel>
+
+@{
+    int teslimBekleyenBagis = 0;
+}
+
+<h4>Teslim Alınmak İçin Bekleyen Bağışlar</h4>
+<table id="tablo" class="points_table col-xs-12 col-md-12">
+    <thead>
+        <tr>
+            <th class="col-md-2 col-xs-2">Eşya</th>
+            <th class="col-md-2 col-xs-2">Adet</th>
+            <th class="col-md-2 col-xs-2">Onaylanma</th>
+            <th class="col-md-2 col-xs-2">Alınacak Mı</th>
+            <th class="col-md-3 col-xs-3">Tahmini Teslim Alma</th>
+        </tr>
+    </thead>
+    <tbody class="points_table_scrollbar" id="tablo_tbody">
+        @foreach (var item in Model)
+        {
+            if (teslimBekleyenBagis % 2 == 0)
+            {
+                <tr class="even">
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.EsyaAdi)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.Adet)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.OnaylandiMi)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.AlinacakMi)
+                    </td>
+                    <td class="col-md-3 col-xs-3">
+                        @Html.DisplayFor(modelItem => item.TahminiAlinmaTarihi)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="odd">
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.EsyaAdi)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.Adet)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.OnaylandiMi)
+                    </td>
+                    <td class="col-md-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => item.AlinacakMi)
+                    </td>
+                    <td class="col-md-3 col-xs-3">
+                        @Html.DisplayFor(modelItem => item.TahminiAlinmaTarihi)
+                    </td>
+                </tr>
+            }
+            teslimBekleyenBagis++;
+        }
+    </tbody>
+</table>

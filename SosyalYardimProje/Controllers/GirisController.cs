@@ -14,9 +14,17 @@ namespace SosyalYardimProje.Controllers
         [ChildActionOnly]
         public PartialViewResult Navbar()
         {
-            String guId = "FFC81558-FFD2-4BB5-AA2F-BC9AA6BE0808";
-            List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(KullaniciBilgileriDondur.KullaniciId());
-            return PartialView("navbarPartial", navbarListModel);
+            if (KullaniciBilgileriDondur.KullaniciId() != 1)
+            {
+                List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(KullaniciBilgileriDondur.KullaniciId());
+                return PartialView("navbarPartial", navbarListModel);
+            }
+            else
+            {
+                List<NavbarModel> navbarListModel = kullaniciYonetimi.NavbarOlustur(BagisciBilgileriDondur.KullaniciId());
+                return PartialView("navbarPartial", navbarListModel);
+            }
+            
         }
         [HttpGet]
         public ActionResult Giris()

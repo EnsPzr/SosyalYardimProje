@@ -7034,6 +7034,8 @@
     <Content Include="Views\Mesaj\DetayListe.cshtml" />
     <Content Include="Views\Mesaj\YeniMesaj.cshtml" />
     <Content Include="Views\BagisciIslemleri\Giris.cshtml" />
+    <Content Include="Views\BagisciIslemleri\AnaSayfa.cshtml" />
+    <Content Include="Views\BagisciIslemleri\anaSayfaPartialGetir.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
