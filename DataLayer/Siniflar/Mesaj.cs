@@ -36,20 +36,7 @@ namespace DataLayer.Siniflar
                 {
                     sorgu = sorgu.Where(p => p.KullaniciBilgleriTablo_KullaniciId == arananKullaniciId);
                 }
-
-                if (aranan != null)
-                {
-                    MesajDetayTablo mesaj = new MesajDetayTablo()
-                    {
-                        MesajMetni = aranan
-                    };
-                    sorgu = sorgu.Where(p => p.MesajDetayTablo.Contains(mesaj)
-                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
-                                             || p.Tarih.ToString().Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan));
-                }
-
+                
                 if (tarih != null)
                 {
                     DateTime? tarihDate = Convert.ToDateTime(tarih);
@@ -66,20 +53,7 @@ namespace DataLayer.Siniflar
             {
                 var sorgu = db.MesajTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.MesajDetayTablo)
                     .Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).AsQueryable();
-
-                if (aranan != null)
-                {
-                    MesajDetayTablo mesaj = new MesajDetayTablo()
-                    {
-                        MesajMetni = aranan
-                    };
-                    sorgu = sorgu.Where(p => p.MesajDetayTablo.Contains(mesaj)
-                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
-                                             || p.Tarih.ToString().Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan));
-                }
-
+                
                 if (tarih != null)
                 {
                     DateTime? tarihDate = Convert.ToDateTime(tarih);

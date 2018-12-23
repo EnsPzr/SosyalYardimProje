@@ -21,14 +21,14 @@
                             Liste = Liste + "<tr class='even'>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].KullaniciAdiSoyadi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].AliciStr + "</td>" +
-                                "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].Tarih + "</td>" +
-                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
+                                "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].TarihStr + "</td>" +
+                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Mesaj/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].KullaniciAdiSoyadi + "</td>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].AliciStr + "</td>" +
-                                "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].Tarih + "</td>" +
-                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
+                                "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].TarihStr + "</td>" +
+                                "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Mesaj/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
                         }
                         $("#tablo_tbody").html("");
                         $("#tablo_tbody").html(Liste);
@@ -90,14 +90,14 @@
                                 Liste = Liste + "<tr class='even'>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].KullaniciAdiSoyadi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].AliciStr + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].Tarih + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
+                                    "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].TarihStr + "</td>" +
+                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Mesaj/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='even'>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].KullaniciAdiSoyadi + "</td>" +
                                     "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].AliciStr + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].Tarih + "</td>" +
-                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Bagisci/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
+                                    "<td class='col-md-3 col-xs-3'>" + result.MesajList[i].TarihStr + "</td>" +
+                                    "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Mesaj/Detay/" + result.MesajList[i].MesajId + "'></a></td></tr >";
                             }
                             $("#tablo_tbody").html("");
                             $("#tablo_tbody").html(Liste);

@@ -35,6 +35,7 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih,int? kimeGonderildi)
         {
+            aranan = "";
             if (aranan.Equals(""))
             {
                 aranan = null;
@@ -47,7 +48,7 @@ namespace SosyalYardimProje.Controllers
             MesajJsModel model = new MesajJsModel()
             {
                 BasariliMi = true,
-                MesajList = mesajBAL.FiltreliMesajlariGetir(KullaniciBilgileriDondur.KullaniciId(), arananKullaniciId, aranan, tarih)
+                MesajList = mesajBAL.FiltreliMesajlariGetir(KullaniciBilgileriDondur.KullaniciId(), arananKullaniciId, aranan, tarih, kimeGonderildi)
             };
             model.MesajSayisi = model.MesajList.Count;
             Thread.Sleep(2000);

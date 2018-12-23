@@ -27,5 +27,7 @@ namespace BusinessLayer.Models.MesajModelleri
         [Display(Name = "Gönderme Tarihi")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Tarih { get; set; }
+
+        public String TarihStr { get; set; }
     }
 }
