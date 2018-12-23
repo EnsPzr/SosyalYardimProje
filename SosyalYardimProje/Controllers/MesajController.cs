@@ -23,8 +23,30 @@ namespace SosyalYardimProje.Controllers
         {
             MesajJsModel model = new MesajJsModel()
             {
-                BasariliMi=true,
-                MesajList=mesajBAL.TumMesajlariGetir(KullaniciBilgileriDondur.KullaniciId())
+                BasariliMi = true,
+                MesajList = mesajBAL.TumMesajlariGetir(KullaniciBilgileriDondur.KullaniciId())
+            };
+            model.MesajSayisi = model.MesajList.Count;
+            Thread.Sleep(2000);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih)
+        {
+            if (aranan.Equals(""))
+            {
+                aranan = null;
+            }
+
+            if (tarih.Equals(""))
+            {
+                tarih = null;
+            }
+            MesajJsModel model = new MesajJsModel()
+            {
+                BasariliMi = true,
+                MesajList = mesajBAL.FiltreliMesajlariGetir(KullaniciBilgileriDondur.KullaniciId(), arananKullaniciId, aranan, tarih)
             };
             model.MesajSayisi = model.MesajList.Count;
             Thread.Sleep(2000);
