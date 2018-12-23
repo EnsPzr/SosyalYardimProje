@@ -74,7 +74,7 @@ namespace DataLayer.Siniflar
 
         public List<MesajDetayTablo> TumMesajDetayGetir(int? mesajId)
         {
-            return db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajDetayId == mesajId)
+            return db.MesajDetayTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.MesajTablo_MesajId == mesajId)
                 .ToList();
         }
 
@@ -128,7 +128,9 @@ namespace DataLayer.Siniflar
                     if (mesajTablo.KimeAtildi == 0)
                     {
                         var tumKullanicilar =
-                            kullaniciBilgileri.TumKullanicilariGetir(mesajTablo.KullaniciBilgleriTablo_KullaniciId);
+                            kullaniciBilgileri.TumKullanicilariGetir();
+                        tumKullanicilar = tumKullanicilar.Where(p => p.BagisciMi == false || p.BagisciMi == null)
+                            .ToList();
                         for (int i = 0; i < tumKullanicilar.Count; i++)
                         {
                             if (sehirId != null)
@@ -236,6 +238,8 @@ namespace DataLayer.Siniflar
                     {
                         var tumKullanicilar =
                             kullaniciBilgileri.TumKullanicilariGetir(mesajTablo.KullaniciBilgleriTablo_KullaniciId);
+                        tumKullanicilar = tumKullanicilar.Where(p => p.BagisciMi == false || p.BagisciMi == null)
+                            .ToList();
                         for (int i = 0; i < tumKullanicilar.Count; i++)
                         {
                             MesajDetayTablo yeniMesaj = new MesajDetayTablo();

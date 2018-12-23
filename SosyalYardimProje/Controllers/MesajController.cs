@@ -55,7 +55,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DetayListe(int? id=1)
+        public ActionResult DetayListe(int? id)
         {
             ViewBag.MesajId = id;
             Tanimla();

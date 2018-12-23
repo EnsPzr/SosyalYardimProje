@@ -29,7 +29,7 @@ namespace SosyalYardimProje.Controllers
                 int? KullaniciId = Convert.ToInt32(kullaniciIdStr);
                 return kullaniciYonetimi.LoginKullaniciBul(KullaniciId);
             }
-            else return null;
+            else return kullaniciYonetimi.LoginKullaniciBul(1);
         }
 
         public static String HataMesajlariniOku(List<String> hataListesi)

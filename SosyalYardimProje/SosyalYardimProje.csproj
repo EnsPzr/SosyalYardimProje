@@ -7030,6 +7030,7 @@
     <Content Include="Views\GeriBildirim\Duzenle.cshtml" />
     <Content Include="Views\Mesaj\Liste.cshtml" />
     <Content Include="Views\Mesaj\DetayListe.cshtml" />
+    <Content Include="Views\Mesaj\YeniMesaj.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
