@@ -234,5 +234,24 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool GeriBildirimSil(int? id)
+        {
+            var geriBildirim = db.GeriBildirimTablo.FirstOrDefault(p => p.GeriBildirimId == id);
+            if (geriBildirim != null)
+            {
+                db.GeriBildirimTablo.Remove(geriBildirim);
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

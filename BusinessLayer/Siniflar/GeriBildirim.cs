@@ -151,5 +151,25 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        public IslemOnayModel GeriBildirimSil(int? id, int? kullaniciId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(kullaniciId, id))
+            {
+                onay.TamamlandiMi = geriBildirimDAL.GeriBildirimSil(id);
+                if (onay.TamamlandiMi == false)
+                {
+                    onay.HataMesajlari.Add("Silinmek istenen geri bildirim bulunamadı.");
+                }
+
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Geri bildirim okunduğundan dolayı silme işlemi yapılamaz.");
+            }
+            return onay;
+        }
     }
 }
