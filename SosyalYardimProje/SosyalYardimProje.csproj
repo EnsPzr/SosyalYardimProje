@@ -7037,6 +7037,7 @@
     <Content Include="Views\BagisciIslemleri\AnaSayfa.cshtml" />
     <Content Include="Views\BagisciIslemleri\anaSayfaPartialGetir.cshtml" />
     <Content Include="Views\BagisciIslemleri\Kayit.cshtml" />
+    <Content Include="Views\BagisciIslemleri\ProfilDuzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

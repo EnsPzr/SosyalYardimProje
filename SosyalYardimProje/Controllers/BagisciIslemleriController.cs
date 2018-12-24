@@ -115,6 +115,7 @@ namespace SosyalYardimProje.Controllers
             var bagisci = bagisciBAL.BagisciGetir(BagisciBilgileriDondur.KullaniciId());
             if (bagisci != null)
             {
+                Tanimla();
                 return View(bagisci);
             }
             else
@@ -130,39 +131,47 @@ namespace SosyalYardimProje.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                if (model.BagisciId == BagisciBilgileriDondur.KullaniciId())
                 {
-                    if (model.BagisciTelNo.Length > 10)
+                    try
                     {
-                        string tel1 = model.BagisciTelNo.Substring(0, 8);
-                        string tel2 = model.BagisciTelNo.Substring(8, model.BagisciTelNo.Length - 8);
-                        Convert.ToInt32(tel1);
-                        Convert.ToInt32(tel2);
+                        if (model.BagisciTelNo.Length > 10)
+                        {
+                            string tel1 = model.BagisciTelNo.Substring(0, 8);
+                            string tel2 = model.BagisciTelNo.Substring(8, model.BagisciTelNo.Length - 8);
+                            Convert.ToInt32(tel1);
+                            Convert.ToInt32(tel2);
+                        }
+                        else
+                        {
+                            Convert.ToInt32(model.BagisciTelNo);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("BagisciTelNo", "Telefon numarası sadece rakamlardan oluşabilir.");
+                        Tanimla();
+                        return View(model);
+                    }
+
+                    var sonuc = bagisciBAL.BagisciGuncelle(model);
+                    if (sonuc.TamamlandiMi == true)
+                    {
+                        TempData["uyari"] = "Profil Güncelleme başarı ile tamamlandı.";
+                        return RedirectToAction("AnaSayfa");
                     }
                     else
                     {
-                        Convert.ToInt32(model.BagisciTelNo);
+                        string hatalar = BagisciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                        TempData["hata"] = hatalar;
+                        Tanimla();
+                        return View(model);
                     }
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("BagisciTelNo", "Telefon numarası sadece rakamlardan oluşabilir.");
-                    Tanimla();
-                    return View(model);
-                }
-
-                var sonuc = bagisciBAL.BagisciKaydet(model);
-                if (sonuc.TamamlandiMi == true)
-                {
-                    TempData["uyari"] = "Kayıt başarı ile tamamlandı.";
-                    return RedirectToAction("Giris");
                 }
                 else
                 {
-                    string hatalar = BagisciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
-                    TempData["hata"] = hatalar;
-                    Tanimla();
-                    return View(model);
+                    TempData["hata"] = "Sadece kendi kullanıcınız için güncelleme yapabilirsiniz.";
+                    return RedirectToAction("AnaSayfa");
                 }
             }
             else
