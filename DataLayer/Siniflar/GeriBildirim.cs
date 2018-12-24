@@ -184,5 +184,52 @@ namespace DataLayer.Siniflar
                 }
             }
         }
+
+        public bool BagiciGeriBildirimiGuncelleyeBilirMi(int? kullaniciId, int? geriBildirimId)
+        {
+            var geriBildirim = db.GeriBildirimTablo.FirstOrDefault(p =>
+                p.KullaniciBilgileriTablo_KullaniciId == kullaniciId
+                && p.GeriBildirimId == geriBildirimId);
+            if (geriBildirim != null)
+            {
+                var kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == kullaniciId);
+                if (kullanici != null)
+                {
+                    if (geriBildirim.GeriBildirimDurumu > 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool GeriBildirimGuncelle(GeriBildirimTablo geriBildirim)
+        {
+            var geriBildirimTablo =
+                db.GeriBildirimTablo.FirstOrDefault(p => p.GeriBildirimId == geriBildirim.GeriBildirimId);
+            if (geriBildirimTablo != null)
+            {
+                geriBildirimTablo.GeriBildirimKonu = geriBildirim.GeriBildirimKonu;
+                geriBildirimTablo.GeriBildirimMesaj = geriBildirimTablo.GeriBildirimMesaj;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

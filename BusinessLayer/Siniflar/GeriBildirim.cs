@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.OrtakModeller;
@@ -117,6 +118,30 @@ namespace BusinessLayer.Siniflar
             if (onay.TamamlandiMi == false)
             {
                 onay.HataMesajlari.Add("Veri tabanına ekleme yapılırken hata oluştu");
+            }
+
+            return onay;
+        }
+
+        public IslemOnayModel GeriBildirimGuncelle(GeriBildirimModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(model.KullaniciId, model.GeriBildirimId))
+            {
+                GeriBildirimTablo geriBildirimTablo = new GeriBildirimTablo();
+                geriBildirimTablo.GeriBildirimId = Convert.ToInt32(model.GeriBildirimId);
+                geriBildirimTablo.GeriBildirimKonu = model.Konu;
+                geriBildirimTablo.GeriBildirimMesaj = model.Mesaj;
+                onay.TamamlandiMi = geriBildirimDAL.GeriBildirimGuncelle(geriBildirimTablo);
+                if (onay.TamamlandiMi == false)
+                {
+                    onay.HataMesajlari.Add("Geri bildirim kaydedilirken hata oluştu.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Geri bildirim bulunamadı veya okunduğundan dolayı güncelleme yapılamaz");
             }
 
             return onay;
