@@ -6929,6 +6929,7 @@
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\BagisciKasaListeleScript.js" />
     <Content Include="Scripts\BagisciListeleScript.js" />
     <Content Include="Scripts\DepoEsyaListeleScript.js" />
     <Content Include="Scripts\EsyaListeleScript.js" />
@@ -7043,6 +7044,7 @@
     <Content Include="Views\BagisciIhtiyacSahibi\Ekle.cshtml" />
     <Content Include="Views\BagisciIhtiyacSahibi\Duzenle.cshtml" />
     <Content Include="Views\BagisciIhtiyacSahibi\Detay.cshtml" />
+    <Content Include="Views\Kasa\BagisciKasaListe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

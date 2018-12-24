@@ -27,7 +27,7 @@ namespace SosyalYardimProje.Controllers
             KasaJsModel model = new KasaJsModel()
             {
                 BasariliMi = true,
-                KasaList = kasaBAL.TumKasaGetir(KullaniciBilgileriDondur.KullaniciId())
+                KasaList = kasaBAL.TumKasaGetir(1004)
             };
             model.KasaSayisi = model.KasaList.Count;
             Thread.Sleep(2000);
@@ -383,8 +383,7 @@ namespace SosyalYardimProje.Controllers
         public ActionResult BagisciKasaListe()
         {
             Tanimla();
-            var kasaListe = kasaBAL.TumKasaGetir(BagisciBilgileriDondur.KullaniciId());
-            return View(kasaListe);
+            return View();
         }
         public void Tanimla()
         {

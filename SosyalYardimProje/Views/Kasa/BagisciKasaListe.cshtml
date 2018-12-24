@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BusinessLayer.Models.KasaModelleri.KasaModel>
+
+@{
+    ViewBag.Title = "BagisciKasaListe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-xs-12">
+    @if (TempData["uyari"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["uyari"].ToString()
+        </div>
+    }
+    @if (TempData["hata"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["hata"].ToString()
+        </div>
+    }
+    <div class="col-md-12 col-xs-12">
+        <h2>Yaptığınız Nakdi Yardımlar</h2>
+        <p>
+            @Html.ActionLink(" ", "KartIleEkle", new { }, new { @class = "glyphicon glyphicon-plus" }) 
+        </p>
+    </div>
+    <table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top:10px">
+        <thead>
+            <tr>
+                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.KullaniciAdiSoyadi)</th>
+                <th class="col-md-2 col-xs-2">@Html.DisplayNameFor(model => model.Sehir.SehirAdi)</th>
+                <th class="col-md-4 col-xs-4">@Html.DisplayNameFor(model => model.Aciklama)</th>
+                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.Miktar)</th>
+            </tr>
+        </thead>
+        <tbody class="points_table_scrollbar" id="tablo_tbody"></tbody>
+    </table>
+    <script src="~/Scripts/BagisciKasaListeleScript.js"></script>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Lütfen Bekleyiniz. Kasa verileri Listeleniyor...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:100%"> <span class="sr-only"> </span> </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
