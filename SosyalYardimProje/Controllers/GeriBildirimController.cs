@@ -16,6 +16,7 @@ namespace SosyalYardimProje.Controllers
     {
         private Kullanici kullaniciBAL = new Kullanici();
         private GeriBildirim geriBildirimBAL = new GeriBildirim();
+
         public ActionResult Liste()
         {
             Tanimla();
@@ -35,6 +36,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
         //herkess
         [HttpGet]
         public JsonResult FiltreliGeriBildirimleriGetir(string aranan, string tarih, int? sehirId)
@@ -48,10 +50,12 @@ namespace SosyalYardimProje.Controllers
             {
                 tarih = null;
             }
+
             GeriBildirimJsModel model = new GeriBildirimJsModel()
             {
                 BasariliMi = true,
-                GeriBildirimList = geriBildirimBAL.FiltreliGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId(), aranan, tarih, sehirId)
+                GeriBildirimList = geriBildirimBAL.FiltreliGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId(),
+                    aranan, tarih, sehirId)
             };
             model.GeriBildirimSayisi = model.GeriBildirimList.Count;
             Thread.Sleep(2000);
@@ -62,7 +66,7 @@ namespace SosyalYardimProje.Controllers
         {
             if (id != null)
             {
-                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id,null);
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id, null);
                 if (geriBildirim != null)
                 {
                     if (geriBildirimBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
@@ -72,7 +76,8 @@ namespace SosyalYardimProje.Controllers
                     }
                     else
                     {
-                        TempData["hata"] = "Sadece kendi bölgenize gelen geri bildirimler ile ilgili işlem yapabilirsiniz.";
+                        TempData["hata"] =
+                            "Sadece kendi bölgenize gelen geri bildirimler ile ilgili işlem yapabilirsiniz.";
                         return RedirectToAction("Liste");
                     }
                 }
@@ -95,7 +100,8 @@ namespace SosyalYardimProje.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sonuc = geriBildirimBAL.GeriBildirimKaydet(KullaniciBilgileriDondur.KullaniciId(),model.GeriBildirimId,model.DurumInt);
+                var sonuc = geriBildirimBAL.GeriBildirimKaydet(KullaniciBilgileriDondur.KullaniciId(),
+                    model.GeriBildirimId, model.DurumInt);
                 if (sonuc.TamamlandiMi == true)
                 {
                     TempData["uyari"] = "İşlem başarı ile gerçekleşti";
@@ -134,7 +140,7 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult YeniGeriBildirim(GeriBildirimModel model)
         {
-            model.Tarih=DateTime.Now;
+            model.Tarih = DateTime.Now;
             if (ModelState.IsValid)
             {
                 var sonuc = geriBildirimBAL.YeniGeriBildirimKaydet(model);
@@ -154,15 +160,16 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
+
         //bağışçı
         public ActionResult GeriBildirimGuncelle(int? id)
         {
             if (id != null)
             {
-                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id,1);
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id, 1);
                 if (geriBildirim != null)
                 {
-                    if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(),id))
+                    if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(), id))
                     {
                         return View(geriBildirim);
                     }
@@ -175,13 +182,13 @@ namespace SosyalYardimProje.Controllers
                 else
                 {
                     TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi bulunamadı.";
-                    return RedirectToAction("Liste");
+                    return RedirectToAction("GeriBildirimListesi");
                 }
             }
             else
             {
                 TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi seçiniz.";
-                return RedirectToAction("Liste");
+                return RedirectToAction("GeriBildirimListesi");
             }
         }
 
@@ -209,6 +216,78 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        //bağışçı
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id, 1);
+                if (geriBildirim != null)
+                {
+                    if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                    {
+                        return View(geriBildirim);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Geri bildirim okunduğundan dolayı işlem yapamazsınız.";
+                        return RedirectToAction("GeriBildirimListesi");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi bulunamadı.";
+                    return RedirectToAction("GeriBildirimListesi");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi seçiniz.";
+                return RedirectToAction("GeriBildirimListesi");
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult GeriBildirimSil(int? id)
+        {
+            if (id != null)
+            {
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id, 1);
+                if (geriBildirim != null)
+                {
+                    if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                    {
+                        var sonuc = geriBildirimBAL.GeriBildirimSil(id, BagisciBilgileriDondur.KullaniciId());
+                        if (sonuc.TamamlandiMi == true)
+                        {
+                            TempData["uyari"] = "Geri bildirim başarıyla silme işlemi tamamlandı.";
+                            return RedirectToAction("GeriBildirimListesi");
+                        }
+                        else
+                        {
+                            TempData["hata"] = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                            return RedirectToAction("GeriBildirimListesi");
+                        }
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Geri bildirim okunduğundan dolayı işlem yapamazsınız.";
+                        return RedirectToAction("GeriBildirimListesi");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "İşlem yapmak istediğiniz geri bildirimi bulunamadı.";
+                    return RedirectToAction("GeriBildirimListesi");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "İşlem yapmak istediğiniz geri bildirimi seçiniz.";
+                return RedirectToAction("GeriBildirimListesi");
+            }
+        }
         public void Tanimla()
         {
             var sehirlerSelect = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
@@ -221,10 +300,11 @@ namespace SosyalYardimProje.Controllers
 
             var durumlar = new List<SelectListItem>();
             durumlar.Add(new SelectListItem() { Text = "Okunmadı", Value = "0" });
-            durumlar.Add(new SelectListItem() {Text = "Okundu", Value = "1"});
+            durumlar.Add(new SelectListItem() { Text = "Okundu", Value = "1" });
             durumlar.Add(new SelectListItem() { Text = "Geri Dönüş Yapıldı", Value = "2" });
             durumlar.Add(new SelectListItem() { Text = "Geri Dönüşe Gerek Görülmedi", Value = "3" });
             ViewBag.durumlarSelectList = durumlar;
         }
+
     }
 }
