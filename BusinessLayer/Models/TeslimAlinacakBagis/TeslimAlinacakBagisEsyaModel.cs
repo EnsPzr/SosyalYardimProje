@@ -11,6 +11,8 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
     {
         public int? BagisDetayId { get; set; }
 
+        public int? EsyaId { get; set; }
+
         [Display(Name = "Eşya Adı")]
         public String EsyaAdi { get; set; }
 

@@ -35,6 +35,7 @@
           <Property Name="OnaylandiMi" Type="bit" />
           <Property Name="TahminiTeslimAlmaTarihi" Type="date" />
           <Property Name="TeslimAlindiMi" Type="bit" />
+          <Property Name="EklenmeSaati" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="DepoTablo">
           <Key>
@@ -685,6 +686,7 @@
           <Property Name="TeslimAlindiMi" Type="Boolean" />
           <NavigationProperty Name="BagisDetayTablo" Relationship="Self.FK_BagisDetayTablo_BagisTablo" FromRole="BagisTablo" ToRole="BagisDetayTablo" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_BagisTablo_KullaniciBilgileriTablo" FromRole="BagisTablo" ToRole="KullaniciBilgileriTablo" />
+          <Property Name="EklenmeSaati" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="DepoTablo">
           <Key>
@@ -1370,6 +1372,7 @@
           <EntitySetMapping Name="BagisTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.BagisTablo">
               <MappingFragment StoreEntitySet="BagisTablo">
+                <ScalarProperty Name="EklenmeSaati" ColumnName="EklenmeSaati" />
                 <ScalarProperty Name="BagisId" ColumnName="BagisId" />
                 <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciId" ColumnName="KullaniciBilgileriTablo.KullaniciId" />
                 <ScalarProperty Name="EklenmeTarihi" ColumnName="EklenmeTarihi" />

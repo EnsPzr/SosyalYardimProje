@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.TeslimAlinacakBagis;
+using DataLayer;
 
 namespace BusinessLayer.BagisciSiniflar
 {
@@ -54,6 +55,59 @@ namespace BusinessLayer.BagisciSiniflar
             }
 
             return teslimBagis;
+        }
+
+        public bool BagisKaydet(TeslimAlinacakBagisModel model,int kullaniciId)
+        {
+            int sayac = 0;
+            BagisTablo bagisTablo = new BagisTablo();
+            bagisTablo.KullaniciBilgileriTablo_KullaniciId = kullaniciId;
+            bagisTablo.EklenmeTarihi = DateTime.Now;
+            bagisTablo.TeslimAlindiMi = false;
+            bagisTablo.EklenmeSaati = DateTime.Parse(DateTime.Now.ToString()).TimeOfDay;
+            int? bagisId = bagisDAL.YeniBagisKaydet(bagisTablo);
+            var detaylar = model.esyaModel;
+            for (int i = 0; i < detaylar.Count; i++)
+            {
+                var eklenecekBagisDetay=new BagisDetayTablo();
+                eklenecekBagisDetay.Adet = detaylar[i].Adet;
+                eklenecekBagisDetay.BagisTablo_BagisId = bagisId;
+                eklenecekBagisDetay.EsyaTablo_EsyaId = detaylar[i].EsyaId;
+                int? bagisDetayId = bagisDAL.bagisDetayKaydeT(eklenecekBagisDetay);
+                var resimler = detaylar[i].resimModel;
+                if (resimler[i].ResimYol != null)
+                {
+                    var eklenecekresim=new BagisDetayResimTablo();
+                    eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
+                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol;
+                    if (bagisDAL.bagisResimKaydet(eklenecekresim))
+                    {
+                        sayac++;
+                    }
+                }
+                if (resimler[i].ResimYol2 != null)
+                {
+                    var eklenecekresim = new BagisDetayResimTablo();
+                    eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
+                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol2;
+                    if (bagisDAL.bagisResimKaydet(eklenecekresim))
+                    {
+                        sayac++;
+                    }
+                }
+                if (resimler[i].ResimYol3 != null)
+                {
+                    var eklenecekresim = new BagisDetayResimTablo();
+                    eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
+                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol3;
+                    if (bagisDAL.bagisResimKaydet(eklenecekresim))
+                    {
+                        sayac++;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

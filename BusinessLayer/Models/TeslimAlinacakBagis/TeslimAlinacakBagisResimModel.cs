@@ -13,11 +13,17 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
     {
         public int? ResimId { get; set; }
 
+        [DataType(DataType.Upload)]
         public String ResimYol { get; set; }
 
+        public int? ResimId2 { get; set; }
+        [DataType(DataType.Upload)]
         public String ResimYol2 { get; set; }
 
+        public int? ResimId3 { get; set; }
+        [DataType(DataType.Upload)]
         public String ResimYol3 { get; set; }
+        
 
     }
 }

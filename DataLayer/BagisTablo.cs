@@ -26,6 +26,7 @@ namespace DataLayer
         public Nullable<bool> OnaylandiMi { get; set; }
         public Nullable<System.DateTime> TahminiTeslimAlmaTarihi { get; set; }
         public Nullable<bool> TeslimAlindiMi { get; set; }
+        public Nullable<System.TimeSpan> EklenmeSaati { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BagisDetayTablo> BagisDetayTablo { get; set; }
