@@ -411,6 +411,19 @@ namespace DataLayer.Siniflar
                 p.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
         }
 
+        public bool BagisciIhtiyacSahibiniGoruntuleyebilirMi(int? kulId, int? ihtiyacSahibiId)
+        {
+            if (db.IhtiyacSahibiVeKullaniciTablo.FirstOrDefault(p => p.KullaniciBilgileriTablo_KullaniciId == kulId
+                                                                     && p.IhtiyacSahibiTablo_IhtiyacSahibiId ==
+                                                                     ihtiyacSahibiId)!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
         public bool ihtiyacSahibiTeslimKaydet(List<IhtiyacSahibiVerilecekEsyaTablo> esyaTablo,

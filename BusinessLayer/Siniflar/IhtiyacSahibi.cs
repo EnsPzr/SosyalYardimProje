@@ -158,14 +158,28 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiGetir(ihtiyacSahibiId);
-                if (ihtiyacSahibi.SehirTablo_SehirId == kullanici.SehirTablo_SehirId)
+                if (kullanici.BagisciMi == true)
                 {
-                    return true;
+                    if (ihtiyacSahibiDAL.BagisciIhtiyacSahibiniGoruntuleyebilirMi(kullaniciId, ihtiyacSahibiId))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    var ihtiyacSahibi = ihtiyacSahibiDAL.IhtiyacSahibiGetir(ihtiyacSahibiId);
+                    if (ihtiyacSahibi.SehirTablo_SehirId == kullanici.SehirTablo_SehirId)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }
