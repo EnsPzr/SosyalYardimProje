@@ -131,7 +131,6 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult YeniGeriBildirim(GeriBildirimModel model)
         {
-            model.DurumInt = 0;
             model.Tarih=DateTime.Now;
             if (ModelState.IsValid)
             {
@@ -149,6 +148,12 @@ namespace SosyalYardimProje.Controllers
             }
             else
             {
+                var hatalar = ModelState.Values.Select(p => p.Errors).ToList();
+                TempData["hata"] = "";
+                for (int i = 0; i < hatalar.Count; i++)
+                {
+                    TempData["hata"] = hatalar[i] + " ";
+                }
                 return View(model);
             }
         }

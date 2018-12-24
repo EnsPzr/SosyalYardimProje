@@ -7047,6 +7047,7 @@
     <Content Include="Views\Kasa\BagisciKasaListe.cshtml" />
     <Content Include="Views\Kasa\KartBagis.cshtml" />
     <Content Include="Views\GeriBildirim\GeriBildirimListesi.cshtml" />
+    <Content Include="Views\GeriBildirim\YeniGeriBildirim.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
