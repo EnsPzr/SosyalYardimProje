@@ -154,5 +154,35 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool YeniGeriBildirimKaydet(KullaniciBilgileriTablo kullanici, GeriBildirimTablo geriBildirim)
+        {
+            if (kullanici == null)
+            {
+                db.GeriBildirimTablo.Add(geriBildirim);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                kullanici.KullaniciSifre = "123456";
+                kullanici.BagisciMi = true;
+                db.KullaniciBilgileriTablo.Add(kullanici);
+                db.SaveChanges();
+                var kul = db.KullaniciBilgileriTablo.FirstOrDefault(p =>
+                    p.KullaniciEPosta == kullanici.KullaniciEPosta);
+                if (kul != null)
+                {
+                    geriBildirim.KullaniciBilgileriTablo_KullaniciId = kul.KullaniciId;
+                    db.GeriBildirimTablo.Add(geriBildirim);
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

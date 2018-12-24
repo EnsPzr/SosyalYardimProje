@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.OrtakModeller;
+using DataLayer;
 
 namespace BusinessLayer.Siniflar
 {
@@ -98,6 +99,24 @@ namespace BusinessLayer.Siniflar
             {
                 onay.TamamlandiMi = false;
                 onay.HataMesajlari.Add("Sadece kendi bölgenize yapılan geri bildirimler ile ilgili işlem yapabilirsiniz.");
+            }
+
+            return onay;
+        }
+
+        public IslemOnayModel YeniGeriBildirimKaydet(GeriBildirimModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            GeriBildirimTablo geriBildirimTablo = new GeriBildirimTablo();
+            geriBildirimTablo.GeriBildirimDurumu = 0;
+            geriBildirimTablo.GeriBildirimKonu = model.Konu;
+            geriBildirimTablo.GeriBildirimMesaj = model.Mesaj;
+            geriBildirimTablo.Tarih = model.Tarih;
+            geriBildirimTablo.KullaniciBilgileriTablo_KullaniciId = model.KullaniciId;
+            onay.TamamlandiMi = geriBildirimDAL.YeniGeriBildirimKaydet(null, geriBildirimTablo);
+            if (onay.TamamlandiMi == false)
+            {
+                onay.HataMesajlari.Add("Veri tabanına ekleme yapılırken hata oluştu");
             }
 
             return onay;

@@ -11,16 +11,23 @@ namespace BusinessLayer.Models
     {
         [Key]
         public int? GeriBildirimId { get; set; }
-        
+
+
+        public int? KullaniciId { get; set; }
+
         [Display(Name = "Ad Soyad")]
         public String KullaniciAdiSoyadi { get; set; }
 
         [Display(Name = "Tel No")]
         public String KullaniciTel { get; set; }
 
+        [MaxLength(50, ErrorMessage = "Konu en fazla {1} karakter olabilir"), MinLength(2, ErrorMessage = "Konu en az {1} karakter olabilir")]
+        [Required(ErrorMessage = "Konu zorunludur.")]
         [Display(Name = "Konu")]
         public String Konu { get; set; }
 
+        [MaxLength(50, ErrorMessage = "Mesaj en fazla {1} karakter olabilir"), MinLength(2, ErrorMessage = "Mesaj en az {1} karakter olabilir")]
+        [Required(ErrorMessage = "Mesaj zorunludur.")]
         [Display(Name = "Mesaj")]
         [DataType(DataType.MultilineText)]
         public String Mesaj { get; set; }
