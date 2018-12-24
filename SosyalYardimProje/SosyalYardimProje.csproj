@@ -6961,6 +6961,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BagisciBilgileriDondur.cs" />
     <Compile Include="Controllers\BagisciController.cs" />
+    <Compile Include="Controllers\BagisciIhtiyacSahibiController.cs" />
     <Compile Include="Controllers\BagisciIslemleriController.cs" />
     <Compile Include="Controllers\DepoController.cs" />
     <Compile Include="Controllers\EsyaController.cs" />
@@ -7038,6 +7039,7 @@
     <Content Include="Views\BagisciIslemleri\anaSayfaPartialGetir.cshtml" />
     <Content Include="Views\BagisciIslemleri\Kayit.cshtml" />
     <Content Include="Views\BagisciIslemleri\ProfilDuzenle.cshtml" />
+    <Content Include="Views\BagisciIhtiyacSahibi\Liste.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
