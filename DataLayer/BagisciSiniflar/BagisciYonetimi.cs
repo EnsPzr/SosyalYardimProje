@@ -67,5 +67,26 @@ namespace DataLayer.BagisciSiniflar
             return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo)
                 .FirstOrDefault(p => p.KullaniciId == bagisicId);
         }
+
+
+        public bool BagisciGuncelle(KullaniciBilgileriTablo kullaniciTablo)
+        {
+            var kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciId == kullaniciTablo.KullaniciId);
+            if (kullanici != null)
+            {
+                kullanici.KullaniciAdi = kullaniciTablo.KullaniciAdi;
+                kullanici.KullaniciSoyadi = kullaniciTablo.KullaniciSoyadi;
+                kullanici.KullaniciAdres = kullaniciTablo.KullaniciAdres;
+                kullanici.SehirTablo_SehirId = kullaniciTablo.SehirTablo_SehirId;
+                kullanici.KullaniciEPosta = kullaniciTablo.KullaniciEPosta;
+                kullanici.KullaniciSifre = kullaniciTablo.KullaniciSifre;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

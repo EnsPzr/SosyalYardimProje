@@ -110,6 +110,68 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        public ActionResult ProfilDuzenle()
+        {
+            var bagisci = bagisciBAL.BagisciGetir(BagisciBilgileriDondur.KullaniciId());
+            if (bagisci != null)
+            {
+                return View(bagisci);
+            }
+            else
+            {
+                TempData["hata"] = "Hata oluştu";
+                return RedirectToAction("AnaSayfa");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProfilDuzenle(BagisciKayitModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (model.BagisciTelNo.Length > 10)
+                    {
+                        string tel1 = model.BagisciTelNo.Substring(0, 8);
+                        string tel2 = model.BagisciTelNo.Substring(8, model.BagisciTelNo.Length - 8);
+                        Convert.ToInt32(tel1);
+                        Convert.ToInt32(tel2);
+                    }
+                    else
+                    {
+                        Convert.ToInt32(model.BagisciTelNo);
+                    }
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("BagisciTelNo", "Telefon numarası sadece rakamlardan oluşabilir.");
+                    Tanimla();
+                    return View(model);
+                }
+
+                var sonuc = bagisciBAL.BagisciKaydet(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Kayıt başarı ile tamamlandı.";
+                    return RedirectToAction("Giris");
+                }
+                else
+                {
+                    string hatalar = BagisciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    Tanimla();
+                    return View(model);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
+
         public void Tanimla()
         {
             var sehirlerSelectList = kullaniciBAL.TumSehirleriGetir().Select(p=>new SelectListItem()

@@ -108,12 +108,33 @@ namespace BusinessLayer.BagisciSiniflar
                 donBagisci.BagisciEPosta = bagisci.KullaniciEPosta;
                 donBagisci.BagisciSoyadi = bagisci.KullaniciSoyadi;
                 donBagisci.BagisciTelNo = bagisci.KullaniciTelefonNumarasi;
+                donBagisci.BagisciId = bagisci.KullaniciId;
                 return donBagisci;
             }
             else
             {
                 return null;
             }
+        }
+
+        public IslemOnayModel BagisciGuncelle(BagisciKayitModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            KullaniciBilgileriTablo kulTablo = new KullaniciBilgileriTablo();
+            kulTablo.KullaniciAdi = model.BagisciAdi;
+            kulTablo.KullaniciSoyadi = model.BagisciSoyadi;
+            kulTablo.KullaniciAdres = model.BagisciAdres;
+            kulTablo.KullaniciEPosta = model.BagisciEPosta;
+            kulTablo.SehirTablo_SehirId = model.SehirId;
+            kulTablo.KullaniciSifre = model.BagisciSifre;
+            kulTablo.KullaniciTelefonNumarasi = model.BagisciTelNo;
+            kulTablo.KullaniciId = model.BagisciId;
+            onay.TamamlandiMi = bagisciDAL.BagisciGuncelle(kulTablo);
+            if (onay.TamamlandiMi == false)
+            {
+                onay.HataMesajlari.Add("Hata oluştu.");
+            }
+            return onay;
         }
     }
 }

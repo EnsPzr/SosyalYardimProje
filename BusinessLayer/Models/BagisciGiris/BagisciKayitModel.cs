@@ -9,6 +9,9 @@ namespace BusinessLayer.Models.BagisciGiris
 {
     public class BagisciKayitModel
     {
+        [Key]
+        public int BagisciId { get; set; }
+
         [Display(Name = "Ad")]
         [MinLength(2,ErrorMessage = "Ad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Ad en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Adınızı giriniz")]
