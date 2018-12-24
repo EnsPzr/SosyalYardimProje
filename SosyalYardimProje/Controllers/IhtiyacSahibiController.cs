@@ -300,7 +300,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Kontrol(int? id=12)
+        public ActionResult Kontrol(int? id)
         {
             if (id != null)
             {
