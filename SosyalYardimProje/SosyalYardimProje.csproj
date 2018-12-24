@@ -6960,6 +6960,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BagisciBagisController.cs" />
     <Compile Include="Controllers\BagisciBilgileriDondur.cs" />
     <Compile Include="Controllers\BagisciController.cs" />
     <Compile Include="Controllers\BagisciIhtiyacSahibiController.cs" />
@@ -7063,6 +7064,7 @@
     <Folder Include="Picture\" />
     <Folder Include="Scripts\esm\" />
     <Folder Include="Scripts\umd\" />
+    <Folder Include="Views\BagisciBagis\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

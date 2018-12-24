@@ -217,5 +217,6 @@ namespace SosyalYardimProje.Controllers
                 }).ToList();
             ViewBag.sehirler = sehirler;
         }
+        
     }
 }
