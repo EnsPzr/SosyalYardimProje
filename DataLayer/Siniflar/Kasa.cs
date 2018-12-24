@@ -20,9 +20,17 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
-                return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).
-                    Where(p => p.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                var kullanici = Kullanici2DAL.KullaniciGetir(kullaniciId);
+                if (kullanici.BagisciMi == true)
+                {
+                    return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).Include(p => p.SehirTablo).ToList();
+                }
+                else
+                {
+                    int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
+                    return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).
+                        Where(p => p.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                }
             }
         }
 
@@ -66,34 +74,68 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
-                var sorgu = db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo)
-                    .Where(p => p.SehirTablo_SehirId == kullaniciSehirId).AsQueryable();
-                if (aranan != null)
+                var kullanici = Kullanici2DAL.KullaniciGetir(kullaniciId);
+                if (kullanici.BagisciMi == true)
                 {
-                    sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
-                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
-                                             || p.Miktar.ToString().Contains(aranan)
-                                             || p.SehirTablo.SehirAdi.Contains(aranan)
-                                             || p.Aciklama.Contains(aranan)
-                                             || p.Tarih.ToString().Contains(aranan));
-                }
-
-                if (tarih != null)
-                {
-                    DateTime Tarih = Convert.ToDateTime(tarih);
-                    sorgu = sorgu.Where(p => p.Tarih == Tarih);
-                }
-                if (gelirGider != null)
-                {
-                    if (!(gelirGider == 0))
+                    var sorgu = db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo)
+                        .Where(p => p.KullaniciBilgleriTablo_KullaniciId==kullaniciId).AsQueryable();
+                    if (aranan != null)
                     {
-                        bool GelirGider = gelirGider == 1 ? true : false;
-                        sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
+                        sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                                 || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                                 || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
+                                                 || p.Miktar.ToString().Contains(aranan)
+                                                 || p.SehirTablo.SehirAdi.Contains(aranan)
+                                                 || p.Aciklama.Contains(aranan)
+                                                 || p.Tarih.ToString().Contains(aranan));
                     }
+
+                    if (tarih != null)
+                    {
+                        DateTime Tarih = Convert.ToDateTime(tarih);
+                        sorgu = sorgu.Where(p => p.Tarih == Tarih);
+                    }
+                    if (gelirGider != null)
+                    {
+                        if (!(gelirGider == 0))
+                        {
+                            bool GelirGider = gelirGider == 1 ? true : false;
+                            sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
+                        }
+                    }
+                    return sorgu.ToList();
                 }
-                return sorgu.ToList();
+                else
+                {
+                    int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
+                    var sorgu = db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo)
+                        .Where(p => p.SehirTablo_SehirId == kullaniciSehirId).AsQueryable();
+                    if (aranan != null)
+                    {
+                        sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                                 || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                                 || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan)
+                                                 || p.Miktar.ToString().Contains(aranan)
+                                                 || p.SehirTablo.SehirAdi.Contains(aranan)
+                                                 || p.Aciklama.Contains(aranan)
+                                                 || p.Tarih.ToString().Contains(aranan));
+                    }
+
+                    if (tarih != null)
+                    {
+                        DateTime Tarih = Convert.ToDateTime(tarih);
+                        sorgu = sorgu.Where(p => p.Tarih == Tarih);
+                    }
+                    if (gelirGider != null)
+                    {
+                        if (!(gelirGider == 0))
+                        {
+                            bool GelirGider = gelirGider == 1 ? true : false;
+                            sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
+                        }
+                    }
+                    return sorgu.ToList();
+                }
             }
         }
 
@@ -137,7 +179,7 @@ namespace DataLayer.Siniflar
         public bool KasaIslemGuncelle(KasaTablo model)
         {
             var gunKasa = db.KasaTablo.FirstOrDefault(p => p.KasaId == model.KasaId);
-            if (gunKasa!=null)
+            if (gunKasa != null)
             {
                 gunKasa.Aciklama = model.Aciklama;
                 gunKasa.GelirGider = model.GelirGider;

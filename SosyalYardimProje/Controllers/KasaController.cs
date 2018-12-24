@@ -20,7 +20,7 @@ namespace SosyalYardimProje.Controllers
             Tanimla();
             return View();
         }
-
+        
         [HttpGet]
         public JsonResult TumKasaGetir()
         {
@@ -378,6 +378,13 @@ namespace SosyalYardimProje.Controllers
                 Tanimla();
                 return View(model);
             }
+        }
+
+        public ActionResult BagisciKasaListe()
+        {
+            Tanimla();
+            var kasaListe = kasaBAL.TumKasaGetir(BagisciBilgileriDondur.KullaniciId());
+            return View(kasaListe);
         }
         public void Tanimla()
         {
