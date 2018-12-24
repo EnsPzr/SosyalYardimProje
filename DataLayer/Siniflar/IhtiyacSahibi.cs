@@ -20,9 +20,28 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                int? sehirId = kullaniciDAL.KullaniciBul(KullaniciId).SehirTablo_SehirId;
-                return db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).Where(p =>
-                    p.SehirTablo_SehirId == sehirId).ToList();
+                if (kullaniciDAL.KullaniciBul(KullaniciId).BagisciMi == true)
+                {
+                    var ihtiyacSahipleri =
+                        db.IhtiyacSahibiVeKullaniciTablo.Where(
+                            p => p.KullaniciBilgileriTablo_KullaniciId == KullaniciId).ToList();
+                    List<IhtiyacSahibiTablo> listIhtiyacSahipleri = new List<IhtiyacSahibiTablo>();
+                    for (int i = 0; i < ihtiyacSahipleri.Count(); i++)
+                    {
+                        var ihtiyacSahibiId = ihtiyacSahipleri[i].IhtiyacSahibiTablo_IhtiyacSahibiId;
+                        var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo)
+                            .FirstOrDefault(p => p.IhtiyacSahibiId == ihtiyacSahibiId);
+                        listIhtiyacSahipleri.Add(ihtiyacSahibi);
+                    }
+
+                    return listIhtiyacSahipleri;
+                }
+                else
+                {
+                    int? sehirId = kullaniciDAL.KullaniciBul(KullaniciId).SehirTablo_SehirId;
+                    return db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).Where(p =>
+                        p.SehirTablo_SehirId == sehirId).ToList();
+                }
             }
         }
 
