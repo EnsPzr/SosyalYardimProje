@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer;
 using BusinessLayer.Models;
+using BusinessLayer.Models.AnaSayfaModelleri;
 using BusinessLayer.Models.GeriBildirimModelleri;
 using BusinessLayer.Siniflar;
 
@@ -116,6 +117,40 @@ namespace SosyalYardimProje.Controllers
         {
             var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(1004);
             return View(geriBildirimler);
+        }
+
+
+        public ActionResult YeniGeriBildirim()
+        {
+            GeriBildirimModel model = new GeriBildirimModel();
+            model.KullaniciId = BagisciBilgileriDondur.KullaniciId();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult YeniGeriBildirim(GeriBildirimModel model)
+        {
+            model.DurumInt = 0;
+            model.Tarih=DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                var sonuc = geriBildirimBAL.YeniGeriBildirimKaydet(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Geri bildiriminiz alınmıştır. Teşekkür ederiz.";
+                    return RedirectToAction("GeriBildirimListesi");
+                }
+                else
+                {
+                    TempData["hata"] = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
         }
         public void Tanimla()
         {
