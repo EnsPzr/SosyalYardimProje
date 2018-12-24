@@ -7041,6 +7041,7 @@
     <Content Include="Views\BagisciIslemleri\ProfilDuzenle.cshtml" />
     <Content Include="Views\BagisciIhtiyacSahibi\Liste.cshtml" />
     <Content Include="Views\BagisciIhtiyacSahibi\Ekle.cshtml" />
+    <Content Include="Views\BagisciIhtiyacSahibi\Duzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
