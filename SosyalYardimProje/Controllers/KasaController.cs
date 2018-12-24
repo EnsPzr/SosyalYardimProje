@@ -385,6 +385,84 @@ namespace SosyalYardimProje.Controllers
             Tanimla();
             return View();
         }
+
+        public ActionResult KartBagis()
+        {
+            var kullanici = kullaniciBAL.KullaniciGetir(1004);
+            KrediKartiKasaModel model = new KrediKartiKasaModel();
+            model.BagisciAdi = kullanici.KullaniciAdi;
+            model.BagisciSoyadi = kullanici.KullaniciSoyadi;
+            model.BagisciEPosta = kullanici.KullaniciEPosta;
+            model.BagisciTelNo = kullanici.KullaniciTelNo;
+            return View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult KartBagis(KrediKartiKasaModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Miktar < 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+                else if (model.Miktar == 0)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("Miktar", "Pozitif bir miktar giriniz");
+                    return View(model);
+                }
+
+                try
+                {
+                    String ilkYari = model.KartNo.Substring(0, 8);
+                    String ikinciYari = model.KartNo.Substring(8, 8);
+                    Convert.ToInt32(ilkYari);
+                    Convert.ToInt32(ikinciYari);
+                }
+                catch (Exception)
+                {
+                    Tanimla();
+                    ModelState.AddModelError("KartNo", "Kart No sadece rakamlardan oluşabilir");
+                    return View(model);
+                }
+                if (model.GuvenlikKodu != null)
+                {
+                    try
+                    {
+                        Convert.ToInt32(model.GuvenlikKodu);
+                    }
+                    catch (Exception)
+                    {
+                        Tanimla();
+                        ModelState.AddModelError("GuvenlikKodu", "Güvenlik kodu sadece sayılardan oluşabilir");
+                        return View(model);
+                    }
+                }
+
+                var sonuc = kasaBAL.KrediKartiEkleme(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Bağışınız alındı. Teşekkür ederiz.";
+                    return RedirectToAction("BagisciKasaListe");
+                }
+                else
+                {
+                    String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    TempData["hata"] = hatalar;
+                    Tanimla();
+                    return View(model);
+                }
+            }
+            else
+            {
+                Tanimla();
+                return View(model);
+            }
+        }
         public void Tanimla()
         {
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>
