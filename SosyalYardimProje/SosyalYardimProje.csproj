@@ -7040,6 +7040,7 @@
     <Content Include="Views\BagisciIslemleri\Kayit.cshtml" />
     <Content Include="Views\BagisciIslemleri\ProfilDuzenle.cshtml" />
     <Content Include="Views\BagisciIhtiyacSahibi\Liste.cshtml" />
+    <Content Include="Views\BagisciIhtiyacSahibi\Ekle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

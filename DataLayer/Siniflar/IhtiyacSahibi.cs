@@ -100,6 +100,40 @@ namespace DataLayer.Siniflar
             }
         }
 
+        public bool IhtiyacSahibiKaydet(IhtiyacSahibiTablo yeniIhtiyacSahibi,int? kulId)
+        {
+            db.IhtiyacSahibiTablo.Add(yeniIhtiyacSahibi);
+            if (db.SaveChanges() > 0)
+            {
+                IhtiyacSahibiKontrolTablo kontrolTablo = new IhtiyacSahibiKontrolTablo();
+                kontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId = db.IhtiyacSahibiTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiAdi == yeniIhtiyacSahibi.IhtiyacSahibiAdi
+                    && p.IhtiyacSahibiSoyadi == yeniIhtiyacSahibi.IhtiyacSahibiSoyadi
+                    && p.IhtiyacSahibiTelNo == yeniIhtiyacSahibi.IhtiyacSahibiTelNo).IhtiyacSahibiId;
+                kontrolTablo.MuhtacMi = false;
+                kontrolTablo.Tarih = DateTime.Now;
+                kontrolTablo.TeslimTamamlandiMi = false;
+                db.IhtiyacSahibiKontrolTablo.Add(kontrolTablo);
+                db.SaveChanges();
+                kontrolTablo.IhtiyacSahibiVerilecekMaddiTablo.Add(new IhtiyacSahibiVerilecekMaddiTablo()
+                {
+                    IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = kontrolTablo.IhtiyacSahibiKontrolId,
+                    VerilecekMaddiYardim = 0
+                });
+                db.SaveChanges();
+                IhtiyacSahibiVeKullaniciTablo ihKulModel = new IhtiyacSahibiVeKullaniciTablo();
+                ihKulModel.IhtiyacSahibiTablo_IhtiyacSahibiId = kontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId;
+                ihKulModel.KullaniciBilgileriTablo_KullaniciId = kulId;
+                db.IhtiyacSahibiVeKullaniciTablo.Add(ihKulModel);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public IhtiyacSahibiTablo IhtiyacSahibiVarMi(string adi, string soyadi, string telNo)
         {
             var ihtiyacSahibi = db.IhtiyacSahibiTablo.Include(p => p.SehirTablo).FirstOrDefault(p =>
