@@ -37,7 +37,14 @@ namespace SosyalYardimProje.Controllers
         {
             if (tarih != null)
             {
-                tarih = null;
+                try
+                {
+                    Convert.ToDateTime(tarih);
+                }
+                catch (Exception)
+                {
+                    tarih = null;
+                }
             }
             TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
             {

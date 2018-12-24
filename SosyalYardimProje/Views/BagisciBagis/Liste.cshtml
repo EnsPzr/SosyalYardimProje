@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BusinessLayer.Models.TeslimAlinacakBagis.TeslimAlinacakBagisModel>
+
+@{
+    ViewBag.Title = "Yaptığınız Eşya Yardımları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-xs-12">
+    @if (TempData["uyari"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["uyari"].ToString()
+        </div>
+    }
+    @if (TempData["hata"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["hata"].ToString()
+        </div>
+    }
+    <div class="col-md-12 col-xs-12">
+        <h2>Yaptığınız Eşya Yardımları</h2>
+        <p>
+            @Html.ActionLink(" ", "YeniBagis", new { }, new { @class = "glyphicon glyphicon-plus" }) |
+            <span class="glyphicon glyphicon-arrow-down" id="arama"></span>
+        </p>
+        <div class="form-horizontal" id="aramaSecenekleri" hidden>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <input type="date" name="tarih" id="tarih" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    &emsp;
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-success" style="width: 100%" id="filtrele">Ara</button>
+                </div>
+            </div>
+            <br /><br /><br class="hidden-xs" /><br class="hidden-xs" />
+        </div>
+    </div>
+    <table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top:10px">
+        <thead>
+            <tr>
+                <th class="col-md-3 col-xs-3">Eklenme Tarihi</th>
+                <th class="col-md-2 col-xs-2">Onaylandı Mı?</th>
+                <th class="col-md-2 col-xs-2">Teslim Gerçekleşti Mi?</th>
+                <th class="col-md-2 col-xs-2">Tahmini Teslim Alma Tarihi</th>
+                <th class="col-md-3 col-xs-3">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody class="points_table_scrollbar" id="tablo_tbody"></tbody>
+    </table>
+    <script src="~/Scripts/BagisciTeslimListesiScript.js"></script>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Lütfen Bekleyiniz. Yapmış olduğunuz bağışlar Listeleniyor...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:100%"> <span class="sr-only"> </span> </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

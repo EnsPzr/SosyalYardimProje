@@ -37,6 +37,8 @@ namespace BusinessLayer.Models.TeslimAlinacakBagis
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? TahminiTeslimAlma { get; set; }
 
+        public String TahminiTeslimAlmaStr { get; set; }
+
         public List<TeslimAlinacakBagisEsyaModel> esyaModel { get; set; }
 
         public TeslimAlinacakBagisModel()
