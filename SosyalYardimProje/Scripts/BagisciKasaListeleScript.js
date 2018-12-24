@@ -33,7 +33,7 @@
                                 "</td></tr >";
                         } else {
                             Liste = Liste +
-                                "<tr class='even'>" +
+                                "<tr class='odd'>" +
                                 "<td class='col-md-3 col-xs-3'>" +
                                 result.KasaList[i].KullaniciAdiSoyadi +
                                 "</td>" +

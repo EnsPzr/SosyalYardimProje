@@ -204,7 +204,7 @@ namespace BusinessLayer.Siniflar
             kullaniciTablo.KullaniciTelefonNumarasi = model.BagisciTelNo;
             kullaniciTablo.BagisciMi = true;
             KasaTablo kasaTablo = new KasaTablo();
-            kasaTablo.Aciklama = model.BagisciAdi + " " + model.BagisciSoyadi + " bağışçısından gelen bağış";
+            kasaTablo.Aciklama = "Gelen Bağış";
             kasaTablo.GelirGider = true;
             kasaTablo.Miktar = model.Miktar;
             kasaTablo.SehirTablo_SehirId = model.Sehir.SehirId;

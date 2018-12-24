@@ -394,6 +394,7 @@ namespace SosyalYardimProje.Controllers
             model.BagisciSoyadi = kullanici.KullaniciSoyadi;
             model.BagisciEPosta = kullanici.KullaniciEPosta;
             model.BagisciTelNo = kullanici.KullaniciTelNo;
+            Tanimla();
             return View(model);
         }
 
