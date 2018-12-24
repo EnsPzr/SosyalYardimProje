@@ -30,5 +30,23 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpGet]
+        public JsonResult FiltreliBagislariGetir(string tarih)
+        {
+            if (tarih != null)
+            {
+                tarih = null;
+            }
+            TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
+            {
+                BasariliMi = true,
+                BagisList = bagisBAL.FiltreliBagislariGetir(BagisciBilgileriDondur.KullaniciId(),tarih)
+            };
+            model.BagisSayisi = model.BagisList.Count;
+            Thread.Sleep(2000);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }
