@@ -10,5 +10,10 @@ namespace DataLayer.BagisciSiniflar
     {
         private KullaniciYonetimi kullaniciDAL =new KullaniciYonetimi();
         private SosyalYardimDB db = new SosyalYardimDB();
+
+        public List<BagisTablo> TumBagislariGetir(int? kullaniciId)
+        {
+            return db.BagisTablo.Where(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId).ToList();
+        }
     }
 }
