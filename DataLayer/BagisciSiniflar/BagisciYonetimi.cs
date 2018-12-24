@@ -59,6 +59,13 @@ namespace DataLayer.BagisciSiniflar
             }
 
             return false;
+
+        }
+
+        public KullaniciBilgileriTablo BagisciGetir(int? bagisicId)
+        {
+            return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo)
+                .FirstOrDefault(p => p.KullaniciId == bagisicId);
         }
     }
 }

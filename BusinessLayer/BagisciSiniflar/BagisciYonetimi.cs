@@ -95,5 +95,25 @@ namespace BusinessLayer.BagisciSiniflar
             }
             return onay;
         }
+
+        public BagisciKayitModel BagisciGetir(int? bagisciId)
+        {
+            var bagisci = bagisciDAL.BagisciGetir(bagisciId);
+            if (bagisci != null)
+            {
+                var donBagisci = new BagisciKayitModel();
+                donBagisci.SehirId = bagisci.SehirTablo_SehirId;
+                donBagisci.BagisciAdi = bagisci.KullaniciAdi;
+                donBagisci.BagisciAdres = bagisci.KullaniciAdres;
+                donBagisci.BagisciEPosta = bagisci.KullaniciEPosta;
+                donBagisci.BagisciSoyadi = bagisci.KullaniciSoyadi;
+                donBagisci.BagisciTelNo = bagisci.KullaniciTelefonNumarasi;
+                return donBagisci;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
