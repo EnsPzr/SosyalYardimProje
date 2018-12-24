@@ -91,14 +91,17 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public GeriBildirimTablo GeriBildirimGetir(int? geriBildirimId)
+        public GeriBildirimTablo GeriBildirimGetir(int? geriBildirimId,int? sayi)
         {
             var geriBildirim = db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
                 .FirstOrDefault(p => p.GeriBildirimId == geriBildirimId);
             if (geriBildirim != null)
             {
-                geriBildirim.GeriBildirimDurumu = 1;
-                db.SaveChanges();
+                if (sayi == null)
+                {
+                    geriBildirim.GeriBildirimDurumu = 1;
+                    db.SaveChanges();
+                }
             }
 
             return geriBildirim;
@@ -222,7 +225,7 @@ namespace DataLayer.Siniflar
             if (geriBildirimTablo != null)
             {
                 geriBildirimTablo.GeriBildirimKonu = geriBildirim.GeriBildirimKonu;
-                geriBildirimTablo.GeriBildirimMesaj = geriBildirimTablo.GeriBildirimMesaj;
+                geriBildirimTablo.GeriBildirimMesaj = geriBildirim.GeriBildirimMesaj;
                 db.SaveChanges();
                 return true;
             }

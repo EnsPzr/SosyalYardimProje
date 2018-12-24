@@ -55,9 +55,9 @@ namespace BusinessLayer.Siniflar
             return geriBildirimDAL.KullaniciIslemYapabilirMi(kullaniciId, geriBildirimId);
         }
 
-        public GeriBildirimModel GeriBildirimGetir(int? geriBildirimId)
+        public GeriBildirimModel GeriBildirimGetir(int? geriBildirimId, int? sayi)
         {
-            var geriBildirim = geriBildirimDAL.GeriBildirimGetir(geriBildirimId);
+            var geriBildirim = geriBildirimDAL.GeriBildirimGetir(geriBildirimId, sayi);
             if (geriBildirim != null)
             {
                 GeriBildirimModel model = new GeriBildirimModel();
@@ -128,10 +128,10 @@ namespace BusinessLayer.Siniflar
             return geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(kullaniciId, geriBildirimId);
         }
 
-        public IslemOnayModel GeriBildirimGuncelle(GeriBildirimModel model)
+        public IslemOnayModel GeriBildirimGuncelle(GeriBildirimModel model,int? kulId)
         {
             IslemOnayModel onay = new IslemOnayModel();
-            if (geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(model.KullaniciId, model.GeriBildirimId))
+            if (geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(kulId, model.GeriBildirimId))
             {
                 GeriBildirimTablo geriBildirimTablo = new GeriBildirimTablo();
                 geriBildirimTablo.GeriBildirimId = Convert.ToInt32(model.GeriBildirimId);

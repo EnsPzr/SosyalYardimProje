@@ -1,10 +1,11 @@
 ﻿@model BusinessLayer.Models.GeriBildirimModel
 
 @{
-    ViewBag.Title = "Geri Bildirim";
+    ViewBag.Title = "Geri Bildirim Düzenle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Yeni Geri Bildirim</h2>
+
+<h2>Geri Bildirim Düzenle</h2>
 
 @using (Html.BeginForm())
 {
@@ -14,8 +15,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(m=>m.KullaniciId)
-        @Html.Hidden("DurumInt","0");
+        @Html.HiddenFor(m => m.KullaniciId)
+        @Html.Hidden("DurumInt", "0")
+        @Html.HiddenFor(m=>m.GeriBildirimId)
         <div class="form-group">
             @Html.LabelFor(model => model.Konu, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -33,7 +35,7 @@
 
         <div class="form-group">
             <center>
-                <input type="submit" value="Gönder" class="btn btn-success" />
+                <input type="submit" value="Kaydet" class="btn btn-success" />
             </center>
         </div>
     </div>

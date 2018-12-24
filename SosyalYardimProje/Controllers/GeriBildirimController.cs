@@ -22,6 +22,7 @@ namespace SosyalYardimProje.Controllers
             return View();
         }
 
+        //herkess
         [HttpGet]
         public JsonResult TumGeriBildirimleriGetir()
         {
@@ -34,7 +35,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        //herkess
         [HttpGet]
         public JsonResult FiltreliGeriBildirimleriGetir(string aranan, string tarih, int? sehirId)
         {
@@ -61,7 +62,7 @@ namespace SosyalYardimProje.Controllers
         {
             if (id != null)
             {
-                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id);
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id,null);
                 if (geriBildirim != null)
                 {
                     if (geriBildirimBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
@@ -113,13 +114,15 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+
+        //bağışçı
         public ActionResult GeriBildirimListesi()
         {
             var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(1004);
             return View(geriBildirimler);
         }
 
-
+        //bağışçı
         public ActionResult YeniGeriBildirim()
         {
             GeriBildirimModel model = new GeriBildirimModel();
@@ -151,12 +154,12 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
-
+        //bağışçı
         public ActionResult GeriBildirimGuncelle(int? id)
         {
             if (id != null)
             {
-                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id);
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id,1);
                 if (geriBildirim != null)
                 {
                     if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(),id))
@@ -166,7 +169,7 @@ namespace SosyalYardimProje.Controllers
                     else
                     {
                         TempData["hata"] = "Geri bildirim okunduğundan dolayı güncelleme yapamazsınız.";
-                        return RedirectToAction("Liste");
+                        return RedirectToAction("GeriBildirimListesi");
                     }
                 }
                 else
@@ -182,14 +185,13 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GeriBildirimGuncelle(GeriBildirimModel model)
         {
             if (ModelState.IsValid)
             {
-                var sonuc = geriBildirimBAL.GeriBildirimGuncelle(model);
+                var sonuc = geriBildirimBAL.GeriBildirimGuncelle(model, BagisciBilgileriDondur.KullaniciId());
                 if (sonuc.TamamlandiMi == true)
                 {
                     TempData["uyari"] = "Geri bildiriminiz alınmıştır. Teşekkür ederiz.";

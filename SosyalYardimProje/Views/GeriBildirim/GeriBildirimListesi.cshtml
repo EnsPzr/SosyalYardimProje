@@ -23,7 +23,7 @@
     <div class="col-md-12 col-xs-12">
         <h2>Geri Bildirimleriniz</h2>
         <p>
-            @Html.ActionLink(" ", "Ekle", new { }, new { @class = "glyphicon glyphicon-plus" })
+            @Html.ActionLink(" ", "YeniGeriBildirim", new { }, new { @class = "glyphicon glyphicon-plus" })
         </p>
     </div>
     <table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top:10px">
@@ -51,7 +51,7 @@
                             @Html.DisplayFor(modelItem => item.DurumStr)
                         </td>
                         <td class="col-md-3 col-xs-3">
-                            @Html.ActionLink(" ", "Duzenle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink(" ", "GeriBildirimGuncelle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
                             @Html.ActionLink(" ", "Sil", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-trash" })
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
                             @Html.DisplayFor(modelItem => item.DurumStr)
                         </td>
                         <td class="col-md-3 col-xs-3">
-                            @Html.ActionLink(" ", "Duzenle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink(" ", "GeriBildirimGuncelle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
                             @Html.ActionLink(" ", "Sil", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-trash" })
                         </td>
                     </tr>
