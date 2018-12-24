@@ -10,17 +10,17 @@ namespace BusinessLayer.Models.BagisciGiris
     public class BagisciKayitModel
     {
         [Display(Name = "Ad")]
-        [MinLength(6,ErrorMessage = "Ad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Ad en fazla {1} karakter olabilir")]
+        [MinLength(2,ErrorMessage = "Ad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Ad en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Adınızı giriniz")]
         public String BagisciAdi { get; set; }
 
         [Display(Name = "Soyad")]
-        [MinLength(6, ErrorMessage = "Soyad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Soyad en fazla {1} karakter olabilir")]
+        [MinLength(2, ErrorMessage = "Soyad en az {1} karakter olabilir"), MaxLength(25, ErrorMessage = "Soyad en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Soyadınızı giriniz")]
         public String BagisciSoyadi { get; set; }
 
         [Display(Name = "Tel No")]
-        [MinLength(6, ErrorMessage = "Tel No en az {1} karakter olabilir"), MaxLength(50, ErrorMessage = "Tel No en fazla {1} karakter olabilir")]
+        [MinLength(6, ErrorMessage = "Tel No en az {1} karakter olabilir"), MaxLength(15, ErrorMessage = "Tel No en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Tel No giriniz")]
         public String BagisciTelNo { get; set; }
 
@@ -33,17 +33,19 @@ namespace BusinessLayer.Models.BagisciGiris
         [Display(Name = "Şifre")]
         [MinLength(8, ErrorMessage = "Şifre en az {1} karakter olabilir"), MaxLength(40, ErrorMessage = "Şifre en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Şifre giriniz")]
+        [DataType(DataType.Password)]
         public String BagisciSifre { get; set; }
 
         [Display(Name = "Şifre Tekrar")]
         [MinLength(8, ErrorMessage = "Şifre Tekrar en az {1} karakter olabilir"), MaxLength(40, ErrorMessage = "Şifre Tekrar en fazla {1} karakter olabilir")]
         [Required(ErrorMessage = "Şifre Tekrar giriniz")]
         [Compare("BagisciSifre")]
+        [DataType(DataType.Password)]
         public String BagisciSifreTekrar { get; set; }
 
         [Display(Name = "Adres")]
         [MinLength(8, ErrorMessage = "Adres en az {1} karakter olabilir"), MaxLength(150, ErrorMessage = "Adres en fazla {1} karakter olabilir")]
-        [Required(ErrorMessage = "Adres Tekrar giriniz")]
+        [Required(ErrorMessage = "Adres giriniz")]
         [DataType(DataType.MultilineText)]
         public String BagisciAdres { get; set; }
 

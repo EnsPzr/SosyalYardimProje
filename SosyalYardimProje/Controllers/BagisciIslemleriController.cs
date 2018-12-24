@@ -70,10 +70,10 @@ namespace SosyalYardimProje.Controllers
             {
                 try
                 {
-                    if (model.BagisciTelNo.Length > 20)
+                    if (model.BagisciTelNo.Length > 10)
                     {
-                        string tel1 = model.BagisciTelNo.Substring(0, 20);
-                        string tel2 = model.BagisciTelNo.Substring(20, model.BagisciTelNo.Length - 20);
+                        string tel1 = model.BagisciTelNo.Substring(0, 8);
+                        string tel2 = model.BagisciTelNo.Substring(8, model.BagisciTelNo.Length - 8);
                         Convert.ToInt32(tel1);
                         Convert.ToInt32(tel2);
                     }
@@ -116,7 +116,7 @@ namespace SosyalYardimProje.Controllers
             {
                 Text=p.SehirAdi,
                 Value=p.SehirId.ToString()
-            });
+            }).ToList();
             ViewBag.sehirlerSelectList = sehirlerSelectList;
         }
     }

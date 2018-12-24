@@ -8,7 +8,7 @@
 <table id="tablo" class="points_table col-xs-12 col-md-12">
     <thead>
         <tr>
-            <th class="col-md-2 col-xs-2">Eşya</th>
+            <th class="col-md-3 col-xs-3">Eşya</th>
             <th class="col-md-2 col-xs-2">Adet</th>
             <th class="col-md-2 col-xs-2">Onaylanma</th>
             <th class="col-md-2 col-xs-2">Alınacak Mı</th>
@@ -21,7 +21,7 @@
             if (teslimBekleyenBagis % 2 == 0)
             {
                 <tr class="even">
-                    <td class="col-md-2 col-xs-2">
+                    <td class="col-md-3 col-xs-3">
                         @Html.DisplayFor(modelItem => item.EsyaAdi)
                     </td>
                     <td class="col-md-2 col-xs-2">
@@ -41,7 +41,7 @@
             else
             {
                 <tr class="odd">
-                    <td class="col-md-2 col-xs-2">
+                    <td class="col-md-3 col-xs-3">
                         @Html.DisplayFor(modelItem => item.EsyaAdi)
                     </td>
                     <td class="col-md-2 col-xs-2">
