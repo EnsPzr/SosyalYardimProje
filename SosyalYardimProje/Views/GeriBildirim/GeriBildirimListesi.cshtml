@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BusinessLayer.Models.GeriBildirimModel>
+
+@{
+    ViewBag.Title = "Geri Bildirimleriniz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int s = 0;
+}
+
+
+<div class="col-md-12 col-xs-12">
+    @if (TempData["uyari"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["uyari"].ToString()
+        </div>
+    }
+    @if (TempData["hata"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["hata"].ToString()
+        </div>
+    }
+    <div class="col-md-12 col-xs-12">
+        <h2>Geri Bildirimleriniz</h2>
+        <p>
+            @Html.ActionLink(" ", "Ekle", new { }, new { @class = "glyphicon glyphicon-plus" })
+        </p>
+    </div>
+    <table id="tablo" class="points_table col-xs-12 col-md-12" style="margin-top:10px">
+        <thead>
+            <tr>
+                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.Tarih)</th>
+                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.Konu)</th>
+                <th class="col-md-3 col-xs-3">@Html.DisplayNameFor(model => model.DurumStr)</th>
+                <th class="col-md-3 col-xs-3">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody class="points_table_scrollbar" id="tablo_tbody">
+            @foreach (var item in Model)
+            {
+                if (s % 2 == 0)
+                {
+                    <tr class="even">
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.Tarih)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.Konu)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.DurumStr)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.ActionLink(" ", "Duzenle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink(" ", "Sil", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-trash" })
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="odd">
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.Tarih)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.Konu)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.DisplayFor(modelItem => item.DurumStr)
+                        </td>
+                        <td class="col-md-3 col-xs-3">
+                            @Html.ActionLink(" ", "Duzenle", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-pencil" }) |
+                            @Html.ActionLink(" ", "Sil", new { id = item.GeriBildirimId }, new { @class = "glyphicon glyphicon-trash" })
+                        </td>
+                    </tr>
+                }
+                s++;
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -56,7 +56,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Duzenle(int? id=1)
+        public ActionResult Duzenle(int? id)
         {
             if (id != null)
             {
@@ -110,6 +110,12 @@ namespace SosyalYardimProje.Controllers
                 Tanimla();
                 return View(model);
             }
+        }
+
+        public ActionResult GeriBildirimListesi()
+        {
+            var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(1004);
+            return View(geriBildirimler);
         }
         public void Tanimla()
         {

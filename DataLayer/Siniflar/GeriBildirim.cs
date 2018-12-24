@@ -19,9 +19,19 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                int? kullaniciSehirId = kullaniciDAL.KullaniciSehir(kullaniciId);
-                return db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
-                    .Include(p => p.KullaniciBilgileriTablo.SehirTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                var kullanici = kullaniciDAL.KullaniciBul(kullaniciId);
+                if (kullanici.BagisciMi==true)
+                {
+                    return db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
+                        .Include(p => p.KullaniciBilgileriTablo.SehirTablo)
+                        .Where(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId).ToList();
+                }
+                else
+                {
+                    int? kullaniciSehirId = kullaniciDAL.KullaniciSehir(kullaniciId);
+                    return db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
+                        .Include(p => p.KullaniciBilgileriTablo.SehirTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                }
             }
         }
 
