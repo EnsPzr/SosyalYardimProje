@@ -148,15 +148,65 @@ namespace SosyalYardimProje.Controllers
             }
             else
             {
-                var hatalar = ModelState.Values.Select(p => p.Errors).ToList();
-                TempData["hata"] = "";
-                for (int i = 0; i < hatalar.Count; i++)
-                {
-                    TempData["hata"] = hatalar[i] + " ";
-                }
                 return View(model);
             }
         }
+
+        public ActionResult GeriBildirimGuncelle(int? id)
+        {
+            if (id != null)
+            {
+                var geriBildirim = geriBildirimBAL.GeriBildirimGetir(id);
+                if (geriBildirim != null)
+                {
+                    if (geriBildirimBAL.BagisciGeriBildirimGuncelleyebilirMi(BagisciBilgileriDondur.KullaniciId(),id))
+                    {
+                        return View(geriBildirim);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Geri bildirim okunduğundan dolayı güncelleme yapamazsınız.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi bulunamadı.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Düzenlemek istediğiniz geri bildirimi seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GeriBildirimGuncelle(GeriBildirimModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var sonuc = geriBildirimBAL.GeriBildirimGuncelle(model);
+                if (sonuc.TamamlandiMi == true)
+                {
+                    TempData["uyari"] = "Geri bildiriminiz alınmıştır. Teşekkür ederiz.";
+                    return RedirectToAction("GeriBildirimListesi");
+                }
+                else
+                {
+                    TempData["hata"] = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
         public void Tanimla()
         {
             var sehirlerSelect = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId()).Select(p =>

@@ -123,6 +123,11 @@ namespace BusinessLayer.Siniflar
             return onay;
         }
 
+        public bool BagisciGeriBildirimGuncelleyebilirMi(int? kullaniciId, int? geriBildirimId)
+        {
+            return geriBildirimDAL.BagiciGeriBildirimiGuncelleyeBilirMi(kullaniciId, geriBildirimId);
+        }
+
         public IslemOnayModel GeriBildirimGuncelle(GeriBildirimModel model)
         {
             IslemOnayModel onay = new IslemOnayModel();
