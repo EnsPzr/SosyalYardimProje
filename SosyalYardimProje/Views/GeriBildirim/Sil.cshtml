@@ -1,0 +1,82 @@
+﻿@model BusinessLayer.Models.GeriBildirimModel
+
+@{
+    ViewBag.Title = "Geri Bildirim  Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Geri Bildirim Sil</h2>
+
+<h3>Silmek istediğinize emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciAdiSoyadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciAdiSoyadi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KullaniciTel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KullaniciTel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Konu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Konu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mesaj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mesaj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DurumStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DurumStr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TarihStr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TarihStr)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("GeriBildirimSil", "GeriBildirim", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.Hidden("id",Model.GeriBildirimId)
+            <input type="submit" value="Sil" class="btn btn-danger"/> |
+            @Html.ActionLink("Listeye Geri Dön", "GeriBildirimListesi")
+        </div>
+    }
+</div>
