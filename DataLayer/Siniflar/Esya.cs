@@ -114,20 +114,30 @@ namespace DataLayer.Siniflar
             var esya = EsyaGetir(id);
             if (esya != null)
             {
-                var depoTablodakiEsyalar = db.DepoTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
-                for (int i = 0; i < depoTablodakiEsyalar.Count; i++)
+                var bagisDetayVarMi = db.BagisDetayTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                var ihtiyacSahibiVerilecekEsya =
+                    db.IhtiyacSahibiVerilecekEsyaTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                if (bagisDetayVarMi.Count > 0 || ihtiyacSahibiVerilecekEsya.Count > 0)
                 {
-                    db.DepoTablo.Remove(depoTablodakiEsyalar[i]);
-                    db.SaveChanges();
-                }
-                db.EsyaTablo.Remove(esya);
-                if (db.SaveChanges() > 0)
-                {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    var depoTablodakiEsyalar = db.DepoTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                    for (int i = 0; i < depoTablodakiEsyalar.Count; i++)
+                    {
+                        db.DepoTablo.Remove(depoTablodakiEsyalar[i]);
+                        db.SaveChanges();
+                    }
+                    db.EsyaTablo.Remove(esya);
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             return false;
