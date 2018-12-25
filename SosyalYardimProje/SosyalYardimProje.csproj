@@ -6980,6 +6980,7 @@
     <Compile Include="Controllers\SubeController.cs" />
     <Compile Include="Controllers\TeslimAlinacakBagisController.cs" />
     <Compile Include="Controllers\YetkiController.cs" />
+    <Compile Include="Filters\BagisciLoginFilter.cs" />
     <Compile Include="Filters\KullaniciLoginFilter.cs" />
     <Compile Include="Filters\SadeceLoginFilter.cs" />
     <Compile Include="Global.asax.cs">

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models;
 using BusinessLayer.Models.AnaSayfaModelleri;
+using BusinessLayer.Models.KullaniciModelleri;
 using DataLayer;
 namespace BusinessLayer
 {
@@ -14,6 +15,21 @@ namespace BusinessLayer
         public KullaniciBilgileriTablo LoginKullaniciBul(int? KullaniciId)
         {
             return kullaniciYonetimi.KullaniciBul(KullaniciId);
+        }
+        public KullaniciModel LoginKullaniciModelBul(int? KullaniciId)
+        {
+            var kullanici= kullaniciYonetimi.KullaniciBul(KullaniciId);
+            if (kullanici != null)
+            {
+                var donKullanici=new KullaniciModel();
+                donKullanici.KullaniciId = kullanici.KullaniciId;
+                donKullanici.AktifMi = kullanici.AktifMi;
+                return donKullanici;
+            }
+            else
+            {
+                return null;
+            }
         }
         public bool YetkiVarMi(int? KullaniciId, String Controller, String Action)
         {

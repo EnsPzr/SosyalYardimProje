@@ -464,7 +464,7 @@ namespace SosyalYardimProje.Controllers
         }
 
 
-        public ActionResult Teslim(int? id=1)
+        public ActionResult Teslim(int? id)
         {
             if (id != null)
             {
