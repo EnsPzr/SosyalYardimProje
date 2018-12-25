@@ -147,6 +147,70 @@ namespace SosyalYardimProje.Controllers
             return RedirectToAction("Liste");
         }
 
+
+        public ActionResult Sil(int? id)
+        {
+            if (id != null)
+            {
+                if (bagisBAL.KullaniciIslemYapabilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                {
+                    var bagis = bagisBAL.Detay(id);
+                    if (bagis != null)
+                    {
+                        return View(bagis);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Bağış bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bağışınız için işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz bağışı seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BagisSil(int? id)
+        {
+            if (id != null)
+            {
+                if (bagisBAL.KullaniciIslemYapabilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                {
+                    var sonuc = bagisBAL.BagisSil(BagisciBilgileriDondur.KullaniciId(),id);
+                    if (sonuc.TamamlandiMi == true)
+                    {
+                        TempData["uyari"] = "İşlem başarı ile gerçekleşti.";
+                        return RedirectToAction("Liste");
+                    }
+                    else
+                    {
+                        String hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                        TempData["hata"] = hatalar;
+                        return RedirectToAction("Liste");
+                    }
+                }
+                else
+                {
+                    TempData["hata"] = "Sadece kendi bağışınız için işlem yapabilirsiniz.";
+                    return RedirectToAction("Liste");
+                }
+            }
+            else
+            {
+                TempData["hata"] = "Lütfen silmek istediğiniz bağışı seçiniz.";
+                return RedirectToAction("Liste");
+            }
+        }
         public void Tanimla()
         {
             var esyalar = esyaBAL.TumEsyalariGetir().Select(p => new SelectListItem()
