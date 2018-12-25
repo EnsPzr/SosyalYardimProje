@@ -1,0 +1,131 @@
+﻿@model BusinessLayer.Models.DisardanIhtiyacSahibiModelleri.DisardanIhtiyacSahibiModel
+
+@{
+    ViewBag.Title = "İhtiyaç Sahibi Ekle";
+    Layout = "~/Views/Shared/_LayoutDisardan.cshtml";
+}
+
+<h2>İhtiyaç Sahibi Ekle</h2>
+@if (TempData["hata"] != null)
+{
+    <div class="col-md-12 col-xs-12">
+        <div class="alert alert-danger">
+            @TempData["hata"].ToString()
+        </div>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Kayıt Eden Bilgileri</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BagisciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciAdi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciAdi, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.BagisciSoyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciSoyadi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciSoyadi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TelNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.TelNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TelNo, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.BagisciEPosta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciEPosta, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciEPosta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BagisciAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciAdres, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciAdres, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.BagisciSifre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciSifre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciSifre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BagisciSifreTekrar, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.BagisciSifreTekrar, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BagisciSifreTekrar, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.SehirBagisci.SehirId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.SehirBagisci.SehirId, (List<SelectListItem>)ViewBag.sehirlerSelectList, "Şehir Seçiniz", htmlAttributes: new { @class = "form-control", @id = "sehirId" })
+                        @Html.ValidationMessageFor(model => model.SehirBagisci.SehirId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                İhtiyaç Sahibi Bilgileri
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IhtiyacSahibiAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.IhtiyacSahibiAdi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IhtiyacSahibiAdi, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.IhtiyacSahibiSoyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.IhtiyacSahibiSoyadi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IhtiyacSahibiSoyadi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IhtiyacSahibiTelNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.IhtiyacSahibiTelNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IhtiyacSahibiTelNo, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.IhtiyacSahibiAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.IhtiyacSahibiAdres, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IhtiyacSahibiAdres, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IhtiyacSahibiAciklama, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.IhtiyacSahibiAciklama, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IhtiyacSahibiAciklama, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.SehirIhtiyacSahibi.SehirId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.SehirIhtiyacSahibi.SehirId, (List<SelectListItem>)ViewBag.sehirlerSelectList, "Şehir Seçiniz", htmlAttributes: new { @class = "form-control", @id = "sehirId" })
+                        @Html.ValidationMessageFor(model => model.SehirIhtiyacSahibi.SehirId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Kaydet" class="btn btn-success" />
+        </div>
+    </div>
+}

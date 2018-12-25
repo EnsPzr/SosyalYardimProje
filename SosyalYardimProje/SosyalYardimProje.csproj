@@ -7058,6 +7058,8 @@
     <Content Include="Views\BagisciBagis\YeniBagis.cshtml" />
     <Content Include="Views\BagisciBagis\Sil.cshtml" />
     <Content Include="Views\Disardan\AnaSayfa.cshtml" />
+    <Content Include="Views\Disardan\IhtiyacSahibiEkle.cshtml" />
+    <Content Include="Views\Disardan\denemesayfa.cshtml" />
     <None Include="Views\Shared\_LayoutDisardan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

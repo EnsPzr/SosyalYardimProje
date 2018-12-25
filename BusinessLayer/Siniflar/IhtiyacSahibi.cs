@@ -14,7 +14,6 @@ namespace BusinessLayer.Siniflar
         private KullaniciYonetimi kullaniciBAL = new KullaniciYonetimi();
         private DataLayer.Siniflar.IhtiyacSahibi ihtiyacSahibiDAL = new DataLayer.Siniflar.IhtiyacSahibi();
         private DataLayer.Siniflar.Esya esyaDAL = new DataLayer.Siniflar.Esya();
-        private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();
         public List<IhtiyacSahibiModel> TumIhtiyacSahipleriniGetir(int? KullaniciId)
         {
             var ihtiyacSahipleri = ihtiyacSahibiDAL.TumIhtiyacSahipleriniGetir(KullaniciId);
@@ -607,14 +606,35 @@ namespace BusinessLayer.Siniflar
                 idStr = Convert.ToInt32(id);
             }
 
-            IhtiyacSahibiModel ihtModel = new IhtiyacSahibiModel();
-            ihtModel.IhtiyacSahibiAdi = model.IhtiyacSahibiAdi;
-            ihtModel.IhtiyacSahibiSoyadi = model.IhtiyacSahibiSoyadi;
-            ihtModel.IhtiyacSahibiTelNo = model.TelNo;
-            ihtModel.IhtiyacSahibiAciklama = model.IhtiyacSahibiAciklama;
-            ihtModel.IhtiyacSahibiAdres = model.IhtiyacSahibiAdres;
-            ihtModel.Sehir.SehirId = model.SehirIhtiyacSahibi.SehirId;
-            onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(ihtModel, idStr);
+            
+            if (ihtiyacSahibiDAL.IhtiyacSahibiVarMi(model.IhtiyacSahibiAdi,
+                    model.IhtiyacSahibiSoyadi, model.IhtiyacSahibiTelNo) == null)
+            {
+                IhtiyacSahibiTablo eklenecekIhtiyacSahibi = new IhtiyacSahibiTablo();
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAdi = model.IhtiyacSahibiAdi;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiSoyadi = model.IhtiyacSahibiSoyadi;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiTelNo = model.IhtiyacSahibiTelNo;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAdres = model.IhtiyacSahibiAdres;
+                eklenecekIhtiyacSahibi.IhtiyacSahibiAciklama = model.IhtiyacSahibiAciklama;
+                eklenecekIhtiyacSahibi.SehirTablo_SehirId = model.SehirIhtiyacSahibi.SehirId;
+                if (ihtiyacSahibiDAL.IhtiyacSahibiKaydet(eklenecekIhtiyacSahibi, idStr))
+                {
+                    onay.TamamlandiMi = true;
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                var sehir = ihtiyacSahibiDAL.IhtiyacSahibiVarMi(model.IhtiyacSahibiAdi,
+                    model.IhtiyacSahibiSoyadi, model.IhtiyacSahibiTelNo).SehirTablo.SehirAdi;
+                onay.HataMesajlari.Add($"Bu bilgilerde {sehir} için zaten bir ihtiyaç sahibi kayıt edilmiş.");
+            }
+
             return onay;
         }
     }

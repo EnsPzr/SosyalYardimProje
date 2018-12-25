@@ -18,6 +18,12 @@ namespace SosyalYardimProje.Controllers
             return View();
         }
 
+
+        public ActionResult denemesayfa()
+        {
+            return View();
+        }
+
         public ActionResult IhtiyacSahibiEkle()
         {
             Tanimla();

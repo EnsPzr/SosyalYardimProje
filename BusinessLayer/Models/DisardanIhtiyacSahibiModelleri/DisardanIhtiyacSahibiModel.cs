@@ -46,7 +46,7 @@ namespace BusinessLayer.Models.DisardanIhtiyacSahibiModelleri
         [Display(Name = "Kayıt Eden Şifre Tekrar")]
         [Required(ErrorMessage = "Şifre tekrar alanı boş geçilemez")]
         [MinLength(8, ErrorMessage = "Şifre tekrar minumum {1} karakter olabilir"), MaxLength(40, ErrorMessage = "Şifre  maksimum {1} karakter olabilir")]
-        [Compare("Sifre")]
+        [Compare("BagisciSifre", ErrorMessage ="Şifreler aynı olmak zorundadır.")]
         public String BagisciSifreTekrar { get; set; }
 
 
