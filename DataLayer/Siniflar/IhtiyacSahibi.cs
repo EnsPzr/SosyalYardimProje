@@ -167,16 +167,43 @@ namespace DataLayer.Siniflar
         public bool IhtiyacSahibiSil(int? ihtiyacSahibiId)
         {
             var ihtiyacSahibi = db.IhtiyacSahibiTablo.FirstOrDefault(p => p.IhtiyacSahibiId == ihtiyacSahibiId);
-            db.IhtiyacSahibiTablo.Remove(ihtiyacSahibi);
-            if (db.SaveChanges() > 0)
+            var ihtiyacSahibiVerilenEsya = db.IhtiyacSahibiVerilecekEsyaTablo
+                .Include(p => p.IhtiyacSahibiKontrolTablo).Where(p =>
+                    p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+            var ihtiyacSahibiVerilenMaddi = db.IhtiyacSahibiVerilecekMaddiTablo
+                .Include(p => p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo)
+                .Where(p => p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+            if (ihtiyacSahibiVerilenMaddi.Count > 0 || ihtiyacSahibiVerilenEsya.Count > 0)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                var ihtiyacSahibiKontroller = db.IhtiyacSahibiKontrolTablo
+                    .Where(p => p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+                for (int i = 0; i < ihtiyacSahibiKontroller.Count; i++)
+                {
+                    db.IhtiyacSahibiKontrolTablo.Remove(ihtiyacSahibiKontroller[i]);
+                }
 
+                db.SaveChanges();
+                var kullanicilar = db.IhtiyacSahibiVeKullaniciTablo
+                    .Where(p => p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+                for (int i = 0; i < kullanicilar.Count; i++)
+                {
+                    db.IhtiyacSahibiVeKullaniciTablo.Remove(kullanicilar[i]);
+                }
+                db.IhtiyacSahibiTablo.Remove(ihtiyacSahibi);
+                if (db.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            
         }
 
         public IhtiyacSahibiTablo IhtiyacSahibiGetir(int? ihtiyacSahibiId)

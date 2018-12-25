@@ -24,13 +24,13 @@ namespace DataLayer.Siniflar
                 {
                     return db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
                         .Include(p => p.KullaniciBilgileriTablo.SehirTablo)
-                        .Where(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId).ToList();
+                        .Where(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId).OrderByDescending(p => p.Tarih).ToList();
                 }
                 else
                 {
                     int? kullaniciSehirId = kullaniciDAL.KullaniciSehir(kullaniciId);
                     return db.GeriBildirimTablo.Include(p => p.KullaniciBilgileriTablo)
-                        .Include(p => p.KullaniciBilgileriTablo.SehirTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                        .Include(p => p.KullaniciBilgileriTablo.SehirTablo).Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == kullaniciSehirId).OrderByDescending(p=>p.Tarih).ToList();
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace DataLayer.Siniflar
                     sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.SehirTablo_SehirId == sehirId);
                 }
 
-                return sorgu.ToList();
+                return sorgu.OrderByDescending(p=>p.Tarih).ToList();
             }
             else
             {
@@ -87,7 +87,7 @@ namespace DataLayer.Siniflar
                     sorgu = sorgu.Where(p => p.Tarih == cTarih);
                 }
                 
-                return sorgu.ToList();
+                return sorgu.OrderByDescending(p => p.Tarih).ToList();
             }
         }
 
