@@ -567,5 +567,20 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool BagisciKaydet(KullaniciBilgileriTablo kullanici)
+        {
+            var kullaniciVarMi = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta==kullanici.KullaniciEPosta);
+            if (kullaniciVarMi != null)
+            {
+                return true;
+            }
+            else
+            {
+                db.KullaniciBilgileriTablo.Add(kullanici);
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }

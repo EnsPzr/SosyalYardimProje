@@ -36,7 +36,7 @@ namespace BusinessLayer.Models.DisardanIhtiyacSahibiModelleri
 
         [Display(Name = "Kayıt Eden Adres")]
         [MinLength(6, ErrorMessage = "Adres minumum {1} karakter olabilir"), MaxLength(35, ErrorMessage = "Adres  maksimum {1} karakter olabilir")]
-        public String Adres { get; set; }
+        public String BagisciAdres { get; set; }
 
         [Display(Name = "Kayıt Eden Şifre")]
         [Required(ErrorMessage = "Şifre alanı boş geçilemez")]

@@ -21,6 +21,12 @@ namespace DataLayer
             if (Kullanici != null) return Kullanici.KullaniciId.ToString();
             else return String.Empty;
         }
+        public String KullaniciBul(String Eposta)
+        {
+            var Kullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == Eposta);
+            if (Kullanici != null) return Kullanici.KullaniciId.ToString();
+            else return String.Empty;
+        }
         public RotaTablo RotaBul(String ControllerAdi, String ActionAdi)
         {
             var Rota = db.RotaTablo.FirstOrDefault(p => p.ActionAdi == ActionAdi && p.ControllerAdi == ControllerAdi);

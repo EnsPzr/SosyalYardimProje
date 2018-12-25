@@ -126,6 +126,10 @@ namespace BusinessLayer
         {
             return kullaniciYonetimi.KullaniciBul(EMail, Sifre);
         }
+        public String KullaniciBul(String EMail)
+        {
+            return kullaniciYonetimi.KullaniciBul(EMail);
+        }
 
         public List<TeslimAlinmaBekleyenBagislarListe> TeslimAlinmaBekleyenBagislar(int? id)
         {

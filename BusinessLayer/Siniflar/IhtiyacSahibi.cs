@@ -4,6 +4,9 @@ using BusinessLayer.Models.IhtiyacSahibiModelleri;
 using BusinessLayer.Models.OrtakModeller;
 using DataLayer;
 using System.Data.Entity;
+using BusinessLayer.Models.DisardanIhtiyacSahibiModelleri;
+using BusinessLayer.Models.KullaniciModelleri;
+
 namespace BusinessLayer.Siniflar
 {
     public class IhtiyacSahibi
@@ -11,6 +14,7 @@ namespace BusinessLayer.Siniflar
         private KullaniciYonetimi kullaniciBAL = new KullaniciYonetimi();
         private DataLayer.Siniflar.IhtiyacSahibi ihtiyacSahibiDAL = new DataLayer.Siniflar.IhtiyacSahibi();
         private DataLayer.Siniflar.Esya esyaDAL = new DataLayer.Siniflar.Esya();
+        private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();
         public List<IhtiyacSahibiModel> TumIhtiyacSahipleriniGetir(int? KullaniciId)
         {
             var ihtiyacSahipleri = ihtiyacSahibiDAL.TumIhtiyacSahipleriniGetir(KullaniciId);
@@ -580,6 +584,38 @@ namespace BusinessLayer.Siniflar
         public bool TeslimTamamlandiMi(int? ihtiyacSahibiKontrolId)
         {
             return ihtiyacSahibiDAL.TeslimTamamlandiMi(ihtiyacSahibiKontrolId);
+        }
+
+        public IslemOnayModel DisardanIhtiyacSahibiKaydet(DisardanIhtiyacSahibiModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            var kullanici = new KullaniciBilgileriTablo();
+            kullanici.KullaniciAdi = model.BagisciAdi;
+            kullanici.KullaniciSoyadi = model.BagisciSoyadi;
+            kullanici.KullaniciEPosta = model.BagisciEPosta;
+            kullanici.KullaniciAdres = model.BagisciAdres;
+            kullanici.SehirTablo_SehirId = model.SehirBagisci.SehirId;
+            kullanici.KullaniciTelefonNumarasi = model.TelNo;
+            kullanici.KullaniciSifre = model.BagisciSifre;
+            kullanici.BagisciMi = true;
+            kullanici.AktifMi = true;
+            ihtiyacSahibiDAL.BagisciKaydet(kullanici);
+            var id = kullaniciBAL.KullaniciBul(model.BagisciEPosta);
+            int? idStr = null;
+            if (id != null)
+            {
+                idStr = Convert.ToInt32(id);
+            }
+
+            IhtiyacSahibiModel ihtModel = new IhtiyacSahibiModel();
+            ihtModel.IhtiyacSahibiAdi = model.IhtiyacSahibiAdi;
+            ihtModel.IhtiyacSahibiSoyadi = model.IhtiyacSahibiSoyadi;
+            ihtModel.IhtiyacSahibiTelNo = model.TelNo;
+            ihtModel.IhtiyacSahibiAciklama = model.IhtiyacSahibiAciklama;
+            ihtModel.IhtiyacSahibiAdres = model.IhtiyacSahibiAdres;
+            ihtModel.Sehir.SehirId = model.SehirIhtiyacSahibi.SehirId;
+            onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(ihtModel, idStr);
+            return onay;
         }
     }
 }
