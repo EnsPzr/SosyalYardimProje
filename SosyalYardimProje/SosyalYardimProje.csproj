@@ -7055,6 +7055,7 @@
     <Content Include="Views\GeriBildirim\Sil.cshtml" />
     <Content Include="Views\BagisciBagis\Liste.cshtml" />
     <Content Include="Views\BagisciBagis\YeniBagis.cshtml" />
+    <Content Include="Views\BagisciBagis\Sil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

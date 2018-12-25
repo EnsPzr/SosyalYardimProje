@@ -92,6 +92,13 @@ namespace DataLayer.Siniflar
             }
             return bagis;
         }
+        public BagisTablo TeslimDetay(int? bagisId)
+        {
+            var bagis = db.BagisTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.BagisDetayTablo)
+                .Include(p => p.BagisDetayTablo.Select(q => q.BagisDetayResimTablo)).Where(p => p.BagisId == bagisId)
+                .FirstOrDefault();
+            return bagis;
+        }
 
         public List<BagisDetayTablo> BagisDetay(int? bagisId)
         {

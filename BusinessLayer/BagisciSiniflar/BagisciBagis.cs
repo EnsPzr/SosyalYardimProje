@@ -147,7 +147,7 @@ namespace BusinessLayer.BagisciSiniflar
 
         public TeslimAlinacakBagisModel Detay(int? id)
         {
-            var bagis = tesDAL.Detay(id);
+            var bagis = tesDAL.TeslimDetay(id);
             if (bagis != null)
             {
                 TeslimAlinacakBagisModel model = new TeslimAlinacakBagisModel();
@@ -201,6 +201,11 @@ namespace BusinessLayer.BagisciSiniflar
         public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? bagisId)
         {
             return bagisDAL.KullaniciIslemYapabilirMi(kullaniciId, bagisId);
+        }
+
+        public bool BagisOnaylandiMi(int? bagisId, int? kullaniciId)
+        {
+            return bagisDAL.BagisOnaylandiMi(bagisId, kullaniciId);
         }
     }
 }

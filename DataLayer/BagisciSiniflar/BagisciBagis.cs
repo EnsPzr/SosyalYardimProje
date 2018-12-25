@@ -106,7 +106,7 @@ namespace DataLayer.BagisciSiniflar
                 var kullanici = kullanici2DAL.KullaniciGetir(kullaniciId);
                 if (kullanici != null)
                 {
-                    if (kullanici.BagisciMi==true)
+                    if (kullanici.BagisciMi == true)
                     {
                         var bagis = db.BagisTablo.Include(p => p.KullaniciBilgileriTablo)
                             .FirstOrDefault(p => p.BagisId == bagisId);
@@ -157,6 +157,7 @@ namespace DataLayer.BagisciSiniflar
 
         public bool BagisSil(int? bagisId)
         {
+            List<String> resim = new List<string>();
             var bagis = db.BagisTablo.FirstOrDefault(p => p.BagisId == bagisId);
             if (bagis != null)
             {
@@ -174,7 +175,7 @@ namespace DataLayer.BagisciSiniflar
                     db.SaveChanges();
                     for (int j = 0; j < bagisResimler.Count; j++)
                     {
-                        File.Delete("~/" + bagisResimler[j].BagisResimUrl);
+                        resim.Add(bagisResimler[j].BagisResimUrl);
                     }
                     db.BagisDetayTablo.Remove(bagisDetaylar[i]);
                     db.SaveChanges();
@@ -190,7 +191,7 @@ namespace DataLayer.BagisciSiniflar
             }
         }
 
-        public bool BagisOnaylandiMi(int? bagisId,int? kullaniciId)
+        public bool BagisOnaylandiMi(int? bagisId, int? kullaniciId)
         {
             if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {

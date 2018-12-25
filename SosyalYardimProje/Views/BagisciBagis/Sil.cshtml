@@ -1,0 +1,76 @@
+﻿@model BusinessLayer.Models.TeslimAlinacakBagis.TeslimAlinacakBagisModel
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sil</h2>
+
+<h3>Bağışı Silmek İstediğinize Emin Misiniz?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciAdiSoyadi)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BagisciAdiSoyadi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciAdres)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BagisciAdres)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BagisciTelNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BagisciTelNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EklenmeTarihiStr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EklenmeTarihiStr)
+        </dd>
+        <hr />
+        <h3>
+            Bağışlar ve Resimleri
+        </h3>
+        @for (int i = 0; i < Model.esyaModel.Count; i++)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.esyaModel[i].EsyaAdi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.esyaModel[i].EsyaAdi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.esyaModel[i].Adet)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.esyaModel[i].Adet)
+            </dd>
+            <hr />
+            <dd>
+                @for (int j = 0; j < Model.esyaModel[i].resimModel.Count; j++)
+                {
+                    <img src="@Model.esyaModel[i].resimModel[j].ResimYol" style="width:400px; height:350px;" />
+                }
+            </dd>
+            <hr />
+        }
+    </dl>
+
+    @using (Html.BeginForm("BagisSil","BagisciBagis",FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            @Html.Hidden("id",Model.BagisId)
+            <input type="submit" value="Sil" class="btn btn-danger"/> |
+            @Html.ActionLink("Listeye Geri Dön", "Liste")
+        </div>
+    }
+</div>

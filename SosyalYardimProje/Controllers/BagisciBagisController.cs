@@ -154,14 +154,22 @@ namespace SosyalYardimProje.Controllers
             {
                 if (bagisBAL.KullaniciIslemYapabilirMi(BagisciBilgileriDondur.KullaniciId(), id))
                 {
-                    var bagis = bagisBAL.Detay(id);
-                    if (bagis != null)
+                    if (bagisBAL.BagisOnaylandiMi(id, BagisciBilgileriDondur.KullaniciId())==false)
                     {
-                        return View(bagis);
+                        var bagis = bagisBAL.Detay(id);
+                        if (bagis != null)
+                        {
+                            return View(bagis);
+                        }
+                        else
+                        {
+                            TempData["hata"] = "Bağış bulunamadı.";
+                            return RedirectToAction("Liste");
+                        }
                     }
                     else
                     {
-                        TempData["hata"] = "Bağış bulunamadı.";
+                        TempData["hata"] = "Bağış durumu onaylandığından dolayı bu bağış için işlem yapamazsınız.";
                         return RedirectToAction("Liste");
                     }
                 }
