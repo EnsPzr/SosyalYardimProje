@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DataLayer.Siniflar;
+using System.IO;
+
 namespace DataLayer.BagisciSiniflar
 {
     public class BagisciBagis
     {
         private KullaniciYonetimi kullaniciDAL = new KullaniciYonetimi();
         private SosyalYardimDB db = new SosyalYardimDB();
+        private Kullanici kullanici2DAL = new Kullanici();
 
         public List<BagisTablo> TumBagislariGetir(int? kullaniciId)
         {
@@ -89,6 +93,128 @@ namespace DataLayer.BagisciSiniflar
             db.BagisDetayResimTablo.Add(resimTablo);
             db.SaveChanges();
             return true;
+        }
+
+        public bool KullaniciIslemYapabilirMi(int? kullaniciId, int? bagisId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return true;
+            }
+            else
+            {
+                var kullanici = kullanici2DAL.KullaniciGetir(kullaniciId);
+                if (kullanici != null)
+                {
+                    if (kullanici.BagisciMi==true)
+                    {
+                        var bagis = db.BagisTablo.Include(p => p.KullaniciBilgileriTablo)
+                            .FirstOrDefault(p => p.BagisId == bagisId);
+                        if (bagis != null)
+                        {
+                            if (bagis.KullaniciBilgileriTablo_KullaniciId == kullaniciId)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        int? kulSehir = kullaniciDAL.KullaniciSehir(kullaniciId);
+                        var bagis = db.BagisTablo.Include(p => p.KullaniciBilgileriTablo)
+                            .FirstOrDefault(p => p.BagisId == bagisId);
+                        if (bagis != null)
+                        {
+                            if (bagis.KullaniciBilgileriTablo.SehirTablo_SehirId == kulSehir)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool BagisSil(int? bagisId)
+        {
+            var bagis = db.BagisTablo.FirstOrDefault(p => p.BagisId == bagisId);
+            if (bagis != null)
+            {
+                var bagisDetaylar = db.BagisDetayTablo.Where(p => p.BagisTablo_BagisId == bagis.BagisId).ToList();
+                for (int i = 0; i < bagisDetaylar.Count; i++)
+                {
+                    int? bagisDetayId = Convert.ToInt32(bagisDetaylar[i].BagisDetayId);
+                    var bagisResimler = db.BagisDetayResimTablo
+                        .Where(p => p.BagisDetayTablo_BagisDetayId == bagisDetayId).ToList();
+                    for (int j = 0; j < bagisResimler.Count; j++)
+                    {
+                        db.BagisDetayResimTablo.Remove(bagisResimler[j]);
+                    }
+
+                    db.SaveChanges();
+                    for (int j = 0; j < bagisResimler.Count; j++)
+                    {
+                        File.Delete("~/" + bagisResimler[j].BagisResimUrl);
+                    }
+                    db.BagisDetayTablo.Remove(bagisDetaylar[i]);
+                    db.SaveChanges();
+                }
+
+                db.BagisTablo.Remove(bagis);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool BagisOnaylandiMi(int? bagisId,int? kullaniciId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                return false;
+            }
+            else
+            {
+                var bagis = db.BagisTablo.FirstOrDefault(p => p.BagisId == bagisId);
+                if (bagis != null)
+                {
+                    if (bagis.OnaylandiMi == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }

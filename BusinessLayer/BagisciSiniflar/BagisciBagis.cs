@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLayer.Models.OrtakModeller;
 using BusinessLayer.Models.TeslimAlinacakBagis;
 using DataLayer;
 
@@ -108,6 +109,38 @@ namespace BusinessLayer.BagisciSiniflar
             }
 
             return true;
+        }
+
+        public IslemOnayModel BagisSil(int? kullaniciId, int? bagisId)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            if (bagisDAL.KullaniciIslemYapabilirMi(kullaniciId, bagisId))
+            {
+                if (bagisDAL.BagisOnaylandiMi(bagisId, kullaniciId)==false)
+                {
+                    if (bagisDAL.BagisSil(bagisId))
+                    {
+                        onay.TamamlandiMi = true;
+                    }
+                    else
+                    {
+                        onay.TamamlandiMi = false;
+                        onay.HataMesajlari.Add("Bağış silme işleminde bilinmeyen bir hata meydana geldi.");
+                    }
+                }
+                else
+                {
+                    onay.TamamlandiMi = false;
+                    onay.HataMesajlari.Add("Bağış onaylandığından dolayı silme işlemi yapılamıyor.");
+                }
+            }
+            else
+            {
+                onay.TamamlandiMi = false;
+                onay.HataMesajlari.Add("Sadece kendi yaptığınız bağış için işlem yapabilirsiniz.");
+            }
+
+            return onay;
         }
     }
 }
