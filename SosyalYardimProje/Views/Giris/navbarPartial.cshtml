@@ -7,13 +7,13 @@
         {
             if (navbarModel.AltKategoriSayisi == null)
             {
-                <li><a href="/@navbarModel.UrlYol"><i class="fa fa-link"></i> <span>@navbarModel.UrlText</span></a></li>
+                <li><a href="/@navbarModel.UrlYol"><i class="@navbarModel.UrlClass"></i> <span>@navbarModel.UrlText</span></a></li>
             }
             else
             {
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-link"></i> <span>@navbarModel.UrlText</span>
+                        <i class="@navbarModel.UrlClass"></i> <span>@navbarModel.DropDownBaslik</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>

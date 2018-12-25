@@ -33,6 +33,14 @@ namespace DataLayer
             return Rota;
         }
 
+        public bool GirebilirMi(int? rotaId, int? kullaniciId)
+        {
+            if (db.YetkiTablo.FirstOrDefault(p => p.KullaniciBilgileriTablo_KullaniciId == kullaniciId
+                                                  && p.RotaTablo_RotaId == rotaId
+                                                  && p.GirebilirMi == true) != null) return true;
+            else return false;
+        }
+
         public YetkiTablo YetkiVarMi(RotaTablo rota, KullaniciBilgileriTablo kullanici)
         {
             var YetkiVarMi = db.YetkiTablo.FirstOrDefault(p =>
@@ -46,6 +54,16 @@ namespace DataLayer
         {
             var Yetkiler = db.YetkiTablo.Include(b => b.KullaniciBilgileriTablo).Include(b => b.RotaTablo).ToList();
             return Yetkiler;
+        }
+
+        public List<RotaTablo> TumRotalariGetir()
+        {
+            return db.RotaTablo.ToList();
+        }
+
+        public List<RotaTablo> AltRotalariGetir(int? rotaId)
+        {
+            return db.RotaTablo.Where(p => p.RotaTablo_RotaId == rotaId).ToList();
         }
 
         public List<BagisTablo> TeslimAlinmaBekleyenBagislar(int? id)

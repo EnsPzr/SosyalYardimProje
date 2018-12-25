@@ -101,14 +101,12 @@ namespace DataLayer.Siniflar
                             yetki.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
                             db.YetkiTablo.Add(yetki);
                         }
-
-                        if (db.SaveChanges() > 0)
-                        {
-                            return true;
-                        }
-
-                        return true;
                     }
+
+                    db.SaveChanges();
+                    
+
+                    return true;
                 }
                 else
                 {

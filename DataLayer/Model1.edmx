@@ -182,12 +182,13 @@
           <Property Name="RotaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ControllerAdi" Type="varchar" MaxLength="20" />
           <Property Name="ActionAdi" Type="varchar" MaxLength="30" />
-          <Property Name="LinkAdi" Type="varchar" MaxLength="25" />
+          <Property Name="LinkAdi" Type="varchar" MaxLength="50" />
           <Property Name="RotaTablo.RotaId" Type="int" />
           <Property Name="GosterilecekMi" Type="bit" />
           <Property Name="DropdownBaslikAdi" Type="varchar" MaxLength="25" />
           <Property Name="Sira" Type="tinyint" />
           <Property Name="HerkesGirebilirMi" Type="bit" />
+          <Property Name="LinkClass" Type="char" MaxLength="50" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -853,13 +854,14 @@
           <Property Name="RotaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ControllerAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ActionAdi" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="LinkAdi" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LinkAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RotaTablo_RotaId" Type="Int32" />
           <Property Name="GosterilecekMi" Type="Boolean" />
           <Property Name="DropdownBaslikAdi" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Sira" Type="Byte" />
           <Property Name="HerkesGirebilirMi" Type="Boolean" />
           <NavigationProperty Name="YetkiTablo" Relationship="Self.FK_YetkiTablo_RotaTablo" FromRole="RotaTablo" ToRole="YetkiTablo" />
+          <Property Name="LinkClass" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="SehirTablo">
           <Key>
@@ -1523,6 +1525,7 @@
           <EntitySetMapping Name="RotaTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.RotaTablo">
               <MappingFragment StoreEntitySet="RotaTablo">
+                <ScalarProperty Name="LinkClass" ColumnName="LinkClass" />
                 <ScalarProperty Name="RotaId" ColumnName="RotaId" />
                 <ScalarProperty Name="ControllerAdi" ColumnName="ControllerAdi" />
                 <ScalarProperty Name="ActionAdi" ColumnName="ActionAdi" />

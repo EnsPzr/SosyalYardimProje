@@ -16,20 +16,21 @@ namespace DataLayer.Siniflar
         {
             if (KullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
-                return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).ToList();
+                return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).OrderByDescending(p => p.Tarih).ToList();
             }
             else
             {
                 var kullanici = Kullanici2DAL.KullaniciGetir(kullaniciId);
                 if (kullanici.BagisciMi == true)
                 {
-                    return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).Include(p => p.SehirTablo).ToList();
+                    return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).Include(p => p.SehirTablo)
+                        .OrderByDescending(p => p.Tarih).ToList();
                 }
                 else
                 {
                     int? kullaniciSehirId = KullaniciDAL.KullaniciSehir(kullaniciId);
                     return db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).
-                        Where(p => p.SehirTablo_SehirId == kullaniciSehirId).ToList();
+                        Where(p => p.SehirTablo_SehirId == kullaniciSehirId).OrderByDescending(p => p.Tarih).ToList();
                 }
             }
         }
@@ -70,7 +71,7 @@ namespace DataLayer.Siniflar
                         sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
                     }
                 }
-                return sorgu.ToList();
+                return sorgu.OrderByDescending(p => p.Tarih).ToList();
             }
             else
             {
@@ -78,7 +79,7 @@ namespace DataLayer.Siniflar
                 if (kullanici.BagisciMi == true)
                 {
                     var sorgu = db.KasaTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo)
-                        .Where(p => p.KullaniciBilgleriTablo_KullaniciId==kullaniciId).AsQueryable();
+                        .Where(p => p.KullaniciBilgleriTablo_KullaniciId == kullaniciId).AsQueryable();
                     if (aranan != null)
                     {
                         sorgu = sorgu.Where(p => p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
@@ -103,7 +104,7 @@ namespace DataLayer.Siniflar
                             sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
                         }
                     }
-                    return sorgu.ToList();
+                    return sorgu.OrderByDescending(p => p.Tarih).ToList();
                 }
                 else
                 {
@@ -134,7 +135,7 @@ namespace DataLayer.Siniflar
                             sorgu = sorgu.Where(p => p.GelirGider == GelirGider);
                         }
                     }
-                    return sorgu.ToList();
+                    return sorgu.OrderByDescending(p => p.Tarih).ToList();
                 }
             }
         }
@@ -234,7 +235,7 @@ namespace DataLayer.Siniflar
 
         public bool DisardanKartBagis(KullaniciBilgileriTablo kullanici, KasaTablo kasa)
         {
-            var kullaniciVarMi = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta==kullanici.KullaniciEPosta);
+            var kullaniciVarMi = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == kullanici.KullaniciEPosta);
             if (kullaniciVarMi != null)
             {
                 kasa.KullaniciBilgleriTablo_KullaniciId = kullaniciVarMi.KullaniciId;

@@ -126,7 +126,7 @@ namespace SosyalYardimProje.Controllers
         [BagisciLoginFilter]
         public ActionResult GeriBildirimListesi()
         {
-            var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(1004);
+            var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId());
             return View(geriBildirimler);
         }
 

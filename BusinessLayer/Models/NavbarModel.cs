@@ -15,7 +15,11 @@ namespace BusinessLayer.Models
         public bool AltKategoriMi { get; set; }
 
         public int? AltKategoriSayisi { get; set; }
-        
+
+        public String DropDownBaslik { get; set; }
+
+        public String UrlClass { get; set; }
+
         public List<NavbarModel> altKategoriler { get; set; }
     }
 }

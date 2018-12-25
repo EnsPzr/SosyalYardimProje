@@ -30,7 +30,7 @@ namespace SosyalYardimProje.Controllers
             KasaJsModel model = new KasaJsModel()
             {
                 BasariliMi = true,
-                KasaList = kasaBAL.TumKasaGetir(1004)
+                KasaList = kasaBAL.TumKasaGetir(KullaniciBilgileriDondur.KullaniciId())
             };
             model.KasaSayisi = model.KasaList.Count;
             Thread.Sleep(2000);
@@ -401,7 +401,7 @@ namespace SosyalYardimProje.Controllers
         [BagisciLoginFilter]
         public ActionResult KartBagis()
         {
-            var kullanici = kullaniciBAL.KullaniciGetir(1004);
+            var kullanici = kullaniciBAL.KullaniciGetir(KullaniciBilgileriDondur.KullaniciId());
             KrediKartiKasaModel model = new KrediKartiKasaModel();
             model.BagisciAdi = kullanici.KullaniciAdi;
             model.BagisciSoyadi = kullanici.KullaniciSoyadi;

@@ -52,14 +52,30 @@ namespace DataLayer.BagisciSiniflar
 
         public bool BagisciKaydet(KullaniciBilgileriTablo kullaniciTablo)
         {
+            kullaniciTablo.BagisciMi = true;
+            kullaniciTablo.AktifMi = true;
             db.KullaniciBilgileriTablo.Add(kullaniciTablo);
-            if (db.SaveChanges() > 0)
+            db.SaveChanges();
+
+            var eklenenKullanici =
+                db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == kullaniciTablo.KullaniciEPosta);
+            if (eklenenKullanici != null)
             {
-                return true;
+                for (int i = 60; i < 77; i++)
+                {
+                    var rotaVarMi = db.RotaTablo.FirstOrDefault(p => p.RotaId == i);
+                    if (rotaVarMi != null)
+                    {
+                        var yetki = new YetkiTablo();
+                        yetki.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                        yetki.GirebilirMi = true;
+                        yetki.RotaTablo_RotaId = i;
+                        db.YetkiTablo.Add(yetki);
+                        db.SaveChanges();
+                    }
+                }
             }
-
-            return false;
-
+            return true;
         }
 
         public KullaniciBilgileriTablo BagisciGetir(int? bagisicId)

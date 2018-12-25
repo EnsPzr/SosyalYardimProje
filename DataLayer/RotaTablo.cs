@@ -29,6 +29,7 @@ namespace DataLayer
         public string DropdownBaslikAdi { get; set; }
         public Nullable<byte> Sira { get; set; }
         public Nullable<bool> HerkesGirebilirMi { get; set; }
+        public string LinkClass { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YetkiTablo> YetkiTablo { get; set; }

@@ -72,7 +72,7 @@ namespace SosyalYardimProje.Controllers
             {
                 try
                 {
-                    if (model.BagisciTelNo.Length > 10)
+                    if (model.BagisciTelNo.Length > 8)
                     {
                         string tel1 = model.BagisciTelNo.Substring(0, 8);
                         string tel2 = model.BagisciTelNo.Substring(8, model.BagisciTelNo.Length - 8);
