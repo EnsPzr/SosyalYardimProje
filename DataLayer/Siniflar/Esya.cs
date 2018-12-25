@@ -24,6 +24,30 @@ namespace DataLayer.Siniflar
             db.EsyaTablo.Add(eklenecekEsya);
             if (db.SaveChanges() > 0)
             {
+                var eklenenEsya = db.EsyaTablo.FirstOrDefault(p => p.EsyaAdi == eklenecekEsya.EsyaAdi);
+                if (eklenenEsya != null)
+                {
+                    var sehirler = db.SehirTablo.ToList();
+                    for (int i = 0; i < sehirler.Count; i++)
+                    {
+                        var sehirId = sehirler[i].SehirId;
+                        var esyaVarMi = db.DepoTablo.FirstOrDefault(p => p.EsyaTablo_EsyaId == eklenenEsya.EsyaId
+                                                                         && p.SehirTablo_SehirId == sehirId);
+                        if (esyaVarMi == null)
+                        {
+                            var depoyaEklenecekEsya=new DepoTablo();
+                            depoyaEklenecekEsya.SehirTablo_SehirId = sehirId;
+                            depoyaEklenecekEsya.Adet = 0;
+                            depoyaEklenecekEsya.EsyaTablo_EsyaId = eklenenEsya.EsyaId;
+                            db.DepoTablo.Add(depoyaEklenecekEsya);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
                 return true;
             }
 
@@ -90,6 +114,12 @@ namespace DataLayer.Siniflar
             var esya = EsyaGetir(id);
             if (esya != null)
             {
+                var depoTablodakiEsyalar = db.DepoTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                for (int i = 0; i < depoTablodakiEsyalar.Count; i++)
+                {
+                    db.DepoTablo.Remove(depoTablodakiEsyalar[i]);
+                    db.SaveChanges();
+                }
                 db.EsyaTablo.Remove(esya);
                 if (db.SaveChanges() > 0)
                 {
