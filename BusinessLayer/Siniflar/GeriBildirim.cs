@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Models.OrtakModeller;
 using DataLayer;
+using BusinessLayer.Models.DisardanIhtiyacSahibiModelleri;
 
 namespace BusinessLayer.Siniflar
 {
@@ -171,6 +172,31 @@ namespace BusinessLayer.Siniflar
             }
             return onay;
         }
-        
+
+
+        public IslemOnayModel DisardanGeriBildirimEkle(DisardanGeriBildirimModel model)
+        {
+            IslemOnayModel onay = new IslemOnayModel();
+            KullaniciBilgileriTablo kullanici = new KullaniciBilgileriTablo();
+            kullanici.KullaniciAdi = model.BagisciAdi;
+            kullanici.KullaniciSoyadi = model.BagisciSoyadi;
+            kullanici.SehirTablo_SehirId = model.SehirBagisci.SehirId;
+            kullanici.KullaniciTelefonNumarasi = model.TelNo;
+            kullanici.KullaniciEPosta = model.BagisciEPosta;
+            kullanici.KullaniciSifre = model.BagisciSifre;
+            kullanici.KullaniciAdres = model.BagisciAdres;
+
+            GeriBildirimTablo geriBildirimTablo = new GeriBildirimTablo();
+            geriBildirimTablo.GeriBildirimKonu = model.Konu;
+            geriBildirimTablo.GeriBildirimMesaj=model.Mesaj;
+
+            onay.TamamlandiMi = geriBildirimDAL.DisardanGeriBildirimKaydet(kullanici, geriBildirimTablo);
+            if (onay.TamamlandiMi == false)
+            {
+                onay.HataMesajlari.Add("Geri Bildirim kaydedilirken hata oluştu.");
+            }
+
+            return onay;
+        }
     }
 }

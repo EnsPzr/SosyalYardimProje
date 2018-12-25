@@ -253,5 +253,42 @@ namespace DataLayer.Siniflar
                 return false;
             }
         }
+
+        public bool DisardanGeriBildirimKaydet(KullaniciBilgileriTablo kullanici, GeriBildirimTablo geriBildirimTablo)
+        {
+            var kullaniciVarMi =
+                db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == kullanici.KullaniciEPosta);
+            if (kullaniciVarMi != null)
+            {
+                geriBildirimTablo.GeriBildirimDurumu = 0;
+                geriBildirimTablo.KullaniciBilgileriTablo_KullaniciId = kullaniciVarMi.KullaniciId;
+                geriBildirimTablo.Tarih=DateTime.Now;
+                db.GeriBildirimTablo.Add(geriBildirimTablo);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                kullanici.BagisciMi = true;
+                kullanici.AktifMi = true;
+                db.KullaniciBilgileriTablo.Add(kullanici);
+                db.SaveChanges();
+                var eklenenKullanici= db.KullaniciBilgileriTablo.
+                    FirstOrDefault(p => p.KullaniciEPosta == kullanici.KullaniciEPosta);
+                if (eklenenKullanici != null)
+                {
+                    geriBildirimTablo.GeriBildirimDurumu = 0;
+                    geriBildirimTablo.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                    geriBildirimTablo.Tarih = DateTime.Now;
+                    db.GeriBildirimTablo.Add(geriBildirimTablo);
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
