@@ -13,6 +13,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class GeriBildirimController : Controller
     {
         private Kullanici kullaniciBAL = new Kullanici();

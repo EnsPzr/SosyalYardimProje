@@ -10,6 +10,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class EsyaController : Controller
     {
         private Esya esyaBAL = new Esya();

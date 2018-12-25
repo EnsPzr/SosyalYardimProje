@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class DisardanController : Controller
     {
         private Kullanici kullaniciBAL = new Kullanici();

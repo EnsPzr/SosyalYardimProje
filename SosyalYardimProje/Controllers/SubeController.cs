@@ -8,6 +8,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class SubeController : Controller
     {
         Sube subeBusinessLayer = new Sube();

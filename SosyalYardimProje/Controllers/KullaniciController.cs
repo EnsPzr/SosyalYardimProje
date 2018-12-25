@@ -8,7 +8,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
-
+    [HataFiltresi]
     public class KullaniciController : Controller
     {
         private string sadeceGorevli =

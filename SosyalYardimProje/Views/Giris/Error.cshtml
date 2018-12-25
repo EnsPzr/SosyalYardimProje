@@ -1,0 +1,31 @@
+﻿@model Exception
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Hata</title>
+</head>
+<body>
+    <div>
+        <div class="jumbotron">
+            <h1>Bir hata oluştu...</h1>
+            <p>@Model.Message</p>
+        </div>
+        <hr />
+        <p>
+            @Model.StackTrace
+        </p>
+        <p>
+            @Model.TargetSite
+        </p>
+        <p>
+            @Model.Source
+        </p>
+    </div>
+</body>
+</html>

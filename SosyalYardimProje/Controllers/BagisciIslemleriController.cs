@@ -11,6 +11,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class BagisciIslemleriController : Controller
     {
         private BagisciYonetimi bagisciBAL = new BagisciYonetimi();

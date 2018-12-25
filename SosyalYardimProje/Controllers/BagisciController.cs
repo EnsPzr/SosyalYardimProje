@@ -10,6 +10,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class BagisciController : Controller
     {
         private Bagisci bagisciBAL = new Bagisci();

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using BusinessLayer;
 using DataLayer;
+using SosyalYardimProje.Filters;
 using KullaniciYonetimi = BusinessLayer.KullaniciYonetimi;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public static class KullaniciBilgileriDondur
     {
         private static BusinessLayer.KullaniciYonetimi kullaniciYonetimi = new BusinessLayer.KullaniciYonetimi();

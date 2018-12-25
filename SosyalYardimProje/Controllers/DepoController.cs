@@ -12,6 +12,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class DepoController : Controller
     {
         private Esya esyaBAL = new Esya();

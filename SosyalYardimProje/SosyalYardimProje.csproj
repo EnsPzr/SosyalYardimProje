@@ -6981,6 +6981,7 @@
     <Compile Include="Controllers\TeslimAlinacakBagisController.cs" />
     <Compile Include="Controllers\YetkiController.cs" />
     <Compile Include="Filters\BagisciLoginFilter.cs" />
+    <Compile Include="Filters\HataFiltresi.cs" />
     <Compile Include="Filters\KullaniciLoginFilter.cs" />
     <Compile Include="Filters\SadeceLoginFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -7063,6 +7064,7 @@
     <Content Include="Views\Disardan\denemesayfa.cshtml" />
     <Content Include="Views\Disardan\GeriBildirimYap.cshtml" />
     <Content Include="Views\Disardan\NakdiBagisYap.cshtml" />
+    <Content Include="Views\Giris\Error.cshtml" />
     <None Include="Views\Shared\_LayoutDisardan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

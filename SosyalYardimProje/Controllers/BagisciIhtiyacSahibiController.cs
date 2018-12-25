@@ -9,6 +9,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class BagisciIhtiyacSahibiController : Controller
     {
         private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();

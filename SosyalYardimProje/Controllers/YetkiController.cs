@@ -11,6 +11,7 @@ using BusinessLayer.Models.YetkiModelleri;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class YetkiController : Controller
     {
         private Yetki yetkiBAL = new Yetki();

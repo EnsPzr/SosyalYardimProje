@@ -12,6 +12,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class KasaController : Controller
     {
         private Kasa kasaBAL = new Kasa();

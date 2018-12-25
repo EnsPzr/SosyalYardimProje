@@ -11,6 +11,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class TeslimAlinacakBagisController : Controller
     {
         private Kullanici kullaniciBAL = new Kullanici();

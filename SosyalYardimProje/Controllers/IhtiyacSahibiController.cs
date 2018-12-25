@@ -13,6 +13,7 @@ using Exception = System.Exception;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class IhtiyacSahibiController : Controller
     {
         private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();

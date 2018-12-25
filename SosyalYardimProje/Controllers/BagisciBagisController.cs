@@ -14,6 +14,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     //full bağışçı
     public class BagisciBagisController : Controller
     {

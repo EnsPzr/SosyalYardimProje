@@ -8,6 +8,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class GirisController : Controller
     {
         private BusinessLayer.KullaniciYonetimi kullaniciYonetimi = new BusinessLayer.KullaniciYonetimi();
@@ -71,6 +72,15 @@ namespace SosyalYardimProje.Controllers
             var Kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciBilgileriDondur.KullaniciId());
             var anaSayfaModel = kullaniciYonetimi.AnaSayfaModeli(Kullanici.SehirTablo_SehirId);
             return PartialView(anaSayfaModel);
+        }
+
+        public ActionResult Error()
+        {
+            if (TempData["error"] == null)
+                return RedirectToAction("Giris", "Giris");
+
+            Exception model = TempData["error"] as Exception;
+            return View(model);
         }
     }
 }

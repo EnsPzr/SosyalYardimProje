@@ -10,6 +10,7 @@ using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
+    [HataFiltresi]
     public class MesajController : Controller
     {
         private Mesaj mesajBAL = new Mesaj();
