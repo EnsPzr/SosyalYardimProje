@@ -10,6 +10,7 @@ using BusinessLayer.BagisciSiniflar;
 using BusinessLayer.Models.BagisciBagisModelleri;
 using BusinessLayer.Models.TeslimAlinacakBagis;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -20,25 +21,27 @@ namespace SosyalYardimProje.Controllers
         private Esya esyaBAL = new Esya();
         private Kullanici kullaniciBAL = new Kullanici();
         private Bagisci bagisciBAL = new Bagisci();
+        [BagisciLoginFilter]
         public ActionResult Liste()
         {
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumBagislariGetir()
         {
             TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
             {
                 BasariliMi = true,
-                BagisList = bagisBAL.TumBagislariGetir(BagisciBilgileriDondur.KullaniciId())
+                BagisList = bagisBAL.TumBagislariGetir(KullaniciBilgileriDondur.KullaniciId())
             };
             model.BagisSayisi = model.BagisList.Count;
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliBagislariGetir(string tarih)
         {
@@ -56,13 +59,13 @@ namespace SosyalYardimProje.Controllers
             TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
             {
                 BasariliMi = true,
-                BagisList = bagisBAL.FiltreliBagislariGetir(BagisciBilgileriDondur.KullaniciId(), tarih)
+                BagisList = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(), tarih)
             };
             model.BagisSayisi = model.BagisList.Count;
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        [BagisciLoginFilter]
         public ActionResult YeniBagis()
         {
             Tanimla();
@@ -73,14 +76,14 @@ namespace SosyalYardimProje.Controllers
             }
             return View(bagislar);
         }
-
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult YeniBagis(List<BagisciBagisModel> model)
         {
             TeslimAlinacakBagisModel bagisTablo = new TeslimAlinacakBagisModel();
-            var kullanici = kullaniciBAL.KullaniciGetir(BagisciBilgileriDondur.KullaniciId());
-            var bagisci = bagisciBAL.BagisciBul(BagisciBilgileriDondur.KullaniciId());
+            var kullanici = kullaniciBAL.KullaniciGetir(KullaniciBilgileriDondur.KullaniciId());
+            var bagisci = bagisciBAL.BagisciBul(KullaniciBilgileriDondur.KullaniciId());
             bagisTablo.BagisciAdiSoyadi = bagisci.BagisciAdi + " " + bagisci.BagisciSoyadi;
             bagisTablo.BagisciAdres = bagisci.Adres;
             bagisTablo.BagisciTelNo = bagisci.TelNo;
@@ -135,7 +138,7 @@ namespace SosyalYardimProje.Controllers
                 }
             }
 
-            var sonuc = bagisBAL.BagisKaydet(bagisTablo, Convert.ToInt32(BagisciBilgileriDondur.KullaniciId()));
+            var sonuc = bagisBAL.BagisKaydet(bagisTablo, Convert.ToInt32(KullaniciBilgileriDondur.KullaniciId()));
             if (sonuc == true)
             {
                 TempData["uyari"] = "Teşekkür ederiz. En yakın zamanda birimlerimiz sizinle irtibata geçecekler.";
@@ -147,14 +150,14 @@ namespace SosyalYardimProje.Controllers
             return RedirectToAction("Liste");
         }
 
-
+        [BagisciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
             {
-                if (bagisBAL.KullaniciIslemYapabilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                if (bagisBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
                 {
-                    if (bagisBAL.BagisOnaylandiMi(id, BagisciBilgileriDondur.KullaniciId())==false)
+                    if (bagisBAL.BagisOnaylandiMi(id, KullaniciBilgileriDondur.KullaniciId())==false)
                     {
                         var bagis = bagisBAL.Detay(id);
                         if (bagis != null)
@@ -185,16 +188,16 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult BagisSil(int? id)
         {
             if (id != null)
             {
-                if (bagisBAL.KullaniciIslemYapabilirMi(BagisciBilgileriDondur.KullaniciId(), id))
+                if (bagisBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
                 {
-                    var sonuc = bagisBAL.BagisSil(BagisciBilgileriDondur.KullaniciId(),id);
+                    var sonuc = bagisBAL.BagisSil(KullaniciBilgileriDondur.KullaniciId(),id);
                     if (sonuc.TamamlandiMi == true)
                     {
                         TempData["uyari"] = "İşlem başarı ile gerçekleşti.";

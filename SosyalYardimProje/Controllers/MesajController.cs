@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models.MesajModelleri;
 using System.Threading;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -13,12 +14,14 @@ namespace SosyalYardimProje.Controllers
     {
         private Mesaj mesajBAL = new Mesaj();
         private Kullanici kullaniciBAL = new Kullanici();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumMesajlariGetir()
         {
@@ -32,8 +35,9 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
-        public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih,int? kimeGonderildi)
+        public JsonResult FiltreliMesajlariGetir(int? arananKullaniciId, string aranan, string tarih, int? kimeGonderildi)
         {
             aranan = "";
             if (aranan.Equals(""))
@@ -54,7 +58,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        [KullaniciLoginFilter]
         public ActionResult DetayListe(int? id)
         {
             ViewBag.MesajId = id;
@@ -62,6 +66,7 @@ namespace SosyalYardimProje.Controllers
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumDetaylariGetir(int? detayId)
         {
@@ -71,7 +76,7 @@ namespace SosyalYardimProje.Controllers
                 MesajDetayJsModel model = new MesajDetayJsModel()
                 {
                     BasariliMi = true,
-                    MesajDetayList=mesajBAL.TumMesajlarDetaylariGetir(detayId)
+                    MesajDetayList = mesajBAL.TumMesajlarDetaylariGetir(detayId)
                 };
                 model.MesajDetaySayisi = model.MesajDetayList.Count;
                 return Json(model, JsonRequestBehavior.AllowGet);
@@ -99,7 +104,7 @@ namespace SosyalYardimProje.Controllers
                 MesajDetayJsModel model = new MesajDetayJsModel()
                 {
                     BasariliMi = true,
-                    MesajDetayList = mesajBAL.FiltreliMesajlarDetaylariGetir(detayId,aranan)
+                    MesajDetayList = mesajBAL.FiltreliMesajlarDetaylariGetir(detayId, aranan)
                 };
                 model.MesajDetaySayisi = model.MesajDetayList.Count;
                 return Json(model, JsonRequestBehavior.AllowGet);
@@ -114,14 +119,14 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
+        [KullaniciLoginFilter]
         public ActionResult YeniMesaj()
         {
             Tanimla();
             return View();
         }
 
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult YeniMesaj(GonderilecekMesajModel model)

@@ -9,6 +9,7 @@ using BusinessLayer.Models;
 using BusinessLayer.Models.AnaSayfaModelleri;
 using BusinessLayer.Models.GeriBildirimModelleri;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -17,13 +18,14 @@ namespace SosyalYardimProje.Controllers
         private Kullanici kullaniciBAL = new Kullanici();
         private GeriBildirim geriBildirimBAL = new GeriBildirim();
 
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
 
-        //herkess
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumGeriBildirimleriGetir()
         {
@@ -37,7 +39,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        //herkess
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliGeriBildirimleriGetir(string aranan, string tarih, int? sehirId)
         {
@@ -61,7 +63,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -93,7 +95,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Duzenle(GeriBildirimModel model)
@@ -121,21 +123,21 @@ namespace SosyalYardimProje.Controllers
         }
 
 
-        //bağışçı
+        [BagisciLoginFilter]
         public ActionResult GeriBildirimListesi()
         {
             var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(1004);
             return View(geriBildirimler);
         }
 
-        //bağışçı
+        [BagisciLoginFilter]
         public ActionResult YeniGeriBildirim()
         {
             GeriBildirimModel model = new GeriBildirimModel();
             model.KullaniciId = BagisciBilgileriDondur.KullaniciId();
             return View(model);
         }
-
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult YeniGeriBildirim(GeriBildirimModel model)
@@ -161,7 +163,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        //bağışçı
+        [BagisciLoginFilter]
         public ActionResult GeriBildirimGuncelle(int? id)
         {
             if (id != null)
@@ -192,6 +194,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GeriBildirimGuncelle(GeriBildirimModel model)
@@ -216,7 +219,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        //bağışçı
+        [BagisciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
@@ -247,6 +250,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult GeriBildirimSil(int? id)

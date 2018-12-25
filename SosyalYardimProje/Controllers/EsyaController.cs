@@ -13,13 +13,13 @@ namespace SosyalYardimProje.Controllers
     public class EsyaController : Controller
     {
         private Esya esyaBAL = new Esya();
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             return View();
         }
 
-        //[SadeceLoginFilter]
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumEsyalariGetir()
         {
@@ -32,7 +32,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-        //[SadeceLoginFilter]
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliEsyalariGetir(String aranan)
         {
@@ -46,12 +46,12 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         public ActionResult Ekle()
         {
             return View();
         }
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Ekle(EsyaModel eklenecekEsya)
@@ -82,7 +82,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -107,7 +107,7 @@ namespace SosyalYardimProje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(EsyaModel esya)
         {
             var onay = esyaBAL.EsyaDuzenle(esya);
@@ -130,7 +130,7 @@ namespace SosyalYardimProje.Controllers
         }
 
 
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
@@ -153,7 +153,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-        //[KullaniciLoginFilter]
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult EsyaSil(int? id)

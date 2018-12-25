@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BusinessLayer;
 using BusinessLayer.Models.TeslimAlinacakBagis;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -14,12 +15,14 @@ namespace SosyalYardimProje.Controllers
     {
         private Kullanici kullaniciBAL = new Kullanici();
         private TeslimAlinacakBagis bagisBAL = new TeslimAlinacakBagis();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumBagiscilariGetir()
         {
@@ -32,6 +35,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliBagiscilariGetir(int? sehirId, string aranan, string tarih)
         {
@@ -65,6 +69,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -95,6 +100,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Duzenle(TeslimAlinacakBagisModel model)

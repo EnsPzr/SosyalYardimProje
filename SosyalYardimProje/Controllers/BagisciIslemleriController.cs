@@ -7,6 +7,7 @@ using BusinessLayer;
 using BusinessLayer.BagisciSiniflar;
 using BusinessLayer.Models.BagisciGiris;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -44,6 +45,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         public ActionResult AnaSayfa()
         {
             return View();
@@ -52,7 +54,7 @@ namespace SosyalYardimProje.Controllers
         [ChildActionOnly]
         public PartialViewResult anaSayfaPartialGetir()
         {
-            var anaSayfaModel = bagisciBAL.AnaSayfaBagislariGetir(BagisciBilgileriDondur.KullaniciId());
+            var anaSayfaModel = bagisciBAL.AnaSayfaBagislariGetir(KullaniciBilgileriDondur.KullaniciId());
             return PartialView(anaSayfaModel);
         }
 
@@ -97,7 +99,7 @@ namespace SosyalYardimProje.Controllers
                 }
                 else
                 {
-                    string hatalar = BagisciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                    string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
                     TempData["hata"] = hatalar;
                     Tanimla();
                     return View(model);
@@ -110,9 +112,10 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         public ActionResult ProfilDuzenle()
         {
-            var bagisci = bagisciBAL.BagisciGetir(BagisciBilgileriDondur.KullaniciId());
+            var bagisci = bagisciBAL.BagisciGetir(KullaniciBilgileriDondur.KullaniciId());
             if (bagisci != null)
             {
                 Tanimla();
@@ -125,13 +128,14 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ProfilDuzenle(BagisciKayitModel model)
         {
             if (ModelState.IsValid)
             {
-                if (model.BagisciId == BagisciBilgileriDondur.KullaniciId())
+                if (model.BagisciId == KullaniciBilgileriDondur.KullaniciId())
                 {
                     try
                     {
@@ -162,7 +166,7 @@ namespace SosyalYardimProje.Controllers
                     }
                     else
                     {
-                        string hatalar = BagisciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
+                        string hatalar = KullaniciBilgileriDondur.HataMesajlariniOku(sonuc.HataMesajlari);
                         TempData["hata"] = hatalar;
                         Tanimla();
                         return View(model);

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models.IhtiyacSahibiModelleri;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -12,25 +13,26 @@ namespace SosyalYardimProje.Controllers
     {
         private IhtiyacSahibi ihtiyacSahibiBAL = new IhtiyacSahibi();
         private Kullanici kullaniciBAL = new Kullanici();
+        [BagisciLoginFilter]
         public ActionResult Liste()
         {
-            var ihtiyacSahipleri = ihtiyacSahibiBAL.TumIhtiyacSahipleriniGetir(BagisciBilgileriDondur.KullaniciId());
+            var ihtiyacSahipleri = ihtiyacSahibiBAL.TumIhtiyacSahipleriniGetir(KullaniciBilgileriDondur.KullaniciId());
             return View(ihtiyacSahipleri);
         }
-
+        [BagisciLoginFilter]
         public ActionResult Ekle()
         {
             Tanimla();
             return View();
         }
-
+        [BagisciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Ekle(IhtiyacSahibiModel model)
         {
             if (ModelState.IsValid)
             {
-                var onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(model,BagisciBilgileriDondur.KullaniciId());
+                var onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(model,KullaniciBilgileriDondur.KullaniciId());
                 if (onay.TamamlandiMi == true)
                 {
                     TempData["uyari"] = "İhtiyaç sahibi ekleme işlemi başarı ile tamamlandı.";
@@ -50,12 +52,12 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
-
+        [BagisciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
             {
-                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, BagisciBilgileriDondur.KullaniciId()))
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
                 {
                     var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(id);
                     if (ihtiyacSahibi != null)
@@ -81,14 +83,14 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [BagisciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Duzenle(IhtiyacSahibiModel duzenlenmisIhtiyacSahibi)
         {
             if (ModelState.IsValid)
             {
-                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId, BagisciBilgileriDondur.KullaniciId()))
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId, KullaniciBilgileriDondur.KullaniciId()))
                 {
                     var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
                     if (ihtiyacSahibi != null)
@@ -101,7 +103,7 @@ namespace SosyalYardimProje.Controllers
                         }
                         else
                         {
-                            string hata = BagisciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
+                            string hata = KullaniciBilgileriDondur.HataMesajlariniOku(onay.HataMesajlari);
                             TempData["hata"] = hata;
                             Tanimla();
                             return View(duzenlenmisIhtiyacSahibi);
@@ -127,12 +129,12 @@ namespace SosyalYardimProje.Controllers
                 return View(duzenlenmisIhtiyacSahibi);
             }
         }
-
+        [BagisciLoginFilter]
         public ActionResult Detay(int? id)
         {
             if (id != null)
             {
-                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, BagisciBilgileriDondur.KullaniciId()))
+                if (ihtiyacSahibiBAL.IhtiyacSahibiGoruntulenebilirMi(id, KullaniciBilgileriDondur.KullaniciId()))
                 {
                     if (ihtiyacSahibiBAL.IhtiyacSahibiGetir(id) != null)
                     {

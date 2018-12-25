@@ -1,5 +1,4 @@
-﻿using DataLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +17,7 @@ namespace SosyalYardimProje.Filters
                 if (KullaniciIdVar != null)
                 {
                     int? KullaniciId = Convert.ToInt32(KullaniciIdVar);
-                    KullaniciBilgileriTablo kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciId);
+                    var kullanici = kullaniciYonetimi.LoginKullaniciModelBul(KullaniciId);
                     if (kullanici == null)
                     {
                         filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
@@ -55,7 +54,7 @@ namespace SosyalYardimProje.Filters
                 if (KullaniciIdVar != null)
                 {
                     int? KullaniciId = Convert.ToInt32(KullaniciIdVar);
-                    KullaniciBilgileriTablo kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciId);
+                    var kullanici = kullaniciYonetimi.LoginKullaniciModelBul(KullaniciId);
                     if (kullanici == null)
                     {
                         filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";

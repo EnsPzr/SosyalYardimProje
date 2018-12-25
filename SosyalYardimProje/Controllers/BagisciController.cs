@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Models.BagisciModelleri;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -13,12 +14,14 @@ namespace SosyalYardimProje.Controllers
     {
         private Bagisci bagisciBAL = new Bagisci();
         private Kullanici kullaniciBAL = new Kullanici();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
 
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumBagiscilariGetir()
         {
@@ -31,6 +34,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliBagiscilariGetir(int? sehirId, string aranan)
         {
@@ -54,7 +58,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model2, JsonRequestBehavior.AllowGet);
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -85,7 +89,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Duzenle(BagisciModel model)
@@ -120,7 +124,7 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
@@ -150,7 +154,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult BagisciSil(int? id)
@@ -176,7 +180,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Detay(int? id)
         {
             if (id != null)

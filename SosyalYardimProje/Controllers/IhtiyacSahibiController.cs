@@ -269,13 +269,13 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         public ActionResult IhtiyacSahibiKontrolListesi()
         {
             Tanimla();
             return View();
         }
-
+        [SadeceLoginFilter]
         public JsonResult TumIhtiyacSahipleriniGetir()
         {
             IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
@@ -287,7 +287,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        [SadeceLoginFilter]
         public JsonResult FiltreliKontrolIhtiyacSahipleriniGetir(String aranan, int? sehirId, String tarih)
         {
             IhtiyacSahibiKontrolJSModel model = new IhtiyacSahibiKontrolJSModel()
@@ -299,7 +299,7 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Kontrol(int? id)
         {
             if (id != null)
@@ -329,7 +329,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("IhtiyacSahibiKontrolListesi");
             }
         }
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Kontrol(IhtiyacSahibiKontrolSayfaModel model)
@@ -463,7 +463,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
+        [KullaniciLoginFilter]
         public ActionResult Teslim(int? id)
         {
             if (id != null)
@@ -493,7 +493,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("IhtiyacSahibiKontrolListesi");
             }
         }
-
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Teslim(IhtiyacSahibiTeslimModel model)

@@ -8,6 +8,7 @@ using BusinessLayer;
 using BusinessLayer.Models;
 using BusinessLayer.Models.DepoModelleri;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -16,12 +17,14 @@ namespace SosyalYardimProje.Controllers
         private Esya esyaBAL = new Esya();
         private Depo depoBAL = new Depo();
         private Kullanici kullaniciBAL = new Kullanici();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
-
+        [HttpGet]
+        [SadeceLoginFilter]
         public JsonResult TumunuGetir()
         {
             var depoEsyalari = depoBAL.DepoGetir(KullaniciBilgileriDondur.KullaniciId());
@@ -34,7 +37,8 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(depoJs, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpGet]
+        [SadeceLoginFilter]
         public JsonResult FiltreliDepoGetir(int? esyaId, int? sehirId, String aranan)
         {
             var depoEsyalari = depoBAL.FiltreliDepoGetir(KullaniciBilgileriDondur.KullaniciId(), esyaId, sehirId, aranan);
@@ -47,13 +51,13 @@ namespace SosyalYardimProje.Controllers
             Thread.Sleep(2000);
             return Json(depoJs, JsonRequestBehavior.AllowGet);
         }
-
+        [KullaniciLoginFilter]
         public ActionResult Ekle()
         {
             Tanimla();
             return View();
         }
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Ekle(DepoModel eklenecekEsya)
@@ -81,7 +85,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
-
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -104,7 +108,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Liste");
             }
         }
-
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Duzenle(DepoModel duzenlenmisModel)

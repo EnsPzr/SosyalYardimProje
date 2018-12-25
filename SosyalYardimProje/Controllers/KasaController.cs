@@ -8,6 +8,7 @@ using BusinessLayer;
 using BusinessLayer.Models.AnaSayfaModelleri;
 using BusinessLayer.Models.KasaModelleri;
 using BusinessLayer.Siniflar;
+using SosyalYardimProje.Filters;
 
 namespace SosyalYardimProje.Controllers
 {
@@ -15,12 +16,14 @@ namespace SosyalYardimProje.Controllers
     {
         private Kasa kasaBAL = new Kasa();
         private Kullanici kullaniciBAL = new Kullanici();
+        [KullaniciLoginFilter]
         public ActionResult Liste()
         {
             Tanimla();
             return View();
         }
-        
+
+        [KullaniciLoginFilter]
         [HttpGet]
         public JsonResult TumKasaGetir()
         {
@@ -34,6 +37,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [KullaniciLoginFilter]
         [HttpGet]
         public JsonResult FiltreliKasaGetir(string aranan, string tarih, int? sehirId, int? gelirGider)
         {
@@ -67,12 +71,14 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Ekle()
         {
             Tanimla();
             return View();
         }
 
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Ekle(KasaModel model)
@@ -138,6 +144,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
             if (id != null)
@@ -169,6 +176,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Duzenle(KasaModel model)
@@ -234,6 +242,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
             if (id != null)
@@ -265,6 +274,7 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult KasaSil(int? id)
@@ -308,11 +318,13 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [KullaniciLoginFilter]
         public ActionResult KartIleEkle()
         {
             Tanimla();
             return View();
         }
+        [KullaniciLoginFilter]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult KartIleEkle(KrediKartiKasaModel model)
@@ -380,12 +392,13 @@ namespace SosyalYardimProje.Controllers
             }
         }
 
+        [BagisciLoginFilter]
         public ActionResult BagisciKasaListe()
         {
             Tanimla();
             return View();
         }
-
+        [BagisciLoginFilter]
         public ActionResult KartBagis()
         {
             var kullanici = kullaniciBAL.KullaniciGetir(1004);
@@ -397,7 +410,7 @@ namespace SosyalYardimProje.Controllers
             Tanimla();
             return View(model);
         }
-
+        [BagisciLoginFilter]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult KartBagis(KrediKartiKasaModel model)
@@ -473,7 +486,6 @@ namespace SosyalYardimProje.Controllers
                     Value = p.SehirId.ToString()
                 }).ToList();
             ViewBag.sehirlerSelect = sehirler;
-            sehirler.Add(new SelectListItem() { Selected = true, Text = "Nerede ihtiyaç varsa", Value = "82" });
             ViewBag.sehirlerSelect2 = sehirler;
             var gelirGider = new List<SelectListItem>();
             gelirGider.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
