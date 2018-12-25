@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLayer.Models.DisardanIhtiyacSahibiModelleri;
 using BusinessLayer.Models.KasaModelleri;
 using BusinessLayer.Models.OrtakModeller;
 using DataLayer;
@@ -217,6 +218,36 @@ namespace BusinessLayer.Siniflar
             {
                 onay.TamamlandiMi = false;
                 onay.HataMesajlari.Add("Kayıt işlemi yapılamadı.");
+            }
+
+            return onay;
+        }
+
+        public IslemOnayModel DisardanKartIleBagis(DisardanNakdiBagisModel model)
+        {
+            KullaniciBilgileriTablo kullaniciTablo = new KullaniciBilgileriTablo();
+            kullaniciTablo.KullaniciAdi = model.BagisciAdi;
+            kullaniciTablo.KullaniciSoyadi = model.BagisciSoyadi;
+            kullaniciTablo.SehirTablo_SehirId = model.SehirBagisci.SehirId;
+            kullaniciTablo.KullaniciEPosta = model.BagisciEPosta;
+            kullaniciTablo.AktifMi = true;
+            kullaniciTablo.BagisciMi = true;
+            kullaniciTablo.KullaniciAdres = model.BagisciAdres;
+            kullaniciTablo.KullaniciSifre = model.BagisciSifre;
+            kullaniciTablo.KullaniciTelefonNumarasi = model.TelNo;
+
+            KasaTablo kasaTablo = new KasaTablo();
+            kasaTablo.SehirTablo_SehirId = model.BagisSehir.SehirId;
+            kasaTablo.Miktar = model.Miktar;
+            kasaTablo.GelirGider = true;
+            kasaTablo.Aciklama = "Gelen Bağış";
+            kasaTablo.Tarih=DateTime.Now;
+
+            IslemOnayModel onay = new IslemOnayModel();
+            onay.TamamlandiMi = kasaDAL.DisardanKartBagis(kullaniciTablo, kasaTablo);
+            if (onay.TamamlandiMi == false)
+            {
+                onay.HataMesajlari.Add("Kullanıcı ekleme işleminde hata oluştu.");
             }
 
             return onay;

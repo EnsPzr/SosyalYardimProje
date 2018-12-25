@@ -231,5 +231,34 @@ namespace DataLayer.Siniflar
                 return true;
             }
         }
+
+        public bool DisardanKartBagis(KullaniciBilgileriTablo kullanici, KasaTablo kasa)
+        {
+            var kullaniciVarMi = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta==kullanici.KullaniciEPosta);
+            if (kullaniciVarMi != null)
+            {
+                kasa.KullaniciBilgleriTablo_KullaniciId = kullaniciVarMi.KullaniciId;
+                db.KasaTablo.Add(kasa);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                db.KullaniciBilgileriTablo.Add(kullanici);
+                db.SaveChanges();
+                var eklenenKullanici = db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == kullanici.KullaniciEPosta);
+                if (eklenenKullanici != null)
+                {
+                    kasa.KullaniciBilgleriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                    db.KasaTablo.Add(kasa);
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
