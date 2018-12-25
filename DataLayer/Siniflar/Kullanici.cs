@@ -85,6 +85,35 @@ namespace DataLayer.Siniflar
             db.KullaniciBilgileriTablo.Add(eklenecekKullanici);
             if (db.SaveChanges() > 0)
             {
+                var eklenenKullanici =
+                    db.KullaniciBilgileriTablo.FirstOrDefault(p =>
+                        p.KullaniciEPosta == eklenecekKullanici.KullaniciEPosta);
+                if (eklenenKullanici != null)
+                {
+                    for (int i = 0; i < 60; i++)
+                    {
+                        var rotaVarMi = db.RotaTablo.FirstOrDefault(p => p.RotaId == i);
+                        if (rotaVarMi != null)
+                        {
+                            YetkiTablo yetki = new YetkiTablo();
+                            yetki.GirebilirMi = true;
+                            yetki.RotaTablo_RotaId = i;
+                            yetki.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                            db.YetkiTablo.Add(yetki);
+                        }
+
+                        if (db.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
                 return true;
             }
             else
