@@ -64,6 +64,7 @@
     <Compile Include="Models\BagisciModelleri\BagisciModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoJsModel.cs" />
     <Compile Include="Models\DepoModelleri\DepoModel.cs" />
+    <Compile Include="Models\DisardanIhtiyacSahibiModelleri\DisardanIhtiyacSahibiModel.cs" />
     <Compile Include="Models\EsyaModelleri\EsyaJsModel.cs" />
     <Compile Include="Models\EsyaModelleri\EsyaModel.cs" />
     <Compile Include="Models\GeriBildirimModelleri\GeriBildirimJsModel.cs" />
