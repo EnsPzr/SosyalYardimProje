@@ -252,5 +252,7 @@ namespace BusinessLayer.Siniflar
 
             return onay;
         }
+
+        
     }
 }

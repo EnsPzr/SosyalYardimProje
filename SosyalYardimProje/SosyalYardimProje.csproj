@@ -7061,6 +7061,7 @@
     <Content Include="Views\Disardan\IhtiyacSahibiEkle.cshtml" />
     <Content Include="Views\Disardan\denemesayfa.cshtml" />
     <Content Include="Views\Disardan\GeriBildirimYap.cshtml" />
+    <Content Include="Views\Disardan\NakdiBagisYap.cshtml" />
     <None Include="Views\Shared\_LayoutDisardan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
