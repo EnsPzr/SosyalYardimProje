@@ -33,8 +33,7 @@ namespace DataLayer.BagisciSiniflar
         {
             db.BagisTablo.Add(bagis);
             db.SaveChanges();
-            var bagisTablo = db.BagisTablo.FirstOrDefault(p => p.EklenmeTarihi == bagis.EklenmeTarihi
-                                                               && p.EklenmeSaati == bagis.EklenmeSaati
+            var bagisTablo = db.BagisTablo.FirstOrDefault(p => p.EklenmeSaati == bagis.EklenmeSaati
                                                                && p.KullaniciBilgileriTablo_KullaniciId == bagis.KullaniciBilgileriTablo_KullaniciId);
             return bagisTablo.BagisId;
             //if (bagisTablo != null)

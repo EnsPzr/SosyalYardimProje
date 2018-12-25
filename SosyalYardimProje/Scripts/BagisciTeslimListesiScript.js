@@ -25,7 +25,7 @@
                                 "<td class='col-md-2 col-xs-2'>" + result.BagisList[i].TahminiTeslimAlmaStr + "</td>" +
                                 "<td class='col-md-3 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/BagisciBagis/Duzenle/" + result.BagisList[i].BagisId + "'></a></td></tr >";
                         } else {
-                            Liste = Liste + "<tr class='even'>" +
+                            Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-3 col-xs-3'>" + result.BagisList[i].EklenmeTarihiStr + "</td>" +
                                 "<td class='col-md-2 col-xs-2'>" + result.BagisList[i].OnaylandiMiStr + "</td>" +
                                 "<td class='col-md-2 col-xs-2'>" + result.BagisList[i].TeslimAlindiMi + "</td>" +

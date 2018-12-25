@@ -56,6 +56,7 @@
     <Compile Include="Models\AnaSayfaModelleri\OnayBekleyenIhtiyacSahipleriModeli.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimAlinmaBekleyenBagislarListe.cs" />
     <Compile Include="Models\AnaSayfaModelleri\TeslimEdilecekEsyaListeModeli.cs" />
+    <Compile Include="Models\BagisciBagisModelleri\BagisciBagisModel.cs" />
     <Compile Include="Models\BagisciGiris\BagisciAnaSayfaModel.cs" />
     <Compile Include="Models\BagisciGiris\BagisciGirisModel.cs" />
     <Compile Include="Models\BagisciGiris\BagisciKayitModel.cs" />
@@ -121,8 +122,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\BagisciBagisModelleri\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

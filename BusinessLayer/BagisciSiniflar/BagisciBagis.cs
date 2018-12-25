@@ -75,31 +75,31 @@ namespace BusinessLayer.BagisciSiniflar
                 eklenecekBagisDetay.EsyaTablo_EsyaId = detaylar[i].EsyaId;
                 int? bagisDetayId = bagisDAL.bagisDetayKaydeT(eklenecekBagisDetay);
                 var resimler = detaylar[i].resimModel;
-                if (resimler[i].ResimYol != null)
+                if (resimler[0].ResimYol != null)
                 {
                     var eklenecekresim=new BagisDetayResimTablo();
                     eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
-                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol;
+                    eklenecekresim.BagisResimUrl = resimler[0].ResimYol;
                     if (bagisDAL.bagisResimKaydet(eklenecekresim))
                     {
                         sayac++;
                     }
                 }
-                if (resimler[i].ResimYol2 != null)
+                if (resimler[0].ResimYol2 != null)
                 {
                     var eklenecekresim = new BagisDetayResimTablo();
                     eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
-                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol2;
+                    eklenecekresim.BagisResimUrl = resimler[0].ResimYol2;
                     if (bagisDAL.bagisResimKaydet(eklenecekresim))
                     {
                         sayac++;
                     }
                 }
-                if (resimler[i].ResimYol3 != null)
+                if (resimler[0].ResimYol3 != null)
                 {
                     var eklenecekresim = new BagisDetayResimTablo();
                     eklenecekresim.BagisDetayTablo_BagisDetayId = bagisDetayId;
-                    eklenecekresim.BagisResimUrl = resimler[i].ResimYol3;
+                    eklenecekresim.BagisResimUrl = resimler[0].ResimYol3;
                     if (bagisDAL.bagisResimKaydet(eklenecekresim))
                     {
                         sayac++;

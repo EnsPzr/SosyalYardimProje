@@ -65,13 +65,13 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Duzenle(int? bagisId=1)
+        public ActionResult Duzenle(int? id)
         {
-            if (bagisId != null)
+            if (id != null)
             {
-                if (bagisBAL.KullaniciBagisDetayiGorebilirMi(KullaniciBilgileriDondur.KullaniciId(), bagisId))
+                if (bagisBAL.KullaniciBagisDetayiGorebilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
                 {
-                    var bagis = bagisBAL.Detay(bagisId);
+                    var bagis = bagisBAL.Detay(id);
                     if (bagis != null)
                     {
                         return View(bagis);

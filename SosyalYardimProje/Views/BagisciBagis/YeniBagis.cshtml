@@ -1,0 +1,76 @@
+﻿@model List<BusinessLayer.Models.BagisciBagisModelleri.BagisciBagisModel>
+
+@{
+    ViewBag.Title = "YeniBagis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Yeni Bağış</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-danger" id="hata" hidden></div>
+    </div>
+</div>
+@using (Html.BeginForm("YeniBagis", "BagisciBagis", FormMethod.Post, new { enctype = "multipart/form-data", id = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @for (int i = 0; i < 5; i++)
+        {
+            <div class="panel panel-default" id="panel_@i">
+                <div class="panel-heading text-center">
+                    @(i + 1) Numaralı Eşya
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model[i].EsyaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => Model[i].EsyaId, (List<SelectListItem>)ViewBag.esyalarSelectList, htmlAttributes: new { @class = "form-control", @id = "esya_" + i })
+                            @Html.ValidationMessageFor(model => Model[i].EsyaId, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => Model[i].Adet, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => Model[i].Adet, new { htmlAttributes = new { @class = "form-control", @id = "adet_" + i } })
+                            @Html.ValidationMessageFor(model => Model[i].Adet, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model[i].Resim1_data, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => Model[i].Resim1_data, new { Type = "File", @id = "resim1_" + i })
+                            @Html.ValidationMessageFor(model => Model[i].Resim1_data, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => Model[i].Resim2_data, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => Model[i].Resim2_data, new { Type = "File", @id = "resim2_" + i })
+                            @Html.ValidationMessageFor(model => Model[i].Resim2_data, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model[i].Resim3_data, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => Model[i].Resim3_data, new { Type = "File", @id = "resim3_" + i })
+                            @Html.ValidationMessageFor(model => Model[i].Resim3_data, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" id="panelFooter_@i"></div>
+            </div>
+        }
+
+        <div class="form-group">
+            <center>
+                <input type="button" value="Kaydet" class="btn btn-success" id="buton" />
+            </center>
+        </div>
+    </div>
+}
+<script src="~/Scripts/YeniBagisValidationScript.js"></script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
