@@ -46,13 +46,13 @@ namespace SosyalYardimProje.Filters
                 else
                 {
                     filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
-                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
                 }
             }
             else
             {
                 filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
-                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
             }
         }
 
@@ -68,7 +68,7 @@ namespace SosyalYardimProje.Filters
                     if (kullanici == null)
                     {
                         filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
-                        filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                        filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
                     }
                     else
                     {
@@ -79,26 +79,26 @@ namespace SosyalYardimProje.Filters
                                 filterContext.ActionDescriptor.ActionName)))
                             {
                                 filterContext.Controller.TempData["hata"] = "Yetkiniz Bulunmamaktadır.";
-                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
+                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "AnaSayfa" } });
                             }
                         }
                         else
                         {
                             filterContext.Controller.TempData["hata"] = "Kullanıcı Aktif Değil. İl görevliniz ile iletişime geçiniz.";
-                            filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                            filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
                         }
                     }
                 }
                 else
                 {
                     filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
-                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
                 }
             }
             else
             {
                 filterContext.Controller.TempData["hata"] = "Oturum zaman aşımına uğradı.";
-                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "Giris" } });
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "BagisciIslemleri" }, { "Action", "Giris" } });
             }
         }
     }
