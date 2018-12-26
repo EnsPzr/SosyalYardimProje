@@ -19,7 +19,7 @@ namespace DataLayer.Siniflar
         {
             return db.KullaniciBilgileriTablo.Include(p => p.SehirTablo).Where(p => p.SehirTablo_SehirId == id).ToList();
         }
-        public List<KullaniciBilgileriTablo> FiltreliKullanicilariGetir(string aranan, int? SehirId, int? KullaniciId)
+        public List<KullaniciBilgileriTablo> FiltreliKullanicilariGetir(string aranan, int? SehirId, int? KullaniciId, bool? OnayliMi, bool? merkezdemi, bool? aktifMi)
         {
             var kullanici = KullaniciGetir(KullaniciId);
             if (Convert.ToBoolean(kullanici.KullaniciMerkezdeMi))
@@ -35,6 +35,21 @@ namespace DataLayer.Siniflar
                 {
                     sorgu = sorgu.Where(p => p.SehirTablo_SehirId == SehirId);
                 }
+
+                if (aktifMi != null)
+                {
+                    sorgu = sorgu.Where(p => p.AktifMi == aktifMi);
+                }
+
+                if (OnayliMi != null)
+                {
+                    sorgu = sorgu.Where(p => p.KullaniciOnayliMi==OnayliMi);
+                }
+
+                if (merkezdemi != null)
+                {
+                    sorgu = sorgu.Where(p => p.KullaniciMerkezdeMi == merkezdemi);
+                }
                 return sorgu.ToList();
             }
             else
@@ -45,6 +60,16 @@ namespace DataLayer.Siniflar
                                  p.KullaniciTelegramKullaniciAdi.Contains(aranan) ||
                                  p.KullaniciTelefonNumarasi.Contains(aranan) ||
                                  p.KullaniciEPosta.Contains(aranan)) && p.SehirTablo_SehirId == kullanici.SehirTablo_SehirId);
+
+                if (aktifMi != null)
+                {
+                    sorgu = sorgu.Where(p => p.AktifMi == aktifMi);
+                }
+
+                if (OnayliMi != null)
+                {
+                    sorgu = sorgu.Where(p => p.KullaniciOnayliMi == OnayliMi);
+                }
                 return sorgu.ToList();
             }
 

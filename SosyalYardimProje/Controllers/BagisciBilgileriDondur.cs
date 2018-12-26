@@ -1,5 +1,4 @@
-﻿using DataLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,16 +19,7 @@ namespace SosyalYardimProje.Controllers
             else return 1004;
         }
 
-        public static KullaniciBilgileriTablo KullaniciBilgileriGetir()
-        {
-            if (HttpContext.Current.Session["KullaniciId"] != null)
-            {
-                String kullaniciIdStr = HttpContext.Current.Session["KullaniciId"].ToString();
-                int? KullaniciId = Convert.ToInt32(kullaniciIdStr);
-                return bagisciYonetimi.LoginKullaniciBul(KullaniciId);
-            }
-            else return bagisciYonetimi.LoginKullaniciBul(1004);
-        }
+
 
         public static String HataMesajlariniOku(List<String> hataListesi)
         {

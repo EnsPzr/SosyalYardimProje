@@ -38,11 +38,11 @@ namespace SosyalYardimProje.Controllers
 
         [SadeceLoginFilter]
         [HttpGet]
-        public JsonResult FiltreliKullanicilariGetir(String aranan, int? sehirId)
+        public JsonResult FiltreliKullanicilariGetir(String aranan, int? sehirId, bool? OnayliMi, bool? merkezdemi, bool? aktifMi)
         {
             KullaniciJSModel kullanicilar = new KullaniciJSModel();
             kullanicilar.KullaniciModelList =
-                yetkiBAL.FiltreliKullanicilariGetir(aranan, sehirId, KullaniciBilgileriDondur.KullaniciId());
+                yetkiBAL.FiltreliKullanicilariGetir(aranan, sehirId, KullaniciBilgileriDondur.KullaniciId(),OnayliMi,merkezdemi,aktifMi);
             kullanicilar.KullaniciSayisi = kullanicilar.KullaniciModelList.Count;
             kullanicilar.BasariliMi = true;
             Thread.Sleep(2000);
@@ -134,9 +134,11 @@ namespace SosyalYardimProje.Controllers
 
         public void YetkiDurumlari()
         {
-            var yetkiDurumlari = new List<SelectListItem>();
-            yetkiDurumlari.Add(new SelectListItem() { Value = "true", Text = "Girebilir" });
-            yetkiDurumlari.Add(new SelectListItem() { Value = "false", Text = "Giremez" });
+            var yetkiDurumlari = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = "true", Text = "Girebilir" },
+                new SelectListItem() { Value = "false", Text = "Giremez" }
+            };
             ViewBag.yetkiDurumlari = new SelectList(yetkiDurumlari, "Value", "Text");
         }
     }

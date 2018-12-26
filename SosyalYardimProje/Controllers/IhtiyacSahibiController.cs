@@ -142,6 +142,8 @@ namespace SosyalYardimProje.Controllers
                         {
                             hata += hataItem + "\n";
                         }
+
+                        TempData["hata"] = hata+" İhtiyaç sahibine eşya verildiyse veya maddi bağış yapıldıysa sistemden silemezsiniz.";
                         return RedirectToAction("Liste");
                     }
                 }
@@ -352,7 +354,7 @@ namespace SosyalYardimProje.Controllers
                         }
                     }
 
-                    if (sayac < 0)
+                    if (sayac > 0)
                     {
                         TempData["hata"] = "Verilecek eşya adetleri sadece sayıdan oluşmalıdır.";
                         return View(model);
@@ -391,7 +393,7 @@ namespace SosyalYardimProje.Controllers
                         }
                     }
 
-                    if (d == false)
+                    if (d == true)
                     {
                         TempData["hata"] = "Tahmini teslim tarihi doğru formatta değil.";
                         return View(model);

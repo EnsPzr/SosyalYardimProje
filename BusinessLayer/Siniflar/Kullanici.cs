@@ -132,12 +132,12 @@ namespace BusinessLayer.Siniflar
                 return dondurulecekKullanicilar.OrderBy(p=>p.Sira).ToList();
             }
         }
-        public List<KullaniciModel> FiltreliKullanicilariGetir(string aranan, int? sehirId, int? kullaniciId)
+        public List<KullaniciModel> FiltreliKullanicilariGetir(string aranan, int? sehirId, int? kullaniciId, bool? OnayliMi, bool? merkezdemi, bool? aktifMi)
         {
             var Kullanici = kullaniciYonetimi.LoginKullaniciBul(kullaniciId);
             if (Convert.ToBoolean(Kullanici.KullaniciMerkezdeMi))
             {
-                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan,sehirId,kullaniciId).Where(p => p.BagisciMi == false).ToList();
+                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan,sehirId,kullaniciId,OnayliMi,merkezdemi,aktifMi).Where(p => p.BagisciMi == false).ToList();
                 List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
                 for (int i = 0; i < kullanicilar.Count; i++)
                 {
@@ -176,7 +176,7 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan, sehirId, kullaniciId).Where(p => p.BagisciMi == false).ToList();
+                var kullanicilar = KullaniciDataLayer.FiltreliKullanicilariGetir(aranan, sehirId, kullaniciId, OnayliMi, merkezdemi, aktifMi).Where(p => p.BagisciMi == false).ToList();
                 List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
                 for (int i = 0; i < kullanicilar.Count; i++)
                 {

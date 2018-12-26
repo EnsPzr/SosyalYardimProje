@@ -11,7 +11,7 @@ namespace SosyalYardimProje.Controllers
     [HataFiltresi]
     public class KullaniciController : Controller
     {
-        private string sadeceGorevli =
+        private readonly string sadeceGorevli =
             "Sadece görevli olduğunuz bölgedeki kullanıcılar ile ilgili işlem yapabilirsiniz.";
         Kullanici kullaniciBusinessLayer = new Kullanici();
         [KullaniciLoginFilter]
@@ -39,10 +39,11 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public JsonResult FiltreliKullanicilariGetir(KullaniciFiltrelemeModel filtreliKullaniciModel)
         {
+
             var jsKullaniciModel = new KullaniciJSModel()
             {
                 KullaniciModelList =
-                    kullaniciBusinessLayer.TumKullanicilariGetir(KullaniciBilgileriDondur.KullaniciId()),
+                    kullaniciBusinessLayer.FiltreliKullanicilariGetir(filtreliKullaniciModel.AraTxt, filtreliKullaniciModel.SehirId, KullaniciBilgileriDondur.KullaniciId(), filtreliKullaniciModel.OnayliMi, filtreliKullaniciModel.MerkezdeMi, filtreliKullaniciModel.OnayliMi),
                 BasariliMi = true
             };
             jsKullaniciModel.KullaniciSayisi = jsKullaniciModel.KullaniciModelList.Count;
@@ -68,7 +69,7 @@ namespace SosyalYardimProje.Controllers
             yeniKullanici.KullaniciOnayliMi = true;
             if (ModelState.IsValid)
             {
-                if (KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi == true)
+                if (KullaniciBilgileriDondur.KullaniciMerkezdeMi()==true)
                 {
                     if (!kullaniciBusinessLayer.KullaniciVarMi(yeniKullanici.KullaniciEPosta))
                     {
@@ -89,7 +90,7 @@ namespace SosyalYardimProje.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("KullaniciTCKimlik","Lütfen geçerli bir TC Kimlik numarası giriniz.");
+                            ModelState.AddModelError("KullaniciTCKimlik", "Lütfen geçerli bir TC Kimlik numarası giriniz.");
                             MerkezdeGosterilecekMi();
                             return View(yeniKullanici);
                         }
@@ -106,7 +107,7 @@ namespace SosyalYardimProje.Controllers
                     if (!kullaniciBusinessLayer.KullaniciVarMi(yeniKullanici.KullaniciEPosta))
                     {
                         if (yeniKullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                            KullaniciBilgileriDondur.KullaniciSehir())
                         {
                             if (ValidateIdentityNumber(yeniKullanici.KullaniciTCKimlik))
                             {
@@ -161,14 +162,14 @@ namespace SosyalYardimProje.Controllers
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
                 if (kullanici != null)
                 {
-                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciMerkezdeMi()))
                     {
                         return View(kullanici);
                     }
                     else
                     {
                         if (kullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                            KullaniciBilgileriDondur.KullaniciSehir())
                         {
                             return View(kullanici);
                         }
@@ -203,7 +204,7 @@ namespace SosyalYardimProje.Controllers
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
                 if (kullanici != null)
                 {
-                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciMerkezdeMi()))
                     {
                         if (kullaniciBusinessLayer.KullaniciSil(id))
                         {
@@ -219,7 +220,7 @@ namespace SosyalYardimProje.Controllers
                     else
                     {
                         if (kullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                            KullaniciBilgileriDondur.KullaniciSehir())
                         {
                             if (kullaniciBusinessLayer.KullaniciSil(id))
                             {
@@ -262,14 +263,14 @@ namespace SosyalYardimProje.Controllers
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
                 if (kullanici != null)
                 {
-                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciMerkezdeMi()))
                     {
                         return View(kullanici);
                     }
                     else
                     {
                         if (kullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                            KullaniciBilgileriDondur.KullaniciSehir())
                         {
                             return View(kullanici);
                         }
@@ -303,12 +304,13 @@ namespace SosyalYardimProje.Controllers
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(duzenlenmisKullanici.KullaniciId);
                 if (kullanici != null)
                 {
-                    if (KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi == true)
+                    if (KullaniciBilgileriDondur.KullaniciMerkezdeMi() == true)
                     {
                         if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta, duzenlenmisKullanici.KullaniciId))
                         {
                             if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
                             {
+                                duzenlenmisKullanici.AktifMi = true;
                                 if (kullaniciBusinessLayer.KullaniciGuncelle(duzenlenmisKullanici))
                                 {
                                     TempData["uyari"] = duzenlenmisKullanici.KullaniciAdi + " " + duzenlenmisKullanici.KullaniciSoyadi +
@@ -341,7 +343,7 @@ namespace SosyalYardimProje.Controllers
                         if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta))
                         {
                             if (duzenlenmisKullanici.Sehir.SehirId ==
-                                KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo.SehirId)
+                                KullaniciBilgileriDondur.KullaniciSehir())
                             {
                                 if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
                                 {
@@ -402,14 +404,14 @@ namespace SosyalYardimProje.Controllers
                 var kullanici = kullaniciBusinessLayer.KullaniciGetir(id);
                 if (kullanici != null)
                 {
-                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi))
+                    if (Convert.ToBoolean(KullaniciBilgileriDondur.KullaniciMerkezdeMi()))
                     {
                         return View(kullanici);
                     }
                     else
                     {
                         if (kullanici.Sehir.SehirId ==
-                            KullaniciBilgileriDondur.KullaniciBilgileriGetir().SehirTablo_SehirId)
+                            KullaniciBilgileriDondur.KullaniciSehir())
                         {
                             return View(kullanici);
                         }
@@ -434,7 +436,7 @@ namespace SosyalYardimProje.Controllers
         }
         public void MerkezdeGosterilecekMi()
         {
-            var kullaniciMerkezdeMi = KullaniciBilgileriDondur.KullaniciBilgileriGetir().KullaniciMerkezdeMi;
+            var kullaniciMerkezdeMi = KullaniciBilgileriDondur.KullaniciMerkezdeMi();
             ViewBag.GosterilecekMi = kullaniciMerkezdeMi == null ? false : kullaniciMerkezdeMi == true ? true : false;
             Tanimla();
         }

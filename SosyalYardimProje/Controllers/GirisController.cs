@@ -33,7 +33,7 @@ namespace SosyalYardimProje.Controllers
                 var KullaniciId = kullaniciYonetimi.KullaniciBul(girisModel.EPosta, girisModel.Sifre);
                 if (!(KullaniciId.Count()==0))
                 {
-                    var Kullanici = kullaniciYonetimi.LoginKullaniciBul(Convert.ToInt32(KullaniciId));
+                    var Kullanici = kullaniciYonetimi.LoginKullaniciModelBul(Convert.ToInt32(KullaniciId));
                     if (Convert.ToBoolean(Kullanici.AktifMi))
                     {
                         Session["KullaniciId"] = KullaniciId;
@@ -69,8 +69,8 @@ namespace SosyalYardimProje.Controllers
         [ChildActionOnly]
         public PartialViewResult anasayfaPartial()
         {
-            var Kullanici = kullaniciYonetimi.LoginKullaniciBul(KullaniciBilgileriDondur.KullaniciId());
-            var anaSayfaModel = kullaniciYonetimi.AnaSayfaModeli(Kullanici.SehirTablo_SehirId);
+            var Kullanici = KullaniciBilgileriDondur.KullaniciId();
+            var anaSayfaModel = kullaniciYonetimi.AnaSayfaModeli(Kullanici);
             return PartialView(anaSayfaModel);
         }
 
@@ -81,6 +81,23 @@ namespace SosyalYardimProje.Controllers
 
             Exception model = TempData["error"] as Exception;
             return View(model);
+        }
+
+
+        public ActionResult Cikis()
+        {
+            var sonuc = KullaniciBilgileriDondur.KullaniciBagisciMi();
+            if (sonuc == true)
+            {
+                KullaniciBilgileriDondur.SessionSil();
+                return RedirectToAction("Giris", "BagisciIslemleri");
+            }
+            else
+            {
+                KullaniciBilgileriDondur.SessionSil();
+                return RedirectToAction("Giris", "Giris");
+            }
+            
         }
     }
 }

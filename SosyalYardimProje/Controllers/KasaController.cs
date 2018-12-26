@@ -24,7 +24,7 @@ namespace SosyalYardimProje.Controllers
             return View();
         }
 
-        [KullaniciLoginFilter]
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult TumKasaGetir()
         {
@@ -38,7 +38,7 @@ namespace SosyalYardimProje.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        [KullaniciLoginFilter]
+        [SadeceLoginFilter]
         [HttpGet]
         public JsonResult FiltreliKasaGetir(string aranan, string tarih, int? sehirId, int? gelirGider)
         {
@@ -488,15 +488,19 @@ namespace SosyalYardimProje.Controllers
                 }).ToList();
             ViewBag.sehirlerSelect = sehirler;
             ViewBag.sehirlerSelect2 = sehirler;
-            var gelirGider = new List<SelectListItem>();
-            gelirGider.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
-            gelirGider.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
-            gelirGider.Add(new SelectListItem() { Text = "Gider", Value = "2" });
+            var gelirGider = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "Tümü", Value = "0" },
+                new SelectListItem() { Text = "Gelir", Value = "1" },
+                new SelectListItem() { Text = "Gider", Value = "2" }
+            };
             ViewBag.gelirGiderSelect = gelirGider;
-            var gelirGider2 = new List<SelectListItem>();
-            //gelirGider2.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
-            gelirGider2.Add(new SelectListItem() { Text = "Gelir", Value = "1" });
-            gelirGider2.Add(new SelectListItem() { Text = "Gider", Value = "2" });
+            var gelirGider2 = new List<SelectListItem>
+            {
+                //gelirGider2.Add(new SelectListItem() { Text = "Tümü", Value = "0" });
+                new SelectListItem() { Text = "Gelir", Value = "1" },
+                new SelectListItem() { Text = "Gider", Value = "2" }
+            };
             ViewBag.gelirGiderSelect2 = gelirGider2;
             List<SelectListItem> ay= new List<SelectListItem>();
             for (int i = 1; i < 13; i++)

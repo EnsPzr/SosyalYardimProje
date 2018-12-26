@@ -67,6 +67,11 @@ namespace BusinessLayer
             }
         }
 
+        public bool BagisciMi(int? kullaniciId)
+        {
+            return kullaniciYonetimi.BagisciMi(kullaniciId);
+        }
+
         public List<NavbarModel> NavbarOlustur(int? KullaniciId)
         {
             var Rotalar = kullaniciYonetimi.TumRotalariGetir().OrderBy(p => p.Sira).ToList();
@@ -87,7 +92,7 @@ namespace BusinessLayer
                         {
                             eklenecek.AltKategoriSayisi = altKategoriler.Count;
                             eklenecek.DropDownBaslik = Rotalar[i].DropdownBaslikAdi;
-                            eklenecek.altKategoriler = new List<NavbarModel>();
+                            eklenecek.AltKategoriler = new List<NavbarModel>();
                             for (int j = 0; j < altKategoriler.Count; j++)
                             {
                                 var eklenecekAltKategori = new NavbarModel();
@@ -95,7 +100,7 @@ namespace BusinessLayer
                                 eklenecekAltKategori.UrlText = altKategoriler[j].LinkAdi;
                                 eklenecekAltKategori.UrlYol =
                                     altKategoriler[j].ControllerAdi + "/" + altKategoriler[j].ActionAdi;
-                                eklenecek.altKategoriler.Add(eklenecekAltKategori);
+                                eklenecek.AltKategoriler.Add(eklenecekAltKategori);
                             }
                             navbarListModel.Add(eklenecek);
                         }
@@ -123,7 +128,7 @@ namespace BusinessLayer
                                 {
                                     eklenecek.AltKategoriSayisi = altKategoriler.Count;
                                     eklenecek.DropDownBaslik = Rotalar[i].DropdownBaslikAdi;
-                                    eklenecek.altKategoriler = new List<NavbarModel>();
+                                    eklenecek.AltKategoriler = new List<NavbarModel>();
                                     for (int j = 0; j < altKategoriler.Count; j++)
                                     {
                                         var eklenecekAltKategori = new NavbarModel();
@@ -131,7 +136,7 @@ namespace BusinessLayer
                                         eklenecekAltKategori.UrlText = altKategoriler[j].LinkAdi;
                                         eklenecekAltKategori.UrlYol =
                                             altKategoriler[j].ControllerAdi + "/" + altKategoriler[j].ActionAdi;
-                                        eklenecek.altKategoriler.Add(eklenecekAltKategori);
+                                        eklenecek.AltKategoriler.Add(eklenecekAltKategori);
                                     }
                                     navbarListModel.Add(eklenecek);
                                 }
@@ -278,6 +283,16 @@ namespace BusinessLayer
         public bool KullaniciAktifMi(int? id)
         {
             return kullaniciYonetimi.KullaniciAktifMi(id);
+        }
+
+        public bool KullaniciMerkezdeMi(int? id)
+        {
+            return kullaniciYonetimi.KullaniciMerkezdeMi(id);
+        }
+
+        public int? KullaniciSehirGetir(int? id)
+        {
+            return kullaniciYonetimi.KullaniciSehir(id);
         }
     }
 }

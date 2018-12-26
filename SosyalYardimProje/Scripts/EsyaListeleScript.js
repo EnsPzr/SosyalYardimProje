@@ -22,13 +22,11 @@
                             Liste = Liste + "<tr class='even'>"+
                                 "<td class='col-md-8 col-xs-8'>" + result.EsyaList[i].EsyaAdi+"</td>"+
                                 "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Esya/Duzenle/" + result.EsyaList[i].EsyaId+"'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.EsyaList[i].EsyaId  +"'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Esya/Sil/" + result.EsyaList[i].EsyaId +"'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-8 col-xs-8'>" + result.EsyaList[i].EsyaAdi + "</td>" +
                                 "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Esya/Duzenle/" + result.EsyaList[i].EsyaId + "'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.EsyaList[i].EsyaId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Esya/Sil/" + result.EsyaList[i].EsyaId + "'></a></td></tr >";
                         }
                     };
@@ -87,13 +85,11 @@
                                 Liste = Liste + "<tr class='even'>" +
                                     "<td class='col-md-8 col-xs-8'>" + result.EsyaList[i].EsyaAdi+"</td>" +
                                     "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Esya/Duzenle/" + result.EsyaList[i].EsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.EsyaList[i].EsyaId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Esya/Sil/" + result.EsyaList[i].EsyaId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-8 col-xs-8'>" + result.EsyaList[i].EsyaAdi + "</td>" +
                                     "<td class='col-md-4 col-xs-4'><a class='glyphicon glyphicon-pencil' href='/Esya/Duzenle/" + result.EsyaList[i].EsyaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.EsyaList[i].EsyaId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Esya/Sil/" + result.EsyaList[i].EsyaId + "'></a></td></tr >";
                             }
                         };

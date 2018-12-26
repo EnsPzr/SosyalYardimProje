@@ -140,6 +140,7 @@ namespace BusinessLayer.Siniflar
                 kullanici.KullaniciTelefonNumarasi = bagisci.TelNo;
                 kullanici.KullaniciEPosta = bagisci.BagisciEPosta;
                 kullanici.KullaniciAdres = bagisci.Adres;
+                kullanici.AktifMi = true;
                 if (!(bagisciDAL.BagiscidanVarMi(kullanici)))
                 {
                     bagisciDAL.BagisciKaydet(kullanici);

@@ -204,6 +204,8 @@ namespace BusinessLayer.Siniflar
             kullaniciTablo.KullaniciEPosta = model.BagisciEPosta;
             kullaniciTablo.KullaniciTelefonNumarasi = model.BagisciTelNo;
             kullaniciTablo.BagisciMi = true;
+            kullaniciTablo.AktifMi = true;
+            kullaniciTablo.KullaniciSifre = "123456";
             KasaTablo kasaTablo = new KasaTablo();
             kasaTablo.Aciklama = "Gelen Bağış";
             kasaTablo.GelirGider = true;

@@ -175,7 +175,45 @@ namespace DataLayer.Siniflar
                 .Where(p => p.IhtiyacSahibiKontrolTablo.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
             if (ihtiyacSahibiVerilenMaddi.Count > 0 || ihtiyacSahibiVerilenEsya.Count > 0)
             {
-                return false;
+                if (ihtiyacSahibiVerilenMaddi.Count == 1)
+                {
+                    if (ihtiyacSahibiVerilenMaddi[0].VerilecekMaddiYardim == 0)
+                    {
+                        db.IhtiyacSahibiVerilecekMaddiTablo.Remove(ihtiyacSahibiVerilenMaddi[0]);
+                        db.SaveChanges();
+                        var ihtiyacSahibiKontroller = db.IhtiyacSahibiKontrolTablo
+                            .Where(p => p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+                        for (int i = 0; i < ihtiyacSahibiKontroller.Count; i++)
+                        {
+                            db.IhtiyacSahibiKontrolTablo.Remove(ihtiyacSahibiKontroller[i]);
+                        }
+
+                        db.SaveChanges();
+                        var kullanicilar = db.IhtiyacSahibiVeKullaniciTablo
+                            .Where(p => p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiId).ToList();
+                        for (int i = 0; i < kullanicilar.Count; i++)
+                        {
+                            db.IhtiyacSahibiVeKullaniciTablo.Remove(kullanicilar[i]);
+                        }
+                        db.IhtiyacSahibiTablo.Remove(ihtiyacSahibi);
+                        if (db.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

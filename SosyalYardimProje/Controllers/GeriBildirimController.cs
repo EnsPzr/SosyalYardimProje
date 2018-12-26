@@ -303,11 +303,13 @@ namespace SosyalYardimProje.Controllers
                 }).ToList();
             ViewBag.sehirlerSelect = sehirlerSelect;
 
-            var durumlar = new List<SelectListItem>();
-            durumlar.Add(new SelectListItem() { Text = "Okunmadı", Value = "0" });
-            durumlar.Add(new SelectListItem() { Text = "Okundu", Value = "1" });
-            durumlar.Add(new SelectListItem() { Text = "Geri Dönüş Yapıldı", Value = "2" });
-            durumlar.Add(new SelectListItem() { Text = "Geri Dönüşe Gerek Görülmedi", Value = "3" });
+            var durumlar = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "Okunmadı", Value = "0" },
+                new SelectListItem() { Text = "Okundu", Value = "1" },
+                new SelectListItem() { Text = "Geri Dönüş Yapıldı", Value = "2" },
+                new SelectListItem() { Text = "Geri Dönüşe Gerek Görülmedi", Value = "3" }
+            };
             ViewBag.durumlarSelectList = durumlar;
         }
 

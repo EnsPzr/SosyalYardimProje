@@ -175,9 +175,11 @@ namespace SosyalYardimProje.Controllers
             }).ToList();
             ViewBag.kullanicilarSelect = kullanicilarSelect;
 
-            var kimeGonderildi = new List<SelectListItem>();
-            kimeGonderildi.Add(new SelectListItem() { Text = "Herkes", Value = "0" });
-            kimeGonderildi.Add(new SelectListItem() { Text = "Koordinatörler", Value = "1" });
+            var kimeGonderildi = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "Herkes", Value = "0" },
+                new SelectListItem() { Text = "Koordinatörler", Value = "1" }
+            };
             ViewBag.kimeGonderildi = kimeGonderildi;
 
             var sehirler = kullaniciBAL.SehirleriGetir(KullaniciBilgileriDondur.KullaniciId());
@@ -186,8 +188,7 @@ namespace SosyalYardimProje.Controllers
                 Text = p.SehirAdi,
                 Value = p.SehirId.ToString()
             }).ToList();
-            if (KullaniciBilgileriDondur.KullaniciBilgileriGetir()
-                    .KullaniciMerkezdeMi == true)
+            if (KullaniciBilgileriDondur.KullaniciMerkezdeMi()== true)
             {
                 sehirlerSelect.Add(new SelectListItem()
                 {

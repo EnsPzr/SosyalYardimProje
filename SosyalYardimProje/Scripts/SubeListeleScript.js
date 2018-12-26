@@ -11,7 +11,7 @@
                 if (parseInt(result.SubeSayisi) == 0) {
                     $('#myModal').modal('hide');
                     var yazilacak = "<tr class='even'>" +
-                        "<td class='col-md-12 col-xs-12'> Filtreniz ile eşleşen birşey bulunamadı. </td></tr>";
+                        "<td class='col-md-12 col-xs-12'> Hiç birşey bulunamadı. </td></tr>";
                     $("#tablo_tbody").html("");
                     $("#tablo_tbody").html(yazilacak);
                 } else {

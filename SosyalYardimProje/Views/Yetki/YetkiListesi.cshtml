@@ -42,7 +42,7 @@
                         @Model[i].Kullanici.KullaniciAdi @Model[i].Kullanici.KullaniciSoyadi
                     </td>
                     <td class="col-md-4 col-xs-4">
-                        @Model[i].RotaAdi @Model[i].GirebilirMi.ToString()
+                        @Model[i].RotaAdi
                     </td>
                     <td class="col-md-4 col-xs-4">
                         @Html.DropDownListFor(m => m[i].GirebilirMi, new SelectList(ViewBag.yetkiDurumlari, "Value", "Text", Model[i].GirebilirMi.ToString()), htmlAttributes: new { @class = "form-control" })

@@ -20,6 +20,6 @@ namespace BusinessLayer.Models
 
         public String UrlClass { get; set; }
 
-        public List<NavbarModel> altKategoriler { get; set; }
+        public List<NavbarModel> AltKategoriler { get; set; }
     }
 }

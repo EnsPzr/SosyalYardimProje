@@ -23,7 +23,6 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.KasaList[i].Aciklama + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.KasaList[i].Miktar + "</td>" +
                                 "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Kasa/Duzenle/" + result.KasaList[i].KasaId + "'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Kasa/Detay/" + result.KasaList[i].KasaId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Kasa/Sil/" + result.KasaList[i].KasaId + "'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
@@ -32,7 +31,6 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.KasaList[i].Aciklama + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.KasaList[i].Miktar + "</td>" +
                                 "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Kasa/Duzenle/" + result.KasaList[i].KasaId + "'></a> | " +
-                                "<a class='glyphicon glyphicon-eye-open' href='/Kasa/Detay/" + result.KasaList[i].KasaId + "'></a> | " +
                                 "<a class='glyphicon glyphicon-trash' href='/Kasa/Sil/" + result.KasaList[i].KasaId + "'></a></td></tr >";
                         }
                     };
@@ -97,7 +95,6 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.KasaList[i].Aciklama + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.KasaList[i].Miktar + "</td>" +
                                     "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Kasa/Duzenle/" + result.KasaList[i].KasaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Kasa/Detay/" + result.KasaList[i].KasaId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Kasa/Sil/" + result.KasaList[i].KasaId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
@@ -106,7 +103,6 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.KasaList[i].Aciklama + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.KasaList[i].Miktar + "</td>" +
                                     "<td class='col-md-2 col-xs-3'><a class='glyphicon glyphicon-pencil' href='/Kasa/Duzenle/" + result.KasaList[i].KasaId + "'></a> | " +
-                                    "<a class='glyphicon glyphicon-eye-open' href='/Kasa/Detay/" + result.KasaList[i].KasaId + "'></a> | " +
                                     "<a class='glyphicon glyphicon-trash' href='/Kasa/Sil/" + result.KasaList[i].KasaId + "'></a></td></tr >";
                             }
                         };
