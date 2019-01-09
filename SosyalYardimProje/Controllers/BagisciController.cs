@@ -19,6 +19,7 @@ namespace SosyalYardimProje.Controllers
         public ActionResult Liste()
         {
             Tanimla();
+            KullaniciBilgileriDondur.LogKaydet(0, "Bağışçı Listesi Görüntülendi.");
             return View();
         }
 
@@ -69,6 +70,7 @@ namespace SosyalYardimProje.Controllers
                     var bagisci = bagisciBAL.BagisciBul(id);
                     if (bagisci != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "Bağışçı düzenlenmek için görüntülendi. "+bagisci.BagisciAdi+" "+bagisci.BagisciSoyadi);
                         Tanimla();
                         return View(bagisci);
                     }
@@ -102,6 +104,7 @@ namespace SosyalYardimProje.Controllers
                     var onay = bagisciBAL.BagisciKaydet(model);
                     if (onay.TamamlandiMi == true)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "Bağışçı düzenlendi. "+model.BagisciAdi+" "+model.BagisciSoyadi);
                         TempData["uyari"] = "Bağışçı güncelleme işlemi başarı ile tamamlandı.";
                         return RedirectToAction("Liste");
                     }
@@ -135,6 +138,7 @@ namespace SosyalYardimProje.Controllers
                     var bagisci = bagisciBAL.BagisciBul(id);
                     if (bagisci != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Bağışçı silinmek için görüntülendi. "+bagisci.BagisciAdi+" "+bagisci.BagisciSoyadi);
                         return View(bagisci);
                     }
                     else
@@ -165,6 +169,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = bagisciBAL.BagisciSil(KullaniciBilgileriDondur.KullaniciId(), id);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(2, "Bağışçı silindi. "+id);
                     TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
@@ -191,6 +196,7 @@ namespace SosyalYardimProje.Controllers
                     var bagisci = bagisciBAL.BagisciBul(id);
                     if (bagisci != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(4, "Bağışçı detay görüntülendi. "+bagisci.BagisciAdi+" "+bagisci.BagisciSoyadi);
                         Tanimla();
                         return View(bagisci);
                     }

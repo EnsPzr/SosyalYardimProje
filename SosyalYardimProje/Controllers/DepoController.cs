@@ -21,6 +21,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Depo Listesi Görüntülendi. Kullanıcı Id=>"+KullaniciBilgileriDondur.KullaniciId());
             Tanimla();
             return View();
         }
@@ -68,6 +69,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = depoBAL.DepoyaEsyaEkle(eklenecekEsya, KullaniciBilgileriDondur.KullaniciId());
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1,"Depoya eşya eklendi. Eşya Id=>"+eklenecekEsya.EsyaId+" Adet=>"+eklenecekEsya.Adet);
                     TempData["uyari"] = "Depoya eşya başarı ile eklendi.";
                     return RedirectToAction("Liste");
                 }
@@ -119,6 +121,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = depoBAL.DepoEsyaGuncelle(duzenlenmisModel,KullaniciBilgileriDondur.KullaniciId());
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Depoya eşya güncellendi. Eşya Id=>" + duzenlenmisModel.EsyaId + " Adet=>" + duzenlenmisModel.Adet);
                     TempData["uyari"] = "Deponuzdaki eşyayı güncelleme işlemi başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }

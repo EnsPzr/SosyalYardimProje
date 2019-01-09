@@ -17,6 +17,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Kullanıcı Listesi Görüntülendi.");
             Tanimla();
             return View(new KullaniciModel());
         }
@@ -77,6 +78,7 @@ namespace SosyalYardimProje.Controllers
                         {
                             if (kullaniciBusinessLayer.KullaniciEkle(yeniKullanici))
                             {
+                                KullaniciBilgileriDondur.LogKaydet(1, "Kullanıcı Eklendi. Adı Soyadı=>"+yeniKullanici.KullaniciAdi+" "+yeniKullanici.KullaniciSoyadi);
                                 TempData["uyari"] = yeniKullanici.KullaniciAdi + " " + yeniKullanici.KullaniciSoyadi +
                                                     " kullanıcısı başarı ile kayıt edildi";
                                 return RedirectToAction("Liste", "Kullanici");
@@ -171,6 +173,7 @@ namespace SosyalYardimProje.Controllers
                         if (kullanici.Sehir.SehirId ==
                             KullaniciBilgileriDondur.KullaniciSehir())
                         {
+                            KullaniciBilgileriDondur.LogKaydet(2, "Kullanıcı Silmek için Görüntülendi. Adı Soyadı=>"+kullanici.KullaniciAdi+" "+kullanici.KullaniciSoyadi);
                             return View(kullanici);
                         }
                         else
@@ -208,6 +211,7 @@ namespace SosyalYardimProje.Controllers
                     {
                         if (kullaniciBusinessLayer.KullaniciSil(id))
                         {
+                            KullaniciBilgileriDondur.LogKaydet(2, "Kullanıcı Silindi. Adı Soyadı=>" + kullanici.KullaniciAdi + " " + kullanici.KullaniciSoyadi);
                             TempData["uyari"] = "Kullanıcı silme işlemi başarı ile tamamlandı";
                             return RedirectToAction("Liste");
                         }
@@ -313,6 +317,7 @@ namespace SosyalYardimProje.Controllers
                                 duzenlenmisKullanici.AktifMi = true;
                                 if (kullaniciBusinessLayer.KullaniciGuncelle(duzenlenmisKullanici))
                                 {
+                                    KullaniciBilgileriDondur.LogKaydet(3, "Kullanıcı Düzenlendi. Adı Soyadı=>" + kullanici.KullaniciAdi + " " + kullanici.KullaniciSoyadi+" Kullanıcı Id=>"+kullanici.KullaniciId);
                                     TempData["uyari"] = duzenlenmisKullanici.KullaniciAdi + " " + duzenlenmisKullanici.KullaniciSoyadi +
                                                         " kullanıcısı başarı ile düzenlendi.";
                                     return RedirectToAction("Liste", "Kullanici");
@@ -413,6 +418,7 @@ namespace SosyalYardimProje.Controllers
                         if (kullanici.Sehir.SehirId ==
                             KullaniciBilgileriDondur.KullaniciSehir())
                         {
+                            KullaniciBilgileriDondur.LogKaydet(4, "Kullanıcı Detay Görüntülendi. Adı Soyadı=>" + kullanici.KullaniciAdi + " " + kullanici.KullaniciSoyadi);
                             return View(kullanici);
                         }
                         else

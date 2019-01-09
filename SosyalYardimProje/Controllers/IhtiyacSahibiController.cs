@@ -21,6 +21,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "İhtiyaç sahibi listesi görüntülendi.");
             Tanimla();
             return View(new IhtiyacSahibiModel());
         }
@@ -63,6 +64,7 @@ namespace SosyalYardimProje.Controllers
                 var onay = ihtiyacSahibiBAL.IhtiyacSahibiKaydet(yeniIhtiyacSahibi);
                 if (onay.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "İhtiyaç sahibi eklendi. Adı Soyadı=>" + yeniIhtiyacSahibi.IhtiyacSahibiAdi+" "+yeniIhtiyacSahibi.IhtiyacSahibiSoyadi);
                     TempData["uyari"] = "İhtiyaç sahibi ekleme işlemi başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
@@ -95,6 +97,7 @@ namespace SosyalYardimProje.Controllers
                     var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(id);
                     if (ihtiyacSahibi != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "İhtiyaç sahibi silinmek üzere görüntülendi. Adı Soyadı=>"+ihtiyacSahibi.IhtiyacSahibiAdi+" "+ihtiyacSahibi.IhtiyacSahibiSoyadi);
                         return View(ihtiyacSahibi);
                     }
                     else
@@ -131,6 +134,7 @@ namespace SosyalYardimProje.Controllers
                     var islemSonucu = ihtiyacSahibiBAL.IhtiyacSahibiSil(id);
                     if (islemSonucu.TamamlandiMi == true)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "İhtiyaç sahibi silinmek üzere görüntülendi. İhtiyaç sahibi Id=>" + id);
                         TempData["uyari"] =
                             "Silme işlemi başarı ile sonuçlandı.";
                         return RedirectToAction("Liste");
@@ -194,6 +198,7 @@ namespace SosyalYardimProje.Controllers
 
         [KullaniciLoginFilter]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Duzenle(IhtiyacSahibiModel duzenlenmisIhtiyacSahibi)
         {
             if (ModelState.IsValid)
@@ -206,6 +211,7 @@ namespace SosyalYardimProje.Controllers
                         var onay = ihtiyacSahibiBAL.IhtiyacSahibiGuncelle(duzenlenmisIhtiyacSahibi);
                         if (onay.TamamlandiMi == true)
                         {
+                            KullaniciBilgileriDondur.LogKaydet(3, "İhtiyaç sahibi düzenlendi. Adı Soyadı=>" + ihtiyacSahibi.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiSoyadi+" İhtiyaç Sahibi Id=>"+duzenlenmisIhtiyacSahibi.IhtiyacSahibiId);
                             TempData["uyari"] = "İhtiyaç sahibi güncelleme işlemi başarı ile sonuçlandı";
                             return RedirectToAction("Liste");
                         }
@@ -252,7 +258,9 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (ihtiyacSahibiBAL.IhtiyacSahibiGetir(id) != null)
                     {
-                        return View(ihtiyacSahibiBAL.IhtiyacSahibiGetir(id));
+                        var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiGetir(id);
+                        KullaniciBilgileriDondur.LogKaydet(4, "İhtiyaç sahibi detay görüntülendi. Adı Soyadı=>" + ihtiyacSahibi.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiSoyadi);
+                        return View(ihtiyacSahibi);
                     }
                     else
                     {
@@ -275,6 +283,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult IhtiyacSahibiKontrolListesi()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "İhtiyaç sahibi kontrol listesi görüntülendi.");
             Tanimla();
             return View();
         }
@@ -312,6 +321,7 @@ namespace SosyalYardimProje.Controllers
                     var ihtiyacSahibi = ihtiyacSahibiBAL.IhtiyacSahibiVerileceklerGetir(id);
                     if (ihtiyacSahibi != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "İhtiyaç sahibi kontrol görüntülendi. Kontrol edilen ihtiyaç sahibi adı soyadı=>"+ihtiyacSahibi.IhtiyacSahibiAdiSoyadi);
                         return View(ihtiyacSahibi);
                     }
                     else
@@ -433,6 +443,7 @@ namespace SosyalYardimProje.Controllers
                         {
                             if (ihtiyacSahibiBAL.ihtiyacSahibiKontrolKaydet(model))
                             {
+                                KullaniciBilgileriDondur.LogKaydet(3, "İhtiyaç sahibi kontrol edildi. Kontrol edilen ihtiyaç sahibi adı soyadı=>" + model.IhtiyacSahibiAdiSoyadi);
                                 TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                                 return RedirectToAction("IhtiyacSahibiKontrolListesi");
                             }
@@ -480,6 +491,7 @@ namespace SosyalYardimProje.Controllers
                     }
                     else
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3,"İhtiyaç sahibi teslim güncelleme için görüntülendi. Teslim Id=>"+id);
                         TempData["hata"] = "İhtiyaç sahibinin durumu muhtaç olmadığından işlem yapılamamaktadır.";
                         return RedirectToAction("IhtiyacSahibiKontrolListesi");
                     }
@@ -512,6 +524,7 @@ namespace SosyalYardimProje.Controllers
                         {
                             if (ihtiyacSahibiBAL.ihtiyacSahibiTeslimKaydet(model))
                             {
+                                KullaniciBilgileriDondur.LogKaydet(3, "İhtiyaç sahibi teslim güncellendi. İhtiyaç sahibi adı soyadı=>" + model.IhtiyacSahibiAdiSoyadi+" Teslim Id=>"+model.IhtiyacSahibiKontrolId);
                                 TempData["uyari"] = "Teslim işlemi başarı ile tamamlandı.";
                                 return RedirectToAction("IhtiyacSahibiKontrolListesi");
                             }

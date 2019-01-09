@@ -49,6 +49,7 @@ namespace SosyalYardimProje.Controllers
         [BagisciLoginFilter]
         public ActionResult AnaSayfa()
         {
+            KullaniciBilgileriDondur.LogKaydet(6, "Bağışçı Giriş Yapıldı. Bağışçı Id=>"+KullaniciBilgileriDondur.KullaniciId());
             return View();
         }
 
@@ -95,6 +96,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = bagisciBAL.BagisciKaydet(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(5, "Bağışçı kayıt yapıldı. "+model.BagisciAdi+" "+model.BagisciSoyadi);
                     TempData["uyari"] = "Kayıt başarı ile tamamlandı.";
                     return RedirectToAction("Giris");
                 }
@@ -162,6 +164,7 @@ namespace SosyalYardimProje.Controllers
                     var sonuc = bagisciBAL.BagisciGuncelle(model);
                     if (sonuc.TamamlandiMi == true)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "Bağışçı Kendi Profilini Güncelledi. "+model.BagisciAdi+" "+model.BagisciSoyadi);
                         TempData["uyari"] = "Profil Güncelleme başarı ile tamamlandı.";
                         return RedirectToAction("AnaSayfa");
                     }

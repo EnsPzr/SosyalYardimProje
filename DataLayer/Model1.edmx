@@ -154,7 +154,8 @@
           <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KullaniciBilgileriTablo.KullaniciId" Type="int" />
           <Property Name="IslemTipi" Type="tinyint" />
-          <Property Name="IslemIcerik" Type="varchar" MaxLength="100" />
+          <Property Name="IslemIcerik" Type="varchar" MaxLength="1000" />
+          <Property Name="IslemTarihi" Type="datetime" />
         </EntityType>
         <EntityType Name="MesajDetayTablo">
           <Key>
@@ -821,8 +822,9 @@
           <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KullaniciBilgileriTablo_KullaniciId" Type="Int32" />
           <Property Name="IslemTipi" Type="Byte" />
-          <Property Name="IslemIcerik" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IslemIcerik" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="KullaniciBilgileriTablo" Relationship="Self.FK_LogTablo_KullaniciBilgileriTablo" FromRole="LogTablo" ToRole="KullaniciBilgileriTablo" />
+          <Property Name="IslemTarihi" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="MesajDetayTablo">
           <Key>
@@ -1494,6 +1496,7 @@
           <EntitySetMapping Name="LogTablo">
             <EntityTypeMapping TypeName="SosyalYardimProjeDBModel.LogTablo">
               <MappingFragment StoreEntitySet="LogTablo">
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
                 <ScalarProperty Name="LogId" ColumnName="LogId" />
                 <ScalarProperty Name="KullaniciBilgileriTablo_KullaniciId" ColumnName="KullaniciBilgileriTablo.KullaniciId" />
                 <ScalarProperty Name="IslemTipi" ColumnName="IslemTipi" />

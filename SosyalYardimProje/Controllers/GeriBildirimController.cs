@@ -22,6 +22,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Geri Bildirim Listesi Görüntülendi.");
             Tanimla();
             return View();
         }
@@ -74,6 +75,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (geriBildirimBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), id))
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "Geri Bildirim Düzenlenmek üzere görüntülendi. Geri bildirim sahibi=>" + geriBildirim.KullaniciAdiSoyadi);
                         Tanimla();
                         return View(geriBildirim);
                     }
@@ -107,6 +109,7 @@ namespace SosyalYardimProje.Controllers
                     model.GeriBildirimId, model.DurumInt);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Geri Bildirim Düzenlenmek üzere görüntülendi. Geri bildirim Sahibi=>" + model.KullaniciAdiSoyadi);
                     TempData["uyari"] = "İşlem başarı ile gerçekleşti";
                     return RedirectToAction("Liste");
                 }
@@ -127,6 +130,7 @@ namespace SosyalYardimProje.Controllers
         [BagisciLoginFilter]
         public ActionResult GeriBildirimListesi()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Bağışçı tarafından geri bildirim listesi görüntülendi.");
             var geriBildirimler = geriBildirimBAL.TumGeriBildirimleriGetir(KullaniciBilgileriDondur.KullaniciId());
             return View(geriBildirimler);
         }
@@ -149,6 +153,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = geriBildirimBAL.YeniGeriBildirimKaydet(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Yeni geri bildirim oluşturuldu. Geri Bildirim Konu=>" + model.Konu);
                     TempData["uyari"] = "Geri bildiriminiz alınmıştır. Teşekkür ederiz.";
                     return RedirectToAction("GeriBildirimListesi");
                 }
@@ -205,6 +210,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = geriBildirimBAL.GeriBildirimGuncelle(model, BagisciBilgileriDondur.KullaniciId());
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Geri Bildirim Güncellendi. Geri Bildirim Konu=>" + model.Konu);
                     TempData["uyari"] = "Geri bildiriminiz alınmıştır. Teşekkür ederiz.";
                     return RedirectToAction("GeriBildirimListesi");
                 }
@@ -234,6 +240,7 @@ namespace SosyalYardimProje.Controllers
                     }
                     else
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Geri bildirim silmek için görüntülendi. Geri Bildirim Konu=>" + geriBildirim.Konu);
                         TempData["hata"] = "Geri bildirim okunduğundan dolayı işlem yapamazsınız.";
                         return RedirectToAction("GeriBildirimListesi");
                     }
@@ -266,6 +273,7 @@ namespace SosyalYardimProje.Controllers
                         var sonuc = geriBildirimBAL.GeriBildirimSil(id, BagisciBilgileriDondur.KullaniciId());
                         if (sonuc.TamamlandiMi == true)
                         {
+                            KullaniciBilgileriDondur.LogKaydet(2, "Geri bildirim silindi. Geri Bildirim Konu=>" + geriBildirim.Konu);
                             TempData["uyari"] = "Geri bildirim başarıyla silme işlemi tamamlandı.";
                             return RedirectToAction("GeriBildirimListesi");
                         }

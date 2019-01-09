@@ -19,6 +19,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Teslim alınacak bağış listesi görüntülendi.");
             Tanimla();
             return View();
         }
@@ -62,7 +63,7 @@ namespace SosyalYardimProje.Controllers
             }
             TeslimAlinacakBagisJsModel model = new TeslimAlinacakBagisJsModel()
             {
-                BagisList = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(),sehirId,aranan,tarih),
+                BagisList = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(), sehirId, aranan, tarih),
                 BasariliMi = true,
                 BagisSayisi = bagisBAL.FiltreliBagislariGetir(KullaniciBilgileriDondur.KullaniciId(), sehirId, aranan, tarih).Count
             };
@@ -80,6 +81,7 @@ namespace SosyalYardimProje.Controllers
                     var bagis = bagisBAL.Detay(id);
                     if (bagis != null)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(3, "Teslim alınacak bağış düzenlenmek için görüntülendi. Bağışçı Adı Soyadı=>" + bagis.BagisciAdiSoyadi+" Eklenme Tarihi=>"+bagis.EklenmeTarihi);
                         return View(bagis);
                     }
                     else
@@ -131,7 +133,7 @@ namespace SosyalYardimProje.Controllers
                     }
                     catch (Exception)
                     {
-                        ModelState.AddModelError("TahminiTeslimAlma","Tahmini teslim alma formatı uygun değil");
+                        ModelState.AddModelError("TahminiTeslimAlma", "Tahmini teslim alma formatı uygun değil");
                         return View(model);
                     }
                 }
@@ -153,6 +155,7 @@ namespace SosyalYardimProje.Controllers
 
                 if (bagisBAL.TeslimBagisKaydet(model))
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Teslim alınacak bağış düzenlendi. Bağışçı Adı Soyadı=>" + model.BagisciAdiSoyadi + " Eklenme Tarihi=>" + model.EklenmeTarihi);
                     TempData["uyari"] = "Kayıt başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }

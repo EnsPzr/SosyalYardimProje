@@ -18,6 +18,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Mesaj Listesi Görüntülendi.");
             Tanimla();
             return View();
         }
@@ -62,6 +63,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult DetayListe(int? id)
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Mesaj detay listesi görüntülendi. Mesaj Id=>"+id);
             ViewBag.MesajId = id;
             Tanimla();
             return View();
@@ -138,6 +140,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = mesajBAL.MesajGonder(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Yeni mesaj gönderimi başlatıldı. Mesaj metni=>"+model.MesajMetni);
                     TempData["uyari"] = "İşlem başarı ile gerçekleşti.";
                     return RedirectToAction("Liste");
                 }

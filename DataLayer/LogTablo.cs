@@ -18,6 +18,7 @@ namespace DataLayer
         public Nullable<int> KullaniciBilgileriTablo_KullaniciId { get; set; }
         public Nullable<byte> IslemTipi { get; set; }
         public string IslemIcerik { get; set; }
+        public Nullable<System.DateTime> IslemTarihi { get; set; }
     
         public virtual KullaniciBilgileriTablo KullaniciBilgileriTablo { get; set; }
     }

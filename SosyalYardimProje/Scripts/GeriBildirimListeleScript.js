@@ -25,7 +25,7 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].TarihStr + "</td>" +
                                 "<td class='col-md-3 hidden-xs'>" + result.GeriBildirimList[i].Konu + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.GeriBildirimList[i].DurumStr + "</td>" +
-                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
+                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/GeriBildirim/Duzenle/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
                         } else {
                             Liste = Liste + "<tr class='odd'>" +
                                 "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].KullaniciAdiSoyadi + "</td>" +
@@ -33,7 +33,7 @@
                                 "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].TarihStr + "</td>" +
                                 "<td class='col-md-3 hidden-xs'>" + result.GeriBildirimList[i].Konu + "</td>" +
                                 "<td class='col-md-2 hidden-xs'>" + result.GeriBildirimList[i].DurumStr + "</td>" +
-                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
+                                "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/GeriBildirim/Duzenle/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
                         }
                     };
                     $("#tablo_tbody").html("");
@@ -96,7 +96,7 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].TarihStr + "</td>" +
                                     "<td class='col-md-3 hidden-xs'>" + result.GeriBildirimList[i].Konu + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.GeriBildirimList[i].DurumStr + "</td>" +
-                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
+                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/GeriBildirim/Duzenle/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
                             } else {
                                 Liste = Liste + "<tr class='odd'>" +
                                     "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].KullaniciAdiSoyadi + "</td>" +
@@ -104,7 +104,7 @@
                                     "<td class='col-md-2 col-xs-3'>" + result.GeriBildirimList[i].TarihStr + "</td>" +
                                     "<td class='col-md-3 hidden-xs'>" + result.GeriBildirimList[i].Konu + "</td>" +
                                     "<td class='col-md-2 hidden-xs'>" + result.GeriBildirimList[i].DurumStr + "</td>" +
-                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/Esya/Detay/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
+                                    "<td class='col-md-1 col-xs-3'><a class='glyphicon glyphicon-eye-open' href='/GeriBildirim/Duzenle/" + result.GeriBildirimList[i].GeriBildirimId + "'></a></td></tr >";
                             }
                         };
                         $("#tablo_tbody").html("");

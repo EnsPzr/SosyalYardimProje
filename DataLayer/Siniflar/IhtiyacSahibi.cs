@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -645,6 +646,51 @@ namespace DataLayer.Siniflar
                 db.KullaniciBilgileriTablo.Add(kullanici);
                 db.SaveChanges();
                 return true;
+            }
+        }
+
+        public bool ihtiyacSahibiRandevuKaydet(int? ihtiyacSahibiKontrolId, DateTime? tarih)
+        {
+            var ihtiyacSahibiKontrol = db.IhtiyacSahibiKontrolTablo.Include(p => p.IhtiyacSahibiTablo)
+                .FirstOrDefault(p => p.IhtiyacSahibiKontrolId == ihtiyacSahibiKontrolId);
+            var ihtiyacSahibiKontrolVarMi = db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p =>
+                p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiKontrol.IhtiyacSahibiTablo_IhtiyacSahibiId
+                && p.Tarih > tarih);
+            if (ihtiyacSahibiKontrolVarMi == null)
+            {
+                db.IhtiyacSahibiKontrolTablo.Add(new IhtiyacSahibiKontrolTablo()
+                {
+                    IhtiyacSahibiTablo_IhtiyacSahibiId = ihtiyacSahibiKontrol.IhtiyacSahibiTablo_IhtiyacSahibiId,
+                    Tarih = tarih,
+                    MuhtacMi = false,
+                    TeslimTamamlandiMi = false
+                });
+                db.SaveChanges();
+                var kontrolTablo = db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p =>
+                    p.IhtiyacSahibiTablo_IhtiyacSahibiId == ihtiyacSahibiKontrol.IhtiyacSahibiTablo_IhtiyacSahibiId
+                    && p.Tarih == tarih);
+                db.IhtiyacSahibiVerilecekMaddiTablo.Add(new IhtiyacSahibiVerilecekMaddiTablo()
+                {
+                    IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = kontrolTablo.IhtiyacSahibiKontrolId,
+                    VerilecekMaddiYardim = 0
+                });
+                db.SaveChanges();
+            }
+            return true;
+        }
+
+        public DateTime? ihtiyacSahibiRandevuTarihiVarMi(int? ihtiyacSahibiKontrolId, DateTime? minTarih)
+        {
+            var tarh = db.IhtiyacSahibiKontrolTablo.FirstOrDefault(p =>
+                p.IhtiyacSahibiKontrolId != ihtiyacSahibiKontrolId
+                && p.Tarih > minTarih);
+            if (tarh != null)
+            {
+                return tarh.Tarih;
+            }
+            else
+            {
+                return null;
             }
         }
     }

@@ -17,6 +17,7 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Şube listesi görüntülendi.");
             return View();
         }
 
@@ -61,6 +62,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (subeBusinessLayer.SubeEkle(yeniSube))
                     {
+                        KullaniciBilgileriDondur.LogKaydet(1, "Şube eklendi. Şehir Id=>" + yeniSube.Sehir.SehirId);
                         TempData["uyari"] = "Şube ekleme işlemi başarı ile tamamlandı.";
                         return RedirectToAction("Liste");
                     }
@@ -94,6 +96,7 @@ namespace SosyalYardimProje.Controllers
                 var sube = subeBusinessLayer.SubeBul(id);
                 if (sube != null)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
                     return View(sube);
                 }
                 else
@@ -121,6 +124,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (subeBusinessLayer.SubeSil(id))
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
                         TempData["uyari"] = "Şube silme işlemi başarı ile tamamlandı";
                         return RedirectToAction("Liste");
                     }
@@ -178,8 +182,9 @@ namespace SosyalYardimProje.Controllers
             if (ModelState.IsValid)
             {
                 var sonuc = subeBusinessLayer.SubeGuncelle(duzenlenmisSube);
-                if (sonuc.TamamlandiMi==true)
+                if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Şube güncellendi. Şehir=>" +duzenlenmisSube.Sehir.SehirId + " Kullanıcı=>" + duzenlenmisSube.KullaniciId);
                     TempData["uyari"] = "Şube güncelleme işlemi başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
@@ -212,6 +217,7 @@ namespace SosyalYardimProje.Controllers
                 var sube = subeBusinessLayer.SubeBul(id);
                 if (sube != null)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(4, "Şube detay görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
                     return View(sube);
                 }
                 else

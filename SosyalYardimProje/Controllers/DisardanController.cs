@@ -42,6 +42,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = ihtiyacSahibiBAL.DisardanIhtiyacSahibiKaydet(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1,"Dışarıdan ihtiyaç sahibi eklendi. Ekleyen=>"+model.BagisciAdi+" "+model.BagisciSoyadi+". Eklenen=>"+model.IhtiyacSahibiAdi+" "+model.IhtiyacSahibiSoyadi);
                     TempData["uyari"] = "Teşekkür ederiz. Ekiplerimiz tarafında ihtiyaç sahibi ziyaret edilecektir. Girmiş olduğunuz bilgiler doğrultusunda sizin için hesap açılmıştır. Hesabınıza girip eşya bağışı yapabilir ve eklediğiniz ihtiyaç sahiplerini görebilirsiniz.";
                     return RedirectToAction("AnaSayfa");
                 }
@@ -74,6 +75,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = geriBildirimBAL.DisardanGeriBildirimEkle(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Dışarıdan geri bildirim eklendi. Ekleyen=>" + model.BagisciAdi + " " + model.BagisciSoyadi + ". Eklenen=>" + model.Konu);
                     TempData["uyari"] =
                         "Geri bildiriminiz için teşekkür ederiz. Verdiğiniz bilgiler doğrultusunda sistemimizde sizin için bir hesap oluşturuldu. Dilerseniz hesabınıza girip eşya bağışı ve geri bildiriminizin durumunu takip edebilme gibi işlemler yapabilirsiniz.";
                     return RedirectToAction("AnaSayfa");
@@ -147,6 +149,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = kasaBAL.DisardanKartIleBagis(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Dışarıdan nakdi bağış eklendi. Ekleyen=>" + model.BagisciAdi + " " + model.BagisciSoyadi + ". Eklenen=>" + model.Miktar + " " + model.BagisSehir.SehirId);
                     TempData["uyari"] =
                         "Teşekkür ederiz. Nakdi bağışınız alındı. Verdiğiniz bilgiler doğrultusunda sistemimizde hesabınız oluşturuldu. Dilerseniz giriş yapabilir ve bugüne kadar ne kadar nakdi bağış yaptığınızı öğrenebilirsiniz.";
                     return RedirectToAction("AnaSayfa");

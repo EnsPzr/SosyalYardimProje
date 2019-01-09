@@ -100,7 +100,7 @@ namespace BusinessLayer.Siniflar
             return onay;
         }
 
-        public IslemOnayModel IhtiyacSahibiKaydet(IhtiyacSahibiModel yeniIhtiyacSahibi,int? kulId)
+        public IslemOnayModel IhtiyacSahibiKaydet(IhtiyacSahibiModel yeniIhtiyacSahibi, int? kulId)
         {
             IslemOnayModel onay = new IslemOnayModel();
             if (ihtiyacSahibiDAL.IhtiyacSahibiVarMi(yeniIhtiyacSahibi.IhtiyacSahibiAdi,
@@ -113,7 +113,7 @@ namespace BusinessLayer.Siniflar
                 eklenecekIhtiyacSahibi.IhtiyacSahibiAdres = yeniIhtiyacSahibi.IhtiyacSahibiAdres;
                 eklenecekIhtiyacSahibi.IhtiyacSahibiAciklama = yeniIhtiyacSahibi.IhtiyacSahibiAciklama;
                 eklenecekIhtiyacSahibi.SehirTablo_SehirId = yeniIhtiyacSahibi.Sehir.SehirId;
-                if (ihtiyacSahibiDAL.IhtiyacSahibiKaydet(eklenecekIhtiyacSahibi,kulId))
+                if (ihtiyacSahibiDAL.IhtiyacSahibiKaydet(eklenecekIhtiyacSahibi, kulId))
                 {
                     onay.TamamlandiMi = true;
                 }
@@ -464,7 +464,7 @@ namespace BusinessLayer.Siniflar
             //gonModel.IhtiyacSahibiTel = ihtiyacSahibi.IhtiyacSahibiTelNo;
             //if()
         }
-        
+
         public bool ihtiyacSahibiKontrolKaydet(IhtiyacSahibiKontrolSayfaModel model)
         {
             IhtiyacSahibiKontrolTablo kontrolTablo = new IhtiyacSahibiKontrolTablo();
@@ -497,6 +497,7 @@ namespace BusinessLayer.Siniflar
             var ihtiyacSahibi = ihtiyacSahibiDAL.ihtiyacSahibiGetir(ihtiyacSahibiId);
             var ihtiyacSahibiEsyalar = ihtiyacSahibiDAL.verilecekEsyalariGetir(ihtiyacSahibiId);
             var ihtiyacSahibiNakdi = ihtiyacSahibiDAL.verilecekMaddiGetir(ihtiyacSahibiId);
+            var ihtiyacSahibiKontrol = ihtiyacSahibiDAL.IhtiyacSahibiKontrolBilgileri(ihtiyacSahibiId);
             IhtiyacSahibiTeslimModel model = new IhtiyacSahibiTeslimModel();
             model.IhtiyacSahibiAdiSoyadi = ihtiyacSahibi.IhtiyacSahibiAdi + " " + ihtiyacSahibi.IhtiyacSahibiSoyadi;
             model.IhtiyacSahibiKontrolId = ihtiyacSahibiId;
@@ -519,9 +520,16 @@ namespace BusinessLayer.Siniflar
                 model.MaddiBagis = "0";
             }
 
-            if ((ihtiyacSahibiNakdi.VerilmeGerceklesmeTarihi.HasValue))
+            if (ihtiyacSahibiNakdi != null)
             {
-                model.MaddiBagisYapildiMi = true;
+                if ((ihtiyacSahibiNakdi.VerilmeGerceklesmeTarihi.HasValue))
+                {
+                    model.MaddiBagisYapildiMi = true;
+                }
+                else
+                {
+                    model.MaddiBagisYapildiMi = false;
+                }
             }
             else
             {
@@ -534,16 +542,18 @@ namespace BusinessLayer.Siniflar
                     EsyaAdi = ihtiyacSahibiEsyalar[i].EsyaTablo.EsyaAdi,
                     EsyaId = ihtiyacSahibiEsyalar[i].EsyaTablo_EsyaId,
                     TeslimEdildiMi = ihtiyacSahibiEsyalar[i].TeslimGerceklesmeTarihi.HasValue ? true : false,
-                    Adet =ihtiyacSahibiEsyalar[i].Adet
+                    Adet = ihtiyacSahibiEsyalar[i].Adet
                 });
             }
 
+            model.RandevuTarihi =
+                ihtiyacSahibiDAL.ihtiyacSahibiRandevuTarihiVarMi(ihtiyacSahibiId, ihtiyacSahibiKontrol.Tarih);
             return model;
         }
 
         public bool ihtiyacSahibiTeslimKaydet(IhtiyacSahibiTeslimModel model)
         {
-            IhtiyacSahibiVerilecekMaddiTablo maddiTablo= new IhtiyacSahibiVerilecekMaddiTablo();
+            IhtiyacSahibiVerilecekMaddiTablo maddiTablo = new IhtiyacSahibiVerilecekMaddiTablo();
             maddiTablo.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = model.IhtiyacSahibiKontrolId;
             if (model.MaddiBagisYapildiMi == true)
             {
@@ -557,12 +567,18 @@ namespace BusinessLayer.Siniflar
                 eklenecek.IhtiyacSahibiKontrolTablo_IhtiyacSahibiKontrolId = model.IhtiyacSahibiKontrolId;
                 if (model.ihtiyacSahibiTeslimEdilecekEsyaList[i].TeslimEdildiMi == true)
                 {
-                    eklenecek.TeslimGerceklesmeTarihi=DateTime.Now;
+                    eklenecek.TeslimGerceklesmeTarihi = DateTime.Now;
                 }
                 esyaTablo.Add(eklenecek);
             }
 
-            return ihtiyacSahibiDAL.ihtiyacSahibiTeslimKaydet(esyaTablo, maddiTablo);
+            var sonuc1 = ihtiyacSahibiDAL.ihtiyacSahibiTeslimKaydet(esyaTablo, maddiTablo);
+            if (model.RandevuTarihi.HasValue)
+            {
+                ihtiyacSahibiDAL.ihtiyacSahibiRandevuKaydet(model.IhtiyacSahibiKontrolId, model.RandevuTarihi);
+            }
+
+            return true;
         }
 
         public bool IhtiyacSahibiKontrolVarMi(int? ihtiyacSahibiKontrolId)
@@ -606,7 +622,7 @@ namespace BusinessLayer.Siniflar
                 idStr = Convert.ToInt32(id);
             }
 
-            
+
             if (ihtiyacSahibiDAL.IhtiyacSahibiVarMi(model.IhtiyacSahibiAdi,
                     model.IhtiyacSahibiSoyadi, model.IhtiyacSahibiTelNo) == null)
             {

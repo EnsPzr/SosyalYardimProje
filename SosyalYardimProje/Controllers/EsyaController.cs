@@ -17,6 +17,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0,"Eşya Listesi Görüntülendi.");
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = esyaBAL.Ekle(eklenecekEsya);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(0, "Eşya eklendi. Kullanıcı Id=>" + KullaniciBilgileriDondur.KullaniciId()+" Eşya Adı=>"+eklenecekEsya.EsyaAdi);
                     TempData["uyari"] = "Eşya ekleme işlemi başarı ile gerçekleşti";
                     return RedirectToAction("Liste", "Esya");
                 }
@@ -114,6 +116,7 @@ namespace SosyalYardimProje.Controllers
             var onay = esyaBAL.EsyaDuzenle(esya);
             if (onay.TamamlandiMi == true)
             {
+                KullaniciBilgileriDondur.LogKaydet(3, "Eşya Düzenlendi. Eşya Id=>"+esya.EsyaId+" Eşya Adı=>"+esya.EsyaAdi);
                 TempData["uyari"] = "Eşya düzenleme işlemi başarı ile tamamlandı.";
                 return RedirectToAction("Liste");
             }
@@ -139,6 +142,7 @@ namespace SosyalYardimProje.Controllers
                 var esya = esyaBAL.EsyaGetir(id);
                 if (esya != null)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(0, "Eşya Silmek için görüntülendi. Eşya Adı=>" + esya.EsyaAdi);
                     return View(esya);
                 }
                 else
@@ -167,6 +171,7 @@ namespace SosyalYardimProje.Controllers
                     var onay = esyaBAL.EsyaSil(id);
                     if (onay.TamamlandiMi == true)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Eşya Silindi. Eşya Id=>"+id);
                         TempData["uyari"] = "Eşya silme işlemi başarı ile tamamlandı.";
                         return RedirectToAction("Liste");
                     }

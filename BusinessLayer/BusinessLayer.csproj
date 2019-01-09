@@ -87,6 +87,7 @@
     <Compile Include="Models\KullaniciModelleri\KullaniciGirisModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciJSModel.cs" />
     <Compile Include="Models\KullaniciModelleri\KullaniciModel.cs" />
+    <Compile Include="Models\LogModelleri\LogModel.cs" />
     <Compile Include="Models\MesajModelleri\GonderilecekMesajModel.cs" />
     <Compile Include="Models\MesajModelleri\MesajDetayJsModel.cs" />
     <Compile Include="Models\MesajModelleri\MesajDetayModel.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Siniflar\IhtiyacSahibi.cs" />
     <Compile Include="Siniflar\Kasa.cs" />
     <Compile Include="Siniflar\Kullanici.cs" />
+    <Compile Include="Siniflar\Log.cs" />
     <Compile Include="Siniflar\Mesaj.cs" />
     <Compile Include="Siniflar\Sube.cs" />
     <Compile Include="Siniflar\TeslimAlinacakBagis.cs" />

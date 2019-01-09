@@ -20,6 +20,7 @@ namespace SosyalYardimProje.Controllers
         [HttpGet]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0,"Yetki kullanıcı listesi görüntülendi.");
             Tanimla();
             return View();
         }
@@ -65,6 +66,7 @@ namespace SosyalYardimProje.Controllers
                         var yetkiler = yetkiBAL.YetkileriGetir(id);
                         if (yetkiler != null)
                         {
+                            KullaniciBilgileriDondur.LogKaydet(0, "Kullanıcının yetkileri görüntülendi. Kullanıcı Id=>"+id);
                             return View(yetkiler);
                         }
                         else
@@ -101,6 +103,7 @@ namespace SosyalYardimProje.Controllers
             var sonuc = yetkiBAL.YetkileriKaydet(yetkiler);
             if (sonuc.TamamlandiMi == true)
             {
+                KullaniciBilgileriDondur.LogKaydet(0, "Kullanıcının yetkileri Kayıt Edildi.");
                 TempData["uyari"] = "Yetki kaydetme işlemi başarı ile tamamlandı.";
                 return RedirectToAction("Liste");
             }

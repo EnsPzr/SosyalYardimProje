@@ -25,6 +25,7 @@ namespace SosyalYardimProje.Controllers
         [BagisciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0,"Bağış Listesi Görüntülendi.");
             return View();
         }
 
@@ -142,6 +143,7 @@ namespace SosyalYardimProje.Controllers
             var sonuc = bagisBAL.BagisKaydet(bagisTablo, Convert.ToInt32(KullaniciBilgileriDondur.KullaniciId()));
             if (sonuc == true)
             {
+                KullaniciBilgileriDondur.LogKaydet(1, "Yeni Bağış Eklendi.");
                 TempData["uyari"] = "Teşekkür ederiz. En yakın zamanda birimlerimiz sizinle irtibata geçecekler.";
             }
             else
@@ -163,6 +165,7 @@ namespace SosyalYardimProje.Controllers
                         var bagis = bagisBAL.Detay(id);
                         if (bagis != null)
                         {
+                            KullaniciBilgileriDondur.LogKaydet(0, "Bağış Silmek İçin Detay Görüntülendi."+bagis.BagisciAdiSoyadi);
                             return View(bagis);
                         }
                         else
@@ -201,6 +204,7 @@ namespace SosyalYardimProje.Controllers
                     var sonuc = bagisBAL.BagisSil(KullaniciBilgileriDondur.KullaniciId(),id);
                     if (sonuc.TamamlandiMi == true)
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Bağış Silindi.");
                         TempData["uyari"] = "İşlem başarı ile gerçekleşti.";
                         return RedirectToAction("Liste");
                     }

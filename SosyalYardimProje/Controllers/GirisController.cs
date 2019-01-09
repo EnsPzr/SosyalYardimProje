@@ -63,6 +63,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult AnaSayfa()
         {
+            KullaniciBilgileriDondur.LogKaydet(6, "Koordinatör Girişi Yapıldı.");
             return View();
         }
 
@@ -80,6 +81,7 @@ namespace SosyalYardimProje.Controllers
                 return RedirectToAction("Giris", "Giris");
 
             Exception model = TempData["error"] as Exception;
+            KullaniciBilgileriDondur.LogKaydet(7, "Sistemde hata oluştu=>"+model.Message);
             return View(model);
         }
 

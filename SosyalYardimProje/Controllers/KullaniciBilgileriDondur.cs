@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BusinessLayer;
+using BusinessLayer.Models.LogModelleri;
 using BusinessLayer.Siniflar;
 using SosyalYardimProje.Filters;
 using KullaniciYonetimi = BusinessLayer.KullaniciYonetimi;
@@ -13,6 +14,7 @@ namespace SosyalYardimProje.Controllers
     public static class KullaniciBilgileriDondur
     {
         private static BusinessLayer.KullaniciYonetimi kullaniciYonetimi = new BusinessLayer.KullaniciYonetimi();
+        private static Log logBAL = new Log();
         private static Kullanici kullaniciBAL = new Kullanici();
         public static int? KullaniciId()
         {
@@ -87,6 +89,22 @@ namespace SosyalYardimProje.Controllers
             }
 
             return hatalar;
+        }
+
+        public static void LogKaydet(int? islemTipi, string islemIcerik)
+        {
+            LogModel model = new LogModel();
+            model.IslemIcerik = islemIcerik;
+            model.IslemTipi = islemTipi;
+            if (KullaniciId() != null)
+            {
+                model.KullaniciId = KullaniciId();
+            }
+            else
+            {
+                model.KullaniciId = null;
+            }
+            logBAL.Kaydet(model);
         }
 
         public static bool SessionSil()

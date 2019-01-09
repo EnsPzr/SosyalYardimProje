@@ -20,6 +20,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Liste()
         {
+            KullaniciBilgileriDondur.LogKaydet(0, "Kasa Listesi Görüntülendi.");
             Tanimla();
             return View();
         }
@@ -128,6 +129,7 @@ namespace SosyalYardimProje.Controllers
                 var onay = kasaBAL.KasaKaydet(KullaniciBilgileriDondur.KullaniciId(), model);
                 if (onay.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Kasa İşlemi Eklendi. Miktar=>" + model.Miktar);
                     TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
@@ -226,6 +228,7 @@ namespace SosyalYardimProje.Controllers
                 var onay = kasaBAL.KasaIslemGuncelle(KullaniciBilgileriDondur.KullaniciId(), model);
                 if (onay.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(3, "Kasa İşlemi Düzenlendi. Miktar=>" + model.Miktar + " Id=>" + model.KasaId);
                     TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                     return RedirectToAction("Liste");
                 }
@@ -253,6 +256,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (kasaBAL.KullaniciIslemYapabilirMi(KullaniciBilgileriDondur.KullaniciId(), kasa.Sehir.SehirId))
                     {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Kasa İşlemi Silmek için Görüntülendi. Id=>" + id);
                         Tanimla();
                         return View(kasa);
                     }
@@ -290,6 +294,7 @@ namespace SosyalYardimProje.Controllers
                         var sonuc = kasaBAL.KasaSil(KullaniciBilgileriDondur.KullaniciId(), id);
                         if (sonuc.TamamlandiMi == true)
                         {
+                            KullaniciBilgileriDondur.LogKaydet(2, "Kasa İşlemi Silindi. Miktar=>" + kasa.Miktar + " Id=>" + id);
                             TempData["uyari"] = "İşlem başarı ile tamamlandı.";
                             return RedirectToAction("Liste");
                         }
@@ -375,6 +380,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = kasaBAL.KrediKartiEkleme(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Kart ile Kasa İşlemi Eklendi. Miktar=>" + model.Miktar + " Bağışçı Adı Soyadı=>" + model.BagisciAdi + " " + model.BagisciSoyadi);
                     TempData["uyari"] = "Bağış ekleme işlemi başarı ile gerçekleşti.";
                     return RedirectToAction("Liste");
                 }
@@ -461,6 +467,7 @@ namespace SosyalYardimProje.Controllers
                 var sonuc = kasaBAL.KrediKartiEkleme(model);
                 if (sonuc.TamamlandiMi == true)
                 {
+                    KullaniciBilgileriDondur.LogKaydet(1, "Bağışçı kart ile bağış yaptı. Miktar=>" + model.Miktar + " Bağışçı Adı Soyadı=>" + model.BagisciAdi + " " + model.BagisciSoyadi);
                     TempData["uyari"] = "Bağışınız alındı. Teşekkür ederiz.";
                     return RedirectToAction("BagisciKasaListe");
                 }
@@ -502,10 +509,10 @@ namespace SosyalYardimProje.Controllers
                 new SelectListItem() { Text = "Gider", Value = "2" }
             };
             ViewBag.gelirGiderSelect2 = gelirGider2;
-            List<SelectListItem> ay= new List<SelectListItem>();
+            List<SelectListItem> ay = new List<SelectListItem>();
             for (int i = 1; i < 13; i++)
             {
-                ay.Add(new SelectListItem(){Value = i.ToString(), Text = i.ToString()});
+                ay.Add(new SelectListItem() { Value = i.ToString(), Text = i.ToString() });
             }
 
             ViewBag.aySelectList = ay;
