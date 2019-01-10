@@ -321,18 +321,26 @@ namespace BusinessLayer.Siniflar
             var guncellenecekKullanici = KullaniciDataLayer.KullaniciGetir(duzenlenmisKullanici.KullaniciId);
             if (guncellenecekKullanici != null)
             {
-                guncellenecekKullanici.AktifMi = duzenlenmisKullanici.AktifMi;
-                guncellenecekKullanici.BagisciMi = false;
-                guncellenecekKullanici.KullaniciAdi = duzenlenmisKullanici.KullaniciAdi;
-                guncellenecekKullanici.KullaniciEPosta = duzenlenmisKullanici.KullaniciEPosta;
-                guncellenecekKullanici.KullaniciMerkezdeMi = duzenlenmisKullanici.KullaniciMerkezdeMi;
-                guncellenecekKullanici.KullaniciTCKimlikNumarasi = duzenlenmisKullanici.KullaniciTCKimlik;
-                guncellenecekKullanici.KullaniciSoyadi = duzenlenmisKullanici.KullaniciSoyadi;
-                guncellenecekKullanici.SehirTablo_SehirId = duzenlenmisKullanici.Sehir.SehirId;
-                guncellenecekKullanici.KullaniciOnayliMi = duzenlenmisKullanici.KullaniciOnayliMi;
-                guncellenecekKullanici.KullaniciTelegramKullaniciAdi = duzenlenmisKullanici.KullaniciTelegramKullaniciAdi;
-                guncellenecekKullanici.KullaniciTelefonNumarasi = duzenlenmisKullanici.KullaniciTelNo;
-                return KullaniciDataLayer.KullaniciGuncelle(guncellenecekKullanici);
+                if (KullaniciDataLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta,
+                    duzenlenmisKullanici.KullaniciId))
+                {
+                    return false;
+                }
+                else
+                {
+                    guncellenecekKullanici.AktifMi = duzenlenmisKullanici.AktifMi;
+                    guncellenecekKullanici.BagisciMi = false;
+                    guncellenecekKullanici.KullaniciAdi = duzenlenmisKullanici.KullaniciAdi;
+                    guncellenecekKullanici.KullaniciEPosta = duzenlenmisKullanici.KullaniciEPosta;
+                    guncellenecekKullanici.KullaniciMerkezdeMi = duzenlenmisKullanici.KullaniciMerkezdeMi;
+                    guncellenecekKullanici.KullaniciTCKimlikNumarasi = duzenlenmisKullanici.KullaniciTCKimlik;
+                    guncellenecekKullanici.KullaniciSoyadi = duzenlenmisKullanici.KullaniciSoyadi;
+                    guncellenecekKullanici.SehirTablo_SehirId = duzenlenmisKullanici.Sehir.SehirId;
+                    guncellenecekKullanici.KullaniciOnayliMi = duzenlenmisKullanici.KullaniciOnayliMi;
+                    guncellenecekKullanici.KullaniciTelegramKullaniciAdi = duzenlenmisKullanici.KullaniciTelegramKullaniciAdi;
+                    guncellenecekKullanici.KullaniciTelefonNumarasi = duzenlenmisKullanici.KullaniciTelNo;
+                    return KullaniciDataLayer.KullaniciGuncelle(guncellenecekKullanici);
+                }
             }
             else
             {

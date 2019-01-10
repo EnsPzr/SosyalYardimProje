@@ -324,7 +324,7 @@ namespace SosyalYardimProje.Controllers
                                 }
                                 else
                                 {
-                                    TempData["hata"] = "Güncelleme işlemi sırasında hata oluştu.";
+                                    TempData["hata"] = "Güncelleme işlemi sırasında hata oluştu. Aynı E Posta hesabına ait başka bir hesap olabilir. Lütfen teyit ediniz.";
                                     MerkezdeGosterilecekMi();
                                     return View(duzenlenmisKullanici);
                                 }

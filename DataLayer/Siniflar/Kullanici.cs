@@ -127,17 +127,18 @@ namespace DataLayer.Siniflar
                             db.YetkiTablo.Add(yetki);
                         }
                     }
-
+                    YetkiTablo ekYetki = new YetkiTablo();
+                    ekYetki.GirebilirMi = true;
+                    ekYetki.RotaTablo_RotaId = 78;
+                    ekYetki.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                    db.YetkiTablo.Add(ekYetki);
                     db.SaveChanges();
-                    
-
                     return true;
                 }
                 else
                 {
                     return false;
                 }
-                return true;
             }
             else
             {

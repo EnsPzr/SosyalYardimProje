@@ -6976,6 +6976,7 @@
     <Compile Include="Controllers\KasaController.cs" />
     <Compile Include="Controllers\KullaniciBilgileriDondur.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MesajController.cs" />
     <Compile Include="Controllers\SubeController.cs" />
     <Compile Include="Controllers\TeslimAlinacakBagisController.cs" />
@@ -7065,6 +7066,7 @@
     <Content Include="Views\Disardan\GeriBildirimYap.cshtml" />
     <Content Include="Views\Disardan\NakdiBagisYap.cshtml" />
     <Content Include="Views\Giris\Error.cshtml" />
+    <Content Include="Views\Log\Liste.cshtml" />
     <None Include="Views\Shared\_LayoutDisardan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
