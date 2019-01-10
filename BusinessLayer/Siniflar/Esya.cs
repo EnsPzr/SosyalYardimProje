@@ -80,7 +80,7 @@ namespace BusinessLayer.Siniflar
             }
         }
 
-        public IslemOnayModel EsyaDuzenle(EsyaModel duzenlenmisEsya)
+        public IslemOnayModel EsyaDuzenle(EsyaModel duzenlenmisEsya, int? kullaniciId)
         {
             IslemOnayModel onay = new IslemOnayModel();
             EsyaTablo esya = new EsyaTablo()
@@ -95,34 +95,34 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                if (esyaDAL.EsyaDuzenle(esya))
+                if (esyaDAL.EsyaDuzenle(esya,kullaniciId))
                 {
                     onay.TamamlandiMi = true;
                 }
                 else
                 {
                     onay.TamamlandiMi = false;
-                    onay.HataMesajlari.Add("Ekleme işlemi sorasında hata oluştu.");
+                    onay.HataMesajlari.Add("Güncelleme işlemi sırasında hata oluştu. Yetkiniz olmadığından bu hatayı görüyor olabilirsiniz.");
                 }
             }
 
             return onay;
         }
 
-        public IslemOnayModel EsyaSil(int? id)
+        public IslemOnayModel EsyaSil(int? id,int? kullaniciId)
         {
             IslemOnayModel onay = new IslemOnayModel();
             var esya = esyaDAL.EsyaGetir(id);
             if (esya != null)
             {
-                if (esyaDAL.EsyaSil(id))
+                if (esyaDAL.EsyaSil(id, kullaniciId))
                 {
                     onay.TamamlandiMi = true;
                 }
                 else
                 {
                     onay.TamamlandiMi = false;
-                    onay.HataMesajlari.Add("Silme işlemi tamamlanamadı.");
+                    onay.HataMesajlari.Add("Silme işlemi tamamlanamadı. Yetkiniz olmadığından dolayı silme işlemi durduruldu.");
                 }
             }
             else

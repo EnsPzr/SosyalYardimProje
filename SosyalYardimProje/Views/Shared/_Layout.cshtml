@@ -53,10 +53,10 @@
         <div class="content-wrapper">
             <section class="content container">
                 <div class="row">
-                    @*@if (TempData["hata"] != null)
+                    @*@if (TempData["uyari"] != null)
                     {
-                        <div class="col-md-12 alert alert-danger">
-                            @TempData["hata"].ToString()
+                        <div class="col-md-12 alert alert-success">
+                            @TempData["uyari"].ToString()
                         </div>
                     }*@
                     @RenderBody()

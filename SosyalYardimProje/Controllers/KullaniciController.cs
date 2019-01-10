@@ -310,7 +310,7 @@ namespace SosyalYardimProje.Controllers
                 {
                     if (KullaniciBilgileriDondur.KullaniciMerkezdeMi() == true)
                     {
-                        if (!kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta, duzenlenmisKullanici.KullaniciId))
+                        if (kullaniciBusinessLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta, duzenlenmisKullanici.KullaniciId))
                         {
                             if (ValidateIdentityNumber(duzenlenmisKullanici.KullaniciTCKimlik))
                             {
@@ -447,6 +447,43 @@ namespace SosyalYardimProje.Controllers
             Tanimla();
         }
 
+        [KullaniciLoginFilter]
+        [HttpGet]
+        public ActionResult BilgilerimiGuncelle()
+        {
+            var kullanici = kullaniciBusinessLayer.KullaniciGetir(KullaniciBilgileriDondur.KullaniciId());
+            return View(kullanici);
+        }
+
+        [KullaniciLoginFilter]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult BilgilerimiGuncelle(KullaniciModel model)
+        {
+            if (model.KullaniciSifre == null)
+            {
+                model.KullaniciSifre = "123456";
+                model.KullaniciSifreTekrar = "123456";
+            }
+            if (ModelState.IsValid)
+            {
+                var sonuc = kullaniciBusinessLayer.BilgilerimiGuncelle(model);
+                if (sonuc == true)
+                {
+                    TempData["uyari"] = "İşlem başarı ile tamamlandı.";
+                    return View(model);
+                }
+                else
+                {
+                    TempData["hata"] = "Düzenleme işlemi sırasında hata oluştu.";
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+        }
 
         public void Tanimla()
         {

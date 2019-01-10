@@ -7067,6 +7067,7 @@
     <Content Include="Views\Disardan\NakdiBagisYap.cshtml" />
     <Content Include="Views\Giris\Error.cshtml" />
     <Content Include="Views\Log\Liste.cshtml" />
+    <Content Include="Views\Kullanici\BilgilerimiGuncelle.cshtml" />
     <None Include="Views\Shared\_LayoutDisardan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

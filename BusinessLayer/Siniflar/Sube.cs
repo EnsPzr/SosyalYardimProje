@@ -73,41 +73,50 @@ namespace BusinessLayer.Siniflar
             return subeDataLayer.SubeSil(id);
         }
 
-        public IslemOnayModel SubeGuncelle(SubeModel duzenlenmisSube)
+        public IslemOnayModel SubeGuncelle(SubeModel duzenlenmisSube, int? kullaniciId)
         {
             IslemOnayModel onay = new IslemOnayModel();
-            var duzenlenecekSube = subeDataLayer.SubeBul(duzenlenmisSube.SubeId);
-            if (duzenlenecekSube != null)
+            if (subeDataLayer.KullaniciMerkezdeMi(kullaniciId))
             {
-                var ayniSubedenVarMi =
-                    subeDataLayer.sehirGorevlisiVarMi(duzenlenmisSube.Sehir.SehirId, duzenlenmisSube.SubeId);
-                if (!ayniSubedenVarMi)
+                var duzenlenecekSube = subeDataLayer.SubeBul(duzenlenmisSube.SubeId);
+                if (duzenlenecekSube != null)
                 {
-                    duzenlenecekSube.KullaniciBilgileriTablo_KullaniciId = duzenlenmisSube.KullaniciId;
-                    duzenlenecekSube.SehirTablo_SehirId = duzenlenmisSube.Sehir.SehirId;
-                    if (subeDataLayer.SubeGuncelle(duzenlenecekSube))
+                    var ayniSubedenVarMi =
+                        subeDataLayer.sehirGorevlisiVarMi(duzenlenmisSube.Sehir.SehirId, duzenlenmisSube.SubeId);
+                    if (!ayniSubedenVarMi)
                     {
-                        onay.TamamlandiMi = true;
+                        duzenlenecekSube.KullaniciBilgileriTablo_KullaniciId = duzenlenmisSube.KullaniciId;
+                        duzenlenecekSube.SehirTablo_SehirId = duzenlenmisSube.Sehir.SehirId;
+                        if (subeDataLayer.SubeGuncelle(duzenlenecekSube))
+                        {
+                            onay.TamamlandiMi = true;
+                        }
+                        else
+                        {
+                            onay.TamamlandiMi = false;
+                            onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                        }
+                        return onay;
                     }
                     else
                     {
                         onay.TamamlandiMi = false;
-                        onay.HataMesajlari.Add("Bilinmeyen bir hata oluştu.");
+                        onay.HataMesajlari.Add("Güncel bilgilerini girdiğiniz şubenin zaten bir görevlisi var.");
+                        return onay;
                     }
-                    return onay;
+
                 }
                 else
                 {
                     onay.TamamlandiMi = false;
-                    onay.HataMesajlari.Add("Güncel bilgilerini girdiğiniz şubenin zaten bir görevlisi var.");
+                    onay.HataMesajlari.Add("Güncellemek istediğiniz şube bulunamadı.");
                     return onay;
                 }
-                
             }
             else
             {
                 onay.TamamlandiMi = false;
-                onay.HataMesajlari.Add("Güncellemek istediğiniz şube bulunamadı.");
+                onay.HataMesajlari.Add("Şube güncellemek için yetkiniz bulunmamaktadır.");
                 return onay;
             }
         }
@@ -125,6 +134,11 @@ namespace BusinessLayer.Siniflar
                 SehirId=Sube.SehirTablo_SehirId
             };
             return dondurulecekSube;
+        }
+
+        public bool KullaniciMerkezdeMi(int? kullaniciId)
+        {
+            return subeDataLayer.KullaniciMerkezdeMi(kullaniciId);
         }
     }
 }

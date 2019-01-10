@@ -9,6 +9,7 @@ namespace DataLayer.Siniflar
     public class Esya
     {
         private SosyalYardimDB db = new SosyalYardimDB();
+        private KullaniciYonetimi kullaniciDAL = new KullaniciYonetimi();
         public List<EsyaTablo> TumEsyalariGetir()
         {
             return db.EsyaTablo.OrderBy(p=>p.EsyaAdi).ToList();
@@ -71,25 +72,28 @@ namespace DataLayer.Siniflar
             return db.EsyaTablo.FirstOrDefault(p => p.EsyaId == id);
         }
 
-        public bool EsyaDuzenle(EsyaTablo guncelEsya)
+        public bool EsyaDuzenle(EsyaTablo guncelEsya, int? kullaniciId)
         {
             var esya = db.EsyaTablo.FirstOrDefault(p => p.EsyaId == guncelEsya.EsyaId);
-            if (esya != null)
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
-                if (esya.EsyaAdi.Trim().ToLower().Equals(guncelEsya.EsyaAdi.Trim().ToLower()))
+                if (esya != null)
                 {
-                    return true;
-                }
-                else
-                {
-                    esya.EsyaAdi = guncelEsya.EsyaAdi;
-                    if (db.SaveChanges() > 0)
+                    if (esya.EsyaAdi.Trim().ToLower().Equals(guncelEsya.EsyaAdi.Trim().ToLower()))
                     {
                         return true;
                     }
                     else
                     {
-                        return false;
+                        esya.EsyaAdi = guncelEsya.EsyaAdi;
+                        if (db.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -109,38 +113,45 @@ namespace DataLayer.Siniflar
             }
         }
 
-        public bool EsyaSil(int? id)
+        public bool EsyaSil(int? id,int? kullaniciId)
         {
-            var esya = EsyaGetir(id);
-            if (esya != null)
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
-                var bagisDetayVarMi = db.BagisDetayTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
-                var ihtiyacSahibiVerilecekEsya =
-                    db.IhtiyacSahibiVerilecekEsyaTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
-                if (bagisDetayVarMi.Count > 0 || ihtiyacSahibiVerilecekEsya.Count > 0)
+                var esya = EsyaGetir(id);
+                if (esya != null)
                 {
-                    return false;
-                }
-                else
-                {
-                    var depoTablodakiEsyalar = db.DepoTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
-                    for (int i = 0; i < depoTablodakiEsyalar.Count; i++)
-                    {
-                        db.DepoTablo.Remove(depoTablodakiEsyalar[i]);
-                        db.SaveChanges();
-                    }
-                    db.EsyaTablo.Remove(esya);
-                    if (db.SaveChanges() > 0)
-                    {
-                        return true;
-                    }
-                    else
+                    var bagisDetayVarMi = db.BagisDetayTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                    var ihtiyacSahibiVerilecekEsya =
+                        db.IhtiyacSahibiVerilecekEsyaTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                    if (bagisDetayVarMi.Count > 0 || ihtiyacSahibiVerilecekEsya.Count > 0)
                     {
                         return false;
                     }
+                    else
+                    {
+                        var depoTablodakiEsyalar = db.DepoTablo.Where(p => p.EsyaTablo_EsyaId == id).ToList();
+                        for (int i = 0; i < depoTablodakiEsyalar.Count; i++)
+                        {
+                            db.DepoTablo.Remove(depoTablodakiEsyalar[i]);
+                            db.SaveChanges();
+                        }
+                        db.EsyaTablo.Remove(esya);
+                        if (db.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
                 }
+                return false;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

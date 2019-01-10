@@ -56,11 +56,13 @@ namespace BusinessLayer.Models.KullaniciModelleri
         [Display(Name = "Şifre")]
         [MaxLength(20, ErrorMessage = "Şifre en fazla {1} karakter olabilir."), MinLength(6, ErrorMessage = "Şifre en az {1} karakter olabilir.")]
         //[Required(ErrorMessage = "Şifre boş geçilemez.")]
+        [DataType(DataType.Password)]
         public String KullaniciSifre { get; set; }
 
         [Display(Name = "Şifre Tekrar")]
         [MaxLength(20, ErrorMessage = "Şifre Tekrar en fazla {1} karakter olabilir."), MinLength(6, ErrorMessage = "Şifre Tekrar en az {1} karakter olabilir.")]
         //[Required(ErrorMessage = "Şifre Tekrar boş geçilemez.")]
+        [DataType(DataType.Password)]
         [Compare("KullaniciSifre")]
         public String KullaniciSifreTekrar { get; set; }
 

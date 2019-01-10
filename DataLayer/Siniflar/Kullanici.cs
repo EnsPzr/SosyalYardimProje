@@ -102,8 +102,17 @@ namespace DataLayer.Siniflar
         }
         public bool KullaniciVarMi(String eposta, int? id)
         {
-            return db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta && p.KullaniciId != id) != null ? true : false;
+            var kullanici= db.KullaniciBilgileriTablo.FirstOrDefault(p => p.KullaniciEPosta == eposta && p.KullaniciId != id);
+            if (kullanici != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
+        
 
         public bool KullaniciEkle(KullaniciBilgileriTablo eklenecekKullanici)
         {
@@ -132,6 +141,11 @@ namespace DataLayer.Siniflar
                     ekYetki.RotaTablo_RotaId = 78;
                     ekYetki.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
                     db.YetkiTablo.Add(ekYetki);
+                    YetkiTablo ekYetki2 = new YetkiTablo();
+                    ekYetki2.GirebilirMi = true;
+                    ekYetki2.RotaTablo_RotaId = 79;
+                    ekYetki2.KullaniciBilgileriTablo_KullaniciId = eklenenKullanici.KullaniciId;
+                    db.YetkiTablo.Add(ekYetki2);
                     db.SaveChanges();
                     return true;
                 }
@@ -155,7 +169,7 @@ namespace DataLayer.Siniflar
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }

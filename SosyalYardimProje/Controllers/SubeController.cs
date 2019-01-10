@@ -46,8 +46,16 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Ekle()
         {
-            Tanimla();
-            return View();
+            if (subeBusinessLayer.KullaniciMerkezdeMi(KullaniciBilgileriDondur.KullaniciId()))
+            {
+                Tanimla();
+                return View();
+            }
+            else
+            {
+                TempData["hata"] = "Sadece merkezdeki koordinatörler bu işlemi yapabilirler";
+                return RedirectToAction("Liste");
+            }
         }
 
         [HttpPost]
@@ -91,23 +99,31 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Sil(int? id)
         {
-            if (id != null)
+            if (subeBusinessLayer.KullaniciMerkezdeMi(KullaniciBilgileriDondur.KullaniciId()))
             {
-                var sube = subeBusinessLayer.SubeBul(id);
-                if (sube != null)
+                if (id != null)
                 {
-                    KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
-                    return View(sube);
+                    var sube = subeBusinessLayer.SubeBul(id);
+                    if (sube != null)
+                    {
+                        KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
+                        return View(sube);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Silinecek şube bulunamadı";
+                        return RedirectToAction("Liste");
+                    }
                 }
                 else
                 {
-                    TempData["hata"] = "Silinecek şube bulunamadı";
+                    TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
                     return RedirectToAction("Liste");
                 }
             }
             else
             {
-                TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
+                TempData["hata"] = "Sadece merkezdeki koordinatörler bu işlemi yapabilirler";
                 return RedirectToAction("Liste");
             }
         }
@@ -117,32 +133,40 @@ namespace SosyalYardimProje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubeSil(int? id)
         {
-            if (id != null)
+            if (subeBusinessLayer.KullaniciMerkezdeMi(KullaniciBilgileriDondur.KullaniciId()))
             {
-                var sube = subeBusinessLayer.SubeBul(id);
-                if (sube != null)
+                if (id != null)
                 {
-                    if (subeBusinessLayer.SubeSil(id))
+                    var sube = subeBusinessLayer.SubeBul(id);
+                    if (sube != null)
                     {
-                        KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
-                        TempData["uyari"] = "Şube silme işlemi başarı ile tamamlandı";
-                        return RedirectToAction("Liste");
+                        if (subeBusinessLayer.SubeSil(id))
+                        {
+                            KullaniciBilgileriDondur.LogKaydet(2, "Şube silinmek için görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
+                            TempData["uyari"] = "Şube silme işlemi başarı ile tamamlandı";
+                            return RedirectToAction("Liste");
+                        }
+                        else
+                        {
+                            TempData["hata"] = "Bilinmeyen bir hata oluştu";
+                            return RedirectToAction("Sil", "Sube", new { id });
+                        }
                     }
                     else
                     {
-                        TempData["hata"] = "Bilinmeyen bir hata oluştu";
-                        return RedirectToAction("Sil", "Sube", new { id });
+                        TempData["hata"] = "Silinecek şube bulunamadı";
+                        return RedirectToAction("Liste");
                     }
                 }
                 else
                 {
-                    TempData["hata"] = "Silinecek şube bulunamadı";
+                    TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
                     return RedirectToAction("Liste");
                 }
             }
             else
             {
-                TempData["hata"] = "Lütfen silmek istediğiniz şubeyi seçiniz";
+                TempData["hata"] = "Sadece merkezdeki koordinatörler bu işlemi yapabilirler";
                 return RedirectToAction("Liste");
             }
         }
@@ -152,24 +176,32 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Duzenle(int? id)
         {
-            if (id != null)
+            if (subeBusinessLayer.KullaniciMerkezdeMi(KullaniciBilgileriDondur.KullaniciId()))
             {
-                var sube = subeBusinessLayer.SubeBul(id);
-                if (sube != null)
+                if (id != null)
                 {
-                    Tanimla();
-                    return View(sube);
+                    var sube = subeBusinessLayer.SubeBul(id);
+                    if (sube != null)
+                    {
+                        Tanimla();
+                        return View(sube);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Düzenlemek istediğiniz şube bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
                 }
                 else
                 {
-                    TempData["hata"] = "Düzenlemek istediğiniz şube bulunamadı.";
+                    Tanimla();
+                    TempData["hata"] = "Lütfen düzenlemek istediğiniz şubeyi bulunuz.";
                     return RedirectToAction("Liste");
                 }
             }
             else
             {
-                Tanimla();
-                TempData["hata"] = "Lütfen düzenlemek istediğiniz şubeyi bulunuz.";
+                TempData["hata"] = "Sadece merkezdeki koordinatörler bu işlemi yapabilirler";
                 return RedirectToAction("Liste");
             }
         }
@@ -181,7 +213,7 @@ namespace SosyalYardimProje.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sonuc = subeBusinessLayer.SubeGuncelle(duzenlenmisSube);
+                var sonuc = subeBusinessLayer.SubeGuncelle(duzenlenmisSube,KullaniciBilgileriDondur.KullaniciId());
                 if (sonuc.TamamlandiMi == true)
                 {
                     KullaniciBilgileriDondur.LogKaydet(3, "Şube güncellendi. Şehir=>" +duzenlenmisSube.Sehir.SehirId + " Kullanıcı=>" + duzenlenmisSube.KullaniciId);
@@ -212,23 +244,31 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Detay(int? id)
         {
-            if (id != null)
+            if (subeBusinessLayer.KullaniciMerkezdeMi(KullaniciBilgileriDondur.KullaniciId()))
             {
-                var sube = subeBusinessLayer.SubeBul(id);
-                if (sube != null)
+                if (id != null)
                 {
-                    KullaniciBilgileriDondur.LogKaydet(4, "Şube detay görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
-                    return View(sube);
+                    var sube = subeBusinessLayer.SubeBul(id);
+                    if (sube != null)
+                    {
+                        KullaniciBilgileriDondur.LogKaydet(4, "Şube detay görüntülendi. Şehir=>" + sube.Sehir.SehirAdi + " Kullanıcı=>" + sube.Kullanici.KullaniciAdi + " " + sube.Kullanici.KullaniciSoyadi);
+                        return View(sube);
+                    }
+                    else
+                    {
+                        TempData["hata"] = "Görüntülenecek şube bulunamadı.";
+                        return RedirectToAction("Liste");
+                    }
                 }
                 else
                 {
-                    TempData["hata"] = "Görüntülenecek şube bulunamadı.";
+                    TempData["hata"] = "Lütfen görüntülemek istediğiniz şubeyi seçiniz";
                     return RedirectToAction("Liste");
                 }
             }
             else
             {
-                TempData["hata"] = "Lütfen görüntülemek istediğiniz şubeyi seçiniz";
+                TempData["hata"] = "Sadece merkezdeki koordinatörler bu işlemi yapabilirler";
                 return RedirectToAction("Liste");
             }
         }

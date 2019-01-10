@@ -18,7 +18,7 @@ namespace BusinessLayer.Siniflar
             var Kullanici = kullaniciYonetimi.LoginKullaniciBul(kullaniciId);
             if (Convert.ToBoolean(Kullanici.KullaniciMerkezdeMi))
             {
-                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir().Where(p=>p.BagisciMi==false).ToList();
+                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir().Where(p => p.BagisciMi == null || p.BagisciMi == false).ToList();
                 List<KullaniciModel> dondurulecekKullanicilar= new List<KullaniciModel>();
                 for (int i = 0; i < kullanicilar.Count; i++)
                 {
@@ -76,7 +76,7 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir();
+                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir().Where(p=>p.BagisciMi==null||p.BagisciMi==false).ToList();
                 List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
                 for (int i = 0; i < kullanicilar.Count; i++)
                 {
@@ -321,8 +321,8 @@ namespace BusinessLayer.Siniflar
             var guncellenecekKullanici = KullaniciDataLayer.KullaniciGetir(duzenlenmisKullanici.KullaniciId);
             if (guncellenecekKullanici != null)
             {
-                if (KullaniciDataLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta,
-                    duzenlenmisKullanici.KullaniciId))
+                if (!(KullaniciDataLayer.KullaniciVarMi(duzenlenmisKullanici.KullaniciEPosta,
+                    duzenlenmisKullanici.KullaniciId)))
                 {
                     return false;
                 }
@@ -347,6 +347,36 @@ namespace BusinessLayer.Siniflar
                 return false;
             }
         }
-        
+
+        public bool BilgilerimiGuncelle(KullaniciModel model)
+        {
+            var guncellenecekKullanici = KullaniciDataLayer.KullaniciGetir(model.KullaniciId);
+            if (guncellenecekKullanici != null)
+            {
+                if (!(KullaniciDataLayer.KullaniciVarMi(model.KullaniciEPosta,
+                    model.KullaniciId)))
+                {
+                    return false;
+                }
+                else
+                {
+                    guncellenecekKullanici.AktifMi = true;
+                    guncellenecekKullanici.BagisciMi = false;
+                    guncellenecekKullanici.KullaniciAdi = model.KullaniciAdi;
+                    guncellenecekKullanici.KullaniciEPosta = model.KullaniciEPosta;
+                    guncellenecekKullanici.KullaniciSifre = model.KullaniciSifre;
+                    guncellenecekKullanici.KullaniciTCKimlikNumarasi = model.KullaniciTCKimlik;
+                    guncellenecekKullanici.KullaniciSoyadi = model.KullaniciSoyadi;
+                    guncellenecekKullanici.KullaniciOnayliMi = true;
+                    guncellenecekKullanici.KullaniciTelegramKullaniciAdi = model.KullaniciTelegramKullaniciAdi;
+                    guncellenecekKullanici.KullaniciTelefonNumarasi = model.KullaniciTelNo;
+                    return KullaniciDataLayer.KullaniciGuncelle(guncellenecekKullanici);
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

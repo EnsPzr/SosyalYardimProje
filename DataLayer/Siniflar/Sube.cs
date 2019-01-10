@@ -11,6 +11,7 @@ namespace DataLayer.Siniflar
     public class Sube
     {
         private SosyalYardimDB db = new SosyalYardimDB();
+        private KullaniciYonetimi kullaniciDAL = new KullaniciYonetimi();
         public List<SubeTablo> TumSubeleriGetir()
         {
             return db.SubeTablo.Include(p => p.KullaniciBilgileriTablo).Include(p => p.SehirTablo).ToList();
@@ -85,6 +86,16 @@ namespace DataLayer.Siniflar
         {
             db.SubeTablo.AddOrUpdate(guncellenmisSube);
             if (db.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool KullaniciMerkezdeMi(int? kullaniciId)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
             {
                 return true;
             }

@@ -113,7 +113,7 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult Duzenle(EsyaModel esya)
         {
-            var onay = esyaBAL.EsyaDuzenle(esya);
+            var onay = esyaBAL.EsyaDuzenle(esya,KullaniciBilgileriDondur.KullaniciId());
             if (onay.TamamlandiMi == true)
             {
                 KullaniciBilgileriDondur.LogKaydet(3, "Eşya Düzenlendi. Eşya Id=>"+esya.EsyaId+" Eşya Adı=>"+esya.EsyaAdi);
@@ -168,7 +168,7 @@ namespace SosyalYardimProje.Controllers
                 var esya = esyaBAL.EsyaGetir(id);
                 if (esya != null)
                 {
-                    var onay = esyaBAL.EsyaSil(id);
+                    var onay = esyaBAL.EsyaSil(id,KullaniciBilgileriDondur.KullaniciId());
                     if (onay.TamamlandiMi == true)
                     {
                         KullaniciBilgileriDondur.LogKaydet(2, "Eşya Silindi. Eşya Id=>"+id);
