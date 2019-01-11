@@ -44,6 +44,28 @@ namespace BusinessLayer.Siniflar
             return listModel;
         }
 
+        public List<LogModel> FiltreliLoglariGetir(int? kullaniciId, int? islemTipi, String aranan, String tarih)
+        {
+            var loglar = logDAL.FiltreliLoglariGetir(kullaniciId,islemTipi,aranan,tarih);
+            List<LogModel> listModel = new List<LogModel>();
+            for (int i = 0; i < loglar.Count; i++)
+            {
+                var log = new LogModel();
+                log.IslemIcerik = loglar[i].IslemIcerik;
+                if (loglar[i].IslemTipi != null)
+                {
+                    log.IslemTipiStr = IslemTipleri().Where(p => p.Key == loglar[i].IslemTipi).FirstOrDefault().Value;
+                }
+
+                log.KullaniciAdiSoyadi = loglar[i].KullaniciBilgileriTablo.KullaniciAdi + " " +
+                                         loglar[i].KullaniciBilgileriTablo.KullaniciSoyadi;
+                log.Tarih = loglar[i].IslemTarihi;
+                listModel.Add(log);
+            }
+
+            return listModel;
+        }
+
         public Dictionary<int,string> IslemTipleri()
         {
             Dictionary<int, string> islemTipleri = new Dictionary<int, string>();

@@ -28,7 +28,7 @@ namespace SosyalYardimProje.Filters
                                 filterContext.ActionDescriptor.ActionName)))
                             {
                                 filterContext.Controller.TempData["hata"] = "Yetkiniz Bulunmamaktadır.";
-                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
+                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "YetkiYok" } });
                             }
                         }
                         else
@@ -74,7 +74,7 @@ namespace SosyalYardimProje.Filters
                                 filterContext.ActionDescriptor.ActionName)))
                             {
                                 filterContext.Controller.TempData["hata"] = "Yetkiniz Bulunmamaktadır.";
-                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "AnaSayfa" } });
+                                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary { { "Controller", "Giris" }, { "Action", "YetkiYok" } });
                             }
                         }
                         else

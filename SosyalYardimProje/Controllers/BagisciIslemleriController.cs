@@ -188,6 +188,7 @@ namespace SosyalYardimProje.Controllers
                 return View(model);
             }
         }
+        
 
         public void Tanimla()
         {

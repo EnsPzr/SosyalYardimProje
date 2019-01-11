@@ -76,7 +76,8 @@ namespace BusinessLayer.Siniflar
             }
             else
             {
-                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir().Where(p=>p.BagisciMi==null||p.BagisciMi==false).ToList();
+                int? kullaniciSehir = kullaniciYonetimi.KullaniciSehirGetir(kullaniciId);
+                var kullanicilar = KullaniciDataLayer.TumKullanicilariGetir(kullaniciSehir).Where(p=>p.BagisciMi==null||p.BagisciMi==false).ToList();
                 List<KullaniciModel> dondurulecekKullanicilar = new List<KullaniciModel>();
                 for (int i = 0; i < kullanicilar.Count; i++)
                 {

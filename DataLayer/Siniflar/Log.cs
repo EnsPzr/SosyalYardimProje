@@ -42,5 +42,69 @@ namespace DataLayer.Siniflar
                     OrderByDescending(p => p.IslemTarihi).ToList();
             }
         }
+
+        public List<LogTablo> FiltreliLoglariGetir(int? kullaniciId, int? islemTipi, String aranan, String tarih)
+        {
+            if (kullaniciDAL.KullaniciMerkezdeMi(kullaniciId))
+            {
+                var sorgu = db.LogTablo.Include(p => p.KullaniciBilgileriTablo)
+                    .Include(p => p.KullaniciBilgileriTablo.SehirTablo).AsQueryable();
+                if (aranan != null)
+                {
+                    sorgu = sorgu.Where(p => p.IslemIcerik.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.SehirTablo.SehirAdi.Contains(aranan)
+                                             || p.IslemTarihi.ToString().Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan));
+                }
+
+                if (tarih != null)
+                {
+                    DateTime trh = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.IslemTarihi <= trh);
+                }
+
+
+                if (islemTipi != null)
+                {
+                    sorgu = sorgu.Where(p => p.IslemTipi == islemTipi);
+                }
+
+                return sorgu.OrderByDescending(p=>p.IslemTarihi).ToList();
+            }
+            else
+            {
+                int? kullaniciSehir = kullaniciDAL.KullaniciSehir(kullaniciId);
+                var sorgu = db.LogTablo.Include(p => p.KullaniciBilgileriTablo)
+                    .Include(p => p.KullaniciBilgileriTablo.SehirTablo).
+                    Where(p=>p.KullaniciBilgileriTablo.SehirTablo_SehirId==kullaniciSehir).AsQueryable();
+                if (aranan != null)
+                {
+                    sorgu = sorgu.Where(p => p.IslemIcerik.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciAdi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciSoyadi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.SehirTablo.SehirAdi.Contains(aranan)
+                                             || p.IslemTarihi.ToString().Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciTelefonNumarasi.Contains(aranan)
+                                             || p.KullaniciBilgileriTablo.KullaniciEPosta.Contains(aranan));
+                }
+
+                if (tarih != null)
+                {
+                    DateTime trh = Convert.ToDateTime(tarih);
+                    sorgu = sorgu.Where(p => p.IslemTarihi<=trh);
+                }
+
+
+                if (islemTipi != null)
+                {
+                    sorgu = sorgu.Where(p => p.IslemTipi == islemTipi);
+                }
+
+                return sorgu.OrderByDescending(p=>p.IslemTarihi).ToList();
+            }
+        }
     }
 }

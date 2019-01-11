@@ -24,6 +24,8 @@ namespace BusinessLayer
                 var donKullanici = new KullaniciModel();
                 donKullanici.KullaniciId = kullanici.KullaniciId;
                 donKullanici.AktifMi = kullanici.AktifMi;
+                donKullanici.KullaniciAdi = kullanici.KullaniciAdi;
+                donKullanici.KullaniciSoyadi = kullanici.KullaniciSoyadi;
                 return donKullanici;
             }
             else

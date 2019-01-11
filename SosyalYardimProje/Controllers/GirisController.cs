@@ -38,6 +38,7 @@ namespace SosyalYardimProje.Controllers
                     {
                         Session["KullaniciId"] = KullaniciId;
                         Session["Bilgi"] = Kullanici.KullaniciAdi + " " + Kullanici.KullaniciSoyadi;
+                        KullaniciBilgileriDondur.LogKaydet(6, "Koordinatör Girişi Yapıldı.");
                         return RedirectToAction("AnaSayfa", "Giris");
                     }
                     else
@@ -63,8 +64,14 @@ namespace SosyalYardimProje.Controllers
         [KullaniciLoginFilter]
         public ActionResult AnaSayfa()
         {
-            KullaniciBilgileriDondur.LogKaydet(6, "Koordinatör Girişi Yapıldı.");
-            return View();
+            if (KullaniciBilgileriDondur.KullaniciBagisciMi()==true)
+            {
+                return RedirectToAction("AnaSayfa", "BagisciIslemleri");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [ChildActionOnly]
@@ -85,6 +92,11 @@ namespace SosyalYardimProje.Controllers
             return View(model);
         }
 
+        [SadeceLoginFilter]
+        public ActionResult YetkiYok()
+        {
+            return View();
+        }
 
         public ActionResult Cikis()
         {
